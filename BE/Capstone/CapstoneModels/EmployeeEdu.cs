@@ -8,6 +8,6 @@ namespace CapstoneModels
 {
     internal class EmployeeEdu
     {
-        //Hello con lon 123123 456
+        
     }
 }
