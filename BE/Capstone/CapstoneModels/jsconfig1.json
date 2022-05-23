@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "MyDB": "Data Source=21ak22-com;Initial Catalog=Capstone;Integrated Security=True"
+  }
+}
