@@ -29,5 +29,7 @@ namespace CapstoneModels
         public virtual ICollection<Position> Positions { get; set; }    
 
         public virtual ICollection<Employee> Employees { get; set; }
+
+        public virtual ICollection<EmployeeCV> EmployeeCVs { get; set; }
     }
 }

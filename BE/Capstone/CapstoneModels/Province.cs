@@ -25,5 +25,8 @@ namespace CapstoneModels
 
         public virtual ICollection<District> Districts { get; set; }    
         public virtual ICollection<ORgnization> ORgnizations { get; set; }
+        public virtual ICollection<EmployeeCV> EmployeeCV1s { get; set; }
+        public virtual ICollection<EmployeeCV> EmployeeCV2s { get; set; }
+        public virtual ICollection<EmployeeCV> EmployeeCV3s { get; set; }
     }
 }

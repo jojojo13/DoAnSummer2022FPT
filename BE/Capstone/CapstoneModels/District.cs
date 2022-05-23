@@ -23,5 +23,9 @@ namespace CapstoneModels
         public Province Province { get; set; }
         public virtual ICollection<Ward> Wards { get; set; }  
         public virtual ICollection<ORgnization> ORgnizations { get; set; }
+
+        public virtual ICollection<EmployeeCV> EmployeeCV1s { get; set; }
+        public virtual ICollection<EmployeeCV> EmployeeCV2s { get; set; }
+        public virtual ICollection<EmployeeCV> EmployeeCV3s { get; set; }
     }
 }

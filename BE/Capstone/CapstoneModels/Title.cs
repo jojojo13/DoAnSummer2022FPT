@@ -19,6 +19,7 @@ namespace CapstoneModels
         public string Note { get; set; }
 
         public virtual ICollection<Position> Position1 { get; set; }    
+       
         
     }
 }
