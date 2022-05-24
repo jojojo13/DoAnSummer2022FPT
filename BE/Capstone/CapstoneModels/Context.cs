@@ -31,7 +31,7 @@ namespace CapstoneModels
         public DbSet<Rc_Request_History> rc_Request_Histories { get; set; }
         public DbSet<Rc_Resource_Candidate> rc_Resource_Candidates { get; set; }
         public DbSet<Rc_Candidate> rc_Candidates { get; set; }
-
+        public DbSet<Rc_Candidate_Family> rc_Candidate_Families { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

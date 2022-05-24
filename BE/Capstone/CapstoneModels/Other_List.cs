@@ -34,5 +34,7 @@ namespace CapstoneModels
 
         public virtual ICollection<Rc_Request> Rc_Requests { get; set; }
         public virtual ICollection<Rc_Request> Rc_Request1s { get; set; }
+
+        public virtual ICollection<Rc_Candidate_Family> Rc_Candidate_Families { get; set; }
     }
 }
