@@ -39,5 +39,6 @@ namespace CapstoneModels
         public virtual ICollection<Rc_Request_Exam_Result> Rc_Request_Exam_Results { get; set; }
         public virtual ICollection<Rc_Request_InterView_Result> Rc_Request_InterView_Results { get; set; }
         public virtual ICollection<Rc_Request_Result> Rc_Request_Results { get; set; }
+        public virtual ICollection<Rc_Request_Schedu> Rc_Request_Schedus { get; set; }
     }
 }

@@ -38,9 +38,10 @@ namespace CapstoneModels
         public DbSet<Rc_Candidate_EDU> rc_Candidate_EDUs { get; set; }
         public DbSet<Rc_Request_Result> rc_Request_Results { get; set; }
         public DbSet<Rc_Request_InterView_Result> rc_Request_InterView_Results { get; set; }
+        public DbSet<Rc_Request_InterView> rc_Request_InterViews { get; set; }
         public DbSet<Rc_Request_Exam_Result> rc_Request_Exam_Results { get; set; }
         public DbSet<Rc_Candidate_CV> rc_Candidate_CVs { get; set; }
-
+        public DbSet<Rc_Request_Schedu> rc_Request_Schedus { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

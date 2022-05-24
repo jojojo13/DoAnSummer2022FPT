@@ -51,5 +51,8 @@ namespace CapstoneModels
         public virtual ICollection<Rc_Request_Result> Rc_Request_Result1s { get; set; }
 
         public virtual ICollection<Rc_Candidate_CV> Rc_Candidate_CVs { get; set; }
+
+        public virtual ICollection<Rc_Request_Schedu> Rc_Request_Schedus { get; set; }
+        public virtual ICollection<Rc_Request_Schedu> Rc_Request_Schedu2s { get; set; }
     }
 }

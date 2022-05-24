@@ -25,5 +25,6 @@ namespace CapstoneModels
         [InverseProperty("Rc_Request_Exams")]
         public Rc_Phase_Request rc_Phase_Request { get; set; }
         public virtual ICollection<Rc_Request_Exam_Result> Rc_Request_Exam_Results { get; set; }
+        public virtual ICollection<Rc_Request_Schedu> Rc_Request_Schedus { get; set; }
     }
 }
