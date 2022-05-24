@@ -33,5 +33,6 @@ namespace CapstoneModels
 
         public virtual ICollection<Rc_Candidate_Family> Rc_Candidate_Families { get; set; }
 
+        public virtual ICollection<Rc_Candidate_Worrking_Before> Rc_Candidate_Worrking_Befores { get; set; }
     }
 }
