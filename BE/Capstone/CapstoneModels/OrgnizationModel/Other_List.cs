@@ -36,5 +36,16 @@ namespace CapstoneModels
         public virtual ICollection<Rc_Request> Rc_Request1s { get; set; }
 
         public virtual ICollection<Rc_Candidate_Family> Rc_Candidate_Families { get; set; }
+        public virtual ICollection<Rc_Candidate_Heal> Rc_Candidate_Heals { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDUs { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU1s { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU2s { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU3s { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU4s { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU5s { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU6s { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU7s { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU8s { get; set; }
+        public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU9s { get; set; }
     }
 }
