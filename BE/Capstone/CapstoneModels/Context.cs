@@ -33,6 +33,7 @@ namespace CapstoneModels
         public DbSet<Rc_Candidate> rc_Candidates { get; set; }
         public DbSet<Rc_Candidate_Family> rc_Candidate_Families { get; set; }
         public DbSet<Rc_Candidate_Worrking_Before> rc_Candidate_Worrking_Befores { get; set; }
+        public DbSet<Rc_Request_Exam> rc_Request_Exams { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
