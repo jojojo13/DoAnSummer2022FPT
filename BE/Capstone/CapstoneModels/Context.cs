@@ -22,6 +22,7 @@ namespace CapstoneModels
         public DbSet<Position> Positions { get; set; }  
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeCV> EmployeeCVs { get; set; }
+        public DbSet<EmployeeContract> EmployeeContracts { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

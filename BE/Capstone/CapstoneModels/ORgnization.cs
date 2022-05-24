@@ -63,5 +63,6 @@ namespace CapstoneModels
 
         public virtual ICollection<Employee> Employees1 { get; set; }
 
+        public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }
     }
 }

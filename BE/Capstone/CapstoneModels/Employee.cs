@@ -46,6 +46,10 @@ namespace CapstoneModels
         public virtual ICollection<ORgnization> ORgnizations { get; set; }
 
 
-        public virtual ICollection<EmployeeCV> EmployeeCVs { get; set; } 
+        public virtual ICollection<EmployeeCV> EmployeeCVs { get; set; }
+
+        public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }
+
+        public virtual ICollection<EmployeeContract> EmployeeContract1s { get; set; }
     }
 }
