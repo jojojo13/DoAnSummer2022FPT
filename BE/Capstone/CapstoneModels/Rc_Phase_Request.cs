@@ -34,5 +34,6 @@ namespace CapstoneModels
         public int? Status { get; set; }
 
         public virtual ICollection<Rc_Request_History> Rc_Request_Histories { get; set; }
+        public virtual ICollection<Rc_Candidate> Rc_Candidates { get; set; }
     }
 }

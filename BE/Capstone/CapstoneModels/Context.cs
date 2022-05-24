@@ -10,6 +10,7 @@ namespace CapstoneModels
 {
     public class Context:DbContext
     {
+        // Ho so + To chuc
         public DbSet<Nation> Nations { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<District> Districts { get; set; }
@@ -23,8 +24,14 @@ namespace CapstoneModels
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeCV> EmployeeCVs { get; set; }
         public DbSet<EmployeeContract> EmployeeContracts { get; set; }
+
+        // Tuyen dung
         public DbSet<Rc_Request> Rc_Requests { get; set; }
         public DbSet<Rc_Phase_Request> rc_Phase_Requests { get; set; }
+        public DbSet<Rc_Request_History> rc_Request_Histories { get; set; }
+        public DbSet<Rc_Resource_Candidate> rc_Resource_Candidates { get; set; }
+        public DbSet<Rc_Candidate> rc_Candidates { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
