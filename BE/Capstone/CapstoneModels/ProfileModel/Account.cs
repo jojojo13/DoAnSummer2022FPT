@@ -24,5 +24,7 @@ namespace CapstoneModels
 
         public int? Rule { get; set; }
 
+
+
     }
 }
