@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CapstoneModels\CapstoneModels.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>

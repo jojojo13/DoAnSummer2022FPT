@@ -2121,6 +2121,19 @@
         "runtime": {
           "bin/placeholder/CapstoneModels.dll": {}
         }
+      },
+      "Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "CapstoneModels": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Services.dll": {}
+        }
       }
     }
   },
@@ -7171,11 +7184,15 @@
       "type": "project",
       "path": "../CapstoneModels/CapstoneModels.csproj",
       "msbuildProject": "../CapstoneModels/CapstoneModels.csproj"
+    },
+    "Services/1.0.0": {
+      "type": "project",
+      "path": "../Services/Services.csproj",
+      "msbuildProject": "../Services/Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "CapstoneModels >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.17",
       "Microsoft.AspNetCore.Mvc.Cors >= 2.2.0",
       "Microsoft.EntityFrameworkCore >= 5.0.17",
@@ -7183,23 +7200,24 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.17",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.17",
       "Microsoft.Extensions.Configuration.Json >= 5.0.0",
+      "Services >= 1.0.0",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HaNoi\\.nuget\\packages\\": {}
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Capstone\\BE\\Capstone\\API\\API.csproj",
+      "projectUniqueName": "D:\\DoAn2022\\BE\\Capstone\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "D:\\Capstone\\BE\\Capstone\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\HaNoi\\.nuget\\packages\\",
-      "outputPath": "D:\\Capstone\\BE\\Capstone\\API\\obj\\",
+      "projectPath": "D:\\DoAn2022\\BE\\Capstone\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "D:\\DoAn2022\\BE\\Capstone\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\HaNoi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7213,8 +7231,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Capstone\\BE\\Capstone\\CapstoneModels\\CapstoneModels.csproj": {
-              "projectPath": "D:\\Capstone\\BE\\Capstone\\CapstoneModels\\CapstoneModels.csproj"
+            "D:\\DoAn2022\\BE\\Capstone\\Services\\Services.csproj": {
+              "projectPath": "D:\\DoAn2022\\BE\\Capstone\\Services\\Services.csproj"
             }
           }
         }
@@ -7284,7 +7302,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
