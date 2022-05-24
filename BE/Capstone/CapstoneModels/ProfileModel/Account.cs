@@ -22,5 +22,7 @@ namespace CapstoneModels
         [InverseProperty("Accounts")]
         public Employee Employee { get; set; }
 
+        public int? Rule { get; set; }
+
     }
 }

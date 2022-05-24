@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7J5rMrPkSiBE6A4PuXltsT+tfKEQ1+WnfYLC0DO5uNAOnbD4C+mYF+GOPQfpuPh8h4DxRFIDwwvbO39I+XfxLA==",
+  "dgSpecHash": "ktDUThiMzknL25+DfbT7ehU3/HXf6gM4d50uhR2Arx4L/XequQgycSTb7Q7OxAqIl4wz40FZ8ihlQ4/XDhyFbw==",
   "success": true,
-  "projectFilePath": "D:\\DoAn2022\\BE\\Capstone\\Services\\Services.csproj",
+  "projectFilePath": "D:\\Capstone\\BE\\Capstone\\Services\\Services.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
