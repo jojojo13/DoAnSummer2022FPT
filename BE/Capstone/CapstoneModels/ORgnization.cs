@@ -15,13 +15,13 @@ namespace CapstoneModels
         public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public int ParentID { get; set; }   
-        public int Level { get; set; }
+        public int? ParentID { get; set; }   
+        public int? Level { get; set; }
         public DateTime CreateDate { get; set; }
 
         public DateTime DissolutionDate { get; set; }
         //
-        public int Status { get; set; }
+        public int? Status { get; set; }
         [ForeignKey("Status")]
         [InverseProperty("ORgnizations")]
         public Other_List Other_List { get; set; }
@@ -54,7 +54,7 @@ namespace CapstoneModels
         [InverseProperty("ORgnizations")]
         public Ward Ward { get; set; }  
         //
-        public int ManagerID { get; set; }
+        public int? ManagerID { get; set; }
         [ForeignKey("ManagerID")]
         [InverseProperty("ORgnizations")]
         public Employee Employee { get; set; }
@@ -64,5 +64,7 @@ namespace CapstoneModels
         public virtual ICollection<Employee> Employees1 { get; set; }
 
         public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }
+
+        public virtual ICollection<Rc_Request> Rc_Requests { get; set; }
     }
 }

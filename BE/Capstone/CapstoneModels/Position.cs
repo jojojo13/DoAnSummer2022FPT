@@ -15,7 +15,7 @@ namespace CapstoneModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public int Status { get; set; }
+        public int? Status { get; set; }
         public string Note { get; set; }
         public int? TitleID { get; set; }
         [ForeignKey("TitleID")]
@@ -29,7 +29,7 @@ namespace CapstoneModels
         public ORgnization Organization { get; set; }
 
 
-        public int BasicSalary { get; set; }
+        public int? BasicSalary { get; set; }
         public string OtherSkill { get; set; }
         public int? FormWorking { get; set; }
         [ForeignKey("FormWorking")]

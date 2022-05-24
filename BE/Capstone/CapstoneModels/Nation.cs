@@ -15,7 +15,7 @@ namespace CapstoneModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public int Status { get; set; }
+        public int? Status { get; set; }
         public string Note { get; set; }    
 
         public virtual ICollection<Province> Provinces { get; set; }

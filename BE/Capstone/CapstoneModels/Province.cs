@@ -15,10 +15,10 @@ namespace CapstoneModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public int Status { get; set; }
+        public int? Status { get; set; }
         public string Note { get; set; }
 
-        public int NationID { get; set; }
+        public int? NationID { get; set; }
         [ForeignKey("NationID")]
         public Nation Nation { get; set; }
 

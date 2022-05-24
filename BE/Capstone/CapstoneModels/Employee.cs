@@ -18,14 +18,14 @@ namespace CapstoneModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get; set; }
-        public DateTime JoinDate { get; set; }
-        public DateTime LastDate { get; set; }
+        public DateTime? JoinDate { get; set; }
+        public DateTime? LastDate { get; set; }
         public int? Status { get; set; }
         [ForeignKey("Status")]
         [InverseProperty("Employees")]
         public Other_List Other_List { get; set; }
         public string Note { get; set; }    
-        public int IsTuyenDung { get; set; }
+        public int? IsTuyenDung { get; set; }
 
         //
         
@@ -51,5 +51,7 @@ namespace CapstoneModels
         public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }
 
         public virtual ICollection<EmployeeContract> EmployeeContract1s { get; set; }
+
+        public virtual ICollection<Rc_Request> Rc_Requests { get; set; }
     }
 }

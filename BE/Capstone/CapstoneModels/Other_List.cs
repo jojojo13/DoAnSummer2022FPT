@@ -15,13 +15,13 @@ namespace CapstoneModels
         public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public int Status { get; set; }
+        public int? Status { get; set; }
         public string Note { get; set; }
         public string Atribute1 { get; set; }
         public string Atribute2 { get; set; }
         public string Atribute3 { get; set; }
 
-        public int TypeID { get; set; }
+        public int? TypeID { get; set; }
         [ForeignKey("TypeID")]
         public Other_List_Type Other_List_Type { get; set; }
         public virtual ICollection<ORgnization > ORgnizations { get; set; }
@@ -31,5 +31,8 @@ namespace CapstoneModels
         public virtual ICollection<Employee> Employees { get; set; }
 
         public virtual ICollection<EmployeeCV> EmployeeCVs { get; set; }
+
+        public virtual ICollection<Rc_Request> Rc_Requests { get; set; }
+        public virtual ICollection<Rc_Request> Rc_Request1s { get; set; }
     }
 }

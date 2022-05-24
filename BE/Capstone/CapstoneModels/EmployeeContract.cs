@@ -26,8 +26,8 @@ namespace CapstoneModels
         [InverseProperty("EmployeeContracts")]
         public Contract_Type contract_Type { get; set; }
 
-        public DateTime EffectDate { get; set; }
-        public DateTime ExpireDate { get; set; }
+        public DateTime? EffectDate { get; set; }
+        public DateTime? ExpireDate { get; set; }
 
         public int? SignId { get; set; }
         [ForeignKey("SignId")]

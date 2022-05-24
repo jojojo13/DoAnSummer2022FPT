@@ -15,10 +15,10 @@ namespace CapstoneModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public int Status { get; set; }
+        public int? Status { get; set; }
         public string Note { get; set; }
 
-        public int DistrictID { get; set; }
+        public int? DistrictID { get; set; }
         public District District { get; set; }
         public virtual ICollection<ORgnization> ORgnizations { get; set; }
 
