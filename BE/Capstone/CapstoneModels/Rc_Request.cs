@@ -42,5 +42,7 @@ namespace CapstoneModels
         [InverseProperty("Rc_Request1s")]
         public Other_List Other_List1 { get; set; }
 
+
+        public virtual ICollection<Rc_Phase_Request> Rc_Phase_Requests  { get; set; }
     }
 }

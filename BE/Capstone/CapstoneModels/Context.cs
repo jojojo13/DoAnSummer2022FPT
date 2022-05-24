@@ -24,6 +24,7 @@ namespace CapstoneModels
         public DbSet<EmployeeCV> EmployeeCVs { get; set; }
         public DbSet<EmployeeContract> EmployeeContracts { get; set; }
         public DbSet<Rc_Request> Rc_Requests { get; set; }
+        public DbSet<Rc_Phase_Request> rc_Phase_Requests { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -39,5 +39,6 @@ namespace CapstoneModels
         public virtual ICollection<Employee> Employees { get; set; }
 
         public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }
+        public virtual ICollection<Rc_Phase_Request> Rc_Phase_Requests { get; set; }
     }
 }
