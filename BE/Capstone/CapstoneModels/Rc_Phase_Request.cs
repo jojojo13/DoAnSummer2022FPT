@@ -32,5 +32,7 @@ namespace CapstoneModels
         public int? NumberNeed { get; set; }
         public int? Cost { get; set; }
         public int? Status { get; set; }
+
+        public virtual ICollection<Rc_Request_History> Rc_Request_Histories { get; set; }
     }
 }
