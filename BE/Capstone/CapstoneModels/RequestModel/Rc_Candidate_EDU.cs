@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
-namespace CapstoneModels
+namespace CapstoneModels.RequestModel
 {
-    [Table("EmployeeEdu")]
-    public class EmployeeEdu
+    [Table("Rc_Candidate_EDU")]
+    public class Rc_Candidate_EDU
     {
         [Key]
         public int ID { get; set; }
 
-        public int? Employee_ID { get; set; }
+        public int? Candidate_ID { get; set; }
         public int? Learning_Level { get; set; }
         public int? InforMatics_Level1 { get; set; }
         public string School1 { get; set; }
