@@ -22,5 +22,6 @@ namespace CapstoneModels
         public string BHTN { get; set; }
 
         public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }
+        //12
     }
 }
