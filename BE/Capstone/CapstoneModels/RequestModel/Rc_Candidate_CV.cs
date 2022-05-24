@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
-namespace CapstoneModels.RequestModel
+namespace CapstoneModels
 {
     [Table("Rc_Candidate_CV")]
     public class Rc_Candidate_CV
@@ -14,34 +14,34 @@ namespace CapstoneModels.RequestModel
         [Key]
         public int ID { get; set; }
         public int? CandidateID { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("CandidateID")]
+        [InverseProperty("Rc_Candidate_CVs")]
         public Employee Employee { get; set; }
 
 
         public int? Gender { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("Gender")]
+        [InverseProperty("Rc_Candidate_CVs")]
         public Other_List Other_List { get; set; }
         public byte? Image { get; set; }
         public DateTime? Dob { get; set; }
         // noi sinh
         public string NoiSinh { get; set; }
         public int? NationOB { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("NationOB")]
+        [InverseProperty("Rc_Candidate_CVs")]
         public Nation Nation1 { get; set; }
         public int? PorvinceOB { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("PorvinceOB")]
+        [InverseProperty("Rc_Candidate_CVs")]
         public Province Province1 { get; set; }
         public int? DistrictOB { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("DistrictOB")]
+        [InverseProperty("Rc_Candidate_CVs")]
         public District District1 { get; set; }
         public int? WardOB { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("WardOB")]
+        [InverseProperty("Rc_Candidate_CVs")]
         public Ward Ward1 { get; set; }
 
         public string CMND { get; set; }
@@ -58,24 +58,24 @@ namespace CapstoneModels.RequestModel
         // noi o
         public string NoiO { get; set; }
         public int? NationLive { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("NationLive")]
+        [InverseProperty("Rc_Candidate_CV1s")]
         public Nation Nation2 { get; set; }
 
 
         public int? PorvinceLive { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("PorvinceLive")]
+        [InverseProperty("Rc_Candidate_CV1s")]
         public Province Province2 { get; set; }
 
 
         public int? DistrictLive { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("DistrictLive")]
+        [InverseProperty("Rc_Candidate_CV1s")]
         public District District2 { get; set; }
         public int? WardLive { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("WardLive")]
+        [InverseProperty("Rc_Candidate_CV1s")]
         public Ward Ward2 { get; set; }
 
 
@@ -84,20 +84,22 @@ namespace CapstoneModels.RequestModel
         // Ho khau thuong chu
         public string HoKhau { get; set; }
         public int? NationHK { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("NationHK")]
+        [InverseProperty("Rc_Candidate_CV2s")]
         public Nation Nation3 { get; set; }
         public int? PorvinceHK { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("PorvinceHK")]
+        [InverseProperty("Rc_Candidate_CV2s")]
         public Province Province3 { get; set; }
         public int? DistrictHK { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("DistrictHK")]
+        [InverseProperty("Rc_Candidate_CV2s")]
         public District District3 { get; set; }
         public int? WardHK { get; set; }
-        [ForeignKey("")]
-        [InverseProperty("")]
+        [ForeignKey("WardHK")]
+        [InverseProperty("Rc_Candidate_CV2s")]
         public Ward Ward3 { get; set; }
+
+
     }
 }

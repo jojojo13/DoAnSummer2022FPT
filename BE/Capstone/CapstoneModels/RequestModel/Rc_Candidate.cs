@@ -36,5 +36,8 @@ namespace CapstoneModels
         public virtual ICollection<Rc_Candidate_Worrking_Before> Rc_Candidate_Worrking_Befores { get; set; }
         public virtual ICollection<Rc_Candidate_Heal> Rc_Candidate_Heals { get; set; }
         public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDUs { get; set; }
+        public virtual ICollection<Rc_Request_Exam_Result> Rc_Request_Exam_Results { get; set; }
+        public virtual ICollection<Rc_Request_InterView_Result> Rc_Request_InterView_Results { get; set; }
+        public virtual ICollection<Rc_Request_Result> Rc_Request_Results { get; set; }
     }
 }

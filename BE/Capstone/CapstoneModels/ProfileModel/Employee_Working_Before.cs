@@ -14,6 +14,8 @@ namespace CapstoneModels.ProfileModel
         [Key]
         public int Id { get; set; }
         //
+
+
         public int? EmployeeID { get; set; }
         [ForeignKey("EmployeeID")]
         [InverseProperty("")]

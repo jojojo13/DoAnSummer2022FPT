@@ -14,7 +14,11 @@ namespace CapstoneModels.ProfileModel
         [Key]
         public int Id { get; set; }
         public int? EmployeeId { get; set; }
+
+
         public int? Org_ID { get; set; }
+
+
         public string Decisiong_NO { get; set; }
         public string Note { set; get; }
         public DateTime? Effect_Date { get; set; }

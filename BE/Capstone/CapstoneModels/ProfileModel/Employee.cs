@@ -56,5 +56,7 @@ namespace CapstoneModels
 
         public virtual ICollection<Account> Accounts { get; set; }
 
+
+        public virtual ICollection<Rc_Candidate_CV> Rc_Candidate_CVs { get; set; }
     }
 }

@@ -21,5 +21,6 @@ namespace CapstoneModels
         [ForeignKey("Phase_ID")]
         [InverseProperty("Rc_Request_InterViews")]
         public Rc_Phase_Request rc_Phase_Request { get; set; }
+        public Rc_Request_InterView_Result rc_Request_InterView_Result { get; set; }
     }
 }

@@ -15,6 +15,8 @@ namespace CapstoneModels.ProfileModel
         public int Id { get; set; }
         public int? Employee_ID { get; set; }
 
+
+
         public string Chieu_Cao { get; set; }
         public string Can_Nang { get; set; }
         public string Nhom_mau { get; set; }

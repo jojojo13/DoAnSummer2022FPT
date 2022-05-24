@@ -24,5 +24,6 @@ namespace CapstoneModels
         [ForeignKey("Phase_ID")]
         [InverseProperty("Rc_Request_Exams")]
         public Rc_Phase_Request rc_Phase_Request { get; set; }
+        public virtual ICollection<Rc_Request_Exam_Result> Rc_Request_Exam_Results { get; set; }
     }
 }

@@ -14,6 +14,8 @@ namespace CapstoneModels
         [Key]
         public int ID { get; set; }
 
+
+
         public int? Employee_ID { get; set; }
         public int? Learning_Level { get; set; }
         public int? InforMatics_Level1 { get; set; }
