@@ -22,9 +22,6 @@ namespace CapstoneModels
         public DateTime DissolutionDate { get; set; }
         //
         public int? Status { get; set; }
-        [ForeignKey("Status")]
-        [InverseProperty("ORgnizations")]
-        public Other_List Other_List { get; set; }
         //
         public string Note { get; set; }
         public string Fax { get; set; }

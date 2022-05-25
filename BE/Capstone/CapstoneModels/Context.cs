@@ -11,6 +11,7 @@ namespace CapstoneModels
     public class Context:DbContext
     {
         // Ho so + To chuc
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Nation> Nations { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<District> Districts { get; set; }
