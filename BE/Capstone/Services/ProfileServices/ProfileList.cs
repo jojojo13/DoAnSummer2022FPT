@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.ProfileServices
 {
-    public partial class ProfileList : IProfile
+     partial class Profile : IProfile
     {
 
         #region Nation
@@ -340,6 +340,9 @@ namespace Services.ProfileServices
                 return false;
             }
         }
+
+
+
         #endregion
     }
 }

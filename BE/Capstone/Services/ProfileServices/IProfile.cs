@@ -7,46 +7,43 @@ using System.Threading.Tasks;
 
 namespace Services.ProfileServices
 {
-   public interface IProfile
+    public interface IProfile
     {
-        #region Account
 
+        #region "Account"
+        Account GetAccount(Account a);
+        bool ChangePass(Account a);
         #endregion
 
-        #region Bussines
 
-        #endregion
 
-        #region list
+        public bool InsertNation(Nation T);
+        public bool ModifyNation(Nation T);
+        public bool DeleteNation(List<int> list);
+        public bool ActiveOrDeActiveNation(List<int> list, int status);
 
-        #region Nation
-         bool InsertNation(Nation T);
-         bool ModifyNation(Nation T);
-         bool DeleteNation(List<int> list);
-         bool ActiveOrDeActiveNation(List<int> list, int status);
-        #endregion
 
-        #region Province
-         bool InsertProvince(Province T);
-         bool ModifyProvince(Province T);
-         bool DeleteProvince(List<int> list);
-         bool ActiveOrDeActiveProvince(List<int> list, int status);
-        #endregion
 
-        #region District
-         bool InsertDistrict(District T);
-         bool ModifyDistrict(District T);
-         bool DeleteDistrict(List<int> list);
-         bool ActiveOrDeActiveDistrict(List<int> list, int status);
-        #endregion
+        public bool InsertProvince(Province T);
+        public bool ModifyProvince(Province T);
+        public bool DeleteProvince(List<int> list);
+        public bool ActiveOrDeActiveProvince(List<int> list, int status);
 
-        #region Ward
-         bool InsertWard(Ward T);
-         bool ModifyWard(Ward T);
-         bool DeleteWard(List<int> list);
-         bool ActiveOrDeActiveWard(List<int> list, int status);
-        #endregion
 
-        #endregion
+
+        public bool InsertDistrict(District T);
+        public bool ModifyDistrict(District T);
+        public bool DeleteDistrict(List<int> list);
+        public bool ActiveOrDeActiveDistrict(List<int> list, int status);
+
+
+
+        public bool InsertWard(Ward T);
+        public bool ModifyWard(Ward T);
+        public bool DeleteWard(List<int> list);
+        public bool ActiveOrDeActiveWard(List<int> list, int status);
+
+
+
     }
 }

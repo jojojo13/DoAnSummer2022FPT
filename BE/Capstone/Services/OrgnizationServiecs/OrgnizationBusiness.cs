@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.OrgnizationServiecs
 {
-    public partial class Orgnization : IOrgnization
+    partial class Orgnization : IOrgnization
     {
         #region"Org"
         public bool InsertOrg(ORgnization o)

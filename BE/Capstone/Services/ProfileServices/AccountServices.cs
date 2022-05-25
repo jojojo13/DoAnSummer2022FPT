@@ -1,5 +1,4 @@
 ﻿using CapstoneModels;
-using Services.CommonServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,13 @@ namespace Services.ProfileServices
 {
     partial class Profile : IProfile
     {
-
-     
+        public Account GetAccount(Account a)
+        {
+            return null;
+        }
+        public bool ChangePass(Account a)
+        {
+            return false;
+        }
     }
 }

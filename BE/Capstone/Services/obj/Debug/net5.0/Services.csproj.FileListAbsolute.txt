@@ -3,14 +3,3 @@ D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\Services.GeneratedMSBuildEdito
 D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\Services.AssemblyInfoInputs.cache
 D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\Services.AssemblyInfo.cs
 D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\Services.csproj.CoreCompileInputs.cache
-D:\Capstone\BE\Capstone\Services\bin\Debug\net5.0\jsconfig1.json
-D:\Capstone\BE\Capstone\Services\bin\Debug\net5.0\Services.deps.json
-D:\Capstone\BE\Capstone\Services\bin\Debug\net5.0\Services.dll
-D:\Capstone\BE\Capstone\Services\bin\Debug\net5.0\ref\Services.dll
-D:\Capstone\BE\Capstone\Services\bin\Debug\net5.0\Services.pdb
-D:\Capstone\BE\Capstone\Services\bin\Debug\net5.0\CapstoneModels.dll
-D:\Capstone\BE\Capstone\Services\bin\Debug\net5.0\CapstoneModels.pdb
-D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\Services.csproj.CopyComplete
-D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\Services.dll
-D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\ref\Services.dll
-D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\Services.pdb

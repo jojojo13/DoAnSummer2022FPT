@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Services.OrgnizationServiecs
 {
-    public partial class Orgnization : IOrgnization
+    partial class Orgnization : IOrgnization
     {
-        #region "List"
 
         #region"Title"
         public List<Title> GetAllTitle(Title T, int index, int size)
@@ -19,7 +18,7 @@ namespace Services.OrgnizationServiecs
             {
                 using (Context context = new Context())
                 {
-                    List<Title> list = context.Titles.ToList().Skip(index*size).Take(size).ToList();
+                    List<Title> list = context.Titles.ToList().Skip(index * size).Take(size).ToList();
                     if (!T.Name.Trim().Equals(""))
                     {
                         list = list.Where(x => x.Name.ToLower().Contains(T.Name.Trim().ToLower())).ToList();
@@ -30,7 +29,7 @@ namespace Services.OrgnizationServiecs
                     }
                     if (T.Status.HasValue)
                     {
-                        list = list.Where(x => x.Status== T.Status).ToList();
+                        list = list.Where(x => x.Status == T.Status).ToList();
                     }
                     if (!T.Note.Trim().Equals(""))
                     {
@@ -139,7 +138,7 @@ namespace Services.OrgnizationServiecs
                 using (Context context = new Context())
                 {
                     List<Position> list = (List<Position>)context.Positions.ToList().Skip(index * size).Take(size);
-                    foreach(var item in list)
+                    foreach (var item in list)
                     {
                         item.Title = context.Titles.Where(x => x.Id == item.TitleID).FirstOrDefault();
                         item.Organization = context.ORgnizations.Where(x => x.Id == item.OrgID).FirstOrDefault();
@@ -282,7 +281,5 @@ namespace Services.OrgnizationServiecs
         }
         #endregion
 
-
-        #endregion
     }
 }
