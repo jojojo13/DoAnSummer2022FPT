@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace Services.OrgnizationServiecs
 {
-    interface IOrgnization
+    public interface IOrgnization
     {
         #region List
 
         #region"Title"
-        public List<Title> GetAllTitle(Title T, int index, int size);
-        public bool InsertTitle(Title T);
-        public bool ModifyTitle(Title T);
-        public bool DeleteTitle(List<int> list);
-        public bool ActiveOrDeActiveTitle(List<int> list, int status);
+         List<Title> GetAllTitle(Title T, int index, int size);
+         bool InsertTitle(Title T);
+         bool ModifyTitle(Title T);
+         bool DeleteTitle(List<int> list);
+         bool ActiveOrDeActiveTitle(List<int> list, int status);
         #endregion
 
         #region"Position"
-        public List<Position> GetAllPosition(Position T, int index, int size);
-        public bool InsertPosition(Position T);
-        public bool ModifyPosition(Position T);
-        public bool DeletePosition(List<int> list);
-        public bool ActiveOrDeActivePosition(List<int> list, int status);
+         List<Position> GetAllPosition(Position T, int index, int size);
+         bool InsertPosition(Position T);
+         bool ModifyPosition(Position T);
+         bool DeletePosition(List<int> list);
+         bool ActiveOrDeActivePosition(List<int> list, int status);
         #endregion
 
 
@@ -32,12 +32,11 @@ namespace Services.OrgnizationServiecs
 
         #region business
         #region"Org"
-
-        public List<ORgnization> GetAllORgnization(ORgnization T);
-        public bool InsertOrg(ORgnization T);
-        public bool ModifyOrg(ORgnization T);
-        public bool DeleteOrg(int orgID);
-        public bool ActiveOrDeActiveOrg(int orgID, int status);
+         List<ORgnization> GetAllORgnization(ORgnization T);
+         bool InsertOrg(ORgnization T);
+         bool ModifyOrg(ORgnization T);
+         bool DeleteOrg(int orgID);
+         bool ActiveOrDeActiveOrg(int orgID, int status);
 
         #endregion
         #endregion

@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace Services.CommonServices
 {
-    interface ICommon
+   public interface ICommon
     {
         #region AUtoGen code
-        public string autoGenCode3character(string tableName, string firstCode);
-        public string autoGenCode4character(string tableName, string firstCode);
+         string autoGenCode3character(string tableName, string firstCode);
+         string autoGenCode4character(string tableName, string firstCode);
         #endregion
 
         #region GetByID
-        public ORgnization getOrgByID(int id);
-        public Title getTitleByID(int id);
-        public Position getPositionByID(int id);
+         ORgnization getOrgByID(int id);
+         Title getTitleByID(int id);
+         Position getPositionByID(int id);
         #endregion
 
     }

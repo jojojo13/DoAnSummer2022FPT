@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.ProfileServices
 {
-    internal class Class1
+    public partial class ProfileBusines
     {
     }
 }

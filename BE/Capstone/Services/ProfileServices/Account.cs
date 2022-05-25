@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.RequestServices
+namespace Services.ProfileServices
 {
-    internal class Class1
+    class Account
     {
     }
 }

@@ -8,4 +8,8 @@
     <ProjectReference Include="..\CapstoneModels\CapstoneModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RequestServices\" />
+  </ItemGroup>
+
 </Project>
