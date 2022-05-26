@@ -14,8 +14,8 @@ export class LoginPageComponent implements OnInit {
   msg=''
   constructor(private fb:FormBuilder,private auth:AuthorizeService) { 
     this.loginForm=this.fb.group({
-      username:['',[Validators.required,Validators.minLength(8)]],
-      password:['',[Validators.minLength(8),Validators.required]]
+      username:['',Validators.required],
+      password:['',Validators.required]
     })
     
     this.account=new Account();
