@@ -83,6 +83,7 @@ namespace API
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

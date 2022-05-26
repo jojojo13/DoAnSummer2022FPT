@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Services.CommonServices
 {
-     class Common : ICommon
+    public class Common : ICommon
     {
         #region"List"
         public string autoGenCode3character(string tableName, string firstCode)
@@ -147,7 +147,7 @@ namespace Services.CommonServices
 
 
         #region EMAIL
-       public bool sendMail(MailDTO mailobj)
+        public bool sendMail(MailDTO mailobj)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace Services.CommonServices
                 //you can specify also CC and BCC - i will skip this
                 if (mailobj.listCC.Count > 0)
                 {
-                    foreach(var item in mailobj.listCC)
+                    foreach (var item in mailobj.listCC)
                     {
                         mail.CC.Add(item);
                     }
@@ -195,7 +195,8 @@ namespace Services.CommonServices
                 smtpClient.Send(mail);
                 return true;
             }
-            catch{
+            catch
+            {
                 return false;
             }
         }

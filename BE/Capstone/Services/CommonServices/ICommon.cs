@@ -36,7 +36,7 @@ namespace Services.CommonServices
 
 
 
-        #region "HASH"
+        #region "Ma hoa mat khau"
         string sha256_hash(string pass);
         #endregion
 

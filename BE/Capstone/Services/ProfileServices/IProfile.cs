@@ -20,6 +20,9 @@ namespace Services.ProfileServices
 
 
         #region "List"
+
+
+        #region "DM dia diem, dia chi"
         List<Nation> GetNationList(Nation T);
         bool InsertNation(Nation T);
         bool ModifyNation(Nation T);
@@ -47,13 +50,21 @@ namespace Services.ProfileServices
         bool DeleteWard(List<int> list);
         bool ActiveOrDeActiveWard(List<int> list, int status);
 
+        #endregion
 
-        // dm loai HD
+        #region dm loai HD
         List<Contract_Type> GetContractTypeList(Contract_Type T);
         bool InsertContractType(Contract_Type T);
         bool ModifyContractType(Contract_Type T);
         bool DeleteContractType(List<int> list);
         bool ActiveOrDeActiveContractType(List<int> list, int status);
+        #endregion
+
+
+        #endregion
+
+
+        #region "Business"
 
         #endregion
 

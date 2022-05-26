@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.OrgnizationServiecs
 {
-    partial class Orgnization : IOrgnization
+   public partial class Orgnization : IOrgnization
     {
 
         #region"Title"
