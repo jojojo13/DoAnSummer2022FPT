@@ -1,4 +1,5 @@
 ﻿using CapstoneModels;
+using Services.CommonModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Services.ProfileServices
         #region "Account"
         Account GetAccount(Account a);
         bool ChangePass(Account a);
+        bool ResetPass(Account a, MailDTO mailDTO);
+
         #endregion
 
 

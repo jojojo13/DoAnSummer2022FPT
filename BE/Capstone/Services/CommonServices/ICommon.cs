@@ -1,4 +1,5 @@
 ﻿using CapstoneModels;
+using Services.CommonModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,18 @@ namespace Services.CommonServices
          ORgnization getOrgByID(int id);
          Title getTitleByID(int id);
          Position getPositionByID(int id);
+        #endregion
+
+        #region other_list
+        List<Other_List> GetOther_ListsCombo(string code);
+        #endregion
+
+
+
+
+
+        #region sendmail
+        bool sendMail(MailDTO mail);
         #endregion
 
     }

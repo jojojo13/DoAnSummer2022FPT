@@ -1,10 +1,13 @@
 ﻿using CapstoneModels;
 using Microsoft.Extensions.Configuration;
+using Services.CommonModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -114,6 +117,86 @@ namespace Services.CommonServices
                 return null;
             }
 
+        }
+        #endregion
+
+
+
+
+        #region "Get data OtherList combo"
+        public List<Other_List> GetOther_ListsCombo(string code)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    Other_List_Type type = context.Other_Lists_Types.Where(x => x.Code.Trim().ToLower().Equals(code)).FirstOrDefault();
+                    List<Other_List> list = context.Other_Lists.Where(x => x.TypeID == type.Id).ToList();
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Other_List>();
+            }
+        }
+        #endregion
+
+
+
+
+        #region EMAIL
+       public bool sendMail(MailDTO mailobj)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                // you need to enter your mail address
+                mail.From = new MailAddress(mailobj.fromMail);
+
+                //To Email Address - your need to enter your to email address
+                mail.To.Add(mailobj.tomail);
+
+                mail.Subject = mailobj.subject;
+
+                //you can specify also CC and BCC - i will skip this
+                if (mailobj.listCC.Count > 0)
+                {
+                    foreach(var item in mailobj.listCC)
+                    {
+                        mail.CC.Add(item);
+                    }
+                }
+
+                if (mailobj.listBC.Count > 0)
+                {
+                    foreach (var item in mailobj.listBC)
+                    {
+                        mail.Bcc.Add(item);
+                    }
+                }
+
+                mail.IsBodyHtml = true;
+                mail.Body = mailobj.content;
+
+
+                //create SMTP instant
+
+                //you need to pass mail server address and you can also specify the port number if you required
+                SmtpClient smtpClient = new SmtpClient("mail.example.com");
+
+                //Create nerwork credential and you need to give from email address and password
+                NetworkCredential networkCredential = new NetworkCredential(mailobj.fromMail, mailobj.pass);
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = networkCredential;
+                smtpClient.Port = 25; // this is default port number - you can also change this
+                smtpClient.EnableSsl = false; // if ssl required you need to enable it
+                smtpClient.Send(mail);
+                return true;
+            }
+            catch{
+                return false;
+            }
         }
         #endregion
 
