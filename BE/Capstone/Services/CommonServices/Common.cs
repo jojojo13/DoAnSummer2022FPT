@@ -183,7 +183,7 @@ namespace Services.CommonServices
                 //create SMTP instant
 
                 //you need to pass mail server address and you can also specify the port number if you required
-                SmtpClient smtpClient = new SmtpClient("mail.example.com");
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
 
                 //Create nerwork credential and you need to give from email address and password
                 NetworkCredential networkCredential = new NetworkCredential(mailobj.fromMail, mailobj.pass);
