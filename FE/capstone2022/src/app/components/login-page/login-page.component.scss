@@ -52,6 +52,7 @@
     margin-bottom: 40px;
     font-size: 15px;
     padding: 0;
+    flex-wrap: wrap;
     &-label {
      margin-right: 25px;
 
@@ -91,9 +92,17 @@
     font-size: 16px;
     margin-top: 40px;
     margin-left: calc(15% + 25px);
+    &:disabled{
+      background-color: #808080;
+    }
   }
 }
 .custom {
   border: none;
  
+}
+small{
+  margin-left: calc(15% + 25px);
+  width: 80%;
+  margin-top: 10px;
 }
