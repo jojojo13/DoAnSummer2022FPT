@@ -26,17 +26,13 @@ export class LoginPageComponent implements OnInit {
   }
   signIn(){
     this.account=this.loginForm.value
-    console.log(this.loginForm)
-    this.auth.signIn(this.account).subscribe(data=>{
+    console.log(this.account)
+    this.auth.signIn(this.account).subscribe((data:any)=>{
+     console.log('dang call data')
+alert('da dang nhap duoc rui')
       console.log(data)
-      alert('da dang nhap thanh cong')
-    },err=>{
-      if(err.status==400){
-        this.msg="Email is exsisted, pls use another email"
-      }
-      if(err.status==500){
-        this.msg="Something wrong from server!!!"
-      }
+    },(err:any)=>{
+      console.log(err)
       
     })
   }
