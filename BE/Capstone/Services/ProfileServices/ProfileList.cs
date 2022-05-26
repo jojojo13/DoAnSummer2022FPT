@@ -8,12 +8,33 @@ using System.Threading.Tasks;
 
 namespace Services.ProfileServices
 {
-     partial class Profile : IProfile
+    partial class Profile : IProfile
     {
 
         #region Nation
-        public bool InsertNation(Nation T){
-            Common c = new Common();
+
+        public List<Nation> GetNationList(Nation T)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    List<Nation> list = context.Nations.ToList();
+                    if (T.Status.HasValue)
+                    {
+                        list = list.Where(x => x.Status == T.Status).ToList();
+                    }
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Nation>();
+            }
+        }
+        public bool InsertNation(Nation T)
+        {
+            ICommon c = new Common();
             try
             {
                 Nation tobj = new Nation();
@@ -33,7 +54,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool ModifyNation(Nation T){
+        public bool ModifyNation(Nation T)
+        {
             try
             {
                 using (Context context = new Context())
@@ -50,7 +72,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool DeleteNation(List<int> list){
+        public bool DeleteNation(List<int> list)
+        {
             try
             {
                 using (Context context = new Context())
@@ -70,7 +93,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool ActiveOrDeActiveNation(List<int> list, int status){
+        public bool ActiveOrDeActiveNation(List<int> list, int status)
+        {
             try
             {
                 using (Context context = new Context())
@@ -93,8 +117,29 @@ namespace Services.ProfileServices
         #endregion
 
         #region Province
-        public bool InsertProvince(Province T){
-            Common c = new Common();
+
+        public List<Province> GetProvinceListByNationID(Province T, int ID)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    List<Province> list = context.Provinces.Where(x=>x.NationID==ID).ToList();
+                    if (T.Status.HasValue)
+                    {
+                        list = list.Where(x => x.Status == T.Status).ToList();
+                    }
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Province>();
+            }
+        }
+        public bool InsertProvince(Province T)
+        {
+            ICommon c = new Common();
             try
             {
                 Province tobj = new Province();
@@ -115,7 +160,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool ModifyProvince(Province T){
+        public bool ModifyProvince(Province T)
+        {
             try
             {
                 using (Context context = new Context())
@@ -123,7 +169,7 @@ namespace Services.ProfileServices
                     Province tobj = context.Provinces.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
-                    tobj.NationID  = T.NationID;
+                    tobj.NationID = T.NationID;
                     context.SaveChanges();
                     return true;
                 }
@@ -133,7 +179,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool DeleteProvince(List<int> list){
+        public bool DeleteProvince(List<int> list)
+        {
             try
             {
                 using (Context context = new Context())
@@ -153,7 +200,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool ActiveOrDeActiveProvince(List<int> list, int status){
+        public bool ActiveOrDeActiveProvince(List<int> list, int status)
+        {
             try
             {
                 using (Context context = new Context())
@@ -176,8 +224,30 @@ namespace Services.ProfileServices
         #endregion
 
         #region District
-        public bool InsertDistrict(District T){
-            Common c = new Common();
+
+        public List<District> GetDistrictListByProvinceID(District T, int ID)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    List<District> list = context.Districts.Where(x => x.ProvinceID == ID).ToList();
+                    if (T.Status.HasValue)
+                    {
+                        list = list.Where(x => x.Status == T.Status).ToList();
+                    }
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<District>();
+            }
+        }
+
+        public bool InsertDistrict(District T)
+        {
+            ICommon c = new Common();
             try
             {
                 District tobj = new District();
@@ -198,7 +268,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool ModifyDistrict(District T){
+        public bool ModifyDistrict(District T)
+        {
             try
             {
                 using (Context context = new Context())
@@ -216,7 +287,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool DeleteDistrict(List<int> list){
+        public bool DeleteDistrict(List<int> list)
+        {
             try
             {
                 using (Context context = new Context())
@@ -237,7 +309,8 @@ namespace Services.ProfileServices
             }
 
         }
-        public bool ActiveOrDeActiveDistrict(List<int> list, int status){
+        public bool ActiveOrDeActiveDistrict(List<int> list, int status)
+        {
             try
             {
                 using (Context context = new Context())
@@ -260,8 +333,29 @@ namespace Services.ProfileServices
         #endregion
 
         #region Ward
-        public bool InsertWard(Ward T){
-            Common c = new Common();
+
+        public List<Ward> GetWardListByDistrictID(Ward T, int ID)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    List<Ward> list = context.Wards.Where(x => x.DistrictID == ID).ToList();
+                    if (T.Status.HasValue)
+                    {
+                        list = list.Where(x => x.Status == T.Status).ToList();
+                    }
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Ward>();
+            }
+        }
+        public bool InsertWard(Ward T)
+        {
+            ICommon c = new Common();
             try
             {
                 Ward tobj = new Ward();
@@ -282,7 +376,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool ModifyWard(Ward T){
+        public bool ModifyWard(Ward T)
+        {
             try
             {
                 using (Context context = new Context())
@@ -300,7 +395,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool DeleteWard(List<int> list){
+        public bool DeleteWard(List<int> list)
+        {
             try
             {
                 using (Context context = new Context())
@@ -320,7 +416,8 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool ActiveOrDeActiveWard(List<int> list, int status){
+        public bool ActiveOrDeActiveWard(List<int> list, int status)
+        {
             try
             {
                 using (Context context = new Context())
@@ -340,9 +437,112 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-
-
-
         #endregion
+
+        #region DM loai hop dong
+        public List<Contract_Type> GetContractTypeList(Contract_Type T){
+            try
+            {
+                using (Context context = new Context())
+                {
+                    List<Contract_Type> list = context.ContractTypes.ToList();
+                    if (T.Status.HasValue)
+                    {
+                        list = list.Where(x => x.Status == T.Status).ToList();
+                    }
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Contract_Type>();
+            }
+        }
+        public bool InsertContractType(Contract_Type T){
+            ICommon c = new Common();
+            try
+            {
+                Contract_Type tobj = new Contract_Type();
+                tobj.Name = T.Name;
+                tobj.Code = c.autoGenCode3character("Contract_Type", "LHD");
+                tobj.Status = -1;
+                tobj.Note = T.Note;
+                tobj.BHTN = T.BHTN;
+                tobj.BHXH = T.BHXH;
+                tobj.BHYT = T.BHYT;
+                using (Context context = new Context())
+                {
+                    context.ContractTypes.Add(tobj);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool ModifyContractType(Contract_Type T){
+            try
+            {
+                using (Context context = new Context())
+                {
+                    Contract_Type tobj = context.ContractTypes.Where(x => x.Id == T.Id).FirstOrDefault();
+                    tobj.Name = T.Name;
+                    tobj.Note = T.Note;
+                    tobj.BHTN = T.BHTN;
+                    tobj.BHXH = T.BHXH;
+                    tobj.BHYT = T.BHYT;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool DeleteContractType(List<int> list){
+            try
+            {
+                using (Context context = new Context())
+                {
+                    foreach (var item in list)
+                    {
+                        Contract_Type tobj = new Contract_Type();
+                        tobj = context.ContractTypes.Where(x => x.Id == item).FirstOrDefault();
+                        context.ContractTypes.Remove(tobj);
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool ActiveOrDeActiveContractType(List<int> list, int status){
+            try
+            {
+                using (Context context = new Context())
+                {
+                    foreach (var item in list)
+                    {
+                        Contract_Type tobj = new Contract_Type();
+                        tobj = context.ContractTypes.Where(x => x.Id == item).FirstOrDefault();
+                        tobj.Status = status;
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
+
     }
 }

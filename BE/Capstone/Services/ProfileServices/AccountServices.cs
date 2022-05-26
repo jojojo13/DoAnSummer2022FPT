@@ -15,10 +15,10 @@ namespace Services.ProfileServices
         {
             try
             {
-
+                ICommon common = new Common();
                 using (Context context = new Context())
                 {
-                    Account tobj = context.Accounts.Where(x => x.UserName == a.UserName && x.Pass == a.Pass).FirstOrDefault();
+                    Account tobj = context.Accounts.Where(x => x.UserName == a.UserName && x.Pass == common.sha256_hash(a.Pass)).FirstOrDefault();
                     if (tobj != null)
                     {
                         return tobj;
@@ -38,10 +38,11 @@ namespace Services.ProfileServices
         {
             try
             {
+                ICommon c = new Common();
                 using (Context context = new Context())
                 {
                     Account tobj = context.Accounts.Where(x => x.UserName == a.UserName && x.Pass == a.Pass).FirstOrDefault();
-                    tobj.Pass = a.Pass;
+                    tobj.Pass = c.sha256_hash(a.Pass);
                     context.SaveChanges();
                     return true;
                 }
@@ -58,14 +59,16 @@ namespace Services.ProfileServices
             {
                 using (Context context = new Context())
                 {
+                    ICommon c = new Common();
                     Account tobj = context.Accounts.Where(x => x.UserName == a.UserName && x.Pass == a.Pass).FirstOrDefault();
-                    tobj.Pass = Guid.NewGuid().ToString("d").Substring(1, 8);
+                    string newPass = c.sha256_hash(Guid.NewGuid().ToString("d").Substring(1, 8));
+                    tobj.Pass = newPass;
                     context.SaveChanges();
                     EmployeeCV em = context.EmployeeCVs.Where(x => x.EmployeeID == tobj.EmployeeID).FirstOrDefault();
                     string email = em.EmailWork;
                     mailDTO.tomail = email;
                     mailDTO.content = "Mật khẩu mới của bạn là : " + tobj.Pass+"</br>"+"Vui lòng thay đổi mật khẩu mới sau khi đăng nhập";
-                    Common common = new Common();
+                    ICommon common = new Common();
                     if (common.sendMail(mailDTO))
                     {
                         return true;

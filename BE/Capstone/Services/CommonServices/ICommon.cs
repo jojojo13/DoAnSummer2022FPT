@@ -33,5 +33,12 @@ namespace Services.CommonServices
         bool sendMail(MailDTO mail);
         #endregion
 
+
+
+
+        #region "HASH"
+        string sha256_hash(string pass);
+        #endregion
+
     }
 }

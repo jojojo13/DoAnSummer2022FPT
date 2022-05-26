@@ -13,7 +13,7 @@ namespace Services.OrgnizationServiecs
         #region"Org"
         public bool InsertOrg(ORgnization o)
         {
-            Common c = new Common();
+             ICommon c = new Common();
             try
             {
                 ORgnization obj = new ORgnization();

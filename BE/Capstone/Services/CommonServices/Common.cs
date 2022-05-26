@@ -8,12 +8,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Services.CommonServices
 {
-    public class Common : ICommon
+     class Common : ICommon
     {
         #region"List"
         public string autoGenCode3character(string tableName, string firstCode)
@@ -197,6 +198,26 @@ namespace Services.CommonServices
             catch{
                 return false;
             }
+        }
+        #endregion
+
+
+        #region "Cryptography"
+
+        public string sha256_hash(String value)
+        {
+            StringBuilder Sb = new StringBuilder();
+
+            using (SHA256 hash = SHA256Managed.Create())
+            {
+                Encoding enc = Encoding.UTF8;
+                Byte[] result = hash.ComputeHash(enc.GetBytes(value));
+
+                foreach (Byte b in result)
+                    Sb.Append(b.ToString("x2"));
+            }
+
+            return Sb.ToString();
         }
         #endregion
 

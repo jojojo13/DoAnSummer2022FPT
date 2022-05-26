@@ -45,7 +45,7 @@ namespace Services.OrgnizationServiecs
         }
         public bool InsertTitle(Title T)
         {
-            Common c = new Common();
+             ICommon c = new Common();
             try
             {
                 Title tobj = new Title();
@@ -191,7 +191,7 @@ namespace Services.OrgnizationServiecs
 
         public bool InsertPosition(Position T)
         {
-            Common c = new Common();
+             ICommon c = new Common();
             try
             {
                 Position tobj = new Position();
