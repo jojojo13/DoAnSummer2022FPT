@@ -1,4 +1,5 @@
-﻿using CapstoneModels;
+﻿using API.ResponseModel.Orgnization;
+using CapstoneModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,15 +23,32 @@ namespace API.Controllers
             List<Other_List_Type> list = new List<Other_List_Type>();
             list = p.GetOtherListType();
             if (list.Count > 0)
-            {
                 return Ok(new
                 {
                     Status = true,
                     Data = list
                 });
-            }
-            return StatusCode(200, "List is Null");
+            else
+                return StatusCode(200, "List is Null");
         }
+
+        #region getbyID
+        [HttpGet("GetTitleByID")]
+        public IActionResult GetTitleByID(int ID)
+        {
+            Title obj = p.getTitleByID(ID);
+            if (obj != null)
+                return Ok(new
+                {
+                    Status = true,
+                    Data = obj
+                });
+            else
+                return StatusCode(200, "Obj is Null");
+        }
+        #endregion
+
+
 
     }
 }

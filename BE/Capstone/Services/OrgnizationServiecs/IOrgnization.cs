@@ -27,12 +27,20 @@ namespace Services.OrgnizationServiecs
          bool ActiveOrDeActivePosition(List<int> list, int status);
         #endregion
 
+        #region OTherList
+        List<Other_List> GetOther_ListsCombo(string code);
+        bool InsertOther_List(Other_List T);
+        bool ModifyOther_List(Other_List T);
+        bool DeleteOther_List(List<int> list);
+        bool ActiveOrDeActiveOther_List(List<int> list, int status);
+        #endregion
+
 
         #endregion
 
         #region business
         #region"Org"
-         List<ORgnization> GetAllORgnization(ORgnization T);
+        List<ORgnization> GetAllORgnization(ORgnization T);
          bool InsertOrg(ORgnization T);
          bool ModifyOrg(ORgnization T);
          bool DeleteOrg(int orgID);

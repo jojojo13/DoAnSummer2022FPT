@@ -21,13 +21,8 @@ namespace Services.CommonServices
          Position getPositionByID(int id);
         #endregion
 
-        #region other_list
-        bool InsertOther_List(Other_List T);
-        bool ModifyOther_List(Other_List T);
-        bool DeleteOther_List(List<int> list);
-        bool ActiveOrDeActiveOther_List(List<int> list, int status);
+        #region other_list_type
         List<Other_List_Type> GetOtherListType();
-        List<Other_List> GetOther_ListsCombo(string code);
         #endregion
 
         #region sendmail
