@@ -22,19 +22,17 @@ namespace Services.CommonServices
         #endregion
 
         #region other_list
+        bool InsertOther_List(Other_List T);
+        bool ModifyOther_List(Other_List T);
+        bool DeleteOther_List(List<int> list);
+        bool ActiveOrDeActiveOther_List(List<int> list, int status);
+        List<Other_List_Type> GetOtherListType();
         List<Other_List> GetOther_ListsCombo(string code);
         #endregion
-
-
-
-
 
         #region sendmail
         bool sendMail(MailDTO mail);
         #endregion
-
-
-
 
         #region "Ma hoa mat khau"
         string sha256_hash(string pass);

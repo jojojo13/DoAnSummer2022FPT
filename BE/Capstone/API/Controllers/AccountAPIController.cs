@@ -1,5 +1,6 @@
 ﻿using API.ResponseModel;
 using CapstoneModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -57,7 +58,7 @@ namespace API.Controllers
             {
                 new Claim(ClaimTypes.Sid, a.Id.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, a.UserName),
-                new Claim(ClaimTypes.NameIdentifier, a.Pass)
+                 new Claim(ClaimTypes.Role, a.Rule.ToString())
             };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
@@ -69,5 +70,5 @@ namespace API.Controllers
         }
     }
 
-   
+
 }
