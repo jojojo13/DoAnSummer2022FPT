@@ -14,6 +14,7 @@ namespace API.Controllers
     [ApiController]
     public class CommonAPIController : ControllerBase
     {
+        private ICommon p = new Common();
         [AllowAnonymous]
         [HttpGet("GetOtherListType")]
         public IActionResult GetOtherListType()
