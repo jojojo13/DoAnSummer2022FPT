@@ -1,13 +1,13 @@
 <div class="limiter">
     <div class="form">
         <div class="form-title">
-            <h3 class="text-white form-title-text">sign in</h3>
+            <h3 class="text-white form-title-text">đăng nhập</h3>
         </div>
         <div class="form-content">
             <form [formGroup]="loginForm" (ngSubmit)="signIn()" novalidate>
                 <h6 class="text-danger">{{msg}}</h6>
                 <div class="form-control custom">
-                    <span class="form-control-label">Username</span>
+                    <span class="form-control-label">Tên đăng nhập</span>
                     <input type="text" formControlName="username" class="form-control-input" placeholder="Enter your username" />
                     <small class="text-danger" *ngIf="
               loginForm.get('username')?.hasError('required') &&
@@ -17,7 +17,7 @@
          
         </div>
         <div class="form-control custom">
-          <span class="form-control-label">Password</span>
+          <span class="form-control-label">Mật khẩu</span>
           <input
             formControlName="password"
             class="form-control-input"
