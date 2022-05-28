@@ -22,13 +22,6 @@ namespace CapstoneModels
         [InverseProperty("Position1")]
         public Title Title { get; set; }
 
-
-        public int? OrgID { get; set; }
-        [ForeignKey("OrgID")]
-        [InverseProperty("Positions")]
-        public ORgnization Organization { get; set; }
-
-
         public int? BasicSalary { get; set; }
         public string OtherSkill { get; set; }
         public int? FormWorking { get; set; }
@@ -36,9 +29,39 @@ namespace CapstoneModels
         [InverseProperty("Positions")]
         public Other_List Other_List { get; set; }
 
+        public int? Learning_level { get; set; }
+        [ForeignKey("Learning_level")]
+        [InverseProperty("Position1s")]
+        public Other_List Other_List1 { get; set; }
+
+        public string year_exp { get; set; }
+
+        public int? majorGroup { get; set; }
+        [ForeignKey("majorGroup")]
+        [InverseProperty("Position2s")]
+        public Other_List Other_List2 { get; set; }
+        public string major { get; set; }
+
+        public int? language { get; set; }
+        [ForeignKey("language")]
+        [InverseProperty("Position3s")]
+        public Other_List Other_List3 { get; set; }
+
+        public int? language_level { get; set; }
+        [ForeignKey("language_level")]
+        [InverseProperty("Position4s")]
+        public Other_List Other_List4 { get; set; }
+
+        public int? Information_level { get; set; }
+        [ForeignKey("Information_level")]
+        [InverseProperty("Position5s")]
+        public Other_List Other_List5 { get; set; }
+
         public virtual ICollection<Employee> Employees { get; set; }
 
         public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }
         public virtual ICollection<Rc_Phase_Request> Rc_Phase_Requests { get; set; }
+
+        public virtual ICollection<PositionOrg> PositionOrgs { get; set; }
     }
 }

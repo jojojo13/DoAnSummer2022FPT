@@ -47,6 +47,15 @@ namespace Services.OrgnizationServiecs
          bool ActiveOrDeActiveOrg(int orgID, int status);
 
         #endregion
+
+        #region Thiet lap vi tri cv cho phong ban
+        List<PositionOrg> GetAllPositionOrg(PositionOrg T, int index, int size);
+        bool InsertPositionOrg(PositionOrg T);
+        bool ModifyPositionOrg(PositionOrg T);
+        bool DeletePositionOrg(List<int> list);
+        bool ActiveOrDeActivePositionOrg(List<int> list, int status);
+        #endregion
+
         #endregion
     }
 }

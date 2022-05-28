@@ -13,7 +13,7 @@ namespace Services.OrgnizationServiecs
         #region"Org"
         public bool InsertOrg(ORgnization o)
         {
-             ICommon c = new Common();
+            ICommon c = new Common();
             try
             {
                 ORgnization obj = new ORgnization();
@@ -136,6 +136,129 @@ namespace Services.OrgnizationServiecs
             catch
             {
                 return new List<ORgnization>();
+            }
+        }
+
+        #endregion
+
+        #region Thiet lap vi tri cong viec cho phong ban
+
+        public List<PositionOrg> GetAllPositionOrg(PositionOrg T, int index, int size)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    List<PositionOrg> list = (List<PositionOrg>)context.PositionOrgs.ToList().Skip(index * size).Take(size);
+                    foreach (var item in list)
+                    {
+                        item.oRgnization = context.ORgnizations.Where(x => x.Id == item.OrgID).FirstOrDefault();
+                        item.position = context.Positions.Where(x => x.Id == item.positionID).FirstOrDefault();
+                    }
+
+                    if (!T.position.Name.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.position.Name.ToLower().Contains(T.position.Name.Trim().ToLower())).ToList();
+                    }
+                    if (!T.oRgnization.Name.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.oRgnization.Name.ToLower().Contains(T.oRgnization.Name.Trim().ToLower())).ToList();
+                    }
+                    if (T.OrgID.HasValue)
+                    {
+                        list = list.Where(x => x.OrgID == T.OrgID).ToList();
+                    }
+                    if (T.positionID.HasValue)
+                    {
+                        list = list.Where(x => x.positionID == T.positionID).ToList();
+                    }
+
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<PositionOrg>();
+            }
+        }
+        public bool InsertPositionOrg(PositionOrg T)
+        {
+            try
+            {
+                PositionOrg tobj = new PositionOrg();
+                tobj.positionID = T.positionID;
+                tobj.Status = -1;
+                tobj.OrgID = T.OrgID;
+                using (Context context = new Context())
+                {
+                    context.PositionOrgs.Add(tobj);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool ModifyPositionOrg(PositionOrg T)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    PositionOrg tobj = context.PositionOrgs.Where(x => x.Id == T.Id).FirstOrDefault();
+                    tobj.positionID = T.positionID;
+                    tobj.OrgID = T.OrgID;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool DeletePositionOrg(List<int> list)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    foreach (var item in list)
+                    {
+                        PositionOrg tobj = new PositionOrg();
+                        tobj = context.PositionOrgs.Where(x => x.Id == item).FirstOrDefault();
+                        context.PositionOrgs.Remove(tobj);
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool ActiveOrDeActivePositionOrg(List<int> list, int status)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    foreach (var item in list)
+                    {
+                        PositionOrg tobj = new PositionOrg();
+                        tobj = context.PositionOrgs.Where(x => x.Id == item).FirstOrDefault();
+                        tobj.Status = status;
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 

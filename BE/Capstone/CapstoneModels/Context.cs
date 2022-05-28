@@ -21,7 +21,8 @@ namespace CapstoneModels
         public DbSet<Other_List_Type > Other_Lists_Types { get; set; }
         public DbSet<Title> Titles { get; set; }
         public DbSet<ORgnization> ORgnizations { get; set; }
-        public DbSet<Position> Positions { get; set; }  
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<PositionOrg> PositionOrgs { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeCV> EmployeeCVs { get; set; }
         public DbSet<EmployeeContract> EmployeeContracts { get; set; }

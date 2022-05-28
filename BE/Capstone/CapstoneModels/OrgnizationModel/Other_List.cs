@@ -53,5 +53,11 @@ namespace CapstoneModels
 
         public virtual ICollection<Rc_Request_Schedu> Rc_Request_Schedus { get; set; }
         public virtual ICollection<Rc_Request_Schedu> Rc_Request_Schedu2s { get; set; }
+
+        public virtual ICollection<Position> Position1s { get; set; }
+        public virtual ICollection<Position> Position2s { get; set; }
+        public virtual ICollection<Position> Position3s { get; set; }
+        public virtual ICollection<Position> Position4s { get; set; }
+        public virtual ICollection<Position> Position5s { get; set; }
     }
 }

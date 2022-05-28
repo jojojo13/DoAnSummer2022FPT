@@ -56,12 +56,12 @@ namespace CapstoneModels
         [InverseProperty("ORgnizations")]
         public Employee Employee { get; set; }
 
-        public virtual ICollection<Position> Positions { get; set; }    
-
         public virtual ICollection<Employee> Employees1 { get; set; }
 
         public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }
 
         public virtual ICollection<Rc_Request> Rc_Requests { get; set; }
+
+        public virtual ICollection<PositionOrg> PositionOrgs { get; set; }
     }
 }

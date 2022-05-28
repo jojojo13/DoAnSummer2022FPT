@@ -450,10 +450,253 @@ namespace API.Controllers
         }
         #endregion
 
+        #region DM vi tri cong viec
+        [AllowAnonymous]
+        [HttpGet("GetAllPosition")]
+        public IActionResult GetAllPosition(PositionResponse objResponse)
+        {
+            Position tobj = new Position();
+            tobj.Name = objResponse.Name;
+            tobj.Code = objResponse.Code;
+            tobj.Status = objResponse.Status;
+            tobj.Note = objResponse.Note;
+            tobj.Title.Name = objResponse.TitleName;
+            tobj.BasicSalary = objResponse.BasicSalary;
+            tobj.OtherSkill = objResponse.OtherSkill;
+            tobj.Other_List.Name = objResponse.FormWorkingName;
+            tobj.Other_List1.Name = objResponse.Learning_levelName;
+            tobj.year_exp = objResponse.year_exp;
+            tobj.Other_List2.Name = objResponse.majorGroupName;
+            tobj.major = objResponse.major;
+            tobj.Other_List3.Name = objResponse.languageName;
+            tobj.Other_List4.Name = objResponse.language_levelName;
+            tobj.Other_List5.Name = objResponse.Information_levelName;
+            List<Position>list = p.GetAllPosition(tobj, objResponse.index, objResponse.size);
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    Status = true,
+                    Data = list
+                });
+            }
+            return StatusCode(200, "List is Null");
+        }
+
+        [AllowAnonymous]
+        [HttpPut("ActivePosition")]
+        public IActionResult ActivePosition([FromBody] string ListID)
+        {
+            try
+            {
+                string[] listID = ListID.Split(" ");
+                List<int> lst = new List<int>();
+                foreach (var item in listID)
+                {
+                    if (!item.Trim().Equals(""))
+                    {
+                        lst.Add(Convert.ToInt32(item));
+                    }
+                }
+                var check = p.ActiveOrDeActivePosition(lst, -1);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPut("DeActivePosition")]
+        public IActionResult DeActivePosition([FromBody] string ListID)
+        {
+            try
+            {
+                string[] listID = ListID.Split(" ");
+                List<int> lst = new List<int>();
+                foreach (var item in listID)
+                {
+                    if (!item.Trim().Equals(""))
+                    {
+                        lst.Add(Convert.ToInt32(item));
+                    }
+                }
+                var check = p.ActiveOrDeActivePosition(lst, 0);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("DeletePosition")]
+        public IActionResult DeletePosition([FromBody] string ListID)
+        {
+            try
+            {
+                string[] listID = ListID.Split(" ");
+                List<int> lst = new List<int>();
+                foreach (var item in listID)
+                {
+                    if (!item.Trim().Equals(""))
+                    {
+                        lst.Add(Convert.ToInt32(item));
+                    }
+                }
+                var check = p.DeletePosition(lst);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("InsertPosition")]
+        public IActionResult InsertPosition([FromBody] PositionResponse objresponse)
+        {
+            try
+            {
+                Position tobj = new Position();
+                tobj.Name = objresponse.Name;
+                tobj.Note = objresponse.Note;
+                tobj.TitleID = objresponse.TitleID;
+                tobj.OtherSkill = objresponse.OtherSkill;
+                tobj.FormWorking = objresponse.FormWorking;
+                tobj.BasicSalary = objresponse.BasicSalary;
+                tobj.Learning_level = objresponse.Learning_level;
+                tobj.year_exp = objresponse.year_exp;
+                tobj.majorGroup = objresponse.majorGroup;
+                tobj.language = objresponse.language;
+                tobj.language_level = objresponse.language_level;
+                tobj.Information_level = objresponse.Information_level;
+                var check = p.InsertPosition(tobj);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPut("ModifyPosition")]
+        public IActionResult ModifyPosition([FromBody] PositionResponse objresponse)
+        {
+            try
+            {
+                Position tobj = new Position();
+                tobj.Name = objresponse.Name;
+                tobj.Note = objresponse.Note;
+                tobj.TitleID = objresponse.TitleID;
+                tobj.OtherSkill = objresponse.OtherSkill;
+                tobj.FormWorking = objresponse.FormWorking;
+                tobj.BasicSalary = objresponse.BasicSalary;
+                tobj.Learning_level = objresponse.Learning_level;
+                tobj.year_exp = objresponse.year_exp;
+                tobj.majorGroup = objresponse.majorGroup;
+                tobj.language = objresponse.language;
+                tobj.language_level = objresponse.language_level;
+                tobj.Information_level = objresponse.Information_level;
+                var check = p.ModifyPosition(tobj);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+        #endregion
+
         #endregion
 
         #region Business
 
+        #region Quan ly to chuc
         [AllowAnonymous]
         [HttpGet("GetAllOrg")]
         public IActionResult GetAllOrg(OrgResponse Org)
@@ -668,8 +911,219 @@ namespace API.Controllers
                 });
             }
         }
+        #endregion
 
-        #region Quan ly to chuc
+        #region Thiet lap vi tri cong viec cho phong ban
+        [AllowAnonymous]
+        [HttpGet("GetAllPositionOrg")]
+        public IActionResult GetAllPositionOrg(PositionOrgResponse objResponse)
+        {
+            PositionOrg tobj = new PositionOrg();
+            tobj.Status = objResponse.Status;
+            tobj.positionID = objResponse.positionID;
+            tobj.OrgID = objResponse.OrgID;
+            tobj.position.Name = objResponse.positionName;
+            tobj.oRgnization.Name = objResponse.OrgName;
+            List<PositionOrg> list = p.GetAllPositionOrg(tobj, objResponse.index, objResponse.size);
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    Status = true,
+                    Data = list
+                });
+            }
+            return StatusCode(200, "List is Null");
+        }
+
+        [AllowAnonymous]
+        [HttpPut("ActivePositionOrg")]
+        public IActionResult ActivePositionOrg([FromBody] string ListID)
+        {
+            try
+            {
+                string[] listID = ListID.Split(" ");
+                List<int> lst = new List<int>();
+                foreach (var item in listID)
+                {
+                    if (!item.Trim().Equals(""))
+                    {
+                        lst.Add(Convert.ToInt32(item));
+                    }
+                }
+                var check = p.ActiveOrDeActivePositionOrg(lst, -1);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPut("DeActivePositionOrg")]
+        public IActionResult DeActivePositionOrg([FromBody] string ListID)
+        {
+            try
+            {
+                string[] listID = ListID.Split(" ");
+                List<int> lst = new List<int>();
+                foreach (var item in listID)
+                {
+                    if (!item.Trim().Equals(""))
+                    {
+                        lst.Add(Convert.ToInt32(item));
+                    }
+                }
+                var check = p.ActiveOrDeActivePositionOrg(lst, 0);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("DeletePositionOrg")]
+        public IActionResult DeletePositionOrg([FromBody] string ListID)
+        {
+            try
+            {
+                string[] listID = ListID.Split(" ");
+                List<int> lst = new List<int>();
+                foreach (var item in listID)
+                {
+                    if (!item.Trim().Equals(""))
+                    {
+                        lst.Add(Convert.ToInt32(item));
+                    }
+                }
+                var check = p.DeletePositionOrg(lst);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("InsertPositionOrg")]
+        public IActionResult InsertPositionOrg([FromBody] PositionOrgResponse objresponse)
+        {
+            try
+            {
+                PositionOrg tobj = new PositionOrg();
+                tobj.Status = -1;
+                tobj.OrgID = objresponse.OrgID;
+                tobj.positionID = objresponse.positionID;
+                var check = p.InsertPositionOrg(tobj);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPut("ModifyPositionOrg")]
+        public IActionResult ModifyPositionOrg([FromBody] PositionOrgResponse objresponse)
+        {
+            try
+            {
+                PositionOrg tobj = new PositionOrg();
+                tobj.OrgID = objresponse.OrgID;
+                tobj.positionID = objresponse.positionID;
+                var check = p.ModifyPositionOrg(tobj);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
 
         #endregion
 

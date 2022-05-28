@@ -245,7 +245,6 @@ namespace Services.OrgnizationServiecs
                     foreach (var item in list)
                     {
                         item.Title = context.Titles.Where(x => x.Id == item.TitleID).FirstOrDefault();
-                        item.Organization = context.ORgnizations.Where(x => x.Id == item.OrgID).FirstOrDefault();
                     }
 
                     if (!T.Name.Trim().Equals(""))
@@ -280,10 +279,6 @@ namespace Services.OrgnizationServiecs
                     {
                         list = list.Where(x => x.Title.Name.ToLower().Contains(T.Title.Name.Trim().ToLower())).ToList();
                     }
-                    if (!T.Organization.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Organization.Name.ToLower().Contains(T.Organization.Name.Trim().ToLower())).ToList();
-                    }
                     return list;
                 }
             }
@@ -303,11 +298,16 @@ namespace Services.OrgnizationServiecs
                 tobj.Code = c.autoGenCode3character("Position", "VTCV");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                tobj.OrgID = T.OrgID;
                 tobj.TitleID = T.TitleID;
                 tobj.OtherSkill = T.OtherSkill;
                 tobj.FormWorking = T.FormWorking;
                 tobj.BasicSalary = T.BasicSalary;
+                tobj.Learning_level = T.Learning_level;
+                tobj.year_exp = T.year_exp;
+                tobj.majorGroup = T.majorGroup;
+                tobj.language = T.language;
+                tobj.language_level = T.language_level;
+                tobj.Information_level = T.Information_level;
                 using (Context context = new Context())
                 {
                     context.Positions.Add(tobj);
@@ -332,6 +332,15 @@ namespace Services.OrgnizationServiecs
                     tobj.TitleID = T.TitleID;
                     tobj.OtherSkill = T.OtherSkill;
                     tobj.FormWorking = T.FormWorking;
+                    tobj.OtherSkill = T.OtherSkill;
+                    tobj.FormWorking = T.FormWorking;
+                    tobj.BasicSalary = T.BasicSalary;
+                    tobj.Learning_level = T.Learning_level;
+                    tobj.year_exp = T.year_exp;
+                    tobj.majorGroup = T.majorGroup;
+                    tobj.language = T.language;
+                    tobj.language_level = T.language_level;
+                    tobj.Information_level = T.Information_level;
                     context.SaveChanges();
                     return true;
                 }
