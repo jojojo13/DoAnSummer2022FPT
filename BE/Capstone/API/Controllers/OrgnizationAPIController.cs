@@ -21,7 +21,7 @@ namespace API.Controllers
 
         #region OTHER_LIST
         [AllowAnonymous]
-        [HttpGet("GetOtherList")]
+        [HttpPost("GetOtherList")]
         public IActionResult GetOtherList(string code)
         {
             List<Other_List> list = new List<Other_List>();
@@ -238,7 +238,7 @@ namespace API.Controllers
 
         #region DM chuc danh
         [AllowAnonymous]
-        [HttpGet("GetAllTitle")]
+        [HttpPost("GetAllTitle")]
         public IActionResult GetAllTitle(TitleResponse title)
         {
             Title tobj = new Title();
@@ -452,7 +452,7 @@ namespace API.Controllers
 
         #region DM vi tri cong viec
         [AllowAnonymous]
-        [HttpGet("GetAllPosition")]
+        [HttpPost("GetAllPosition")]
         public IActionResult GetAllPosition(PositionResponse objResponse)
         {
             Position tobj = new Position();
@@ -698,7 +698,7 @@ namespace API.Controllers
 
         #region Quan ly to chuc
         [AllowAnonymous]
-        [HttpGet("GetAllOrg")]
+        [HttpPost("GetAllOrg")]
         public IActionResult GetAllOrg(OrgResponse Org)
         {
             ORgnization tobj = new ORgnization();
@@ -915,7 +915,7 @@ namespace API.Controllers
 
         #region Thiet lap vi tri cong viec cho phong ban
         [AllowAnonymous]
-        [HttpGet("GetAllPositionOrg")]
+        [HttpPost("GetAllPositionOrg")]
         public IActionResult GetAllPositionOrg(PositionOrgResponse objResponse)
         {
             PositionOrg tobj = new PositionOrg();

@@ -17,7 +17,7 @@ namespace API.Controllers
     {
         private ICommon p = new Common();
         [AllowAnonymous]
-        [HttpGet("GetOtherListType")]
+        [HttpPost("GetOtherListType")]
         public IActionResult GetOtherListType()
         {
             List<Other_List_Type> list = new List<Other_List_Type>();
@@ -33,7 +33,7 @@ namespace API.Controllers
         }
 
         #region getbyID
-        [HttpGet("GetTitleByID")]
+        [HttpPost("GetTitleByID")]
         public IActionResult GetTitleByID(int ID)
         {
             Title obj = p.getTitleByID(ID);
