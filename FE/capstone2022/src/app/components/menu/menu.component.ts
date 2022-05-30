@@ -19,9 +19,7 @@ export class MenuComponent implements OnInit {
       dropDown.style.visibility = 'hidden';
       dropDown.style.transform = 'scaleY(0)';
       dropDown.style.height = '0';
-      console.log('1')
     } else {
-      console.log('2')
       dropDown.style.opacity = '1';
       dropDown.style.visibility = 'visible';
       dropDown.style.transform = 'scaleY(1)';
