@@ -1,4 +1,4 @@
-import { Account } from './../../models/Account';
+import { Account } from '../../../models/Account';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthorizeService } from 'src/app/services/authorize.service';
