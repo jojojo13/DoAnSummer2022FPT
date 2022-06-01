@@ -20,7 +20,7 @@ namespace API.Controllers
 
         #region RC_REQUEST
         [AllowAnonymous]
-        [HttpPost("GetAllRequest")]
+        [HttpGet("GetAllRequest")]
         public IActionResult GetAllRequest()
         {
             List<Rc_Request> list = p.GetAllRequest(new Rc_Request(), 0, Int32.MaxValue);
@@ -38,6 +38,8 @@ namespace API.Controllers
                 obj.EffectDate = item.EffectDate;
                 obj.ExpireDate = item.ExpireDate;
                 obj.StatusName = item.Status == -1 ? "Phê duyệt" : item.Status == 0 ? "Không phê duyệt" : "Chờ phê duyệt";
+                obj.Id = item.Id;
+                obj.ProjectName = item.Other_List3.Name;
                 list2.Add(obj);
             }
            
