@@ -21,31 +21,9 @@ namespace API.Controllers
         #region RC_REQUEST
         [AllowAnonymous]
         [HttpPost("GetAllRequest")]
-        public IActionResult GetAllRequest(RequestResponse T)
+        public IActionResult GetAllRequest()
         {
-            Rc_Request rc = new Rc_Request();
-            rc.Name = T.Name;
-            rc.Code = T.Code;
-            rc.Comment = T.Comment;
-            rc.EffectDate = T.EffectDate;
-            rc.Exp = T.Exp;
-            rc.ExpireDate = T.ExpireDate;
-            rc.Number = T.Number;
-            rc.OrgId = T.OrgId;
-            rc.oRgnization.Name = T.OrgName;
-            rc.PositionID = T.PositionID;
-            rc.position.Name = T.PositionName;
-            rc.SignId = T.SignId;
-            rc.employee.FullName = T.SignName;
-            rc.Number = T.Number;
-            rc.Exp = T.Exp;
-            rc.Other_List3.Name = T.ProjectName;
-            rc.Project = T.Project;
-            rc.SignDate = T.SignDate;
-            rc.Note = T.Note;
-            rc.Type = T.Type;
-            rc.Other_List2.Name = T.TypeName;
-            List<Rc_Request> list = p.GetAllRequest(rc, T.index, T.size);
+            List<Rc_Request> list = p.GetAllRequest(new Rc_Request(), 0, Int32.MaxValue);
             if (list.Count > 0)
             {
                 return Ok(new

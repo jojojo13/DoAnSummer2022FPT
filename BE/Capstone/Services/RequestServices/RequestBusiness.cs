@@ -70,86 +70,86 @@ namespace Services.RequestServices
                         item.oRgnization = context.ORgnizations.Where(x => x.Id == item.OrgId).FirstOrDefault();
                         item.employee = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
                     }
-                    if (!T.Code.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Code.ToLower().Contains(T.Code.ToLower())).ToList();
-                    }
-                    if (!T.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Name.ToLower().Contains(T.Name.ToLower())).ToList();
-                    }
-                    if (T.EffectDate.HasValue)
-                    {
-                        list = list.Where(x => x.EffectDate== T.EffectDate).ToList();
-                    }
-                    if (T.ExpireDate.HasValue)
-                    {
-                        list = list.Where(x => x.ExpireDate == T.ExpireDate).ToList();
-                    }
-                    if (T.OrgId.HasValue)
-                    {
-                        list = list.Where(x => x.OrgId == T.OrgId).ToList();
-                    }
-                    if (T.SignId.HasValue)
-                    {
-                        list = list.Where(x => x.SignId == T.SignId).ToList();
-                    }
-                    if (T.SignDate.HasValue)
-                    {
-                        list = list.Where(x => x.SignDate == T.SignDate).ToList();
-                    }
-                    if (!T.Note.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Note.ToLower().Contains(T.Note.ToLower())).ToList();
-                    }
-                    if (!T.Comment.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Comment.ToLower().Contains(T.Comment.ToLower())).ToList();
-                    }
-                    if (T.Status.HasValue)
-                    {
-                        list = list.Where(x => x.Status == T.Status).ToList();
-                    }
-                    if (T.Type.HasValue)
-                    {
-                        list = list.Where(x => x.Type == T.Type).ToList();
-                    }
-                    if (!T.Other_List2.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Other_List2.Name.ToLower().Contains(T.Other_List2.Name.ToLower())).ToList();
-                    }
-                    if (T.Number.HasValue)
-                    {
-                        list = list.Where(x => x.Number == T.Number).ToList();
-                    }
-                    if (!T.Exp.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Exp.ToLower().Contains(T.Exp.ToLower())).ToList();
-                    }
-                    if (!T.Other_List3.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Other_List3.Name.ToLower().Contains(T.Other_List3.Name.ToLower())).ToList();
-                    }
-                    if (T.Project.HasValue)
-                    {
-                        list = list.Where(x => x.Project == T.Project).ToList();
-                    }
-                    if (T.PositionID.HasValue)
-                    {
-                        list = list.Where(x => x.PositionID == T.PositionID).ToList();
-                    }
-                    if (!T.position.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.position.Name.ToLower().Contains(T.position.Name.ToLower())).ToList();
-                    }
-                    if (!T.employee.FullName.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.employee.FullName.ToLower().Contains(T.employee.FullName.ToLower())).ToList();
-                    }
-                    if (!T.oRgnization.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.oRgnization.Name.ToLower().Contains(T.oRgnization.Name.ToLower())).ToList();
-                    }
+                    //if (!T.Code.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.Code.ToLower().Contains(T.Code.ToLower())).ToList();
+                    //}
+                    //if (!T.Name.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.Name.ToLower().Contains(T.Name.ToLower())).ToList();
+                    //}
+                    //if (T.EffectDate.HasValue)
+                    //{
+                    //    list = list.Where(x => x.EffectDate== T.EffectDate).ToList();
+                    //}
+                    //if (T.ExpireDate.HasValue)
+                    //{
+                    //    list = list.Where(x => x.ExpireDate == T.ExpireDate).ToList();
+                    //}
+                    //if (T.OrgId.HasValue)
+                    //{
+                    //    list = list.Where(x => x.OrgId == T.OrgId).ToList();
+                    //}
+                    //if (T.SignId.HasValue)
+                    //{
+                    //    list = list.Where(x => x.SignId == T.SignId).ToList();
+                    //}
+                    //if (T.SignDate.HasValue)
+                    //{
+                    //    list = list.Where(x => x.SignDate == T.SignDate).ToList();
+                    //}
+                    //if (!T.Note.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.Note.ToLower().Contains(T.Note.ToLower())).ToList();
+                    //}
+                    //if (!T.Comment.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.Comment.ToLower().Contains(T.Comment.ToLower())).ToList();
+                    //}
+                    //if (T.Status.HasValue)
+                    //{
+                    //    list = list.Where(x => x.Status == T.Status).ToList();
+                    //}
+                    //if (T.Type.HasValue)
+                    //{
+                    //    list = list.Where(x => x.Type == T.Type).ToList();
+                    //}
+                    //if (!T.Other_List2.Name.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.Other_List2.Name.ToLower().Contains(T.Other_List2.Name.ToLower())).ToList();
+                    //}
+                    //if (T.Number.HasValue)
+                    //{
+                    //    list = list.Where(x => x.Number == T.Number).ToList();
+                    //}
+                    //if (!T.Exp.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.Exp.ToLower().Contains(T.Exp.ToLower())).ToList();
+                    //}
+                    //if (!T.Other_List3.Name.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.Other_List3.Name.ToLower().Contains(T.Other_List3.Name.ToLower())).ToList();
+                    //}
+                    //if (T.Project.HasValue)
+                    //{
+                    //    list = list.Where(x => x.Project == T.Project).ToList();
+                    //}
+                    //if (T.PositionID.HasValue)
+                    //{
+                    //    list = list.Where(x => x.PositionID == T.PositionID).ToList();
+                    //}
+                    //if (!T.position.Name.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.position.Name.ToLower().Contains(T.position.Name.ToLower())).ToList();
+                    //}
+                    //if (!T.employee.FullName.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.employee.FullName.ToLower().Contains(T.employee.FullName.ToLower())).ToList();
+                    //}
+                    //if (!T.oRgnization.Name.Trim().Equals(""))
+                    //{
+                    //    list = list.Where(x => x.oRgnization.Name.ToLower().Contains(T.oRgnization.Name.ToLower())).ToList();
+                    //}
                     return list;
                 }
             }
