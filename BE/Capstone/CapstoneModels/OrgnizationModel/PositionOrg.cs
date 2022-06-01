@@ -24,5 +24,7 @@ namespace CapstoneModels
         public ORgnization oRgnization { get; set; }
 
         public int? Status { get; set; }
+
+
     }
 }

@@ -63,5 +63,7 @@ namespace CapstoneModels
         public virtual ICollection<Rc_Phase_Request> Rc_Phase_Requests { get; set; }
 
         public virtual ICollection<PositionOrg> PositionOrgs { get; set; }
+
+        public virtual ICollection<Rc_Request> Rc_Requests { get; set; }
     }
 }

@@ -32,6 +32,11 @@ namespace CapstoneModels
 
         public string Note { get; set; }
 
+
+        public string Comment { get; set; }
+
+        public int? Status { get; set; }
+        //ko dùng
         public int? StatusHr { get; set; }
         [ForeignKey("StatusHr")]
         [InverseProperty("Rc_Requests")]
@@ -41,7 +46,27 @@ namespace CapstoneModels
         [ForeignKey("StatusMg")]
         [InverseProperty("Rc_Request1s")]
         public Other_List Other_List1 { get; set; }
+        //
 
+
+        public int? Type { get; set; }
+        [ForeignKey("Type")]
+        [InverseProperty("Rc_Request2s")]
+        public Other_List Other_List2 { get; set; }
+
+        public int? PositionID { get; set; }
+        [ForeignKey("PositionID")]
+        [InverseProperty("Rc_Requests")]
+        public Position position { get; set; }
+
+        public int? Number { get; set; }
+
+        public string Exp { get; set; }
+
+        public int? Project { get; set; }
+        [ForeignKey("Project")]
+        [InverseProperty("Rc_Request3s")]
+        public Other_List Other_List3 { get; set; }
 
         public virtual ICollection<Rc_Phase_Request> Rc_Phase_Requests  { get; set; }
     }

@@ -15,6 +15,16 @@ namespace API.Controllers
     [ApiController]
     public class ProfileAPIController : ControllerBase
     {
-       
+        #region list
+
+        #region DM loai HOP DONG
+
+        #endregion
+
+        #endregion
+        #region Business
+
+
+        #endregion
     }
 }

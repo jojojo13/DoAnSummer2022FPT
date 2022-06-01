@@ -22,7 +22,6 @@
   <ItemGroup>
     <Folder Include="bin\Debug\net5.0\ref\" />
     <Folder Include="obj\Debug\net5.0\ref\" />
-    <Folder Include="RequestServices\" />
   </ItemGroup>
 
   <ItemGroup>
