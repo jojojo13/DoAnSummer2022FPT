@@ -27,6 +27,7 @@ namespace API.ResponseModel.Request
         public string Comment { get; set; }
 
         public int? Status { get; set; }
+        public string StatusName { get; set; }
 
         public int? StatusHr { get; set; }
 

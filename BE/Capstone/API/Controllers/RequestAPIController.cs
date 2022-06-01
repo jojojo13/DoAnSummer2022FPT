@@ -24,12 +24,29 @@ namespace API.Controllers
         public IActionResult GetAllRequest()
         {
             List<Rc_Request> list = p.GetAllRequest(new Rc_Request(), 0, Int32.MaxValue);
+            List<RequestResponse> list2 = new List<RequestResponse>();
+
+            foreach (var item in list)
+            {
+                RequestResponse obj = new RequestResponse();
+                obj.Code = item.Code;
+                obj.Name = item.Name;
+                obj.TypeName = item.Other_List2.Name;
+                obj.OrgName = item.oRgnization.Name;
+                obj.PositionName = item.position.Name;
+                obj.Number = item.Number;
+                obj.EffectDate = item.EffectDate;
+                obj.ExpireDate = item.ExpireDate;
+                obj.StatusName = item.Status == -1 ? "Phê duyệt" : item.Status == 0 ? "Không phê duyệt" : "Chờ phê duyệt";
+                list2.Add(obj);
+            }
+           
             if (list.Count > 0)
             {
                 return Ok(new
                 {
                     Status = true,
-                    Data = list
+                    Data = list2
                 });
             }
             return StatusCode(200, "List is Null");
