@@ -11,8 +11,6 @@ namespace API.ResponseModel.Orgnization
         public string Code { get; set; }
         public string Name { get; set; }
         public string Note { get; set; }
-        public int index { get; set; }
-        public int size { get; set; }
         public int? Status { get; set; }
     }
 }

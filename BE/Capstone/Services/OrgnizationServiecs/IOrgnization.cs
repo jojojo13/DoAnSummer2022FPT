@@ -12,7 +12,7 @@ namespace Services.OrgnizationServiecs
         #region List
 
         #region"Title"
-         List<Title> GetAllTitle(Title T, int index, int size);
+         List<Title> GetAllTitle( int index, int size);
          bool InsertTitle(Title T);
          bool ModifyTitle(Title T);
          bool DeleteTitle(List<int> list);
@@ -20,7 +20,7 @@ namespace Services.OrgnizationServiecs
         #endregion
 
         #region"Position"
-         List<Position> GetAllPosition(Position T, int index, int size);
+         List<Position> GetAllPosition(int index, int size);
          bool InsertPosition(Position T);
          bool ModifyPosition(Position T);
          bool DeletePosition(List<int> list);
@@ -40,7 +40,7 @@ namespace Services.OrgnizationServiecs
 
         #region business
         #region"Org"
-        List<ORgnization> GetAllORgnization(ORgnization T);
+        List<ORgnization> GetAllORgnization();
          bool InsertOrg(ORgnization T);
          bool ModifyOrg(ORgnization T);
          bool DeleteOrg(int orgID);
@@ -49,7 +49,7 @@ namespace Services.OrgnizationServiecs
         #endregion
 
         #region Thiet lap vi tri cv cho phong ban
-        List<PositionOrg> GetAllPositionOrg(PositionOrg T, int index, int size);
+        List<PositionOrg> GetAllPositionOrg(int index, int size);
         bool InsertPositionOrg(PositionOrg T);
         bool ModifyPositionOrg(PositionOrg T);
         bool DeletePositionOrg(List<int> list);

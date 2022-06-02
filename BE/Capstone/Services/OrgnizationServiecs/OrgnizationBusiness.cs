@@ -123,7 +123,7 @@ namespace Services.OrgnizationServiecs
             }
         }
 
-        public List<ORgnization> GetAllORgnization(ORgnization T)
+        public List<ORgnization> GetAllORgnization()
         {
             try
             {
@@ -143,7 +143,7 @@ namespace Services.OrgnizationServiecs
 
         #region Thiet lap vi tri cong viec cho phong ban
 
-        public List<PositionOrg> GetAllPositionOrg(PositionOrg T, int index, int size)
+        public List<PositionOrg> GetAllPositionOrg( int index, int size)
         {
             try
             {
@@ -155,24 +155,6 @@ namespace Services.OrgnizationServiecs
                         item.oRgnization = context.ORgnizations.Where(x => x.Id == item.OrgID).FirstOrDefault();
                         item.position = context.Positions.Where(x => x.Id == item.positionID).FirstOrDefault();
                     }
-
-                    if (!T.position.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.position.Name.ToLower().Contains(T.position.Name.Trim().ToLower())).ToList();
-                    }
-                    if (!T.oRgnization.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.oRgnization.Name.ToLower().Contains(T.oRgnization.Name.Trim().ToLower())).ToList();
-                    }
-                    if (T.OrgID.HasValue)
-                    {
-                        list = list.Where(x => x.OrgID == T.OrgID).ToList();
-                    }
-                    if (T.positionID.HasValue)
-                    {
-                        list = list.Where(x => x.positionID == T.positionID).ToList();
-                    }
-
                     return list;
                 }
             }

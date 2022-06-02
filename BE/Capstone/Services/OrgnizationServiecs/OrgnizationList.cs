@@ -116,29 +116,13 @@ namespace Services.OrgnizationServiecs
         #endregion
 
         #region"Title"
-        public List<Title> GetAllTitle(Title T, int index, int size)
+        public List<Title> GetAllTitle(int index, int size)
         {
             try
             {
                 using (Context context = new Context())
                 {
                     List<Title> list = context.Titles.ToList().Skip(index * size).Take(size).ToList();
-                    if (!T.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Name.ToLower().Contains(T.Name.Trim().ToLower())).ToList();
-                    }
-                    if (!T.Code.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Code.ToLower().Contains(T.Code.Trim().ToLower())).ToList();
-                    }
-                    if (T.Status.HasValue)
-                    {
-                        list = list.Where(x => x.Status == T.Status).ToList();
-                    }
-                    if (!T.Note.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Note.ToLower().Contains(T.Note.Trim().ToLower())).ToList();
-                    }
                     return list;
                 }
             }
@@ -235,7 +219,7 @@ namespace Services.OrgnizationServiecs
 
         #region"Position"
 
-        public List<Position> GetAllPosition(Position T, int index, int size)
+        public List<Position> GetAllPosition(int index, int size)
         {
             try
             {
@@ -245,39 +229,6 @@ namespace Services.OrgnizationServiecs
                     foreach (var item in list)
                     {
                         item.Title = context.Titles.Where(x => x.Id == item.TitleID).FirstOrDefault();
-                    }
-
-                    if (!T.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Name.ToLower().Contains(T.Name.Trim().ToLower())).ToList();
-                    }
-                    if (!T.Code.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Code.ToLower().Contains(T.Code.Trim().ToLower())).ToList();
-                    }
-                    if (T.Status.HasValue)
-                    {
-                        list = list.Where(x => x.Status == T.Status).ToList();
-                    }
-                    if (!T.Note.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Note.ToLower().Contains(T.Note.Trim().ToLower())).ToList();
-                    }
-                    if (!T.OtherSkill.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.OtherSkill.ToLower().Contains(T.OtherSkill.Trim().ToLower())).ToList();
-                    }
-                    if (T.BasicSalary.HasValue)
-                    {
-                        list = list.Where(x => x.BasicSalary == T.BasicSalary).ToList();
-                    }
-                    if (T.FormWorking.HasValue)
-                    {
-                        list = list.Where(x => x.FormWorking == T.FormWorking).ToList();
-                    }
-                    if (!T.Title.Name.Trim().Equals(""))
-                    {
-                        list = list.Where(x => x.Title.Name.ToLower().Contains(T.Title.Name.Trim().ToLower())).ToList();
                     }
                     return list;
                 }

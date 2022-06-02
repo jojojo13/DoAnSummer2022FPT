@@ -33,23 +33,23 @@ namespace API.Controllers
                 obj.Code = item.Code;
                 obj.Name = item.Name;
                 obj.Type = item.Type;
-                obj.TypeName = item.Other_List2.Name;
+                obj.TypeName = item.Other_List2?.Name;
                 obj.OrgId = item.OrgId;
-                obj.OrgName = item.oRgnization.Name;
+                obj.OrgName = item.oRgnization?.Name;
                 obj.PositionID = item.PositionID;
                 obj.Exp = item.Exp;
                 obj.Note = item.Note;
                 obj.Comment = item.Comment;
-                obj.PositionName = item.position.Name;
+                obj.PositionName = item.position?.Name;
                 obj.Number = item.Number;
                 obj.EffectDate = item.EffectDate;
                 obj.ExpireDate = item.ExpireDate;
                 obj.StatusName = item.Status == -1 ? "Phê duyệt" : item.Status == 0 ? "Không phê duyệt" : "Chờ phê duyệt";
                 obj.Id = item.Id;
                 obj.Project= item.Project;
-                obj.ProjectName = item.Other_List3.Name;
+                obj.ProjectName = item.Other_List3?.Name;
                 obj.SignId = item.SignId;
-                obj.SignName = item.employee.FullName;
+                obj.SignName = item.employee?.FullName;
                 list2.Add(obj);
             }
            

@@ -30,7 +30,5 @@ namespace API.ResponseModel.Orgnization
         public string language_levelName { get; set; }
         public int? Information_level { get; set; }
         public string Information_levelName { get; set; }
-        public int index { get; set; }
-        public int size { get; set; }
     }
 }

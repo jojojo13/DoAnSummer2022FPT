@@ -1,4 +1,5 @@
-﻿using API.ResponseModel.Orgnization;
+﻿using API.ResponseModel.Common;
+using API.ResponseModel.Orgnization;
 using CapstoneModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -239,14 +240,9 @@ namespace API.Controllers
         #region DM chuc danh
         [AllowAnonymous]
         [HttpPost("GetAllTitle")]
-        public IActionResult GetAllTitle(TitleResponse title)
+        public IActionResult GetAllTitle(CommonResponse common)
         {
-            Title tobj = new Title();
-            tobj.Name = title.Name;
-            tobj.Code = title.Code;
-            tobj.Note = title.Note;
-            tobj.Status = title.Status;
-            List<Title> list = p.GetAllTitle(tobj, title.index, title.size);
+            List<Title> list = p.GetAllTitle(common.index, common.size);
             if (list.Count > 0)
             {
                 return Ok(new
@@ -453,25 +449,9 @@ namespace API.Controllers
         #region DM vi tri cong viec
         [AllowAnonymous]
         [HttpPost("GetAllPosition")]
-        public IActionResult GetAllPosition(PositionResponse objResponse)
+        public IActionResult GetAllPosition(CommonResponse common)
         {
-            Position tobj = new Position();
-            tobj.Name = objResponse.Name;
-            tobj.Code = objResponse.Code;
-            tobj.Status = objResponse.Status;
-            tobj.Note = objResponse.Note;
-            tobj.Title.Name = objResponse.TitleName;
-            tobj.BasicSalary = objResponse.BasicSalary;
-            tobj.OtherSkill = objResponse.OtherSkill;
-            tobj.Other_List.Name = objResponse.FormWorkingName;
-            tobj.Other_List1.Name = objResponse.Learning_levelName;
-            tobj.year_exp = objResponse.year_exp;
-            tobj.Other_List2.Name = objResponse.majorGroupName;
-            tobj.major = objResponse.major;
-            tobj.Other_List3.Name = objResponse.languageName;
-            tobj.Other_List4.Name = objResponse.language_levelName;
-            tobj.Other_List5.Name = objResponse.Information_levelName;
-            List<Position>list = p.GetAllPosition(tobj, objResponse.index, objResponse.size);
+            List<Position>list = p.GetAllPosition(common.index, common.size);
             if (list.Count > 0)
             {
                 return Ok(new
@@ -699,22 +679,9 @@ namespace API.Controllers
         #region Quan ly to chuc
         [AllowAnonymous]
         [HttpPost("GetAllOrg")]
-        public IActionResult GetAllOrg(OrgResponse Org)
+        public IActionResult GetAllOrg()
         {
-            ORgnization tobj = new ORgnization();
-            tobj.Name = Org.Name;
-            tobj.Code = Org.Code;
-            tobj.Note = Org.Note;
-            tobj.Status = Org.Status;
-            tobj.CreateDate = Org.CreateDate;
-            tobj.DissolutionDate = Org.DissolutionDate;
-            tobj.Note = Org.Note;
-            tobj.Fax = Org.Fax;
-            tobj.Email = Org.Email;
-            tobj.Mobile = Org.Mobile;
-            tobj.NumberBussines = Org.NumberBussines;
-            tobj.Address = Org.Address;
-            List<ORgnization> list = p.GetAllORgnization(tobj);
+            List<ORgnization> list = p.GetAllORgnization();
             if (list.Count > 0)
             {
                 return Ok(new
@@ -916,15 +883,9 @@ namespace API.Controllers
         #region Thiet lap vi tri cong viec cho phong ban
         [AllowAnonymous]
         [HttpPost("GetAllPositionOrg")]
-        public IActionResult GetAllPositionOrg(PositionOrgResponse objResponse)
+        public IActionResult GetAllPositionOrg(CommonResponse common)
         {
-            PositionOrg tobj = new PositionOrg();
-            tobj.Status = objResponse.Status;
-            tobj.positionID = objResponse.positionID;
-            tobj.OrgID = objResponse.OrgID;
-            tobj.position.Name = objResponse.positionName;
-            tobj.oRgnization.Name = objResponse.OrgName;
-            List<PositionOrg> list = p.GetAllPositionOrg(tobj, objResponse.index, objResponse.size);
+            List<PositionOrg> list = p.GetAllPositionOrg(common.index, common.size);
             if (list.Count > 0)
             {
                 return Ok(new
