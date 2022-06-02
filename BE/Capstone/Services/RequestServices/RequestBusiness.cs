@@ -73,11 +73,10 @@ namespace Services.RequestServices
                     return list;
                 }
             }
-            catch
+            catch(Exception e)
             {
-                return new List<Rc_Request>();
+                throw e;
             }
-         
         }
 
         public Rc_Request GetRequestByID(int ID)
