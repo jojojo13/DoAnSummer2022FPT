@@ -54,7 +54,7 @@ namespace Services.RequestServices
             }
         }
 
-        public List<Rc_Request> GetAllRequest(Rc_Request T, int index, int size)
+        public List<Rc_Request> GetAllRequest(int index, int size)
         {
 
             try

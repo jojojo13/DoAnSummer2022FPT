@@ -9,9 +9,8 @@ namespace Services.RequestServices
 {
    public interface IRequest
     {
-
         #region RC_REQUEST
-        List<Rc_Request> GetAllRequest(Rc_Request T, int index, int size);
+        List<Rc_Request> GetAllRequest(int index, int size);
         bool InsertRequest(Rc_Request T);
         bool ModifyRequest(Rc_Request T);
         bool DeleteRequest(List<int> list);

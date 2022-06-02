@@ -1,4 +1,5 @@
-﻿using API.ResponseModel.Request;
+﻿using API.ResponseModel.Common;
+using API.ResponseModel.Request;
 using CapstoneModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,10 +21,10 @@ namespace API.Controllers
 
         #region RC_REQUEST
         [AllowAnonymous]
-        [HttpGet("GetAllRequest")]
-        public IActionResult GetAllRequest()
+        [HttpPost("GetAllRequest")]
+        public IActionResult GetAllRequest(CommonResponse common)
         {
-            List<Rc_Request> list = p.GetAllRequest(new Rc_Request(), 0, Int32.MaxValue);
+            List<Rc_Request> list = p.GetAllRequest(common.index, common.size);
             List<RequestResponse> list2 = new List<RequestResponse>();
 
             foreach (var item in list)
