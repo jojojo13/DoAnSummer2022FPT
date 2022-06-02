@@ -44,9 +44,5 @@ namespace API.ResponseModel.Request
 
         public int? Project { get; set; }
         public string ProjectName { get; set; }
-
-
-        public int index { get; set; }
-        public int size { get; set; }
     }
 }
