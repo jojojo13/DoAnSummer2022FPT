@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>4636f766-f808-43d7-ba8e-2d80046e527c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,7 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Services\Services.csproj" />
+    <Reference Include="CapstoneModels">
+      <HintPath>..\CapstoneModels\bin\Debug\net5.0\CapstoneModels.dll</HintPath>
+    </Reference>
+    <Reference Include="Services">
+      <HintPath>..\Services\bin\Debug\net5.0\Services.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

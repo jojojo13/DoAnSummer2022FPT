@@ -19,7 +19,7 @@ namespace CapstoneModels
         public int? Level { get; set; }
         public DateTime CreateDate { get; set; }
 
-        public DateTime DissolutionDate { get; set; }
+        public DateTime? DissolutionDate { get; set; }
         //
         public int? Status { get; set; }
         //

@@ -75,7 +75,7 @@ namespace Services.RequestServices
             }
             catch(Exception e)
             {
-                throw e;
+                return new List<Rc_Request>();
             }
         }
 

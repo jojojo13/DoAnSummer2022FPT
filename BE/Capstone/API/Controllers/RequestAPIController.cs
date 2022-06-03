@@ -55,11 +55,7 @@ namespace API.Controllers
            
             if (list.Count > 0)
             {
-                return Ok(new
-                {
-                    Status = true,
-                    Data = list2
-                });
+                return Ok( list2);
             }
             return StatusCode(200, "List is Null");
         }
