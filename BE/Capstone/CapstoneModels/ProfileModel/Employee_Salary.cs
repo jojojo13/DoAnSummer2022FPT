@@ -6,24 +6,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
-namespace CapstoneModels.ProfileModel
+namespace CapstoneModels
 {   
     [Table("Employee_Salary")]
     public class Employee_Salary
     {
         [Key]
         public int Id { get; set; }
-        public int? EmployeeId { get; set; }
-
-
-        public int? Org_ID { get; set; }
-
+        public int? EmployeeID { get; set; }
+        [ForeignKey("EmployeeID")]
+        [InverseProperty("Employee_Salaries")]
+        public Employee employee { get; set; }
 
         public string Decisiong_NO { get; set; }
         public string Note { set; get; }
         public DateTime? Effect_Date { get; set; }
         public DateTime? Expire_Date { get; set; }
+
         public int? Sign_ID { get; set; }
+        [ForeignKey("Sign_ID")]
+        [InverseProperty("Employee_Salarie1s")]
+        public Employee signer { get; set; }
+
         public DateTime? Sign_Date { get; set; }
         public int? Status { get; set; }
         public int? SAL_Rank { get; set; }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
-namespace CapstoneModels.ProfileModel
+namespace CapstoneModels
 {
     [Table("Employee_Working_Before")]
     public class Employee_Working_Before
@@ -18,8 +18,8 @@ namespace CapstoneModels.ProfileModel
 
         public int? EmployeeID { get; set; }
         [ForeignKey("EmployeeID")]
-        [InverseProperty("")]
-   // thieu
+        [InverseProperty("Employee_Working_Befores")]
+        public Employee employee { get; set; }
 
         //
         public string CompanyName { get; set; }

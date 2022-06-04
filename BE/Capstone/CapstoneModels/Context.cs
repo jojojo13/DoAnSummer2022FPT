@@ -25,6 +25,11 @@ namespace CapstoneModels
         public DbSet<PositionOrg> PositionOrgs { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeCV> EmployeeCVs { get; set; }
+        public DbSet<EmployeeEdu> employeeEdus { get; set; }
+        public DbSet<Employee_Family> employee_Families { get; set; }
+        public DbSet<Employee_Salary> Employee_Salaries { get; set; }
+        public DbSet<Employee_Heal> employee_Heals { get; set; }
+        public DbSet<Employee_Working_Before> employee_Working_Befores { get; set; }
         public DbSet<EmployeeContract> EmployeeContracts { get; set; }
 
         // Tuyen dung

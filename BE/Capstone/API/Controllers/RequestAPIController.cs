@@ -1,4 +1,5 @@
-﻿using API.ResponseModel.Common;
+﻿using API.Atributes;
+using API.ResponseModel.Common;
 using API.ResponseModel.Request;
 using CapstoneModels;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    //[CustomAuthorization]
     [Route("api/[controller]")]
     [ApiController]
     public class RequestAPIController : ControllerBase
@@ -21,9 +23,8 @@ namespace API.Controllers
         private ICommon c = new Common();
 
         #region RC_REQUEST
-        [AllowAnonymous]
         [HttpPost("GetAllRequest")]
-        public IActionResult GetAllRequest(CommonResponse common)
+        public IActionResult  GetAllRequest(CommonResponse common)
         {
             List<Rc_Request> list = p.GetAllRequest(common.index, common.size);
             List<RequestResponse> list2 = new List<RequestResponse>();
@@ -64,7 +65,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ActiveRequest")]
         public IActionResult ActiveOT([FromBody] string ListID)
         {
@@ -104,7 +105,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("DeActiveRequest")]
         public IActionResult DeActiveOT([FromBody] string ListID)
         {
@@ -144,7 +145,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("DeleteRequest")]
         public IActionResult DeleteOT([FromBody] string ListID)
         {
@@ -184,7 +185,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("InsertRequest")]
         public IActionResult InsertRequest([FromBody] RequestResponse T)
         {
@@ -224,7 +225,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ModifyOT")]
         public IActionResult ModifyOT([FromBody] RequestResponse T)
         {

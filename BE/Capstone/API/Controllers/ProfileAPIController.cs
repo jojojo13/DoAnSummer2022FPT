@@ -17,7 +17,7 @@ namespace API.Controllers
     {
         private ICommon p = new Common();
         #region list
-        [AllowAnonymous]
+
         [HttpPost("autoGenCode3character")]
         public IActionResult autoGenCode3character()
         {

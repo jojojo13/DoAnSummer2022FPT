@@ -25,6 +25,8 @@ namespace CapstoneModels
         public virtual ICollection<EmployeeCV> EmployeeCV2s { get; set; }
         public virtual ICollection<EmployeeCV> EmployeeCV3s { get; set; }
 
+        public virtual ICollection<Employee_Family> Employee_Families { get; set; }
+
         public virtual ICollection<Rc_Candidate_Family> Rc_Candidate_Families { get; set; }
 
         public virtual ICollection<Rc_Candidate_CV> Rc_Candidate_CVs { get; set; }

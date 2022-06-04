@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //
-namespace CapstoneModels.ProfileModel
+namespace CapstoneModels
 {
     [Table("Employee_Family")]
     public class Employee_Family
@@ -18,15 +18,17 @@ namespace CapstoneModels.ProfileModel
 
         public int? EmployeeID { get; set; }
         [ForeignKey("EmployeeID")]
-        [InverseProperty("")]
-      
+        [InverseProperty("Employee_Families")]
+        public Employee Employee { get; set; }
+
 
         public string Fullname { get; set; }
 
 
         public int? RelationId { get; set; }
-        [ForeignKey("RelationId")]
-        [InverseProperty("")]
+        [ForeignKey("EmployeeID")]
+        [InverseProperty("Employee_Families")]
+        public Other_List Relation { get; set; }
 
 
         public int? Is_Deduct { get; set; }
@@ -37,23 +39,25 @@ namespace CapstoneModels.ProfileModel
 
         public int? NationID { get; set; }
         [ForeignKey("NationID")]
-        [InverseProperty("")]
+        [InverseProperty("Employee_Families")]
         public Nation Nation { get; set; }
 
 
         public int? Porvince { get; set; }
         [ForeignKey("Porvince")]
-        [InverseProperty("Rc_Candidate_Families")]
+        [InverseProperty("Employee_Families")]
         public Province province { get; set; }
 
 
         public int? DistrictID { get; set; }
         [ForeignKey("DistrictID")]
-        [InverseProperty("")]
+        [InverseProperty("Employee_Families")]
         public District District { get; set; }
+
+
         public int? WardID { get; set; }
         [ForeignKey("WardID")]
-        [InverseProperty("")]
+        [InverseProperty("Employee_Families")]
         public Ward Ward { get; set; }
     }
 }

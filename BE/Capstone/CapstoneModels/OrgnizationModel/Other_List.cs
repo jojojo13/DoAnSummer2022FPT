@@ -61,5 +61,25 @@ namespace CapstoneModels
         public virtual ICollection<Position> Position3s { get; set; }
         public virtual ICollection<Position> Position4s { get; set; }
         public virtual ICollection<Position> Position5s { get; set; }
+
+
+
+
+
+
+
+
+        public virtual ICollection<EmployeeEdu> EmployeeEdus { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEdu1s { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEdu2s { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEdu3s { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEdu4s { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEdu5s { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEdu6s { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEdu7s { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEdu8s { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEdu9s { get; set; }
+        public virtual ICollection<Employee_Family> Employee_Families { get; set; }
+        public virtual ICollection<Employee_Heal> Employee_Heals { get; set; }
     }
 }

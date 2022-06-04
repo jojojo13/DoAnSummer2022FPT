@@ -21,7 +21,7 @@ namespace API.Controllers
         #region List
 
         #region OTHER_LIST
-        [AllowAnonymous]
+
         [HttpPost("GetOtherList")]
         public IActionResult GetOtherList(string code)
         {
@@ -38,7 +38,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ActiveOT")]
         public IActionResult ActiveOT([FromBody] string ListID)
         {
@@ -78,7 +78,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("DeActiveOT")]
         public IActionResult DeActiveOT([FromBody] string ListID)
         {
@@ -118,7 +118,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("DeleteOT")]
         public IActionResult DeleteOT([FromBody] string ListID)
         {
@@ -158,7 +158,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("InsertOT")]
         public IActionResult InsertOT([FromBody] OtherListResponse objresponse)
         {
@@ -197,7 +197,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ModifyOT")]
         public IActionResult ModifyOT([FromBody] OtherListResponse objresponse)
         {
@@ -238,7 +238,7 @@ namespace API.Controllers
 
 
         #region DM chuc danh
-        [AllowAnonymous]
+
         [HttpPost("GetAllTitle")]
         public IActionResult GetAllTitle(CommonResponse common)
         {
@@ -254,7 +254,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ActiveTitle")]
         public IActionResult ActiveTitle([FromBody] string ListID)
         {
@@ -294,7 +294,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("DeActiveTitle")]
         public IActionResult DeActiveTitle([FromBody] string ListID)
         {
@@ -334,7 +334,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("DeleteTitle")]
         public IActionResult DeleteTitle([FromBody] string ListID)
         {
@@ -374,7 +374,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("InsertTitle")]
         public IActionResult InsertTitle([FromBody] TitleResponse objresponse)
         {
@@ -410,7 +410,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ModifyTitle")]
         public IActionResult ModifyTitle([FromBody] TitleResponse objresponse)
         {
@@ -447,7 +447,7 @@ namespace API.Controllers
         #endregion
 
         #region DM vi tri cong viec
-        [AllowAnonymous]
+
         [HttpPost("GetAllPosition")]
         public IActionResult GetAllPosition(CommonResponse common)
         {
@@ -463,7 +463,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ActivePosition")]
         public IActionResult ActivePosition([FromBody] string ListID)
         {
@@ -503,7 +503,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("DeActivePosition")]
         public IActionResult DeActivePosition([FromBody] string ListID)
         {
@@ -543,7 +543,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("DeletePosition")]
         public IActionResult DeletePosition([FromBody] string ListID)
         {
@@ -583,7 +583,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("InsertPosition")]
         public IActionResult InsertPosition([FromBody] PositionResponse objresponse)
         {
@@ -627,7 +627,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ModifyPosition")]
         public IActionResult ModifyPosition([FromBody] PositionResponse objresponse)
         {
@@ -677,7 +677,7 @@ namespace API.Controllers
         #region Business
 
         #region Quan ly to chuc
-        [AllowAnonymous]
+
         [HttpPost("GetAllOrg")]
         public IActionResult GetAllOrg()
         {
@@ -693,7 +693,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ActiveOrg")]
         public IActionResult ActiveOrg([FromBody] int ID)
         {
@@ -724,7 +724,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("DeActiveOrg")]
         public IActionResult DeActiveOrg([FromBody] int ID)
         {
@@ -755,7 +755,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("DeleteOrg")]
         public IActionResult DeleteOrg([FromBody] int ID)
         {
@@ -787,7 +787,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("InsertOrg")]
         public IActionResult InsertOrg([FromBody] OrgResponse objresponse)
         {
@@ -833,7 +833,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ModifyOrg")]
         public IActionResult ModifyOrg([FromBody] OrgResponse objresponse)
         {
@@ -881,7 +881,7 @@ namespace API.Controllers
         #endregion
 
         #region Thiet lap vi tri cong viec cho phong ban
-        [AllowAnonymous]
+
         [HttpPost("GetAllPositionOrg")]
         public IActionResult GetAllPositionOrg(CommonResponse common)
         {
@@ -897,7 +897,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ActivePositionOrg")]
         public IActionResult ActivePositionOrg([FromBody] string ListID)
         {
@@ -937,7 +937,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("DeActivePositionOrg")]
         public IActionResult DeActivePositionOrg([FromBody] string ListID)
         {
@@ -977,7 +977,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("DeletePositionOrg")]
         public IActionResult DeletePositionOrg([FromBody] string ListID)
         {
@@ -1017,7 +1017,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPost("InsertPositionOrg")]
         public IActionResult InsertPositionOrg([FromBody] PositionOrgResponse objresponse)
         {
@@ -1052,7 +1052,7 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
+
         [HttpPut("ModifyPositionOrg")]
         public IActionResult ModifyPositionOrg([FromBody] PositionOrgResponse objresponse)
         {
