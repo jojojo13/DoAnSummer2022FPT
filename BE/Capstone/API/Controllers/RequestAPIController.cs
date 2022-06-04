@@ -4,6 +4,7 @@ using CapstoneModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.CommonServices;
 using Services.RequestServices;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace API.Controllers
     public class RequestAPIController : ControllerBase
     {
         private IRequest p = new Request();
-
+        private ICommon c = new Common();
 
         #region RC_REQUEST
         [AllowAnonymous]
@@ -52,10 +53,13 @@ namespace API.Controllers
                 obj.SignName = item.employee?.FullName;
                 list2.Add(obj);
             }
-           
             if (list.Count > 0)
             {
-                return Ok( list2);
+                return Ok(new
+                {
+                    TotalPage = c.getTotalPage("Rc_Request",common.size),
+                    Data = list2
+                });
             }
             return StatusCode(200, "List is Null");
         }

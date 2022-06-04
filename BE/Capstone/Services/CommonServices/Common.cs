@@ -23,7 +23,7 @@ namespace Services.CommonServices
             {
                 string query = "select Code from " + tableName + " order by Id desc";
                 DataTable dt = DAOContext.GetDataBySql(query);
-                DataRow lastRow = dt.Rows[dt.Rows.Count - 1];
+                DataRow lastRow = dt.Rows[0];
                 string Code = lastRow["Code"].ToString();
 
                 if (Code != null)
@@ -48,7 +48,7 @@ namespace Services.CommonServices
             {
                 string query = "select Code from " + tableName + " order by Id desc";
                 DataTable dt = DAOContext.GetDataBySql(query);
-                DataRow lastRow = dt.Rows[dt.Rows.Count - 1];
+                DataRow lastRow = dt.Rows[0];
                 string Code = lastRow["Code"].ToString();
 
                 if (Code != null)
@@ -132,7 +132,7 @@ namespace Services.CommonServices
             {
                 using (Context context = new Context())
                 {
-                    List<Other_List_Type> list = context.Other_Lists_Types.Where(x=>x.Status==-1).ToList();
+                    List<Other_List_Type> list = context.Other_Lists_Types.Where(x => x.Status == -1).ToList();
                     return list;
                 }
             }
@@ -222,5 +222,20 @@ namespace Services.CommonServices
         }
         #endregion
 
+
+
+        public int getTotalPage(string tableName, int size)
+        {
+            string query = "select count(*) COUNT from " + tableName;
+            DataTable dt = DAOContext.GetDataBySql(query);
+            DataRow lastRow = dt.Rows[0];
+            int COUNT = Convert.ToInt32(lastRow["COUNT"]);
+            int totalPage = COUNT / size;
+            if(COUNT% size >= 1)
+            {
+                totalPage++;
+            }
+            return totalPage;
+        }
     }
 }
