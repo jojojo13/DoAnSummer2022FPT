@@ -61,7 +61,6 @@ D:\DoAn2022\BE\Capstone\API\obj\Debug\net5.0\refint\API.dll
 D:\DoAn2022\BE\Capstone\API\obj\Debug\net5.0\API.pdb
 D:\DoAn2022\BE\Capstone\API\obj\Debug\net5.0\API.genruntimeconfig.cache
 D:\DoAn2022\BE\Capstone\API\obj\Debug\net5.0\ref\API.dll
-D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
 D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.GeneratedMSBuildEditorConfig.editorconfig
 D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.AssemblyInfoInputs.cache
 D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.AssemblyInfo.cs
@@ -129,3 +128,10 @@ D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.dll
 D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\ref\API.dll
 D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.pdb
 D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\System.Data.SqlClient.dll
+D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
+D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
