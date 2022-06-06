@@ -68,6 +68,13 @@ namespace CapstoneModels
         [InverseProperty("Rc_Request3s")]
         public Other_List Other_List3 { get; set; }
 
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
+
         public virtual ICollection<Rc_Phase_Request> Rc_Phase_Requests  { get; set; }
     }
 }

@@ -23,7 +23,17 @@ namespace CapstoneModels
 
         public int? TypeID { get; set; }
         [ForeignKey("TypeID")]
+
         public Other_List_Type Other_List_Type { get; set; }
+
+
+  
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         public virtual ICollection<Position> Positions { get; set; }    
 

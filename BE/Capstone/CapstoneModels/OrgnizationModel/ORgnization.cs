@@ -13,21 +13,29 @@ namespace CapstoneModels
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(10)]
         public string Code { get; set; }
+        [StringLength(50)]
         public string Name { get; set; }
         public int? ParentID { get; set; }   
         public int? Level { get; set; }
-        public DateTime CreateDate { get; set; }
+
 
         public DateTime? DissolutionDate { get; set; }
         //
         public int? Status { get; set; }
         //
+
         public string Note { get; set; }
+        [StringLength(100)]
         public string Fax { get; set; }
+        [StringLength(100)]
         public string Email { get; set; }
-        public string Mobile { get; set; }
+        [StringLength(50)]
+        public string Phone { get; set; }
+        [StringLength(50)]
         public string NumberBussines { get; set; }
+ 
         public string Address { get; set; }
         //
         public int? NationID { get; set; }
@@ -55,6 +63,13 @@ namespace CapstoneModels
         [ForeignKey("ManagerID")]
         [InverseProperty("ORgnizations")]
         public Employee Employee { get; set; }
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
+
 
         public virtual ICollection<Employee> Employees1 { get; set; }
 

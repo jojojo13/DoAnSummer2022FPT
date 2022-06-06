@@ -14,7 +14,7 @@ namespace CapstoneModels
         [Key]
         public int Id { get; set; }
        
-        public DateTime? CreateDate { get; set; }
+      
         public DateTime? ModifyDate { get; set; }
         public string User_log { get; set; }
 
@@ -22,5 +22,11 @@ namespace CapstoneModels
         [ForeignKey("Phase_Request_ID")]
         [InverseProperty("Rc_Request_Histories")]
         public Rc_Phase_Request rc_Phase_Request { get; set; }
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
     }
 }

@@ -21,6 +21,14 @@ namespace CapstoneModels
         public int? ProvinceID { get; set; }
         [ForeignKey("ProvinceID")]
         public Province Province { get; set; }
+
+
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
         public virtual ICollection<Ward> Wards { get; set; }  
         public virtual ICollection<ORgnization> ORgnizations { get; set; }
 

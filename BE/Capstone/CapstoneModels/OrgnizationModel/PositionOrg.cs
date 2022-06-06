@@ -25,6 +25,12 @@ namespace CapstoneModels
 
         public int? Status { get; set; }
 
-
+  
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
     }
 }

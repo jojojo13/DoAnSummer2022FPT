@@ -16,8 +16,15 @@ namespace CapstoneModels
         public string Name { get; set; }
         public string Code { get; set; }
         public int? Status { get; set; }
-        public string Note { get; set; }    
+        public string Note { get; set; }
 
+
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
         public virtual ICollection<Province> Provinces { get; set; }
 
         public virtual ICollection<ORgnization> ORgnizations { get; set; }

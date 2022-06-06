@@ -23,6 +23,13 @@ namespace CapstoneModels
         public Employee Employee { get; set; }
 
         public int? Rule { get; set; }
+
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
         //12
 
 

@@ -22,7 +22,12 @@ namespace CapstoneModels
         [ForeignKey("NationID")]
         public Nation Nation { get; set; }
 
-
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
         public virtual ICollection<District> Districts { get; set; }    
         public virtual ICollection<ORgnization> ORgnizations { get; set; }
         public virtual ICollection<EmployeeCV> EmployeeCV1s { get; set; }

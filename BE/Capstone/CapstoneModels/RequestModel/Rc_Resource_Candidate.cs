@@ -19,5 +19,12 @@ namespace CapstoneModels
         public int? NumberCandidate { get; set; }
 
         public virtual ICollection<Rc_Candidate> Rc_Candidates { get; set; }
+
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
     }
 }

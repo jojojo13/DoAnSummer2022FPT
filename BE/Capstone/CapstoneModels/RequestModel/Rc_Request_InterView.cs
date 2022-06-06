@@ -22,7 +22,12 @@ namespace CapstoneModels
         [InverseProperty("Rc_Request_InterViews")]
         public Rc_Phase_Request rc_Phase_Request { get; set; }
 
-
+        [StringLength(100)]
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        [StringLength(100)]
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         public virtual ICollection<Rc_Request_InterView_Result>  rc_Request_InterView_Result { get; set; }
         public virtual ICollection<Rc_Request_Schedu> Rc_Request_Schedus { get; set; }
