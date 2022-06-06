@@ -28,6 +28,7 @@ namespace CapstoneModels
         public Rc_Request_InterView rc_Request_InterView { get; set; }
 
         public DateTime? Date { get; set; }
+        [StringLength(100)]
         public string DiaDiem { get; set; }
 
         public int? HinhThuc { get; set; }

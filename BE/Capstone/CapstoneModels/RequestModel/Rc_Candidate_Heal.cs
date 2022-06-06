@@ -18,15 +18,23 @@ namespace CapstoneModels
         [ForeignKey("Cadidate_ID")]
         [InverseProperty("Rc_Candidate_Heals")]
         public Rc_Candidate rc_Candidate { get; set; }
-
+        [StringLength(100)]
         public string Chieu_Cao { get; set; }
+        [StringLength(100)]
         public string Can_Nang { get; set; }
+        [StringLength(100)]
         public string Nhom_mau { get; set; }
+        [StringLength(100)]
         public string Huyet_Ap { get; set; }
+        [StringLength(100)]
         public string Mat_Trai { get; set; }
+        [StringLength(100)]
         public string Mat_Phai { get; set; }
+        [StringLength(100)]
         public string Tai_Mui_Hong { get; set; }
+        [StringLength(100)]
         public string Tim { get; set; }
+        [StringLength(100)]
         public string Benh_Khac { get; set; }
         public string Note { get; set; }
 

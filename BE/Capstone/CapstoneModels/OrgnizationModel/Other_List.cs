@@ -13,12 +13,18 @@ namespace CapstoneModels
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(10)]
         public string Code { get; set; }
+        [StringLength(100)]
         public string Name { get; set; }
         public int? Status { get; set; }
+  
         public string Note { get; set; }
+        [StringLength(100)]
         public string Atribute1 { get; set; }
+        [StringLength(100)]
         public string Atribute2 { get; set; }
+        [StringLength(100)]
         public string Atribute3 { get; set; }
 
         public int? TypeID { get; set; }

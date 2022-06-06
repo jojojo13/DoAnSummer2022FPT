@@ -18,7 +18,7 @@ namespace CapstoneModels
         [ForeignKey("EmployeeID")]
         [InverseProperty("EmployeeContracts")]
         public Employee Employee { get; set; }
-
+        [StringLength(100)]
         public string Contract_NO { get; set; }
 
         public int? Contract_type { get; set; }
@@ -49,7 +49,7 @@ namespace CapstoneModels
         [ForeignKey("PositionId")]
         [InverseProperty("EmployeeContracts")]
         public Position position { get; set; }
-
+        [StringLength(100)]
         public string Comment { get; set; }
 
         [StringLength(100)]

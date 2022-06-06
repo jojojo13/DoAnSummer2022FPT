@@ -18,7 +18,7 @@ namespace CapstoneModels
         [ForeignKey("CandidateID")]
         [InverseProperty("Rc_Candidate_Families")]
         public Rc_Candidate rc_Candidate { get; set; }
-
+        [StringLength(100)]
         public string Fullname { get; set; }
 
 
@@ -30,7 +30,9 @@ namespace CapstoneModels
         public int? Is_Deduct { get; set; }
         public DateTime? Deduct_From { get; set; }
         public DateTime? Deduct_To { get; set; }
+        [StringLength(100)]
         public string Address { get; set; }
+        [StringLength(100)]
         public string PhoneNumber { get; set; }
 
         public int? Nation { get; set; }

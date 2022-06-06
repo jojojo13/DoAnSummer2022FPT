@@ -13,7 +13,9 @@ namespace CapstoneModels
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(100)]
         public string Name { get; set; }
+        [StringLength(10)]
         public string Code { get; set; }
         public DateTime? EffectDate { get; set; }
         public DateTime? ExpireDate { get; set; }
@@ -32,7 +34,7 @@ namespace CapstoneModels
 
         public string Note { get; set; }
 
-
+        [StringLength(100)]
         public string Comment { get; set; }
 
         public int? Status { get; set; }
@@ -60,7 +62,7 @@ namespace CapstoneModels
         public Position position { get; set; }
 
         public int? Number { get; set; }
-
+        [StringLength(100)]
         public string Exp { get; set; }
 
         public int? Project { get; set; }

@@ -28,13 +28,13 @@ namespace CapstoneModels
         [ForeignKey("InforMatics_Level1")]
         [InverseProperty("EmployeeEdu1s")]
         public Other_List Other_List1 { get; set; }
-
+        [StringLength(100)]
         public string School1 { get; set; }
         public int? DeeGree1 { get; set; }
         [ForeignKey("DeeGree1")]
         [InverseProperty("EmployeeEdu2s")]
         public Other_List Other_List2 { get; set; }
-
+        [StringLength(100)]
         public string Major1 { get; set; }
         public int? Language1 { get; set; }
         [ForeignKey("Language1")]
@@ -46,13 +46,13 @@ namespace CapstoneModels
         [ForeignKey("InforMatics_Level2")]
         [InverseProperty("EmployeeEdu4s")]
         public Other_List Other_List4 { get; set; }
-
+        [StringLength(100)]
         public string School2 { get; set; }
         public int? DeeGree2 { get; set; }
         [ForeignKey("DeeGree2")]
         [InverseProperty("EmployeeEdu5s")]
         public Other_List Other_List5 { get; set; }
-
+        [StringLength(100)]
         public string Major2 { get; set; }
         public int? Language2 { get; set; }
         [ForeignKey("Language2")]
@@ -63,13 +63,13 @@ namespace CapstoneModels
         [ForeignKey("InforMatics_Level3")]
         [InverseProperty("EmployeeEdu7s")]
         public Other_List Other_List7 { get; set; }
-
+        [StringLength(100)]
         public string School3 { get; set; }
         public int? DeeGree3 { get; set; }
         [ForeignKey("DeeGree3")]
         [InverseProperty("EmployeeEdu8s")]
         public Other_List Other_List8 { get; set; }
-
+        [StringLength(100)]
         public string Major3 { get; set; }
         public int? Language3 { get; set; }
         [ForeignKey("Language3")]

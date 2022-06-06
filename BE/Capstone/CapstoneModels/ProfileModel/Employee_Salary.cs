@@ -17,7 +17,7 @@ namespace CapstoneModels
         [ForeignKey("EmployeeID")]
         [InverseProperty("Employee_Salaries")]
         public Employee employee { get; set; }
-
+        [StringLength(100)]
         public string Decisiong_NO { get; set; }
         public string Note { set; get; }
         public DateTime? Effect_Date { get; set; }

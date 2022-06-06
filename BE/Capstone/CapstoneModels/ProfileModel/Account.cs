@@ -13,7 +13,9 @@ namespace CapstoneModels
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(100)]
         public string UserName { get; set; }
+        [StringLength(100)]
         public string Pass { get; set; }
         public int? Status { get; set; }
         public string Note { get; set; }

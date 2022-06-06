@@ -22,13 +22,17 @@ namespace CapstoneModels
         public Employee employee { get; set; }
 
         //
+        [StringLength(100)]
         public string CompanyName { get; set; }
-
+        [StringLength(100)]
         public string Address { get; set; }
         public DateTime? JoinDate { get; set; }
         public DateTime? EndDate { get; set; }
+        [StringLength(100)]
         public string Title { get; set; }
+        [StringLength(100)]
         public string Position { get; set; }
+        [StringLength(100)]
         public string ReasonOut { get; set; }
         public string Note { get; set; }
 

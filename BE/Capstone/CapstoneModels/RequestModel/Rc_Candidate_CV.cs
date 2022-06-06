@@ -26,6 +26,7 @@ namespace CapstoneModels
         public byte? Image { get; set; }
         public DateTime? Dob { get; set; }
         // noi sinh
+        [StringLength(100)]
         public string NoiSinh { get; set; }
         public int? NationOB { get; set; }
         [ForeignKey("NationOB")]
@@ -44,18 +45,22 @@ namespace CapstoneModels
         [InverseProperty("Rc_Candidate_CVs")]
         public Ward Ward1 { get; set; }
 
+        [StringLength(100)]
         public string CMND { get; set; }
+        [StringLength(100)]
         public string CMNDPlace { get; set; }
-
+        [StringLength(100)]
         public string VisaNumber { get; set; }
+        [StringLength(100)]
         public string VisaPlace { get; set; }
-
+        [StringLength(100)]
         public string Email { get; set; }
-
+        [StringLength(100)]
         public string EmailWork { get; set; }
-
-        public string Mobile { get; set; }
+        [StringLength(100)]
+        public string Phone { get; set; }
         // noi o
+        [StringLength(100)]
         public string NoiO { get; set; }
         public int? NationLive { get; set; }
         [ForeignKey("NationLive")]
@@ -82,6 +87,7 @@ namespace CapstoneModels
 
 
         // Ho khau thuong chu
+        [StringLength(100)]
         public string HoKhau { get; set; }
         public int? NationHK { get; set; }
         [ForeignKey("NationHK")]

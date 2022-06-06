@@ -18,17 +18,25 @@ namespace CapstoneModels
         [InverseProperty("Employee_Heals")]
         public Employee Employee { get; set; }
 
-
+        [StringLength(10)]
         public string Chieu_Cao { get; set; }
+        [StringLength(10)]
         public string Can_Nang { get; set; }
+        [StringLength(10)]
         public string Nhom_mau { get; set; }
+        [StringLength(10)]
         public string Huyet_Ap { get; set; }
-
+        [StringLength(10)]
         public string Mat_Trai { get; set; }
+        [StringLength(10)]
         public string Mat_Phai { get; set; }
+        [StringLength(10)]
         public string Tai_Mui_Hong { get; set; }
+        [StringLength(10)]
         public string Tim { get; set; }
+        [StringLength(10)]
         public string Benh_Khac { get; set; }
+        [StringLength(10)]
         public string Note { get; set; }
         public int? LoaiSK { get; set; }
         [ForeignKey("LoaiSK")]

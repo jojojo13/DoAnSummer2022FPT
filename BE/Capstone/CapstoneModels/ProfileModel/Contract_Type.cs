@@ -13,12 +13,17 @@ namespace CapstoneModels
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(10)]
         public string Code { get; set; }
+        [StringLength(100)]
         public string Name { get; set; }
         public int? Status { get; set; }
         public string Note { get; set; }
+        [StringLength(100)]
         public string BHXH { get; set; }
+        [StringLength(100)]
         public string BHYT { get; set; }
+        [StringLength(100)]
         public string BHTN { get; set; }
 
         public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }

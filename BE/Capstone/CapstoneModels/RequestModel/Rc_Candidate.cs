@@ -13,9 +13,13 @@ namespace CapstoneModels
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(100)]
         public string Code { get; set; }
+        [StringLength(100)]
         public string FirstName { get; set; }
+        [StringLength(100)]
         public string LastName { get; set; }
+        [StringLength(100)]
         public string FullName { get; set; }
 
         public int? PhaseID { get; set; }

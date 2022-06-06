@@ -21,7 +21,7 @@ namespace CapstoneModels
         [InverseProperty("Employee_Families")]
         public Employee Employee { get; set; }
 
-
+        [StringLength(100)]
         public string Fullname { get; set; }
 
 
@@ -34,7 +34,9 @@ namespace CapstoneModels
         public int? Is_Deduct { get; set; }
         public DateTime? Deduct_From { get; set; }
         public DateTime? Deduct_To { get; set; }
+        [StringLength(100)]
         public string Address { get; set; }
+        [StringLength(100)]
         public string PhoneNumber { get; set; }
 
         public int? NationID { get; set; }

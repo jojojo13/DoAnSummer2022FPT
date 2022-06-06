@@ -13,7 +13,9 @@ namespace CapstoneModels
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(100)]
         public string Name { get; set; }
+        [StringLength(10)]
         public string Code { get; set; }
         public int? Status { get; set; }
         public string Note { get; set; }
@@ -23,6 +25,7 @@ namespace CapstoneModels
         public Title Title { get; set; }
 
         public int? BasicSalary { get; set; }
+        [StringLength(100)]
         public string OtherSkill { get; set; }
         public int? FormWorking { get; set; }
         [ForeignKey("FormWorking")]
@@ -33,13 +36,14 @@ namespace CapstoneModels
         [ForeignKey("Learning_level")]
         [InverseProperty("Position1s")]
         public Other_List Other_List1 { get; set; }
-
+        [StringLength(100)]
         public string year_exp { get; set; }
 
         public int? majorGroup { get; set; }
         [ForeignKey("majorGroup")]
         [InverseProperty("Position2s")]
         public Other_List Other_List2 { get; set; }
+        [StringLength(100)]
         public string major { get; set; }
 
         public int? language { get; set; }

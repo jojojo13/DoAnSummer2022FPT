@@ -16,6 +16,7 @@ namespace CapstoneModels
        
       
         public DateTime? ModifyDate { get; set; }
+        [StringLength(100)]
         public string User_log { get; set; }
 
         public int? Phase_Request_ID { get; set; }
