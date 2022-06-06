@@ -42,8 +42,6 @@ namespace CapstoneModels
         [ForeignKey("PositionId")]
         [InverseProperty("EmployeeContracts")]
         public Position position { get; set; }
-        [StringLength(100)]
-        public string Comment { get; set; }
 
         [StringLength(100)]
         public string CreateBy { get; set; }
