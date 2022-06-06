@@ -597,7 +597,7 @@ namespace API.Controllers
                 tobj.FormWorking = objresponse.FormWorking;
                 tobj.BasicSalary = objresponse.BasicSalary;
                 tobj.Learning_level = objresponse.Learning_level;
-                tobj.year_exp = objresponse.year_exp;
+                tobj.YearExperience = objresponse.year_exp;
                 tobj.majorGroup = objresponse.majorGroup;
                 tobj.language = objresponse.language;
                 tobj.language_level = objresponse.language_level;
@@ -641,7 +641,7 @@ namespace API.Controllers
                 tobj.FormWorking = objresponse.FormWorking;
                 tobj.BasicSalary = objresponse.BasicSalary;
                 tobj.Learning_level = objresponse.Learning_level;
-                tobj.year_exp = objresponse.year_exp;
+                tobj.YearExperience = objresponse.year_exp;
                 tobj.majorGroup = objresponse.majorGroup;
                 tobj.language = objresponse.language;
                 tobj.language_level = objresponse.language_level;
@@ -804,7 +804,7 @@ namespace API.Controllers
                 obj.Note = objresponse.Note;
                 obj.Fax = objresponse.Fax;
                 obj.Email = objresponse.Email;
-                obj.Mobile = objresponse.Mobile;
+                obj.Phone = objresponse.Mobile;
                 obj.NumberBussines = objresponse.NumberBussines;
                 obj.Address = objresponse.Address;
                 obj.NationID = objresponse.NationID;
@@ -850,7 +850,7 @@ namespace API.Controllers
                 obj.Note = objresponse.Note;
                 obj.Fax = objresponse.Fax;
                 obj.Email = objresponse.Email;
-                obj.Mobile = objresponse.Mobile;
+                obj.Phone = objresponse.Mobile;
                 obj.NumberBussines = objresponse.NumberBussines;
                 obj.Address = objresponse.Address;
                 obj.NationID = objresponse.NationID;

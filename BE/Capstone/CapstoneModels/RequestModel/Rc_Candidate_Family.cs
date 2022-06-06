@@ -25,11 +25,9 @@ namespace CapstoneModels
         public int? RelationId { get; set; }
         [ForeignKey("RelationId")]
         [InverseProperty("Rc_Candidate_Families")]
-        public Other_List other_List { get; set; }
+        public Other_List Relation { get; set; }
 
         public int? Is_Deduct { get; set; }
-        public DateTime? Deduct_From { get; set; }
-        public DateTime? Deduct_To { get; set; }
         [StringLength(100)]
         public string Address { get; set; }
         [StringLength(100)]

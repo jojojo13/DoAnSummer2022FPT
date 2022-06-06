@@ -20,15 +20,15 @@ namespace CapstoneModels
         public DateTime? EffectDate { get; set; }
         public DateTime? ExpireDate { get; set; }
 
-        public int? OrgId { get; set; }
-        [ForeignKey("OrgId")]
+        public int? OrgnizationId { get; set; }
+        [ForeignKey("OrgnizationId")]
         [InverseProperty("Rc_Requests")]
         public ORgnization oRgnization { get; set; }
 
         public int? SignId { get; set; }
         [ForeignKey("SignId")]
         [InverseProperty("Rc_Requests")]
-        public Employee employee { get; set; }
+        public Employee Signer { get; set; }
 
         public DateTime? SignDate { get; set; }
 
@@ -42,19 +42,19 @@ namespace CapstoneModels
         public int? StatusHr { get; set; }
         [ForeignKey("StatusHr")]
         [InverseProperty("Rc_Requests")]
-        public Other_List Other_List { get; set; }
+        public Other_List StatusHrObj { get; set; }
 
         public int? StatusMg { get; set; }
         [ForeignKey("StatusMg")]
         [InverseProperty("Rc_Request1s")]
-        public Other_List Other_List1 { get; set; }
+        public Other_List StatusMgObj { get; set; }
         //
 
 
         public int? Type { get; set; }
         [ForeignKey("Type")]
         [InverseProperty("Rc_Request2s")]
-        public Other_List Other_List2 { get; set; }
+        public Other_List TypeObj { get; set; }
 
         public int? PositionID { get; set; }
         [ForeignKey("PositionID")]
@@ -68,7 +68,7 @@ namespace CapstoneModels
         public int? Project { get; set; }
         [ForeignKey("Project")]
         [InverseProperty("Rc_Request3s")]
-        public Other_List Other_List3 { get; set; }
+        public Other_List ProjectObj { get; set; }
 
         [StringLength(100)]
         public string CreateBy { get; set; }

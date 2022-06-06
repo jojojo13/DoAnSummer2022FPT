@@ -34,7 +34,7 @@ namespace CapstoneModels
         public int? HinhThuc { get; set; }
         [ForeignKey("HinhThuc")]
         [InverseProperty("Rc_Request_Schedu2s")]
-        public Other_List other_List2 { get; set; }
+        public Other_List HinhThucObj { get; set; }
 
         public int? Candidate_ID { get; set; }
         [ForeignKey("Candidate_ID")]
@@ -51,14 +51,14 @@ namespace CapstoneModels
         public int? Status_Contact { get; set; }
         [ForeignKey("Status_Contact")]
         [InverseProperty("Rc_Request_Schedus")]
-        public Other_List other_List { get; set; }
+        public Other_List StatusContactObj { get; set; }
 
         public DateTime? Gio_PV { get; set; }
 
         public int? ID_NguoiPV { get; set; }
         [ForeignKey("ID_NguoiPV")]
         [InverseProperty("Rc_Request_Schedus")]
-        public Employee employee { get; set; }
+        public Employee NguoiPV { get; set; }
 
         [StringLength(100)]
         public string CreateBy { get; set; }

@@ -26,16 +26,16 @@ namespace CapstoneModels
         public int? Status { get; set; }
         [ForeignKey("Status")]
         [InverseProperty("Employees")]
-        public Other_List Other_List { get; set; }
+        public Other_List StatusObj { get; set; }
         public string Note { get; set; }    
-        public int? IsTuyenDung { get; set; }
+        public int? IsFronmRecruit { get; set; }
 
         //
         
 
 
-        public int? OrgID { get; set; }
-        [ForeignKey("OrgID")]
+        public int? OrgnizationID { get; set; }
+        [ForeignKey("OrgnizationID")]
         [InverseProperty("Employees1")]
         public ORgnization Organization { get; set; }
 
@@ -61,8 +61,6 @@ namespace CapstoneModels
         public virtual ICollection<EmployeeEdu> EmployeeEdus { get; set; }
 
         public virtual ICollection<Employee_Family> Employee_Families { get; set; }
-        public virtual ICollection<Employee_Heal> Employee_Heals { get; set; }
-        public virtual ICollection<Employee_Working_Before> Employee_Working_Befores { get; set; }
         public virtual ICollection<Employee_Salary> Employee_Salaries { get; set; }
         public virtual ICollection<EmployeeContract> EmployeeContracts { get; set; }
 

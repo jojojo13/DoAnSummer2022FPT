@@ -21,8 +21,8 @@ namespace CapstoneModels
         [StringLength(100)]
         public string Contract_NO { get; set; }
 
-        public int? Contract_type { get; set; }
-        [ForeignKey("Contract_type")]
+        public int? ContractTypeID { get; set; }
+        [ForeignKey("ContractTypeID")]
         [InverseProperty("EmployeeContracts")]
         public Contract_Type contract_Type { get; set; }
 
@@ -35,13 +35,11 @@ namespace CapstoneModels
         public Employee Employee1 { get; set; }
 
         public DateTime SignDate { get; set; }
-        public int Status { get; set; }
+        public int? Status { get; set; }
         public string Note { get; set; }
-        public int? Is_thue { get; set; }
-        public int? Is_CamKet { get; set; }
 
-        public int? OrgId { get; set; }
-        [ForeignKey("OrgId")]
+        public int? OrgnizationId { get; set; }
+        [ForeignKey("OrgnizationId")]
         [InverseProperty("EmployeeContracts")]
         public ORgnization oRgnization { get; set; }
 

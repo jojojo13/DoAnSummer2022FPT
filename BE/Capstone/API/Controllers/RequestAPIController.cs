@@ -27,6 +27,13 @@ namespace API.Controllers
         public IActionResult  GetAllRequest(CommonResponse common)
         {
             List<Rc_Request> list = p.GetAllRequest(common.index, common.size);
+            var list3 = from l in list
+                        select new
+                        {
+                            ID = l.Id,
+                            CODE = l.Code
+                        };
+
             List<RequestResponse> list2 = new List<RequestResponse>();
 
             foreach (var item in list)
@@ -35,8 +42,8 @@ namespace API.Controllers
                 obj.Code = item.Code;
                 obj.Name = item.Name;
                 obj.Type = item.Type;
-                obj.TypeName = item.Other_List2?.Name;
-                obj.OrgId = item.OrgId;
+                obj.TypeName = item.TypeObj?.Name;
+                obj.OrgId = item.OrgnizationId;
                 obj.OrgName = item.oRgnization?.Name;
                 obj.PositionID = item.PositionID;
                 obj.Exp = item.Exp;
@@ -49,9 +56,9 @@ namespace API.Controllers
                 obj.StatusName = item.Status == -1 ? "Phê duyệt" : item.Status == 0 ? "Không phê duyệt" : "Chờ phê duyệt";
                 obj.Id = item.Id;
                 obj.Project= item.Project;
-                obj.ProjectName = item.Other_List3?.Name;
+                obj.ProjectName = item.ProjectObj?.Name;
                 obj.SignId = item.SignId;
-                obj.SignName = item.employee?.FullName;
+                obj.SignName = item.Signer?.FullName;
                 list2.Add(obj);
             }
             if (list.Count > 0)
@@ -198,7 +205,7 @@ namespace API.Controllers
                 rc.Exp = T.Exp;
                 rc.ExpireDate = T.ExpireDate;
                 rc.Number = T.Number;
-                rc.OrgId = T.OrgId;
+                rc.OrgnizationId = T.OrgId;
                 rc.SignId = T.SignId;
                 rc.SignDate = T.SignDate;
                 rc.Note = T.Note;
@@ -237,7 +244,7 @@ namespace API.Controllers
                 rc.Exp = T.Exp;
                 rc.ExpireDate = T.ExpireDate;
                 rc.Number = T.Number;
-                rc.OrgId = T.OrgId;
+                rc.OrgnizationId = T.OrgId;
                 rc.SignId = T.SignId;
                 rc.SignDate = T.SignDate;
                 rc.Note = T.Note;

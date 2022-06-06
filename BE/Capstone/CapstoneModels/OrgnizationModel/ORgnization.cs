@@ -62,7 +62,9 @@ namespace CapstoneModels
         public int? ManagerID { get; set; }
         [ForeignKey("ManagerID")]
         [InverseProperty("ORgnizations")]
-        public Employee Employee { get; set; }
+        public Employee Manager { get; set; }
+
+
         [StringLength(100)]
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }

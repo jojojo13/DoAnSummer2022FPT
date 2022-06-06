@@ -21,7 +21,7 @@ namespace CapstoneModels
         public int? Status_Request { get; set; }
         [ForeignKey("Status_Request")]
         [InverseProperty("Rc_Request_Results")]
-        public Other_List other_List { get; set; }
+        public Other_List StatusRequestObj { get; set; }
 
         public int? Avg_Score { get; set; }
         public int? Result_Interview { get; set; }
@@ -31,9 +31,9 @@ namespace CapstoneModels
         public int? StatusContact { get; set; }
         [ForeignKey("StatusContact")]
         [InverseProperty("Rc_Request_Result1s")]
-        public Other_List other_List1 { get; set; }
+        public Other_List StatusContactObj { get; set; }
 
-        public int? Is_Move_HSNV { get; set; }
+        public int? Is_Move_Employee { get; set; }
 
         [StringLength(100)]
         public string CreateBy { get; set; }

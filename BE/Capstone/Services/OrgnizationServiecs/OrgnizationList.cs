@@ -254,7 +254,7 @@ namespace Services.OrgnizationServiecs
                 tobj.FormWorking = T.FormWorking;
                 tobj.BasicSalary = T.BasicSalary;
                 tobj.Learning_level = T.Learning_level;
-                tobj.year_exp = T.year_exp;
+                tobj.YearExperience = T.YearExperience;
                 tobj.majorGroup = T.majorGroup;
                 tobj.language = T.language;
                 tobj.language_level = T.language_level;
@@ -287,7 +287,7 @@ namespace Services.OrgnizationServiecs
                     tobj.FormWorking = T.FormWorking;
                     tobj.BasicSalary = T.BasicSalary;
                     tobj.Learning_level = T.Learning_level;
-                    tobj.year_exp = T.year_exp;
+                    tobj.YearExperience = T.YearExperience;
                     tobj.majorGroup = T.majorGroup;
                     tobj.language = T.language;
                     tobj.language_level = T.language_level;

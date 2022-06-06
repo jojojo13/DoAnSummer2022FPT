@@ -34,7 +34,7 @@ namespace Services.OrgnizationServiecs
                 obj.Note = o.Note;
                 obj.Fax = o.Fax;
                 obj.Email = o.Email;
-                obj.Mobile = o.Mobile;
+                obj.Phone = o.Phone;
                 obj.NumberBussines = o.NumberBussines;
                 obj.Address = o.Address;
                 obj.DistrictID = o.DistrictID;
@@ -68,7 +68,7 @@ namespace Services.OrgnizationServiecs
                     obj.Note = o.Note;
                     obj.Fax = o.Fax;
                     obj.Email = o.Email;
-                    obj.Mobile = o.Mobile;
+                    obj.Phone = o.Phone;
                     obj.NumberBussines = o.NumberBussines;
                     obj.Address = o.Address;
                     obj.DistrictID = o.DistrictID;

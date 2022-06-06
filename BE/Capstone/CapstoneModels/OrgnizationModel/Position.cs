@@ -30,36 +30,38 @@ namespace CapstoneModels
         public int? FormWorking { get; set; }
         [ForeignKey("FormWorking")]
         [InverseProperty("Positions")]
-        public Other_List Other_List { get; set; }
+        public Other_List FormWorkingObj { get; set; }
 
         public int? Learning_level { get; set; }
         [ForeignKey("Learning_level")]
         [InverseProperty("Position1s")]
-        public Other_List Other_List1 { get; set; }
+        public Other_List LearningLevelObj { get; set; }
+
         [StringLength(100)]
-        public string year_exp { get; set; }
+        public string YearExperience { get; set; }
 
         public int? majorGroup { get; set; }
         [ForeignKey("majorGroup")]
         [InverseProperty("Position2s")]
-        public Other_List Other_List2 { get; set; }
+        public Other_List MajorGroupObj { get; set; }
+
         [StringLength(100)]
         public string major { get; set; }
 
         public int? language { get; set; }
         [ForeignKey("language")]
         [InverseProperty("Position3s")]
-        public Other_List Other_List3 { get; set; }
+        public Other_List LanguageObj { get; set; }
 
         public int? language_level { get; set; }
         [ForeignKey("language_level")]
         [InverseProperty("Position4s")]
-        public Other_List Other_List4 { get; set; }
+        public Other_List LanguageLevelObj { get; set; }
 
         public int? Information_level { get; set; }
         [ForeignKey("Information_level")]
         [InverseProperty("Position5s")]
-        public Other_List Other_List5 { get; set; }
+        public Other_List InformationlevelObj { get; set; }
 
   
         [StringLength(100)]

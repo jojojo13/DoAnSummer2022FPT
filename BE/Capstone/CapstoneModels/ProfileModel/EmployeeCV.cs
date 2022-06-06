@@ -22,7 +22,7 @@ namespace CapstoneModels
         public int? Gender { get; set; }
         [ForeignKey("Gender")]
         [InverseProperty("EmployeeCVs")]
-        public Other_List Other_List { get; set; }
+        public Other_List GenderObj { get; set; }
         public byte? Image { get; set; }
         public DateTime? Dob { get; set; }
         // noi sinh

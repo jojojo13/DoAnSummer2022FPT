@@ -65,10 +65,10 @@ namespace Services.RequestServices
                     foreach(var item in list)
                     {
                         item.position = context.Positions.Where(x => x.Id == item.PositionID).FirstOrDefault();
-                        item.Other_List2 = context.Other_Lists.Where(x => x.Id == item.Type).FirstOrDefault();
-                        item.Other_List3 = context.Other_Lists.Where(x => x.Id == item.Project).FirstOrDefault();
-                        item.oRgnization = context.ORgnizations.Where(x => x.Id == item.OrgId).FirstOrDefault();
-                        item.employee = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
+                        item.TypeObj = context.Other_Lists.Where(x => x.Id == item.Type).FirstOrDefault();
+                        item.ProjectObj = context.Other_Lists.Where(x => x.Id == item.Project).FirstOrDefault();
+                        item.oRgnization = context.ORgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
+                        item.Signer = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
                     }
                     return list;
                 }
@@ -105,7 +105,7 @@ namespace Services.RequestServices
             rc.Exp = T.Exp;
             rc.ExpireDate = T.ExpireDate;
             rc.Number = T.Number;
-            rc.OrgId = T.OrgId;
+            rc.OrgnizationId = T.OrgnizationId;
             rc.SignId = T.SignId;
             rc.SignDate = T.SignDate;
             rc.Note = T.Note;
@@ -145,7 +145,7 @@ namespace Services.RequestServices
                     rc.Exp = T.Exp;
                     rc.ExpireDate = T.ExpireDate;
                     rc.Number = T.Number;
-                    rc.OrgId = T.OrgId;
+                    rc.OrgnizationId = T.OrgnizationId;
                     rc.SignId = T.SignId;
                     rc.SignDate = T.SignDate;
                     rc.Note = T.Note;

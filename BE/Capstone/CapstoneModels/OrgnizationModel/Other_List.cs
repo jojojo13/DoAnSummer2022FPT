@@ -29,7 +29,6 @@ namespace CapstoneModels
 
         public int? TypeID { get; set; }
         [ForeignKey("TypeID")]
-
         public Other_List_Type Other_List_Type { get; set; }
 
 
@@ -53,7 +52,6 @@ namespace CapstoneModels
         public virtual ICollection<Rc_Request> Rc_Request3s { get; set; }
 
         public virtual ICollection<Rc_Candidate_Family> Rc_Candidate_Families { get; set; }
-        public virtual ICollection<Rc_Candidate_Heal> Rc_Candidate_Heals { get; set; }
         public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDUs { get; set; }
         public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU1s { get; set; }
         public virtual ICollection<Rc_Candidate_EDU> Rc_Candidate_EDU2s { get; set; }
@@ -96,6 +94,5 @@ namespace CapstoneModels
         public virtual ICollection<EmployeeEdu> EmployeeEdu8s { get; set; }
         public virtual ICollection<EmployeeEdu> EmployeeEdu9s { get; set; }
         public virtual ICollection<Employee_Family> Employee_Families { get; set; }
-        public virtual ICollection<Employee_Heal> Employee_Heals { get; set; }
     }
 }
