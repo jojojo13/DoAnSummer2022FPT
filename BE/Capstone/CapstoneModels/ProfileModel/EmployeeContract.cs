@@ -38,11 +38,6 @@ namespace CapstoneModels
         public int? Status { get; set; }
         public string Note { get; set; }
 
-        public int? OrgnizationId { get; set; }
-        [ForeignKey("OrgnizationId")]
-        [InverseProperty("EmployeeContracts")]
-        public ORgnization oRgnization { get; set; }
-
         public int? PositionId { get; set; }
         [ForeignKey("PositionId")]
         [InverseProperty("EmployeeContracts")]
