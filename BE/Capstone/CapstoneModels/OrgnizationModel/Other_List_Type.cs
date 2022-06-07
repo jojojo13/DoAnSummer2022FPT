@@ -21,13 +21,13 @@ namespace CapstoneModels
         public string Note { get; set; }
         public int PhanHe { get; set; }
         public int IsSystem { get; set; }
-   
+
         [StringLength(100)]
         public string CreateBy { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
         [StringLength(100)]
         public string UpdateBy { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
         public virtual ICollection<Other_List> Other_Lists { get; set; }    
     }
 }

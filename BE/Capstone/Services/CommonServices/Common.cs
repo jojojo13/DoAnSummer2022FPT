@@ -237,5 +237,18 @@ namespace Services.CommonServices
             }
             return totalPage;
         }
+
+
+
+
+
+        public int getNextSequence(string tablename)
+        {
+            string query = " SELECT NEXT VALUE FOR SEQ_"+tablename+" AS GID";
+            DataTable dt = DAOContext.GetDataBySql(query);
+            DataRow lastRow = dt.Rows[0];
+            int gID = Convert.ToInt32(lastRow["GID"]);
+            return gID;
+        }
     }
 }

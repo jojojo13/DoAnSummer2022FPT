@@ -8,23 +8,14 @@ using System.Threading.Tasks;
 
 namespace CapstoneModels
 {
-    [Table("PositionOrg")]
-   public class PositionOrg
+    [Table("OrgnizationGenealogy")]
+    public class OrgnizationGenealogy
     {
         [Key]
         public int Id { get; set; }
-        public int? positionID { get; set; }
-        [ForeignKey("positionID")]
-        [InverseProperty("PositionOrgs")]
-        public Position position { get; set; }
-
-        public int? OrgID { get; set; }
-        [ForeignKey("OrgID")]
-        [InverseProperty("PositionOrgs")]
-        public ORgnization oRgnization { get; set; }
-
-        public int? Status { get; set; }
-
+        public int? ParentID { get; set; }
+        [StringLength(100)]
+        public string GenealogyData { get; set; }
 
         [StringLength(100)]
         public string CreateBy { get; set; }

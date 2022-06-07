@@ -33,7 +33,23 @@ namespace Services.CommonServices
         string sha256_hash(string pass);
         #endregion
 
+
+
+
+
+
+        #region "Request"
         public int getTotalPage(string tableName, int size);
+        #endregion
+
+
+
+        #region "Get next sequence"
+        int getNextSequence(string tablename);
+
+        #endregion
+
+
 
     }
 }

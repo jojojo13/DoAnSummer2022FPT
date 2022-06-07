@@ -28,8 +28,6 @@ namespace CapstoneModels
         public DbSet<EmployeeEdu> employeeEdus { get; set; }
         public DbSet<Employee_Family> employee_Families { get; set; }
         public DbSet<Employee_Salary> Employee_Salaries { get; set; }
-        public DbSet<Employee_Heal> employee_Heals { get; set; }
-        public DbSet<Employee_Working_Before> employee_Working_Befores { get; set; }
         public DbSet<EmployeeContract> EmployeeContracts { get; set; }
 
         // Tuyen dung
@@ -39,9 +37,7 @@ namespace CapstoneModels
         public DbSet<Rc_Resource_Candidate> rc_Resource_Candidates { get; set; }
         public DbSet<Rc_Candidate> rc_Candidates { get; set; }
         public DbSet<Rc_Candidate_Family> rc_Candidate_Families { get; set; }
-        public DbSet<Rc_Candidate_Worrking_Before> rc_Candidate_Worrking_Befores { get; set; }
         public DbSet<Rc_Request_Exam> rc_Request_Exams { get; set; }
-        public DbSet<Rc_Candidate_Heal> rc_Candidate_Heals { get; set; }
         public DbSet<Rc_Candidate_EDU> rc_Candidate_EDUs { get; set; }
         public DbSet<Rc_Request_Result> rc_Request_Results { get; set; }
         public DbSet<Rc_Request_InterView_Result> rc_Request_InterView_Results { get; set; }
