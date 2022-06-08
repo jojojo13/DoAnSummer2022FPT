@@ -59,7 +59,7 @@ namespace Services.RequestServices
         public List<RcRequest> GetAllRequest(int index, int size)
         {
 
-            //try
+            try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
@@ -77,10 +77,10 @@ namespace Services.RequestServices
                     return list;
                 }
             }
-            //catch(Exception e)
-            //{
-            //    return new List<RcRequest>();
-            //}
+            catch
+            {
+                return new List<RcRequest>();
+            }
         }
 
         public RcRequest GetRequestByID(int ID)
