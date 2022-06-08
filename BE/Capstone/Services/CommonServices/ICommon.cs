@@ -39,7 +39,9 @@ namespace Services.CommonServices
 
 
         #region "Request"
-        public int getTotalPage(string tableName, int size);
+        public int getTotalRecord(string tableName);
+
+        public Rc_Request GetRequestByID(int ID);
         #endregion
 
 

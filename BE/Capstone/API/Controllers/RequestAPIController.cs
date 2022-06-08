@@ -31,41 +31,15 @@ namespace API.Controllers
                         select new
                         {
                             ID = l.Id,
-                            CODE = l.Code
+                            CODE = l.Code,
+                            NAME= l.Name
                         };
-
             List<RequestResponse> list2 = new List<RequestResponse>();
-
-            foreach (var item in list)
-            {
-                RequestResponse obj = new RequestResponse();
-                obj.Code = item.Code;
-                obj.Name = item.Name;
-                obj.Type = item.Type;
-                obj.TypeName = item.TypeObj?.Name;
-                obj.OrgId = item.OrgnizationId;
-                obj.OrgName = item.oRgnization?.Name;
-                obj.PositionID = item.PositionID;
-                obj.Exp = item.Exp;
-                obj.Note = item.Note;
-                obj.Comment = item.Comment;
-                obj.PositionName = item.position?.Name;
-                obj.Number = item.Number;
-                obj.EffectDate = item.EffectDate;
-                obj.ExpireDate = item.ExpireDate;
-                obj.StatusName = item.Status == -1 ? "Phê duyệt" : item.Status == 0 ? "Không phê duyệt" : "Chờ phê duyệt";
-                obj.Id = item.Id;
-                obj.Project= item.Project;
-                obj.ProjectName = item.ProjectObj?.Name;
-                obj.SignId = item.SignId;
-                obj.SignName = item.Signer?.FullName;
-                list2.Add(obj);
-            }
             if (list.Count > 0)
             {
                 return Ok(new
                 {
-                    TotalPage = c.getTotalPage("Rc_Request",common.size),
+                    TotalPage = c.getTotalRecord("Rc_Request"),
                     Data = list2
                 });
             }
@@ -200,22 +174,21 @@ namespace API.Controllers
             {
                 Rc_Request rc = new Rc_Request();
                 rc.Name = T.Name;
-                rc.Code = T.Code;
                 rc.EffectDate = T.EffectDate;
-                rc.Exp = T.Exp;
                 rc.ExpireDate = T.ExpireDate;
                 rc.Number = T.Number;
-                rc.OrgnizationId = T.OrgId;
+                rc.OrgnizationId = T.OrgnizationId;
                 rc.SignId = T.SignId;
-                rc.SignDate = T.SignDate;
                 rc.Note = T.Note;
-                rc.Status = T.Status;
                 rc.Number = T.Number;
-                rc.Exp = T.Exp;
+                rc.YearExperience = T.YearExperience;
                 rc.Project = T.Project;
                 rc.PositionID = T.PositionID;
                 rc.Type = T.Type;
                 rc.Comment = T.Comment;
+                rc.ParentID = T.ParentID;
+                rc.Level = T.Level;
+                rc.Budget = T.Budget;
                 var check = p.InsertRequest(rc);
                 return Ok(new
                 {
@@ -241,20 +214,20 @@ namespace API.Controllers
                 Rc_Request rc = new Rc_Request();
                 rc.Name = T.Name;
                 rc.EffectDate = T.EffectDate;
-                rc.Exp = T.Exp;
                 rc.ExpireDate = T.ExpireDate;
                 rc.Number = T.Number;
-                rc.OrgnizationId = T.OrgId;
+                rc.OrgnizationId = T.OrgnizationId;
                 rc.SignId = T.SignId;
-                rc.SignDate = T.SignDate;
                 rc.Note = T.Note;
-                rc.Status = T.Status;
                 rc.Number = T.Number;
-                rc.Exp = T.Exp;
+                rc.YearExperience = T.YearExperience;
                 rc.Project = T.Project;
                 rc.PositionID = T.PositionID;
                 rc.Type = T.Type;
                 rc.Comment = T.Comment;
+                rc.ParentID = T.ParentID;
+                rc.Level = T.Level;
+                rc.Budget = T.Budget;
                 var check = p.InsertRequest(rc);
                 return Ok(new
                 {

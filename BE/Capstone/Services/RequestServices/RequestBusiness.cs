@@ -1,4 +1,5 @@
 ﻿using CapstoneModels;
+using Services.CommonServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Services.RequestServices
 {
     public class Request : IRequest
     {
+        private ICommon c = new Common();
         public bool ActiveOrDeActiveRequest(List<int> list, int status)
         {
             try
@@ -69,6 +71,8 @@ namespace Services.RequestServices
                         item.ProjectObj = context.Other_Lists.Where(x => x.Id == item.Project).FirstOrDefault();
                         item.oRgnization = context.ORgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
                         item.Signer = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
+                        item.RequestLevelObj = context.Other_Lists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
+                        item.LevelObj = context.Other_Lists.Where(x => x.Id == item.Level).FirstOrDefault();
                     }
                     return list;
                 }
@@ -100,22 +104,30 @@ namespace Services.RequestServices
         {
             Rc_Request rc = new Rc_Request();
             rc.Name = T.Name;
-            rc.Code = T.Code;
+            rc.Code = c.autoGenCode3character("Rc_Request", "RC");
             rc.EffectDate = T.EffectDate;
-            rc.Exp = T.Exp;
             rc.ExpireDate = T.ExpireDate;
             rc.Number = T.Number;
             rc.OrgnizationId = T.OrgnizationId;
             rc.SignId = T.SignId;
-            rc.SignDate = T.SignDate;
             rc.Note = T.Note;
-            rc.Status = T.Status;
             rc.Number = T.Number;
-            rc.Exp = T.Exp;
+            rc.YearExperience = T.YearExperience;
             rc.Project = T.Project;
             rc.PositionID = T.PositionID;
             rc.Type = T.Type;
             rc.Comment = T.Comment;
+            rc.ParentID = T.ParentID;
+            rc.Level = T.Level;
+            rc.Budget = T.Budget;
+            if (!rc.ParentID.HasValue)
+            {
+                rc.Rank = c.GetRequestByID((int)rc.ParentID).Rank + 1;
+            }
+            else
+            {
+                rc.Rank = 1;
+            }
             try
             {
                 using (Context context = new Context())
@@ -142,20 +154,19 @@ namespace Services.RequestServices
                     Rc_Request rc = context.Rc_Requests.Where(x => x.Id == T.Id).FirstOrDefault();
                     rc.Name = T.Name;
                     rc.EffectDate = T.EffectDate;
-                    rc.Exp = T.Exp;
                     rc.ExpireDate = T.ExpireDate;
                     rc.Number = T.Number;
                     rc.OrgnizationId = T.OrgnizationId;
                     rc.SignId = T.SignId;
-                    rc.SignDate = T.SignDate;
                     rc.Note = T.Note;
-                    rc.Status = T.Status;
                     rc.Number = T.Number;
-                    rc.Exp = T.Exp;
+                    rc.YearExperience = T.YearExperience;
                     rc.Project = T.Project;
                     rc.PositionID = T.PositionID;
                     rc.Type = T.Type;
                     rc.Comment = T.Comment;
+                    rc.Level = T.Level;
+                    rc.Budget = T.Budget;
                     context.SaveChanges();
                     return true;
                 }

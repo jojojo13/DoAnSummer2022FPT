@@ -224,18 +224,30 @@ namespace Services.CommonServices
 
 
 
-        public int getTotalPage(string tableName, int size)
+        public int getTotalRecord(string tableName)
         {
             string query = "select count(*) COUNT from " + tableName;
             DataTable dt = DAOContext.GetDataBySql(query);
             DataRow lastRow = dt.Rows[0];
             int COUNT = Convert.ToInt32(lastRow["COUNT"]);
-            int totalPage = COUNT / size;
-            if(COUNT% size >= 1)
+            return COUNT;
+        }
+
+        public Rc_Request GetRequestByID(int ID)
+        {
+            try
             {
-                totalPage++;
+                using (Context context = new Context())
+                {
+                    Rc_Request obj = context.Rc_Requests.Where(x => x.Id == ID).FirstOrDefault();
+                    return obj;
+                }
             }
-            return totalPage;
+            catch
+            {
+                return null;
+            }
+
         }
 
 
