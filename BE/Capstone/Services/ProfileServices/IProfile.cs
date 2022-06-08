@@ -66,6 +66,9 @@ namespace Services.ProfileServices
 
         #region "Business"
 
+        List<Position> GetListPositionByOrgID(int ID);
+
+
         #endregion
 
     }

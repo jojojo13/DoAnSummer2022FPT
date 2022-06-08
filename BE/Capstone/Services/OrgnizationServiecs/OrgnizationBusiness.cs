@@ -1,8 +1,10 @@
 ﻿
+using ModelAuto;
 using ModelAuto.Models;
 using Services.CommonServices;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -140,27 +142,31 @@ namespace Services.OrgnizationServiecs
             }
         }
 
-        public List<Orgnization> GetOrgByOrgID(int ID)
+        public List<Orgnization> GetListOrgByOrgID(int ID)
         {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+               
+                List<Orgnization> list = new List<Orgnization>();
+                DataTable dt = DAOContext.GetListOrgbyOrgID(ID);
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    List<Orgnization> list = context.Orgnizations.ToList();
-                    return list;
+                    Orgnization o = new Orgnization();
+                    DataRow row = dt.Rows[i];
+                    o.Name = row["ORG_NAME"].ToString();
+                    o.Code = row["CODE"].ToString();
+                    o.Id = Convert.ToInt32(row["ID"].ToString());
+                    o.Level= Convert.ToInt32(row["LEVEL_NAME"].ToString());
+                    o.ParentId = Convert.ToInt32(row["ParentID"].ToString());
+                    list.Add(o);
                 }
-            }
-            catch
-            {
-                return new List<Orgnization>();
-            }
+                return list;
+
         }
 
         #endregion
 
         #region Thiet lap vi tri cong viec cho phong ban
 
-        public List<PositionOrg> GetAllPositionOrg( int index, int size)
+        public List<PositionOrg> GetAllPositionOrg(int index, int size)
         {
             try
             {

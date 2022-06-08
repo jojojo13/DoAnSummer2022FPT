@@ -13,7 +13,7 @@ namespace ModelAuto
     {
         public static SqlConnection GetConnection()
         {
-            var builder = new ConfigurationBuilder().AddJsonFile("jsconfig1.json").Build();
+            var builder = new ConfigurationBuilder().AddJsonFile("contextJson.json").Build();
             string ConnectionStr = builder.GetConnectionString("MyDB");
             return new SqlConnection(ConnectionStr);
         }
@@ -29,5 +29,32 @@ namespace ModelAuto
             return dt;
         }
 
+        public static DataTable GetListOrgbyOrgID(int OrgID)
+        {
+            var con = GetConnection();
+            con.Open();
+            SqlCommand command = new SqlCommand("ORG_RIGHT", con);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@ORGID", SqlDbType.Int).Value = OrgID;
+            DataTable dt = new DataTable();
+
+            dt.Load(command.ExecuteReader());
+            con.Close();
+            return dt;
+        }
+
+
+        public static DataTable GetListPositionByOrgID(int OrgID)
+        {
+            var con = GetConnection();
+            con.Open();
+            SqlCommand command = new SqlCommand("GET_POSITION_BY_ORGID", con);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@ORGID", SqlDbType.Int).Value = OrgID;
+            DataTable dt = new DataTable();
+            dt.Load(command.ExecuteReader());
+            con.Close();
+            return dt;
+        }
     }
 }

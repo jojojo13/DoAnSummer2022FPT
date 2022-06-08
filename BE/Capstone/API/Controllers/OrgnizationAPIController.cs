@@ -682,6 +682,15 @@ namespace API.Controllers
         public IActionResult GetAllOrg()
         {
             List<Orgnization> list = p.GetAllOrgnization();
+            var ListReturn = from l in list
+                             select new
+                             {
+                                 Name = l.Name,
+                                 ID= l.Id,
+                                 Code=l.Code,
+                                 Level= l.Level,
+                                 ParentID= l.ParentId
+                             };
             if (list.Count > 0)
             {
                 return Ok(new
@@ -1086,7 +1095,34 @@ namespace API.Controllers
             }
         }
 
+
+        [HttpPost("GetListOrgByOrgID")]
+        public IActionResult GetListOrgByOrgID(int ID)
+        {
+            List<Orgnization> list = p.GetListOrgByOrgID(ID);
+
+            var listReturn = from l in list
+                             select new
+                             {
+                                 Name = l.Name,
+                                 Code = l.Code,
+                                 ParentId = l.ParentId,
+                                 Level = l.Level,
+                                 ID = l.Id
+                             };
+            if (list.Count>0)
+                return Ok(new
+                {
+                    Status = true,
+                    Data = listReturn
+                });
+            else
+                return StatusCode(200, "Obj is Null");
+        }
+
+
         #endregion
+
 
         #endregion
     }

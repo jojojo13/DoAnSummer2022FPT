@@ -45,7 +45,7 @@ namespace Services.OrgnizationServiecs
          bool ModifyOrg(Orgnization T);
          bool DeleteOrg(int orgID);
          bool ActiveOrDeActiveOrg(int orgID, int status);
-        List<Orgnization> GetOrgByOrgID(int ID);
+        List<Orgnization> GetListOrgByOrgID(int ID);
         #endregion
 
         #region Thiet lap vi tri cv cho phong ban

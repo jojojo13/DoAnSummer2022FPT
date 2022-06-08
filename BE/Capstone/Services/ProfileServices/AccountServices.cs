@@ -1,8 +1,10 @@
-﻿using ModelAuto.Models;
+﻿using ModelAuto;
+using ModelAuto.Models;
 using Services.CommonModel;
 using Services.CommonServices;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ namespace Services.ProfileServices
 {
    public partial class ProfileImpl : IProfile
     {
+
         public Account GetAccount(Account a)
         {
             try

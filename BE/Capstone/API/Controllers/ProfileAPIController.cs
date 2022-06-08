@@ -16,6 +16,8 @@ namespace API.Controllers
     public class ProfileAPIController : ControllerBase
     {
         private ICommon p = new CommonImpl();
+
+        private IProfile profile = new ProfileImpl();
         #region list
 
         [HttpPost("autoGenCode3character")]
@@ -29,6 +31,29 @@ namespace API.Controllers
 
         #endregion
         #region Business
+
+        [HttpPost("GetListPositionByOrgID")]
+        public IActionResult GetListPositionByOrgID(int ID)
+        {
+            List<Position> list = profile.GetListPositionByOrgID(ID);
+
+            var listReturn = from l in list
+                             select new
+                             {
+                                 Name = l.Name,
+                                 Code = l.Code,
+                                 ID = l.Id
+                             };
+            if (list.Count > 0)
+                return Ok(new
+                {
+                    Status = true,
+                    Data = listReturn
+                });
+            else
+                return StatusCode(200, "Obj is Null");
+        }
+
         #endregion
     }
 }

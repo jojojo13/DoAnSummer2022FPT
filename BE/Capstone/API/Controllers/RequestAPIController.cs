@@ -33,13 +33,12 @@ namespace API.Controllers
                             CODE = l.Code,
                             NAME= l.Name
                         };
-            List<RequestResponse> list2 = new List<RequestResponse>();
             if (list.Count > 0)
             {
                 return Ok(new
                 {
                     TotalPage = c.getTotalRecord("Rc_Request"),
-                    Data = list2
+                    Data = list3
                 });
             }
             return StatusCode(200, "List is Null");

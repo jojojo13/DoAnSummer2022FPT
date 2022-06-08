@@ -134,3 +134,4 @@ D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\Sys
 D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\ModelAuto.dll
 D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\ModelAuto.pdb
+D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
