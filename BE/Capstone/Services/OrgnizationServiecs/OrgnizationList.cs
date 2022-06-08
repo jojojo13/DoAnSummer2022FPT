@@ -1,4 +1,5 @@
-﻿using CapstoneModels;
+﻿
+using ModelAuto.Models;
 using Services.CommonServices;
 using System;
 using System.Collections.Generic;
@@ -8,41 +9,41 @@ using System.Threading.Tasks;
 
 namespace Services.OrgnizationServiecs
 {
-   public partial class Orgnization : IOrgnization
+    public partial class OrgnizationImpl : IOrgnization
     {
-        #region OTher_list
-        public List<Other_List> GetOther_ListsCombo(string code)
+        #region OtherList
+        public List<OtherList> GetOtherListsCombo(string code)
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    Other_List_Type type = context.Other_Lists_Types.Where(x => x.Code.Trim().ToLower().Equals(code)).FirstOrDefault();
-                    List<Other_List> list = context.Other_Lists.Where(x => x.TypeID == type.Id && x.Status == -1).ToList();
+                    OtherListType type = context.OtherListTypes.Where(x => x.Code.Trim().ToLower().Equals(code)).FirstOrDefault();
+                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id && x.Status == -1).ToList();
                     return list;
                 }
             }
             catch
             {
-                return new List<Other_List>();
+                return new List<OtherList>();
             }
         }
-        public bool InsertOther_List(Other_List T)
+        public bool InsertOtherList(OtherList T)
         {
-            ICommon c = new Common();
+            ICommon c = new CommonImpl();
             try
             {
-                Other_List tobj = new Other_List();
+                OtherList tobj = new OtherList();
                 tobj.Name = T.Name;
-                tobj.Code = c.autoGenCode4character("Other_List", "TSHT");
+                tobj.Code = c.autoGenCode4character("OtherList", "TSHT");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
                 tobj.Atribute1 = T.Atribute1;
                 tobj.Atribute2 = T.Atribute2;
                 tobj.Atribute3 = T.Atribute3;
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    context.Other_Lists.Add(tobj);
+                    context.OtherLists.Add(tobj);
                     context.SaveChanges();
                     return true;
                 }
@@ -52,13 +53,13 @@ namespace Services.OrgnizationServiecs
                 return false;
             }
         }
-        public bool ModifyOther_List(Other_List T)
+        public bool ModifyOtherList(OtherList T)
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    Other_List tobj = context.Other_Lists.Where(x => x.Id == T.Id).FirstOrDefault();
+                    OtherList tobj = context.OtherLists.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
                     context.SaveChanges();
@@ -71,17 +72,17 @@ namespace Services.OrgnizationServiecs
             }
 
         }
-        public bool DeleteOther_List(List<int> list)
+        public bool DeleteOtherList(List<int> list)
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
-                        Other_List tobj = new Other_List();
-                        tobj = context.Other_Lists.Where(x => x.Id == item).FirstOrDefault();
-                        context.Other_Lists.Remove(tobj);
+                        OtherList tobj = new OtherList();
+                        tobj = context.OtherLists.Where(x => x.Id == item).FirstOrDefault();
+                        context.OtherLists.Remove(tobj);
                     }
                     context.SaveChanges();
                     return true;
@@ -92,16 +93,16 @@ namespace Services.OrgnizationServiecs
                 return false;
             }
         }
-        public bool ActiveOrDeActiveOther_List(List<int> list, int status)
+        public bool ActiveOrDeActiveOtherList(List<int> list, int status)
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
-                        Other_List tobj = new Other_List();
-                        tobj = context.Other_Lists.Where(x => x.Id == item).FirstOrDefault();
+                        OtherList tobj = new OtherList();
+                        tobj = context.OtherLists.Where(x => x.Id == item).FirstOrDefault();
                         tobj.Status = status;
                     }
                     context.SaveChanges();
@@ -120,7 +121,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<Title> list = context.Titles.ToList().Skip(index * size).Take(size).ToList();
                     return list;
@@ -133,7 +134,7 @@ namespace Services.OrgnizationServiecs
         }
         public bool InsertTitle(Title T)
         {
-             ICommon c = new Common();
+             ICommon c = new CommonImpl();
             try
             {
                 Title tobj = new Title();
@@ -141,7 +142,7 @@ namespace Services.OrgnizationServiecs
                 tobj.Code = c.autoGenCode3character("Title", "CD");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Titles.Add(tobj);
                     context.SaveChanges();
@@ -157,7 +158,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Title tobj = context.Titles.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
@@ -175,7 +176,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -196,7 +197,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -223,12 +224,12 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<Position> list = (List<Position>)context.Positions.ToList().Skip(index * size).Take(size);
                     foreach (var item in list)
                     {
-                        item.Title = context.Titles.Where(x => x.Id == item.TitleID).FirstOrDefault();
+                        item.Title = context.Titles.Where(x => x.Id == item.TitleId).FirstOrDefault();
                     }
                     return list;
                 }
@@ -241,7 +242,7 @@ namespace Services.OrgnizationServiecs
 
         public bool InsertPosition(Position T)
         {
-             ICommon c = new Common();
+             ICommon c = new CommonImpl();
             try
             {
                 Position tobj = new Position();
@@ -249,17 +250,17 @@ namespace Services.OrgnizationServiecs
                 tobj.Code = c.autoGenCode3character("Position", "VTCV");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                tobj.TitleID = T.TitleID;
+                tobj.TitleId = T.TitleId;
                 tobj.OtherSkill = T.OtherSkill;
                 tobj.FormWorking = T.FormWorking;
                 tobj.BasicSalary = T.BasicSalary;
-                tobj.Learning_level = T.Learning_level;
+                tobj.LearningLevel = T.LearningLevel;
                 tobj.YearExperience = T.YearExperience;
-                tobj.majorGroup = T.majorGroup;
-                tobj.language = T.language;
-                tobj.language_level = T.language_level;
-                tobj.Information_level = T.Information_level;
-                using (Context context = new Context())
+                tobj.MajorGroup = T.MajorGroup;
+                tobj.Language = T.Language;
+                tobj.LanguageLevel = T.LanguageLevel;
+                tobj.InformationLevel = T.InformationLevel;
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Positions.Add(tobj);
                     context.SaveChanges();
@@ -275,23 +276,23 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Position tobj = context.Positions.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
-                    tobj.TitleID = T.TitleID;
+                    tobj.TitleId = T.TitleId;
                     tobj.OtherSkill = T.OtherSkill;
                     tobj.FormWorking = T.FormWorking;
                     tobj.OtherSkill = T.OtherSkill;
                     tobj.FormWorking = T.FormWorking;
                     tobj.BasicSalary = T.BasicSalary;
-                    tobj.Learning_level = T.Learning_level;
+                    tobj.LearningLevel = T.LearningLevel;
                     tobj.YearExperience = T.YearExperience;
-                    tobj.majorGroup = T.majorGroup;
-                    tobj.language = T.language;
-                    tobj.language_level = T.language_level;
-                    tobj.Information_level = T.Information_level;
+                    tobj.MajorGroup = T.MajorGroup;
+                    tobj.Language = T.Language;
+                    tobj.LanguageLevel = T.LanguageLevel;
+                    tobj.InformationLevel = T.InformationLevel;
                     context.SaveChanges();
                     return true;
                 }
@@ -305,7 +306,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -326,7 +327,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {

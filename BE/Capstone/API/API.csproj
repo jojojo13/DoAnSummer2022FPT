@@ -31,8 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="CapstoneModels">
-      <HintPath>..\CapstoneModels\bin\Debug\net5.0\CapstoneModels.dll</HintPath>
+    <Reference Include="ModelAuto">
+      <HintPath>..\ModelAuto\bin\Debug\net5.0\ModelAuto.dll</HintPath>
     </Reference>
     <Reference Include="Services">
       <HintPath>..\Services\bin\Debug\net5.0\Services.dll</HintPath>

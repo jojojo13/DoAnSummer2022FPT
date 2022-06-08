@@ -1,4 +1,4 @@
-﻿using CapstoneModels;
+﻿using ModelAuto.Models;
 using Services.CommonServices;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.ProfileServices
 {
-   public partial class Profile : IProfile
+    public partial class ProfileImpl : IProfile
     {
 
      

@@ -42,7 +42,7 @@
           "Microsoft.Extensions.Configuration.Json": "5.0.0",
           "Swashbuckle.AspNetCore": "5.6.3",
           "System.Data.SqlClient": "4.8.3",
-          "CapstoneModels": "1.0.0.0",
+          "ModelAuto": "1.0.0.0",
           "Services": "1.0.0.0",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "5.0.0.0",
@@ -1686,15 +1686,15 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
-      "CapstoneModels/1.0.0.0": {
+      "ModelAuto/1.0.0.0": {
         "runtime": {
-          "CapstoneModels.dll": {
+          "ModelAuto.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         },
         "compile": {
-          "CapstoneModels.dll": {}
+          "ModelAuto.dll": {}
         }
       },
       "Services/1.0.0.0": {
@@ -4389,7 +4389,7 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
-    "CapstoneModels/1.0.0.0": {
+    "ModelAuto/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

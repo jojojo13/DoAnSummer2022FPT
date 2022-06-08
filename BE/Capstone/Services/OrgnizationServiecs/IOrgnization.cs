@@ -1,4 +1,4 @@
-﻿using CapstoneModels;
+﻿using ModelAuto.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +28,11 @@ namespace Services.OrgnizationServiecs
         #endregion
 
         #region OTherList
-        List<Other_List> GetOther_ListsCombo(string code);
-        bool InsertOther_List(Other_List T);
-        bool ModifyOther_List(Other_List T);
-        bool DeleteOther_List(List<int> list);
-        bool ActiveOrDeActiveOther_List(List<int> list, int status);
+        List<OtherList> GetOtherListsCombo(string code);
+        bool InsertOtherList(OtherList T);
+        bool ModifyOtherList(OtherList T);
+        bool DeleteOtherList(List<int> list);
+        bool ActiveOrDeActiveOtherList(List<int> list, int status);
         #endregion
 
 
@@ -40,12 +40,12 @@ namespace Services.OrgnizationServiecs
 
         #region business
         #region"Org"
-        List<ORgnization> GetAllORgnization();
-         bool InsertOrg(ORgnization T);
-         bool ModifyOrg(ORgnization T);
+        List<Orgnization> GetAllOrgnization();
+         bool InsertOrg(Orgnization T);
+         bool ModifyOrg(Orgnization T);
          bool DeleteOrg(int orgID);
          bool ActiveOrDeActiveOrg(int orgID, int status);
-
+        List<Orgnization> GetOrgByOrgID(int ID);
         #endregion
 
         #region Thiet lap vi tri cv cho phong ban

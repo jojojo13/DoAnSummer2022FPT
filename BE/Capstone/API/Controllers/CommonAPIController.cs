@@ -1,5 +1,5 @@
 ﻿using API.ResponseModel.Orgnization;
-using CapstoneModels;
+using ModelAuto.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +15,12 @@ namespace API.Controllers
     [ApiController]
     public class CommonAPIController : ControllerBase
     {
-        private ICommon p = new Common();
+        private ICommon p = new CommonImpl();
 
         [HttpPost("GetOtherListType")]
         public IActionResult GetOtherListType()
         {
-            List<Other_List_Type> list = new List<Other_List_Type>();
+            List<OtherListType> list = new List<OtherListType>();
             list = p.GetOtherListType();
             if (list.Count > 0)
                 return Ok(new

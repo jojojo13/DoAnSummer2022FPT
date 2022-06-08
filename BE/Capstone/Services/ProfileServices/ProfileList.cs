@@ -1,4 +1,4 @@
-﻿using CapstoneModels;
+﻿using ModelAuto.Models;
 using Services.CommonServices;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.ProfileServices
 {
-   public partial class Profile : IProfile
+    public partial class ProfileImpl : IProfile
     {
 
         #region Nation
@@ -17,7 +17,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<Nation> list = context.Nations.ToList();
                     if (T.Status.HasValue)
@@ -34,7 +34,7 @@ namespace Services.ProfileServices
         }
         public bool InsertNation(Nation T)
         {
-            ICommon c = new Common();
+            ICommon c = new CommonImpl();
             try
             {
                 Nation tobj = new Nation();
@@ -42,7 +42,7 @@ namespace Services.ProfileServices
                 tobj.Code = c.autoGenCode3character("Nation", "QG");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Nations.Add(tobj);
                     context.SaveChanges();
@@ -58,7 +58,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Nation tobj = context.Nations.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
@@ -76,7 +76,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -97,7 +97,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -122,9 +122,9 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<Province> list = context.Provinces.Where(x=>x.NationID==ID).ToList();
+                    List<Province> list = context.Provinces.Where(x=>x.NationId==ID).ToList();
                     if (T.Status.HasValue)
                     {
                         list = list.Where(x => x.Status == T.Status).ToList();
@@ -139,7 +139,7 @@ namespace Services.ProfileServices
         }
         public bool InsertProvince(Province T)
         {
-            ICommon c = new Common();
+            ICommon c = new CommonImpl();
             try
             {
                 Province tobj = new Province();
@@ -147,8 +147,8 @@ namespace Services.ProfileServices
                 tobj.Code = c.autoGenCode3character("Province", "T/TP");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                tobj.NationID = T.NationID;
-                using (Context context = new Context())
+                tobj.NationId = T.NationId;
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Provinces.Add(tobj);
                     context.SaveChanges();
@@ -164,12 +164,12 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Province tobj = context.Provinces.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
-                    tobj.NationID = T.NationID;
+                    tobj.NationId = T.NationId;
                     context.SaveChanges();
                     return true;
                 }
@@ -183,7 +183,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -204,7 +204,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -229,9 +229,9 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<District> list = context.Districts.Where(x => x.ProvinceID == ID).ToList();
+                    List<District> list = context.Districts.Where(x => x.ProvinceId == ID).ToList();
                     if (T.Status.HasValue)
                     {
                         list = list.Where(x => x.Status == T.Status).ToList();
@@ -247,7 +247,7 @@ namespace Services.ProfileServices
 
         public bool InsertDistrict(District T)
         {
-            ICommon c = new Common();
+            ICommon c = new CommonImpl();
             try
             {
                 District tobj = new District();
@@ -255,8 +255,8 @@ namespace Services.ProfileServices
                 tobj.Code = c.autoGenCode3character("District", "QH");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                tobj.ProvinceID = T.ProvinceID;
-                using (Context context = new Context())
+                tobj.ProvinceId = T.ProvinceId;
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Districts.Add(tobj);
                     context.SaveChanges();
@@ -272,12 +272,12 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     District tobj = context.Districts.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
-                    tobj.ProvinceID = T.ProvinceID;
+                    tobj.ProvinceId = T.ProvinceId;
                     context.SaveChanges();
                     return true;
                 }
@@ -291,7 +291,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -313,7 +313,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -338,9 +338,9 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<Ward> list = context.Wards.Where(x => x.DistrictID == ID).ToList();
+                    List<Ward> list = context.Wards.Where(x => x.DistrictId == ID).ToList();
                     if (T.Status.HasValue)
                     {
                         list = list.Where(x => x.Status == T.Status).ToList();
@@ -355,7 +355,7 @@ namespace Services.ProfileServices
         }
         public bool InsertWard(Ward T)
         {
-            ICommon c = new Common();
+            ICommon c = new CommonImpl();
             try
             {
                 Ward tobj = new Ward();
@@ -363,8 +363,8 @@ namespace Services.ProfileServices
                 tobj.Code = c.autoGenCode3character("Ward", "X/P");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                tobj.DistrictID = T.DistrictID;
-                using (Context context = new Context())
+                tobj.DistrictId = T.DistrictId;
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Wards.Add(tobj);
                     context.SaveChanges();
@@ -380,12 +380,12 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Ward tobj = context.Wards.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
-                    tobj.DistrictID = T.DistrictID;
+                    tobj.DistrictId = T.DistrictId;
                     context.SaveChanges();
                     return true;
                 }
@@ -399,7 +399,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -420,7 +420,7 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -440,12 +440,12 @@ namespace Services.ProfileServices
         #endregion
 
         #region DM loai hop dong
-        public List<Contract_Type> GetContractTypeList(Contract_Type T){
+        public List<ContractType> GetContractTypeList(ContractType T){
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<Contract_Type> list = context.ContractTypes.ToList();
+                    List<ContractType> list = context.ContractTypes.ToList();
                     if (T.Status.HasValue)
                     {
                         list = list.Where(x => x.Status == T.Status).ToList();
@@ -455,22 +455,22 @@ namespace Services.ProfileServices
             }
             catch
             {
-                return new List<Contract_Type>();
+                return new List<ContractType>();
             }
         }
-        public bool InsertContractType(Contract_Type T){
-            ICommon c = new Common();
+        public bool InsertContractType(ContractType T){
+            ICommon c = new CommonImpl();
             try
             {
-                Contract_Type tobj = new Contract_Type();
+                ContractType tobj = new ContractType();
                 tobj.Name = T.Name;
-                tobj.Code = c.autoGenCode3character("Contract_Type", "LHD");
+                tobj.Code = c.autoGenCode3character("ContractType", "LHD");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                tobj.BHTN = T.BHTN;
-                tobj.BHXH = T.BHXH;
-                tobj.BHYT = T.BHYT;
-                using (Context context = new Context())
+                tobj.Bhtn = T.Bhtn;
+                tobj.Bhxh = T.Bhxh;
+                tobj.Bhyt = T.Bhyt;
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.ContractTypes.Add(tobj);
                     context.SaveChanges();
@@ -482,17 +482,17 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-        public bool ModifyContractType(Contract_Type T){
+        public bool ModifyContractType(ContractType T){
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    Contract_Type tobj = context.ContractTypes.Where(x => x.Id == T.Id).FirstOrDefault();
+                    ContractType tobj = context.ContractTypes.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
-                    tobj.BHTN = T.BHTN;
-                    tobj.BHXH = T.BHXH;
-                    tobj.BHYT = T.BHYT;
+                    tobj.Bhtn = T.Bhtn;
+                    tobj.Bhxh = T.Bhxh;
+                    tobj.Bhyt = T.Bhyt;
                     context.SaveChanges();
                     return true;
                 }
@@ -505,11 +505,11 @@ namespace Services.ProfileServices
         public bool DeleteContractType(List<int> list){
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
-                        Contract_Type tobj = new Contract_Type();
+                        ContractType tobj = new ContractType();
                         tobj = context.ContractTypes.Where(x => x.Id == item).FirstOrDefault();
                         context.ContractTypes.Remove(tobj);
                     }
@@ -525,11 +525,11 @@ namespace Services.ProfileServices
         public bool ActiveOrDeActiveContractType(List<int> list, int status){
             try
             {
-                using (Context context = new Context())
+                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
-                        Contract_Type tobj = new Contract_Type();
+                        ContractType tobj = new ContractType();
                         tobj = context.ContractTypes.Where(x => x.Id == item).FirstOrDefault();
                         tobj.Status = status;
                     }

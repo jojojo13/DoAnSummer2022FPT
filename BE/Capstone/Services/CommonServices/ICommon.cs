@@ -1,4 +1,4 @@
-﻿using CapstoneModels;
+﻿using ModelAuto.Models;
 using Services.CommonModel;
 using System;
 using System.Collections.Generic;
@@ -16,13 +16,13 @@ namespace Services.CommonServices
         #endregion
 
         #region GetByID
-         ORgnization getOrgByID(int id);
+         Orgnization getOrgByID(int id);
          Title getTitleByID(int id);
          Position getPositionByID(int id);
         #endregion
 
         #region other_list_type
-        List<Other_List_Type> GetOtherListType();
+        List<OtherListType> GetOtherListType();
         #endregion
 
         #region sendmail
@@ -41,7 +41,7 @@ namespace Services.CommonServices
         #region "Request"
         public int getTotalRecord(string tableName);
 
-        public Rc_Request GetRequestByID(int ID);
+        public RcRequest GetRequestByID(int ID);
         #endregion
 
 

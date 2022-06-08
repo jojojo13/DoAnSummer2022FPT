@@ -1,4 +1,4 @@
-﻿using CapstoneModels;
+﻿using ModelAuto.Models;
 using Services.CommonServices;
 using System;
 using System.Collections.Generic;
@@ -10,17 +10,17 @@ namespace Services.RequestServices
 {
     public class Request : IRequest
     {
-        private ICommon c = new Common();
+        private ICommon c = new CommonImpl();
         public bool ActiveOrDeActiveRequest(List<int> list, int status)
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
-                        Rc_Request tobj = new Rc_Request();
-                        tobj = context.Rc_Requests.Where(x => x.Id == item).FirstOrDefault();
+                        RcRequest tobj = new RcRequest();
+                        tobj = context.RcRequests.Where(x => x.Id == item).FirstOrDefault();
                         tobj.Status = status;
                     }
                     context.SaveChanges();
@@ -38,13 +38,13 @@ namespace Services.RequestServices
 
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
-                        Rc_Request tobj = new Rc_Request();
-                        tobj = context.Rc_Requests.Where(x => x.Id == item).FirstOrDefault();
-                        context.Rc_Requests.Remove(tobj);
+                        RcRequest tobj = new RcRequest();
+                        tobj = context.RcRequests.Where(x => x.Id == item).FirstOrDefault();
+                        context.RcRequests.Remove(tobj);
                     }
                     context.SaveChanges();
                     return true;
@@ -56,55 +56,55 @@ namespace Services.RequestServices
             }
         }
 
-        public List<Rc_Request> GetAllRequest(int index, int size)
+        public List<RcRequest> GetAllRequest(int index, int size)
         {
 
-            try
+            //try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<Rc_Request> list = context.Rc_Requests.ToList().Skip(index * size).Take(size).ToList();
+                    List<RcRequest> list = context.RcRequests.ToList().Skip(index * size).Take(size).ToList();
                     foreach(var item in list)
                     {
-                        item.position = context.Positions.Where(x => x.Id == item.PositionID).FirstOrDefault();
-                        item.TypeObj = context.Other_Lists.Where(x => x.Id == item.Type).FirstOrDefault();
-                        item.ProjectObj = context.Other_Lists.Where(x => x.Id == item.Project).FirstOrDefault();
-                        item.oRgnization = context.ORgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
-                        item.Signer = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
-                        item.RequestLevelObj = context.Other_Lists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
-                        item.LevelObj = context.Other_Lists.Where(x => x.Id == item.Level).FirstOrDefault();
+                        item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
+                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();
+                        item.ProjectNavigation = context.OtherLists.Where(x => x.Id == item.Project).FirstOrDefault();
+                        item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
+                        item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
+                        item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
+                        item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
                     }
                     return list;
                 }
             }
-            catch(Exception e)
-            {
-                return new List<Rc_Request>();
-            }
+            //catch(Exception e)
+            //{
+            //    return new List<RcRequest>();
+            //}
         }
 
-        public Rc_Request GetRequestByID(int ID)
+        public RcRequest GetRequestByID(int ID)
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    Rc_Request tobj = new Rc_Request();
-                    tobj = context.Rc_Requests.Where(x => x.Id == ID).FirstOrDefault();
+                    RcRequest tobj = new RcRequest();
+                    tobj = context.RcRequests.Where(x => x.Id == ID).FirstOrDefault();
                     return tobj;
                 }
             }
             catch
             {
-                return new Rc_Request();
+                return new RcRequest();
             }
         }
 
-        public bool InsertRequest(Rc_Request T)
+        public bool InsertRequest(RcRequest T)
         {
-            Rc_Request rc = new Rc_Request();
+            RcRequest rc = new RcRequest();
             rc.Name = T.Name;
-            rc.Code = c.autoGenCode3character("Rc_Request", "RC");
+            rc.Code = c.autoGenCode3character("RcRequest", "RC");
             rc.EffectDate = T.EffectDate;
             rc.ExpireDate = T.ExpireDate;
             rc.Number = T.Number;
@@ -114,15 +114,15 @@ namespace Services.RequestServices
             rc.Number = T.Number;
             rc.YearExperience = T.YearExperience;
             rc.Project = T.Project;
-            rc.PositionID = T.PositionID;
+            rc.PositionId = T.PositionId;
             rc.Type = T.Type;
             rc.Comment = T.Comment;
-            rc.ParentID = T.ParentID;
+            rc.ParentId = T.ParentId;
             rc.Level = T.Level;
             rc.Budget = T.Budget;
-            if (!rc.ParentID.HasValue)
+            if (!rc.ParentId.HasValue)
             {
-                rc.Rank = c.GetRequestByID((int)rc.ParentID).Rank + 1;
+                rc.Rank = c.GetRequestByID((int)rc.ParentId).Rank + 1;
             }
             else
             {
@@ -130,9 +130,9 @@ namespace Services.RequestServices
             }
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    context.Rc_Requests.Add(rc);
+                    context.RcRequests.Add(rc);
                     context.SaveChanges();
                     return true;
                 }
@@ -143,15 +143,15 @@ namespace Services.RequestServices
             }
         }
 
-        public bool ModifyRequest(Rc_Request T)
+        public bool ModifyRequest(RcRequest T)
         {
            
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
 
-                    Rc_Request rc = context.Rc_Requests.Where(x => x.Id == T.Id).FirstOrDefault();
+                    RcRequest rc = context.RcRequests.Where(x => x.Id == T.Id).FirstOrDefault();
                     rc.Name = T.Name;
                     rc.EffectDate = T.EffectDate;
                     rc.ExpireDate = T.ExpireDate;
@@ -162,7 +162,7 @@ namespace Services.RequestServices
                     rc.Number = T.Number;
                     rc.YearExperience = T.YearExperience;
                     rc.Project = T.Project;
-                    rc.PositionID = T.PositionID;
+                    rc.PositionId = T.PositionId;
                     rc.Type = T.Type;
                     rc.Comment = T.Comment;
                     rc.Level = T.Level;

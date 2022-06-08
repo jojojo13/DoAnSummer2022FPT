@@ -1,7 +1,6 @@
-﻿using API.Atributes;
+﻿using ModelAuto.Models;
 using API.ResponseModel.Common;
 using API.ResponseModel.Request;
-using CapstoneModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,13 +19,13 @@ namespace API.Controllers
     public class RequestAPIController : ControllerBase
     {
         private IRequest p = new Request();
-        private ICommon c = new Common();
+        private ICommon c = new CommonImpl();
 
         #region RC_REQUEST
         [HttpPost("GetAllRequest")]
         public IActionResult  GetAllRequest(CommonResponse common)
         {
-            List<Rc_Request> list = p.GetAllRequest(common.index, common.size);
+            List<RcRequest> list = p.GetAllRequest(common.index, common.size);
             var list3 = from l in list
                         select new
                         {
@@ -172,7 +171,7 @@ namespace API.Controllers
         {
             try
             {
-                Rc_Request rc = new Rc_Request();
+                RcRequest rc = new RcRequest();
                 rc.Name = T.Name;
                 rc.EffectDate = T.EffectDate;
                 rc.ExpireDate = T.ExpireDate;
@@ -183,10 +182,10 @@ namespace API.Controllers
                 rc.Number = T.Number;
                 rc.YearExperience = T.YearExperience;
                 rc.Project = T.Project;
-                rc.PositionID = T.PositionID;
+                rc.PositionId = T.PositionID;
                 rc.Type = T.Type;
                 rc.Comment = T.Comment;
-                rc.ParentID = T.ParentID;
+                rc.ParentId = T.ParentID;
                 rc.Level = T.Level;
                 rc.Budget = T.Budget;
                 var check = p.InsertRequest(rc);
@@ -211,7 +210,7 @@ namespace API.Controllers
         {
             try
             {
-                Rc_Request rc = new Rc_Request();
+                RcRequest rc = new RcRequest();
                 rc.Name = T.Name;
                 rc.EffectDate = T.EffectDate;
                 rc.ExpireDate = T.ExpireDate;
@@ -222,10 +221,10 @@ namespace API.Controllers
                 rc.Number = T.Number;
                 rc.YearExperience = T.YearExperience;
                 rc.Project = T.Project;
-                rc.PositionID = T.PositionID;
+                rc.PositionId = T.PositionID;
                 rc.Type = T.Type;
                 rc.Comment = T.Comment;
-                rc.ParentID = T.ParentID;
+                rc.ParentId = T.ParentID;
                 rc.Level = T.Level;
                 rc.Budget = T.Budget;
                 var check = p.InsertRequest(rc);

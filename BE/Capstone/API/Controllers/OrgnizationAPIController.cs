@@ -1,6 +1,6 @@
 ﻿using API.ResponseModel.Common;
 using API.ResponseModel.Orgnization;
-using CapstoneModels;
+using ModelAuto.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +16,7 @@ namespace API.Controllers
     [ApiController]
     public class OrgnizationAPIController : ControllerBase
     {
-        private IOrgnization p = new Orgnization();
+        private IOrgnization p = new OrgnizationImpl();
 
         #region List
 
@@ -25,8 +25,8 @@ namespace API.Controllers
         [HttpPost("GetOtherList")]
         public IActionResult GetOtherList(string code)
         {
-            List<Other_List> list = new List<Other_List>();
-            list = p.GetOther_ListsCombo(code);
+            List<OtherList> list = new List<OtherList>();
+            list = p.GetOtherListsCombo(code);
             if (list.Count > 0)
             {
                 return Ok(new
@@ -53,7 +53,7 @@ namespace API.Controllers
                         lst.Add(Convert.ToInt32(item));
                     }
                 }
-                var check = p.ActiveOrDeActiveOther_List(lst, -1);
+                var check = p.ActiveOrDeActiveOtherList(lst, -1);
                 if (check)
                 {
                     return Ok(new
@@ -93,7 +93,7 @@ namespace API.Controllers
                         lst.Add(Convert.ToInt32(item));
                     }
                 }
-                var check = p.ActiveOrDeActiveOther_List(lst, 0);
+                var check = p.ActiveOrDeActiveOtherList(lst, 0);
                 if (check)
                 {
                     return Ok(new
@@ -133,7 +133,7 @@ namespace API.Controllers
                         lst.Add(Convert.ToInt32(item));
                     }
                 }
-                var check = p.DeleteOther_List(lst);
+                var check = p.DeleteOtherList(lst);
                 if (check)
                 {
                     return Ok(new
@@ -164,7 +164,7 @@ namespace API.Controllers
         {
             try
             {
-                Other_List obj = new Other_List();
+                OtherList obj = new OtherList();
                 obj.Atribute1 = objresponse.Atribute1;
                 obj.Atribute2 = objresponse.Atribute2;
                 obj.Atribute3 = objresponse.Atribute3;
@@ -172,7 +172,7 @@ namespace API.Controllers
                 obj.Status = -1;
                 obj.Name = objresponse.Name;
                 obj.Code = objresponse.Code;
-                var check = p.InsertOther_List(obj);
+                var check = p.InsertOtherList(obj);
                 if (check)
                 {
                     return Ok(new
@@ -203,14 +203,14 @@ namespace API.Controllers
         {
             try
             {
-                Other_List obj = new Other_List();
+                OtherList obj = new OtherList();
                 obj.Id = objresponse.Id;
                 obj.Atribute1 = objresponse.Atribute1;
                 obj.Atribute2 = objresponse.Atribute2;
                 obj.Atribute3 = objresponse.Atribute3;
                 obj.Note = objresponse.Note;
                 obj.Name = objresponse.Name;
-                var check = p.ModifyOther_List(obj);
+                var check = p.ModifyOtherList(obj);
                 if (check)
                 {
                     return Ok(new
@@ -592,16 +592,16 @@ namespace API.Controllers
                 Position tobj = new Position();
                 tobj.Name = objresponse.Name;
                 tobj.Note = objresponse.Note;
-                tobj.TitleID = objresponse.TitleID;
+                tobj.TitleId = objresponse.TitleID;
                 tobj.OtherSkill = objresponse.OtherSkill;
                 tobj.FormWorking = objresponse.FormWorking;
                 tobj.BasicSalary = objresponse.BasicSalary;
-                tobj.Learning_level = objresponse.Learning_level;
+                tobj.LearningLevel = objresponse.Learning_level;
                 tobj.YearExperience = objresponse.year_exp;
-                tobj.majorGroup = objresponse.majorGroup;
-                tobj.language = objresponse.language;
-                tobj.language_level = objresponse.language_level;
-                tobj.Information_level = objresponse.Information_level;
+                tobj.MajorGroup = objresponse.majorGroup;
+                tobj.Language = objresponse.language;
+                tobj.LanguageLevel = objresponse.language_level;
+                tobj.InformationLevel = objresponse.Information_level;
                 var check = p.InsertPosition(tobj);
                 if (check)
                 {
@@ -636,16 +636,16 @@ namespace API.Controllers
                 Position tobj = new Position();
                 tobj.Name = objresponse.Name;
                 tobj.Note = objresponse.Note;
-                tobj.TitleID = objresponse.TitleID;
+                tobj.TitleId = objresponse.TitleID;
                 tobj.OtherSkill = objresponse.OtherSkill;
                 tobj.FormWorking = objresponse.FormWorking;
                 tobj.BasicSalary = objresponse.BasicSalary;
-                tobj.Learning_level = objresponse.Learning_level;
+                tobj.LearningLevel = objresponse.Learning_level;
                 tobj.YearExperience = objresponse.year_exp;
-                tobj.majorGroup = objresponse.majorGroup;
-                tobj.language = objresponse.language;
-                tobj.language_level = objresponse.language_level;
-                tobj.Information_level = objresponse.Information_level;
+                tobj.MajorGroup = objresponse.majorGroup;
+                tobj.Language = objresponse.language;
+                tobj.LanguageLevel = objresponse.language_level;
+                tobj.InformationLevel = objresponse.Information_level;
                 var check = p.ModifyPosition(tobj);
                 if (check)
                 {
@@ -681,7 +681,7 @@ namespace API.Controllers
         [HttpPost("GetAllOrg")]
         public IActionResult GetAllOrg()
         {
-            List<ORgnization> list = p.GetAllORgnization();
+            List<Orgnization> list = p.GetAllOrgnization();
             if (list.Count > 0)
             {
                 return Ok(new
@@ -793,12 +793,12 @@ namespace API.Controllers
         {
             try
             {
-                ORgnization obj = new ORgnization();
+                Orgnization obj = new Orgnization();
                 obj.Note = objresponse.Note;
                 obj.Status = -1;
                 obj.CreateDate = objresponse.CreateDate;
                 obj.DissolutionDate = objresponse.DissolutionDate;
-                obj.ParentID = objresponse.ParentID;
+                obj.ParentId = objresponse.ParentID;
                 obj.CreateDate = objresponse.CreateDate;
                 obj.DissolutionDate = objresponse.DissolutionDate;
                 obj.Note = objresponse.Note;
@@ -807,11 +807,11 @@ namespace API.Controllers
                 obj.Phone = objresponse.Mobile;
                 obj.NumberBussines = objresponse.NumberBussines;
                 obj.Address = objresponse.Address;
-                obj.NationID = objresponse.NationID;
-                obj.ProvinceID = objresponse.ProvinceID;
-                obj.DistrictID = objresponse.DistrictID;
-                obj.WardID = objresponse.WardID;
-                obj.ManagerID = objresponse.ManagerID;
+                obj.NationId = objresponse.NationID;
+                obj.ProvinceId = objresponse.ProvinceID;
+                obj.DistrictId = objresponse.DistrictID;
+                obj.WardId = objresponse.WardID;
+                obj.ManagerId = objresponse.ManagerID;
                 var check = p.InsertOrg(obj);
                 if (check)
                     return Ok(new
@@ -839,12 +839,12 @@ namespace API.Controllers
         {
             try
             {
-                ORgnization obj = new ORgnization();
+                Orgnization obj = new Orgnization();
                 obj.Note = objresponse.Note;
                 obj.Status = -1;
                 obj.CreateDate = objresponse.CreateDate;
                 obj.DissolutionDate = objresponse.DissolutionDate;
-                obj.ParentID = objresponse.ParentID;
+                obj.ParentId = objresponse.ParentID;
                 obj.CreateDate = objresponse.CreateDate;
                 obj.DissolutionDate = objresponse.DissolutionDate;
                 obj.Note = objresponse.Note;
@@ -853,11 +853,11 @@ namespace API.Controllers
                 obj.Phone = objresponse.Mobile;
                 obj.NumberBussines = objresponse.NumberBussines;
                 obj.Address = objresponse.Address;
-                obj.NationID = objresponse.NationID;
-                obj.ProvinceID = objresponse.ProvinceID;
-                obj.DistrictID = objresponse.DistrictID;
-                obj.WardID = objresponse.WardID;
-                obj.ManagerID = objresponse.ManagerID;
+                obj.NationId = objresponse.NationID;
+                obj.ProvinceId = objresponse.ProvinceID;
+                obj.DistrictId = objresponse.DistrictID;
+                obj.WardId = objresponse.WardID;
+                obj.ManagerId = objresponse.ManagerID;
                 var check = p.ModifyOrg(obj);
                 if (check)
                     return Ok(new
@@ -1025,8 +1025,8 @@ namespace API.Controllers
             {
                 PositionOrg tobj = new PositionOrg();
                 tobj.Status = -1;
-                tobj.OrgID = objresponse.OrgID;
-                tobj.positionID = objresponse.positionID;
+                tobj.OrgId = objresponse.OrgID;
+                tobj.PositionId = objresponse.positionID;
                 var check = p.InsertPositionOrg(tobj);
                 if (check)
                 {
@@ -1059,8 +1059,8 @@ namespace API.Controllers
             try
             {
                 PositionOrg tobj = new PositionOrg();
-                tobj.OrgID = objresponse.OrgID;
-                tobj.positionID = objresponse.positionID;
+                tobj.OrgId = objresponse.OrgID;
+                tobj.PositionId = objresponse.positionID;
                 var check = p.ModifyPositionOrg(tobj);
                 if (check)
                 {

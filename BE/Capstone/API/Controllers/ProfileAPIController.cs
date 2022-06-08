@@ -1,4 +1,4 @@
-﻿using CapstoneModels;
+﻿using ModelAuto.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +15,7 @@ namespace API.Controllers
     [ApiController]
     public class ProfileAPIController : ControllerBase
     {
-        private ICommon p = new Common();
+        private ICommon p = new CommonImpl();
         #region list
 
         [HttpPost("autoGenCode3character")]

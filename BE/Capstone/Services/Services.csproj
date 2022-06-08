@@ -16,12 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CapstoneModels\CapstoneModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="bin\Debug\net5.0\ref\" />
     <Folder Include="obj\Debug\net5.0\ref\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +31,17 @@
     <None Include="obj\project.nuget.cache" />
     <None Include="obj\Services.csproj.nuget.g.props" />
     <None Include="obj\Services.csproj.nuget.g.targets" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ModelAuto">
+      <HintPath>..\ModelAuto\bin\Debug\net5.0\ModelAuto.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

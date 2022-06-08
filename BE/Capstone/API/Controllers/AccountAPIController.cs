@@ -1,5 +1,5 @@
 ﻿using API.ResponseModel;
-using CapstoneModels;
+using ModelAuto.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +27,7 @@ namespace API.Controllers
         {
             _config = config;
         }
-        private IProfile p = new Profile();
+        private IProfile p = new ProfileImpl();
         [AllowAnonymous]
         [HttpPost("GetAccount")]
         public IActionResult Get([FromBody] AccountResponse accountResponse)

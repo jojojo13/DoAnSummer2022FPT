@@ -1,5 +1,5 @@
-﻿using CapstoneModels;
-using Microsoft.Extensions.Configuration;
+﻿using ModelAuto.Models;
+using ModelAuto;
 using Services.CommonModel;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Services.CommonServices
 {
-    public class Common : ICommon
+    public class CommonImpl : ICommon
     {
         #region"List"
         public string autoGenCode3character(string tableName, string firstCode)
@@ -70,13 +70,13 @@ namespace Services.CommonServices
 
 
         #region Get by ID
-        public ORgnization getOrgByID(int id)
+        public Orgnization getOrgByID(int id)
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
                 {
-                    ORgnization obj = context.ORgnizations.Where(x => x.Id == id).FirstOrDefault();
+                    Orgnization obj = context.Orgnizations.Where(x => x.Id == id).FirstOrDefault();
                     return obj;
                 }
             }
@@ -91,7 +91,7 @@ namespace Services.CommonServices
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
                 {
                     Title obj = context.Titles.Where(x => x.Id == id).FirstOrDefault();
                     return obj;
@@ -107,7 +107,7 @@ namespace Services.CommonServices
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
                 {
                     Position obj = context.Positions.Where(x => x.Id == id).FirstOrDefault();
                     return obj;
@@ -126,19 +126,19 @@ namespace Services.CommonServices
 
         #region "Get OtherList type"
 
-        public List<Other_List_Type> GetOtherListType()
+        public List<OtherListType> GetOtherListType()
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
                 {
-                    List<Other_List_Type> list = context.Other_Lists_Types.Where(x => x.Status == -1).ToList();
+                    List<OtherListType> list = context.OtherListTypes.Where(x => x.Status == -1).ToList();
                     return list;
                 }
             }
             catch
             {
-                return new List<Other_List_Type>();
+                return new List<OtherListType>();
             }
         }
         #endregion
@@ -233,13 +233,13 @@ namespace Services.CommonServices
             return COUNT;
         }
 
-        public Rc_Request GetRequestByID(int ID)
+        public RcRequest GetRequestByID(int ID)
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
                 {
-                    Rc_Request obj = context.Rc_Requests.Where(x => x.Id == ID).FirstOrDefault();
+                    RcRequest obj = context.RcRequests.Where(x => x.Id == ID).FirstOrDefault();
                     return obj;
                 }
             }

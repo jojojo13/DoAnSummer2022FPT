@@ -1,4 +1,4 @@
-﻿using CapstoneModels;
+﻿using ModelAuto.Models;
 using Services.CommonModel;
 using Services.CommonServices;
 using System;
@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Services.ProfileServices
 {
-    partial class Profile : IProfile
+   public partial class ProfileImpl : IProfile
     {
         public Account GetAccount(Account a)
         {
             try
             {
-                ICommon common = new Common();
-                using (Context context = new Context())
+                ICommon common = new CommonImpl();
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Account tobj = context.Accounts.Where(x => x.UserName == a.UserName && x.Pass == common.sha256_hash(a.Pass)).FirstOrDefault();
                     if (tobj != null)
@@ -38,8 +38,8 @@ namespace Services.ProfileServices
         {
             try
             {
-                ICommon c = new Common();
-                using (Context context = new Context())
+                ICommon c = new CommonImpl();
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Account tobj = context.Accounts.Where(x => x.UserName == a.UserName && x.Pass == a.Pass).FirstOrDefault();
                     tobj.Pass = c.sha256_hash(a.Pass);
@@ -57,18 +57,18 @@ namespace Services.ProfileServices
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    ICommon c = new Common();
+                    ICommon c = new CommonImpl();
                     Account tobj = context.Accounts.Where(x => x.UserName == a.UserName && x.Pass == a.Pass).FirstOrDefault();
                     string newPass = c.sha256_hash(Guid.NewGuid().ToString("d").Substring(1, 8));
                     tobj.Pass = newPass;
                     context.SaveChanges();
-                    EmployeeCV em = context.EmployeeCVs.Where(x => x.EmployeeID == tobj.EmployeeID).FirstOrDefault();
+                    EmployeeCv em = context.EmployeeCvs.Where(x => x.EmployeeId == tobj.EmployeeId).FirstOrDefault();
                     string email = em.EmailWork;
                     mailDTO.tomail = email;
                     mailDTO.content = "Mật khẩu mới của bạn là : " + tobj.Pass+"</br>"+"Vui lòng thay đổi mật khẩu mới sau khi đăng nhập";
-                    ICommon common = new Common();
+                    ICommon common = new CommonImpl();
                     if (common.sendMail(mailDTO))
                     {
                         return true;

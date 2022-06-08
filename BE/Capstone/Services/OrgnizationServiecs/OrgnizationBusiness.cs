@@ -1,4 +1,5 @@
-﻿using CapstoneModels;
+﻿
+using ModelAuto.Models;
 using Services.CommonServices;
 using System;
 using System.Collections.Generic;
@@ -8,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace Services.OrgnizationServiecs
 {
-    public partial class Orgnization : IOrgnization
+    public partial class OrgnizationImpl : IOrgnization
     {
         #region"Org"
-        public bool InsertOrg(ORgnization o)
+        public bool InsertOrg(Orgnization o)
         {
-            ICommon c = new Common();
+            ICommon c = new CommonImpl();
             try
             {
-                ORgnization obj = new ORgnization();
+                Orgnization obj = new Orgnization();
                 obj.Name = o.Name;
-                obj.Code = c.autoGenCode3character("ORgnization", "ORG");
-                obj.ParentID = o.ParentID;
-                if (!o.ParentID.HasValue)
+                obj.Code = c.autoGenCode3character("Orgnization", "ORG");
+                obj.ParentId = o.ParentId;
+                if (!o.ParentId.HasValue)
                 {
-                    obj.Level = c.getOrgByID((int)o.ParentID).Level + 1;
+                    obj.Level = c.getOrgByID((int)o.ParentId).Level + 1;
                 }
                 else
                 {
@@ -37,14 +38,14 @@ namespace Services.OrgnizationServiecs
                 obj.Phone = o.Phone;
                 obj.NumberBussines = o.NumberBussines;
                 obj.Address = o.Address;
-                obj.DistrictID = o.DistrictID;
-                obj.WardID = o.WardID;
-                obj.ProvinceID = o.ProvinceID;
-                obj.NationID = o.NationID;
-                obj.ManagerID = o.ManagerID;
-                using (Context context = new Context())
+                obj.DistrictId = o.DistrictId;
+                obj.WardId = o.WardId;
+                obj.ProvinceId = o.ProvinceId;
+                obj.NationId = o.NationId;
+                obj.ManagerId = o.ManagerId;
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    context.ORgnizations.Add(obj);
+                    context.Orgnizations.Add(obj);
                     context.SaveChanges();
                     return true;
                 }
@@ -54,13 +55,13 @@ namespace Services.OrgnizationServiecs
                 return false;
             }
         }
-        public bool ModifyOrg(ORgnization o)
+        public bool ModifyOrg(Orgnization o)
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    ORgnization obj = context.ORgnizations.Where(x => x.Id == o.Id).FirstOrDefault();
+                    Orgnization obj = context.Orgnizations.Where(x => x.Id == o.Id).FirstOrDefault();
                     obj.Name = o.Name;
                     obj.CreateDate = o.CreateDate;
                     obj.DissolutionDate = o.DissolutionDate;
@@ -71,11 +72,11 @@ namespace Services.OrgnizationServiecs
                     obj.Phone = o.Phone;
                     obj.NumberBussines = o.NumberBussines;
                     obj.Address = o.Address;
-                    obj.DistrictID = o.DistrictID;
-                    obj.WardID = o.WardID;
-                    obj.ProvinceID = o.ProvinceID;
-                    obj.NationID = o.NationID;
-                    obj.ManagerID = o.ManagerID;
+                    obj.DistrictId = o.DistrictId;
+                    obj.WardId = o.WardId;
+                    obj.ProvinceId = o.ProvinceId;
+                    obj.NationId = o.NationId;
+                    obj.ManagerId = o.ManagerId;
                     context.SaveChanges();
                     return true;
                 }
@@ -85,15 +86,15 @@ namespace Services.OrgnizationServiecs
                 return false;
             }
         }
-        public bool DeleteOrg(int orgID)
+        public bool DeleteOrg(int OrgId)
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    ORgnization tobj = new ORgnization();
-                    tobj = context.ORgnizations.Where(x => x.Id == orgID).FirstOrDefault();
-                    context.ORgnizations.Remove(tobj);
+                    Orgnization tobj = new Orgnization();
+                    tobj = context.Orgnizations.Where(x => x.Id == OrgId).FirstOrDefault();
+                    context.Orgnizations.Remove(tobj);
                     context.SaveChanges();
                     return true;
                 }
@@ -104,14 +105,14 @@ namespace Services.OrgnizationServiecs
             }
         }
 
-        public bool ActiveOrDeActiveOrg(int orgID, int status)
+        public bool ActiveOrDeActiveOrg(int OrgId, int status)
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    ORgnization tobj = new ORgnization();
-                    tobj = context.ORgnizations.Where(x => x.Id == orgID).FirstOrDefault();
+                    Orgnization tobj = new Orgnization();
+                    tobj = context.Orgnizations.Where(x => x.Id == OrgId).FirstOrDefault();
                     tobj.Status = status;
                     context.SaveChanges();
                     return true;
@@ -123,19 +124,35 @@ namespace Services.OrgnizationServiecs
             }
         }
 
-        public List<ORgnization> GetAllORgnization()
+        public List<Orgnization> GetAllOrgnization()
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<ORgnization> list = context.ORgnizations.ToList();
+                    List<Orgnization> list = context.Orgnizations.ToList();
                     return list;
                 }
             }
             catch
             {
-                return new List<ORgnization>();
+                return new List<Orgnization>();
+            }
+        }
+
+        public List<Orgnization> GetOrgByOrgID(int ID)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    List<Orgnization> list = context.Orgnizations.ToList();
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Orgnization>();
             }
         }
 
@@ -147,13 +164,13 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<PositionOrg> list = (List<PositionOrg>)context.PositionOrgs.ToList().Skip(index * size).Take(size);
                     foreach (var item in list)
                     {
-                        item.oRgnization = context.ORgnizations.Where(x => x.Id == item.OrgID).FirstOrDefault();
-                        item.position = context.Positions.Where(x => x.Id == item.positionID).FirstOrDefault();
+                        item.Org = context.Orgnizations.Where(x => x.Id == item.OrgId).FirstOrDefault();
+                        item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
                     }
                     return list;
                 }
@@ -168,10 +185,10 @@ namespace Services.OrgnizationServiecs
             try
             {
                 PositionOrg tobj = new PositionOrg();
-                tobj.positionID = T.positionID;
+                tobj.PositionId = T.PositionId;
                 tobj.Status = -1;
-                tobj.OrgID = T.OrgID;
-                using (Context context = new Context())
+                tobj.OrgId = T.OrgId;
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.PositionOrgs.Add(tobj);
                     context.SaveChanges();
@@ -187,11 +204,11 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     PositionOrg tobj = context.PositionOrgs.Where(x => x.Id == T.Id).FirstOrDefault();
-                    tobj.positionID = T.positionID;
-                    tobj.OrgID = T.OrgID;
+                    tobj.PositionId = T.PositionId;
+                    tobj.OrgId = T.OrgId;
                     context.SaveChanges();
                     return true;
                 }
@@ -205,7 +222,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -226,7 +243,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                using (Context context = new Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {

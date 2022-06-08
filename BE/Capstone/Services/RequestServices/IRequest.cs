@@ -1,4 +1,4 @@
-﻿using CapstoneModels;
+﻿using ModelAuto.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +9,13 @@ namespace Services.RequestServices
 {
    public interface IRequest
     {
-        #region RC_REQUEST
-        List<Rc_Request> GetAllRequest(int index, int size);
-        bool InsertRequest(Rc_Request T);
-        bool ModifyRequest(Rc_Request T);
+        #region RcRequest
+        List<RcRequest> GetAllRequest(int index, int size);
+        bool InsertRequest(RcRequest T);
+        bool ModifyRequest(RcRequest T);
         bool DeleteRequest(List<int> list);
         bool ActiveOrDeActiveRequest(List<int> list, int status);
-        Rc_Request GetRequestByID(int ID);
+        RcRequest GetRequestByID(int ID);
         #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿using CapstoneModels;
+﻿using ModelAuto.Models;
 using Services.CommonModel;
 using System;
 using System.Collections.Generic;
@@ -53,9 +53,9 @@ namespace Services.ProfileServices
         #endregion
 
         #region dm loai HD
-        List<Contract_Type> GetContractTypeList(Contract_Type T);
-        bool InsertContractType(Contract_Type T);
-        bool ModifyContractType(Contract_Type T);
+        List<ContractType> GetContractTypeList(ContractType T);
+        bool InsertContractType(ContractType T);
+        bool ModifyContractType(ContractType T);
         bool DeleteContractType(List<int> list);
         bool ActiveOrDeActiveContractType(List<int> list, int status);
         #endregion
