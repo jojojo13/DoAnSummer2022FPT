@@ -12,3 +12,4 @@ D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\ref\Services.dll
 D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\Services.pdb
 D:\Capstone\BE\Capstone\Services\bin\Debug\net5.0\ModelAuto.dll
 D:\Capstone\BE\Capstone\Services\bin\Debug\net5.0\ModelAuto.pdb
+D:\Capstone\BE\Capstone\Services\obj\Debug\net5.0\Services.csprojAssemblyReference.cache
