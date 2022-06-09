@@ -15,7 +15,7 @@ namespace CreateDatabase
         public int Id { get; set; }
         [StringLength(10)]
         public string Code { get; set; }
-        [StringLength(10)]
+        [StringLength(100)]
         public string Name { get; set; }
         public int? Status { get; set; }
         public string Note { get; set; }

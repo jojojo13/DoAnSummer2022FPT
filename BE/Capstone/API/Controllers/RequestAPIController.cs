@@ -29,9 +29,21 @@ namespace API.Controllers
             var list3 = from l in list
                         select new
                         {
-                            ID = l.Id,
-                            CODE = l.Code,
-                            NAME= l.Name
+                            id = l.Id,
+                            requestId = l.Code,
+                            name= l.Name,
+                            requestLevel= l.RequestLevelNavigation?.Name,
+                            department= l.Orgnization?.Name,
+                            position= l.Position?.Name,
+                            quantity= l.Number,
+                            createdOn= l.EffectDate,
+                            Deadline= l.ExpireDate,
+                            HrInchange = l.Sign?.FullName,
+                            status= l.Status==-1?"Accept":l.Status==0?"Reject":"pending",
+                            parentId= l.ParentId,
+                            rank= l.Rank,
+                            note= l.Note,
+                            comment= l.Comment
                         };
             if (list.Count > 0)
             {
