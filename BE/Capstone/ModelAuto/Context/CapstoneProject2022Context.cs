@@ -1171,6 +1171,8 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.Type, "IX_Rc_Request_Type");
 
+                entity.HasIndex(e => e.hrInchange, "IX_Rc_Request_hrInchange");
+
                 entity.Property(e => e.Code).HasMaxLength(10);
 
                 entity.Property(e => e.Comment).HasMaxLength(100);
@@ -1212,6 +1214,10 @@ namespace ModelAuto.Models
                 entity.HasOne(d => d.TypeNavigation)
                     .WithMany(p => p.RcRequestTypeNavigations)
                     .HasForeignKey(d => d.Type);
+
+                entity.HasOne(d => d.hrEmp)
+                    .WithMany(p => p.RcRequestsHr)
+                    .HasForeignKey(d => d.hrInchange);
             });
 
             modelBuilder.Entity<RcRequestExam>(entity =>

@@ -21,6 +21,7 @@ namespace ModelAuto.Models
             RcCandidateCvs = new HashSet<RcCandidateCv>();
             RcRequestSchedus = new HashSet<RcRequestSchedu>();
             RcRequests = new HashSet<RcRequest>();
+            RcRequestsHr= new HashSet<RcRequest>();
         }
 
         public int Id { get; set; }
@@ -55,5 +56,6 @@ namespace ModelAuto.Models
         public virtual ICollection<RcCandidateCv> RcCandidateCvs { get; set; }
         public virtual ICollection<RcRequestSchedu> RcRequestSchedus { get; set; }
         public virtual ICollection<RcRequest> RcRequests { get; set; }
+        public virtual ICollection<RcRequest> RcRequestsHr  { get; set; }
     }
 }

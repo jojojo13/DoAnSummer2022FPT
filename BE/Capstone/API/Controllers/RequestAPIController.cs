@@ -38,12 +38,13 @@ namespace API.Controllers
                             quantity= l.Number,
                             createdOn= l.EffectDate,
                             Deadline= l.ExpireDate,
-                            HrInchange = l.Sign?.FullName,
+                            Office = l.Sign?.FullName,
                             status= l.Status==-1?"Accept":l.Status==0?"Reject":"pending",
                             parentId= l.ParentId,
                             rank= l.Rank,
                             note= l.Note,
-                            comment= l.Comment
+                            comment= l.Comment,
+                            HrInchange= l.hrEmp.FullName
                         };
             if (list.Count > 0)
             {

@@ -76,6 +76,10 @@ namespace CreateDatabase
         public int? ParentID { get; set; }
         public int? Rank { get; set; }
 
+        public int? hrInchange { get; set; }
+        [ForeignKey("hrInchange")]
+        [InverseProperty("Rc_Request1s")]
+        public Employee hrEmployee { get; set; }
 
         [StringLength(100)]
         public string CreateBy { get; set; }

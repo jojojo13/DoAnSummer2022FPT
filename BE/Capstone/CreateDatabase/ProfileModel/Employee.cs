@@ -76,5 +76,7 @@ namespace CreateDatabase
         public virtual ICollection<Rc_Candidate_CV> Rc_Candidate_CVs { get; set; }
 
         public virtual ICollection<Rc_Request_Schedu> Rc_Request_Schedus { get; set; }
+
+        public virtual ICollection<Rc_Request> Rc_Request1s { get; set; }
     }
 }

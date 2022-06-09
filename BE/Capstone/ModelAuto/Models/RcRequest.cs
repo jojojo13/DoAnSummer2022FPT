@@ -37,6 +37,8 @@ namespace ModelAuto.Models
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
 
+        public int?hrInchange { get; set; }
+
         public virtual OtherList LevelNavigation { get; set; }
         public virtual Orgnization Orgnization { get; set; }
         public virtual Position Position { get; set; }
@@ -44,6 +46,8 @@ namespace ModelAuto.Models
         public virtual OtherList RequestLevelNavigation { get; set; }
         public virtual Employee Sign { get; set; }
         public virtual OtherList TypeNavigation { get; set; }
+        public virtual Employee hrEmp { get; set; }
+
         public virtual ICollection<RcPhaseRequest> RcPhaseRequests { get; set; }
     }
 }
