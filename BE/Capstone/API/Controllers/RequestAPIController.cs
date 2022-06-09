@@ -217,8 +217,8 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("ModifyOT")]
-        public IActionResult ModifyOT([FromBody] RequestResponse T)
+        [HttpPut("ModifyRequest")]
+        public IActionResult ModifyRequest([FromBody] RequestResponse T)
         {
             try
             {

@@ -696,7 +696,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = true,
-                    Data = list
+                    Data = ListReturn
                 });
             }
             return StatusCode(200, "List is Null");
