@@ -2,6 +2,7 @@
 using Services.CommonModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,7 +68,8 @@ namespace Services.ProfileServices
         #region "Business"
 
         List<Position> GetListPositionByOrgID(int ID);
-
+        List<Employee> GetListEmployeeByOrgID(int OrgID, int index, int size);
+        
 
         #endregion
 

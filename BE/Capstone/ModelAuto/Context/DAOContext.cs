@@ -56,5 +56,20 @@ namespace ModelAuto
             con.Close();
             return dt;
         }
+
+        public static DataTable GetListEmployeeByOrgID(int OrgID, int index, int size)
+        {
+            var con = GetConnection();
+            con.Open();
+            SqlCommand command = new SqlCommand("GET_EMPLOYEE_BY_ORGID", con);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@ORGID", SqlDbType.Int).Value = OrgID;
+            command.Parameters.AddWithValue("@PageNumber", SqlDbType.Int).Value = index;
+            command.Parameters.AddWithValue("@RowsOfPage", SqlDbType.Int).Value = size;
+            DataTable dt = new DataTable();
+            dt.Load(command.ExecuteReader());
+            con.Close();
+            return dt;
+        }
     }
 }
