@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ModelAuto.Models;
 
 namespace API.ResponseModel.Orgnization
 {
@@ -26,5 +27,24 @@ namespace API.ResponseModel.Orgnization
         public int? DistrictID { get; set; }
         public int? WardID { get; set; }
         public int? ManagerID { get; set; }
+        public List<OrgResponse> Children { get; set; }
     }
+    public class GetChildOrgnization 
+    {
+       public List<OrgResponse> GetChildOrg (List<ModelAuto.Models.Orgnization> list, int parent)
+        {
+            var list1 = list.Where(x => x.ParentId == parent).Select(x => new OrgResponse()
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Code=x.Code,
+                Level=x.Level,
+                ParentID= x.ParentId,
+                Children= GetChildOrg(list,x.Id),
+            }).ToList();
+            return list1;
+        }
+
+    }
+
 }

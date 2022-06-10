@@ -681,16 +681,17 @@ namespace API.Controllers
         [HttpPost("GetAllOrg")]
         public IActionResult GetAllOrg()
         {
+            GetChildOrgnization g = new GetChildOrgnization();
             List<Orgnization> list = p.GetAllOrgnization();
-            var ListReturn = from l in list
-                             select new
-                             {
-                                 Name = l.Name,
-                                 ID= l.Id,
-                                 Code=l.Code,
-                                 Level= l.Level,
-                                 ParentID= l.ParentId
-                             };
+            var ListReturn = list.Where(x => x.Level == 1).Select(x => new OrgResponse()
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Code = x.Code,
+                Level = x.Level,
+                ParentID = x.ParentId,
+                Children = g.GetChildOrg(list, x.Id),
+            }).ToList();
             if (list.Count > 0)
             {
                 return Ok(new
