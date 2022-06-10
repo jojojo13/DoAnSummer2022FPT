@@ -224,9 +224,9 @@ namespace Services.CommonServices
 
 
 
-        public int getTotalRecord(string tableName)
+        public int getTotalRecord(string tableName, bool isRank)
         {
-            string query = "select count(*) COUNT from " + tableName;
+            string query =isRank==true? ("select count(*) COUNT from " + tableName+" where Rank=1"): ("select count(*) COUNT from " + tableName);
             DataTable dt = DAOContext.GetDataBySql(query);
             DataRow lastRow = dt.Rows[0];
             int COUNT = Convert.ToInt32(lastRow["COUNT"]);

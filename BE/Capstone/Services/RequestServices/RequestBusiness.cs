@@ -63,8 +63,35 @@ namespace Services.RequestServices
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<RcRequest> list = context.RcRequests.ToList().Skip(index * size).Take(size).ToList();
+                    List<RcRequest> list = context.RcRequests.Where(x=>x.Rank==1).ToList().Skip(index * size).Take(size).ToList();
                     foreach(var item in list)
+                    {
+                        item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
+                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();
+                        item.ProjectNavigation = context.OtherLists.Where(x => x.Id == item.Project).FirstOrDefault();
+                        item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
+                        item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
+                        item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
+                        item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
+                        item.hrEmp = context.Employees.Where(x => x.Id == item.hrInchange).FirstOrDefault();
+                    }
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<RcRequest>();
+            }
+        }
+
+        public List<RcRequest> GetChildRequestById(int ID)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    List<RcRequest> list = context.RcRequests.Where(x => x.ParentId == ID).ToList();
+                    foreach (var item in list)
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
                         item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();

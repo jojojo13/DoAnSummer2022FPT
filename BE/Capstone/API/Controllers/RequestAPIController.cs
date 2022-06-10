@@ -25,37 +25,67 @@ namespace API.Controllers
         [HttpPost("GetAllRequest")]
         public IActionResult GetAllRequest(CommonResponse common)
         {
-            GetChildRcRequest getChildRc= new GetChildRcRequest();
             List<RcRequest> list = p.GetAllRequest(common.index, common.size);
-
-            List<ListRcRequest> list1 = new List<ListRcRequest>();
-            list1 = list.Where(x => x.Rank == 1).Select(x => new ListRcRequest()
-            {
-                id = x.Id,
-                code = x.Code,
-                name = x.Name,
-                requestLevel = x.RequestLevelNavigation?.Name,
-                department = x.Orgnization?.Name,
-                position = x.Position?.Name,
-                quantity = x.Number,
-                createdOn = x.EffectDate,
-                Deadline = x.ExpireDate,
-                Office = x.Sign?.FullName,
-                Status = x.Status == -1 ? "Accept" : x.Status == 0 ? "Reject" : "pending",
-                parentId = x.ParentId,
-                rank = x.Rank,
-                note = x.Note,
-                comment = x.Comment,
-                HrInchange = x.hrEmp?.FullName,
-                Children = getChildRc.GetChildren(list, x.Id),
-
-            }).ToList();
+            var listReturn = from x in list
+                             select new
+                             {
+                                 id = x.Id,
+                                 code = x.Code,
+                                 name = x.Name,
+                                 requestLevel = x.RequestLevelNavigation?.Name,
+                                 department = x.Orgnization?.Name,
+                                 position = x.Position?.Name,
+                                 quantity = x.Number,
+                                 createdOn = x.EffectDate,
+                                 Deadline = x.ExpireDate,
+                                 Office = x.Sign?.FullName,
+                                 Status = x.Status == -1 ? "Accept" : x.Status == 0 ? "Reject" : "pending",
+                                 parentId = x.ParentId,
+                                 rank = x.Rank,
+                                 note = x.Note,
+                                 comment = x.Comment,
+                                 HrInchange = x.hrEmp?.FullName
+                             };
             if (list.Count > 0)
             {
                 return Ok(new
                 {
-                    TotalPage = c.getTotalRecord("Rc_Request"),
-                    Data = list1
+                    TotalItem = c.getTotalRecord("Rc_Request", true),
+                    Data = listReturn
+                });
+            }
+            return StatusCode(200, "List is Null");
+        }
+
+        [HttpPost("GetChildRequestById")]
+        public IActionResult GetChildRequestById(int parentId)
+        {
+            List<RcRequest> list = p.GetChildRequestById(parentId);
+            var listReturn = from x in list
+                             select new
+                             {
+                                 id = x.Id,
+                                 code = x.Code,
+                                 name = x.Name,
+                                 requestLevel = x.RequestLevelNavigation?.Name,
+                                 department = x.Orgnization?.Name,
+                                 position = x.Position?.Name,
+                                 quantity = x.Number,
+                                 createdOn = x.EffectDate,
+                                 Deadline = x.ExpireDate,
+                                 Office = x.Sign?.FullName,
+                                 Status = x.Status == -1 ? "Accept" : x.Status == 0 ? "Reject" : "pending",
+                                 parentId = x.ParentId,
+                                 rank = x.Rank,
+                                 note = x.Note,
+                                 comment = x.Comment,
+                                 HrInchange = x.hrEmp?.FullName
+                             };
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    Data = listReturn
                 });
             }
             return StatusCode(200, "List is Null");

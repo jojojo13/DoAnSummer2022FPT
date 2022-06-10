@@ -39,7 +39,7 @@ namespace Services.CommonServices
 
 
         #region "Request"
-        public int getTotalRecord(string tableName);
+        public int getTotalRecord(string tableName, bool isRank);
 
         public RcRequest GetRequestByID(int ID);
         #endregion
