@@ -94,7 +94,7 @@ namespace API.Controllers
 
 
         [HttpPut("ActiveRequest")]
-        public IActionResult ActiveOT([FromBody] string ListID)
+        public IActionResult ActiveRequest([FromBody] string ListID)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace API.Controllers
 
 
         [HttpPut("DeActiveRequest")]
-        public IActionResult DeActiveOT([FromBody] string ListID)
+        public IActionResult DeActiveRequest([FromBody] string ListID)
         {
             try
             {
@@ -174,7 +174,7 @@ namespace API.Controllers
 
 
         [HttpPost("DeleteRequest")]
-        public IActionResult DeleteOT([FromBody] string ListID)
+        public IActionResult DeleteRequest([FromBody] string ListID)
         {
             try
             {
@@ -288,6 +288,14 @@ namespace API.Controllers
                 });
             }
         }
+        #endregion
+
+
+
+        #region "màn Thêm mới request"
+
+
+
         #endregion
     }
 }
