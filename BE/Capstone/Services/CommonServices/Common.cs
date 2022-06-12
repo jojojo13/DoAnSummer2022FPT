@@ -58,7 +58,7 @@ namespace Services.CommonServices
             }
             else
             {
-                string sql = "select CODE from " + tableName + "where " + nameColumn + " = 1 order by id desc";
+                string sql = "select CODE from " + tableName + " where " + nameColumn + " = 1 order by id desc";
                 DataTable dt = DAOContext.GetDataBySql(sql);
                 DataRow lastRow = dt.Rows[0];
                 int code = Convert.ToInt32(lastRow["CODE"]);

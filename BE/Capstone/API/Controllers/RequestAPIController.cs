@@ -234,6 +234,7 @@ namespace API.Controllers
                 rc.Comment = T.Comment;
                 rc.ParentId = T.ParentID;
                 rc.Level = T.Level;
+                rc.RequestLevel = T.RequestLevel;
                 rc.Budget = T.Budget;
                 var check = p.InsertRequest(rc);
                 return Ok(new
