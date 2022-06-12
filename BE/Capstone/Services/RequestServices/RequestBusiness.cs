@@ -148,7 +148,7 @@ namespace Services.RequestServices
             rc.ParentId = T.ParentId;
             rc.Level = T.Level;
             rc.Budget = T.Budget;
-            if (!rc.ParentId.HasValue)
+            if (!rc.ParentId.HasValue|| rc.ParentId!=null)
             {
                 rc.Rank = c.GetRequestByID((int)rc.ParentId).Rank + 1;
             }
