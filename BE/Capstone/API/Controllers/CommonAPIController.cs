@@ -20,9 +20,15 @@ namespace API.Controllers
 
 
         [HttpPost("autoGenCode3character")]
-        public IActionResult autoGenCode3character(ComboboxResponse obj)
+        public IActionResult autoGenCode3character(AutogenCode3Response obj)
         {
             return Ok(p.autoGenCode3character(obj.table, obj.code));
+        }
+
+        [HttpPost("autoGenCode")]
+        public IActionResult autoGenCode(AutogenCodeResponse obj)
+        {
+            return Ok(p.autoGenCode(obj.table, obj.rank, obj.collumName, obj.ParentId));
         }
 
         [HttpPost("GetOtherListType")]
