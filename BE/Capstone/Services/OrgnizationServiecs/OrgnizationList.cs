@@ -35,7 +35,7 @@ namespace Services.OrgnizationServiecs
             {
                 OtherList tobj = new OtherList();
                 tobj.Name = T.Name;
-                tobj.Code = c.autoGenCode4character("OtherList", "TSHT");
+                tobj.Code = c.autoGenCode3character("OtherList", "TSHT");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
                 tobj.Atribute1 = T.Atribute1;

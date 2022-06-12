@@ -63,7 +63,7 @@ namespace Services.RequestServices
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<RcRequest> list = context.RcRequests.Where(x=>x.Rank==1).ToList().Skip(index * size).Take(size).ToList();
+                    List<RcRequest> list = context.RcRequests.Where(x=>x.Rank==1).ToList().Skip(index * size).Take(size).OrderBy(x => x.Id).ToList();
                     foreach(var item in list)
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
@@ -90,7 +90,7 @@ namespace Services.RequestServices
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<RcRequest> list = context.RcRequests.Where(x => x.ParentId == ID).ToList();
+                    List<RcRequest> list = context.RcRequests.Where(x => x.ParentId == ID).OrderBy(x => x.Id).ToList();
                     foreach (var item in list)
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
@@ -132,7 +132,7 @@ namespace Services.RequestServices
         {
             RcRequest rc = new RcRequest();
             rc.Name = T.Name;
-            rc.Code = c.autoGenCode3character("RcRequest", "RC");
+          
             rc.EffectDate = T.EffectDate;
             rc.ExpireDate = T.ExpireDate;
             rc.Number = T.Number;
@@ -156,6 +156,7 @@ namespace Services.RequestServices
             {
                 rc.Rank = 1;
             }
+            rc.Code = c.autoGenCode("Rc_Request", rc.Rank, "Rank",  rc.ParentId);
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())

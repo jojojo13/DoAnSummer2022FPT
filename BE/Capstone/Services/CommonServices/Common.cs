@@ -42,30 +42,31 @@ namespace Services.CommonServices
             }
         }
 
-        public string autoGenCode4character(string tableName, string firstCode)
+        public string autoGenCode(string tableName, int? rank, string nameColumn, int? parentID)
         {
-            try
+            if (rank > 1)
             {
-                string query = "select Code from " + tableName + " order by Id desc";
-                DataTable dt = DAOContext.GetDataBySql(query);
+                string sql = "select count(*) COUNT from "+tableName+" where parentId= "+ parentID;
+                DataTable dt = DAOContext.GetDataBySql(sql);
                 DataRow lastRow = dt.Rows[0];
-                string Code = lastRow["Code"].ToString();
-
-                if (Code != null)
-                {
-                    string number = Code.Substring(Code.Length - 4);
-                    return firstCode + (Convert.ToInt32(number) + 1).ToString("0000");
-                }
-                else
-                {
-                    return firstCode + "0001";
-                }
+                int count = Convert.ToInt32(lastRow["COUNT"])+1;
+                string sql2 = "select code from "+tableName+" where id ="+parentID;
+                DataTable dt2 = DAOContext.GetDataBySql(sql2);
+                DataRow lastRow2 = dt2.Rows[0];
+                string code = lastRow2["code"].ToString()+"."+ count;
+                return code;
             }
-            catch
+            else
             {
-                return firstCode + "0001";
+                string sql = "select CODE from " + tableName + "where " + nameColumn + " = 1 order by id desc";
+                DataTable dt = DAOContext.GetDataBySql(sql);
+                DataRow lastRow = dt.Rows[0];
+                int code = Convert.ToInt32(lastRow["CODE"]);
+                return (code + 1).ToString();
             }
         }
+
+       
         #endregion
 
 

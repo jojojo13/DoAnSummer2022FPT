@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Services.CommonServices
 {
-   public interface ICommon
+    public interface ICommon
     {
         #region AUtoGen code
-         string autoGenCode3character(string tableName, string firstCode);
-         string autoGenCode4character(string tableName, string firstCode);
+        string autoGenCode(string tableName, int? rank, string nameColumn, int? parentID);
+        string autoGenCode3character(string tableName, string firstCode);
         #endregion
 
         #region GetByID
-         Orgnization getOrgByID(int id);
-         Title getTitleByID(int id);
-         Position getPositionByID(int id);
+        Orgnization getOrgByID(int id);
+        Title getTitleByID(int id);
+        Position getPositionByID(int id);
         #endregion
 
         #region other_list_type
