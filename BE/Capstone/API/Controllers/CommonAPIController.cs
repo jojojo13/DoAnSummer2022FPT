@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.ResponseModel.Common;
 
 namespace API.Controllers
 {
@@ -16,6 +17,13 @@ namespace API.Controllers
     public class CommonAPIController : ControllerBase
     {
         private ICommon p = new CommonImpl();
+
+
+        [HttpPost("autoGenCode3character")]
+        public IActionResult autoGenCode3character(ComboboxResponse obj)
+        {
+            return Ok(p.autoGenCode3character(obj.table, obj.code));
+        }
 
         [HttpPost("GetOtherListType")]
         public IActionResult GetOtherListType()

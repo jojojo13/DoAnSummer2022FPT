@@ -77,6 +77,7 @@ namespace Services.CommonServices
                 using (CapstoneProject2022Context context =new CapstoneProject2022Context())
                 {
                     Orgnization obj = context.Orgnizations.Where(x => x.Id == id).FirstOrDefault();
+                    obj.Manager = context.Employees.Where(x => x.Id == obj.ManagerId).FirstOrDefault();
                     return obj;
                 }
             }

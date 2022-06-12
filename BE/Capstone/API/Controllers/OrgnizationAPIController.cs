@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Services.CommonServices;
 
 namespace API.Controllers
 {
@@ -17,7 +18,7 @@ namespace API.Controllers
     public class OrgnizationAPIController : ControllerBase
     {
         private IOrgnization p = new OrgnizationImpl();
-
+        private ICommon c = new CommonImpl();
         #region List
 
         #region OTHER_LIST
@@ -27,12 +28,19 @@ namespace API.Controllers
         {
             List<OtherList> list = new List<OtherList>();
             list = p.GetOtherListsCombo(code);
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name= l.Name,
+                                 id= l.Id,
+                                 code= l.Code
+                             };
             if (list.Count > 0)
             {
                 return Ok(new
                 {
                     Status = true,
-                    Data = list
+                    Data = listReturn
                 });
             }
             return StatusCode(200, "List is Null");
@@ -451,7 +459,7 @@ namespace API.Controllers
         [HttpPost("GetAllPosition")]
         public IActionResult GetAllPosition(CommonResponse common)
         {
-            List<Position>list = p.GetAllPosition(common.index, common.size);
+            List<Position> list = p.GetAllPosition(common.index, common.size);
             if (list.Count > 0)
             {
                 return Ok(new
@@ -677,6 +685,33 @@ namespace API.Controllers
         #region Business
 
         #region Quan ly to chuc
+
+
+        [HttpPost("getOrgByID")]
+        public IActionResult getOrgByID(int Id)
+        {
+            GetChildOrgnization g = new GetChildOrgnization();
+            Orgnization x = c.getOrgByID(Id);
+            var returnObj = new
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Code = x.Code,
+                Level = x.Level,
+                ParentID = x.ParentId,
+                managerID= x.ManagerId,
+                managerName= x.Manager?.FullName
+            };
+            if (x != null)
+            {
+                return Ok(new
+                {
+                    Status = true,
+                    Data = returnObj
+                });
+            }
+            return StatusCode(200, "obj is Null");
+        }
 
         [HttpPost("GetAllOrg")]
         public IActionResult GetAllOrg()
@@ -1111,7 +1146,7 @@ namespace API.Controllers
                                  Level = l.Level,
                                  ID = l.Id
                              };
-            if (list.Count>0)
+            if (list.Count > 0)
                 return Ok(new
                 {
                     Status = true,

@@ -24,11 +24,7 @@ namespace API.Controllers
         private IProfile profile = new ProfileImpl();
         #region list
 
-        [HttpPost("autoGenCode3character")]
-        public IActionResult autoGenCode3character()
-        {
-            return Ok(p.autoGenCode3character("Other_List","OT"));
-        }
+
         #region DM loai HOP DONG
 
         #endregion
