@@ -40,15 +40,16 @@ namespace Services.CommonServices
 
         #region "Request"
         public int getTotalRecord(string tableName, bool isRank);
-
-        public RcRequest GetRequestByID(int ID);
         #endregion
 
 
 
-        #region "Get next sequence"
-        int getNextSequence(string tablename);
-
+        #region OTherList
+        List<OtherList> GetOtherListsCombo(string code);
+        bool InsertOtherList(OtherList T);
+        bool ModifyOtherList(OtherList T);
+        bool DeleteOtherList(List<int> list);
+        bool ActiveOrDeActiveOtherList(List<int> list, int status);
         #endregion
 
 

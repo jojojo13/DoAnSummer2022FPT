@@ -235,34 +235,113 @@ namespace Services.CommonServices
             return COUNT;
         }
 
-        public RcRequest GetRequestByID(int ID)
+
+
+
+        #region OtherList
+        public List<OtherList> GetOtherListsCombo(string code)
         {
             try
             {
-                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    RcRequest obj = context.RcRequests.Where(x => x.Id == ID).FirstOrDefault();
-                    return obj;
+                    OtherListType type = context.OtherListTypes.Where(x => x.Code.Trim().ToLower().Equals(code)).FirstOrDefault();
+                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id && x.Status == -1).ToList();
+                    return list;
                 }
             }
             catch
             {
-                return null;
+                return new List<OtherList>();
+            }
+        }
+        public bool InsertOtherList(OtherList T)
+        {
+            ICommon c = new CommonImpl();
+            try
+            {
+                OtherList tobj = new OtherList();
+                tobj.Name = T.Name;
+                tobj.Code = c.autoGenCode3character("OtherList", "OT");
+                tobj.Status = -1;
+                tobj.Note = T.Note;
+                tobj.Atribute1 = T.Atribute1;
+                tobj.Atribute2 = T.Atribute2;
+                tobj.Atribute3 = T.Atribute3;
+                tobj.TypeId = T.TypeId;
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    context.OtherLists.Add(tobj);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool ModifyOtherList(OtherList T)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    OtherList tobj = context.OtherLists.Where(x => x.Id == T.Id).FirstOrDefault();
+                    tobj.Name = T.Name;
+                    tobj.Note = T.Note;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
 
         }
-
-
-
-
-
-        public int getNextSequence(string tablename)
+        public bool DeleteOtherList(List<int> list)
         {
-            string query = " SELECT NEXT VALUE FOR SEQ_"+tablename+" AS GID";
-            DataTable dt = DAOContext.GetDataBySql(query);
-            DataRow lastRow = dt.Rows[0];
-            int gID = Convert.ToInt32(lastRow["GID"]);
-            return gID;
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    foreach (var item in list)
+                    {
+                        OtherList tobj = new OtherList();
+                        tobj = context.OtherLists.Where(x => x.Id == item).FirstOrDefault();
+                        context.OtherLists.Remove(tobj);
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
+        public bool ActiveOrDeActiveOtherList(List<int> list, int status)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    foreach (var item in list)
+                    {
+                        OtherList tobj = new OtherList();
+                        tobj = context.OtherLists.Where(x => x.Id == item).FirstOrDefault();
+                        tobj.Status = status;
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

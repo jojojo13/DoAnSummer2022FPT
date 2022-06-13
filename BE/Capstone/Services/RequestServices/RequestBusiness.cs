@@ -151,7 +151,7 @@ namespace Services.RequestServices
             rc.Budget = T.Budget;
             if (!rc.ParentId.HasValue && rc.ParentId!=null)
             {
-                rc.Rank = c.GetRequestByID((int)rc.ParentId).Rank + 1;
+                rc.Rank = GetRequestByID((int)rc.ParentId).Rank + 1;
             }
             else
             {

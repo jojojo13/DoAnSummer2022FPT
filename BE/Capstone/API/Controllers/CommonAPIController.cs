@@ -32,10 +32,10 @@ namespace API.Controllers
         }
 
         [HttpPost("GetOtherListType")]
-        public IActionResult GetOtherListType()
+        public IActionResult GetOtherListType(int phanHe)
         {
             List<OtherListType> list = new List<OtherListType>();
-            list = p.GetOtherListType();
+            list = p.GetOtherListType().Where(x => x.PhanHe == phanHe).ToList();
             if (list.Count > 0)
                 return Ok(new
                 {
@@ -62,6 +62,227 @@ namespace API.Controllers
         }
         #endregion
 
+        #region "Tham số hệ thống"
+        [HttpPost("GetOtherList")]
+        public IActionResult GetOtherList(string code)
+        {
+            List<OtherList> list = new List<OtherList>();
+            list = p.GetOtherListsCombo(code);
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 id = l.Id,
+                                 code = l.Code
+                             };
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    Status = true,
+                    Data = listReturn
+                });
+            }
+            return StatusCode(200, "List is Null");
+        }
 
+
+        [HttpPut("ActiveOtherList")]
+        public IActionResult ActiveOtherList([FromBody] string ListID)
+        {
+            try
+            {
+                string[] listID = ListID.Split(" ");
+                List<int> lst = new List<int>();
+                foreach (var item in listID)
+                {
+                    if (!item.Trim().Equals(""))
+                    {
+                        lst.Add(Convert.ToInt32(item));
+                    }
+                }
+                var check = p.ActiveOrDeActiveOtherList(lst, -1);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
+        [HttpPut("DeActiveOtherList")]
+        public IActionResult DeActiveOtherList([FromBody] string ListID)
+        {
+            try
+            {
+                string[] listID = ListID.Split(" ");
+                List<int> lst = new List<int>();
+                foreach (var item in listID)
+                {
+                    if (!item.Trim().Equals(""))
+                    {
+                        lst.Add(Convert.ToInt32(item));
+                    }
+                }
+                var check = p.ActiveOrDeActiveOtherList(lst, 0);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
+        [HttpPost("DeleteOtherList")]
+        public IActionResult DeleteOtherList([FromBody] string ListID)
+        {
+            try
+            {
+                string[] listID = ListID.Split(" ");
+                List<int> lst = new List<int>();
+                foreach (var item in listID)
+                {
+                    if (!item.Trim().Equals(""))
+                    {
+                        lst.Add(Convert.ToInt32(item));
+                    }
+                }
+                var check = p.DeleteOtherList(lst);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
+        [HttpPost("InsertOtherList")]
+        public IActionResult InsertOtherList([FromBody] OtherListResponse objresponse)
+        {
+            try
+            {
+                OtherList obj = new OtherList();
+                obj.Atribute1 = objresponse.Atribute1;
+                obj.Atribute2 = objresponse.Atribute2;
+                obj.Atribute3 = objresponse.Atribute3;
+                obj.Note = objresponse.Note;
+                obj.Status = -1;
+                obj.Name = objresponse.Name;
+                obj.Code = objresponse.Code;
+                obj.TypeId = objresponse.TypeID;
+                var check = p.InsertOtherList(obj);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
+        [HttpPut("ModifyOtherList")]
+        public IActionResult ModifyOtherList([FromBody] OtherListResponse objresponse)
+        {
+            try
+            {
+                OtherList obj = new OtherList();
+                obj.Id = objresponse.Id;
+                obj.Atribute1 = objresponse.Atribute1;
+                obj.Atribute2 = objresponse.Atribute2;
+                obj.Atribute3 = objresponse.Atribute3;
+                obj.Note = objresponse.Note;
+                obj.Name = objresponse.Name;
+                var check = p.ModifyOtherList(obj);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+        #endregion
     }
 }

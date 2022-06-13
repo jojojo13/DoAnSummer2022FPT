@@ -14,5 +14,6 @@ namespace API.ResponseModel.Orgnization
         public string Atribute1 { get; set; }
         public string Atribute2 { get; set; }
         public string Atribute3 { get; set; }
+        public int TypeID { get; set; }
     }
 }

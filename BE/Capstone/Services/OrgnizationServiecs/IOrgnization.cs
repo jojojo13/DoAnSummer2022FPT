@@ -27,14 +27,6 @@ namespace Services.OrgnizationServiecs
          bool ActiveOrDeActivePosition(List<int> list, int status);
         #endregion
 
-        #region OTherList
-        List<OtherList> GetOtherListsCombo(string code);
-        bool InsertOtherList(OtherList T);
-        bool ModifyOtherList(OtherList T);
-        bool DeleteOtherList(List<int> list);
-        bool ActiveOrDeActiveOtherList(List<int> list, int status);
-        #endregion
-
 
         #endregion
 

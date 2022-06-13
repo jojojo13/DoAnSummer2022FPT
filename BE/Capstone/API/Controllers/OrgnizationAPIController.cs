@@ -21,229 +21,6 @@ namespace API.Controllers
         private ICommon c = new CommonImpl();
         #region List
 
-        #region OTHER_LIST
-
-        [HttpPost("GetOtherList")]
-        public IActionResult GetOtherList(string code)
-        {
-            List<OtherList> list = new List<OtherList>();
-            list = p.GetOtherListsCombo(code);
-            var listReturn = from l in list
-                             select new
-                             {
-                                 name= l.Name,
-                                 id= l.Id,
-                                 code= l.Code
-                             };
-            if (list.Count > 0)
-            {
-                return Ok(new
-                {
-                    Status = true,
-                    Data = listReturn
-                });
-            }
-            return StatusCode(200, "List is Null");
-        }
-
-
-        [HttpPut("ActiveOT")]
-        public IActionResult ActiveOT([FromBody] string ListID)
-        {
-            try
-            {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.ActiveOrDeActiveOtherList(lst, -1);
-                if (check)
-                {
-                    return Ok(new
-                    {
-                        Status = true
-                    });
-                }
-                else
-                {
-                    return Ok(new
-                    {
-                        Status = false
-                    });
-                }
-            }
-            catch
-            {
-                return Ok(new
-                {
-                    Status = false
-                });
-            }
-        }
-
-
-        [HttpPut("DeActiveOT")]
-        public IActionResult DeActiveOT([FromBody] string ListID)
-        {
-            try
-            {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.ActiveOrDeActiveOtherList(lst, 0);
-                if (check)
-                {
-                    return Ok(new
-                    {
-                        Status = true
-                    });
-                }
-                else
-                {
-                    return Ok(new
-                    {
-                        Status = false
-                    });
-                }
-            }
-            catch
-            {
-                return Ok(new
-                {
-                    Status = false
-                });
-            }
-        }
-
-
-        [HttpPost("DeleteOT")]
-        public IActionResult DeleteOT([FromBody] string ListID)
-        {
-            try
-            {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.DeleteOtherList(lst);
-                if (check)
-                {
-                    return Ok(new
-                    {
-                        Status = true
-                    });
-                }
-                else
-                {
-                    return Ok(new
-                    {
-                        Status = false
-                    });
-                }
-            }
-            catch
-            {
-                return Ok(new
-                {
-                    Status = false
-                });
-            }
-        }
-
-
-        [HttpPost("InsertOT")]
-        public IActionResult InsertOT([FromBody] OtherListResponse objresponse)
-        {
-            try
-            {
-                OtherList obj = new OtherList();
-                obj.Atribute1 = objresponse.Atribute1;
-                obj.Atribute2 = objresponse.Atribute2;
-                obj.Atribute3 = objresponse.Atribute3;
-                obj.Note = objresponse.Note;
-                obj.Status = -1;
-                obj.Name = objresponse.Name;
-                obj.Code = objresponse.Code;
-                var check = p.InsertOtherList(obj);
-                if (check)
-                {
-                    return Ok(new
-                    {
-                        Status = true
-                    });
-                }
-                else
-                {
-                    return Ok(new
-                    {
-                        Status = false
-                    });
-                }
-            }
-            catch
-            {
-                return Ok(new
-                {
-                    Status = false
-                });
-            }
-        }
-
-
-        [HttpPut("ModifyOT")]
-        public IActionResult ModifyOT([FromBody] OtherListResponse objresponse)
-        {
-            try
-            {
-                OtherList obj = new OtherList();
-                obj.Id = objresponse.Id;
-                obj.Atribute1 = objresponse.Atribute1;
-                obj.Atribute2 = objresponse.Atribute2;
-                obj.Atribute3 = objresponse.Atribute3;
-                obj.Note = objresponse.Note;
-                obj.Name = objresponse.Name;
-                var check = p.ModifyOtherList(obj);
-                if (check)
-                {
-                    return Ok(new
-                    {
-                        Status = true
-                    });
-                }
-                else
-                {
-                    return Ok(new
-                    {
-                        Status = false
-                    });
-                }
-            }
-            catch
-            {
-                return Ok(new
-                {
-                    Status = false
-                });
-            }
-        }
-        #endregion
-
 
         #region DM chuc danh
 
@@ -251,19 +28,28 @@ namespace API.Controllers
         public IActionResult GetAllTitle(CommonResponse common)
         {
             List<Title> list = p.GetAllTitle(common.index, common.size);
+            var ListResponse = from l in list
+                               select new {
+                                   id= l.Id,
+                                   name= l.Name,
+                                   code= l.Code,
+                                   status  = l.Status == -1 ? "Active" : "Deactive",
+                                   note= l.Note
+                               };
+
             if (list.Count > 0)
             {
                 return Ok(new
                 {
                     Status = true,
-                    Data = list
+                    Data = ListResponse
                 });
             }
             return StatusCode(200, "List is Null");
         }
 
 
-        [HttpPut("ActiveTitle")]
+        [HttpPost("ActiveTitle")]
         public IActionResult ActiveTitle([FromBody] string ListID)
         {
             try
@@ -303,7 +89,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("DeActiveTitle")]
+        [HttpPost("DeActiveTitle")]
         public IActionResult DeActiveTitle([FromBody] string ListID)
         {
             try
@@ -419,7 +205,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("ModifyTitle")]
+        [HttpPost("ModifyTitle")]
         public IActionResult ModifyTitle([FromBody] TitleResponse objresponse)
         {
             try
@@ -472,7 +258,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("ActivePosition")]
+        [HttpPost("ActivePosition")]
         public IActionResult ActivePosition([FromBody] string ListID)
         {
             try
@@ -512,7 +298,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("DeActivePosition")]
+        [HttpPost("DeActivePosition")]
         public IActionResult DeActivePosition([FromBody] string ListID)
         {
             try
@@ -636,7 +422,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("ModifyPosition")]
+        [HttpPost("ModifyPosition")]
         public IActionResult ModifyPosition([FromBody] PositionResponse objresponse)
         {
             try
@@ -681,6 +467,10 @@ namespace API.Controllers
         #endregion
 
         #endregion
+
+
+
+
 
         #region Business
 
@@ -740,7 +530,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("ActiveOrg")]
+        [HttpPost("ActiveOrg")]
         public IActionResult ActiveOrg([FromBody] int ID)
         {
             try
@@ -771,7 +561,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("DeActiveOrg")]
+        [HttpPost("DeActiveOrg")]
         public IActionResult DeActiveOrg([FromBody] int ID)
         {
             try
@@ -880,7 +670,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("ModifyOrg")]
+        [HttpPost("ModifyOrg")]
         public IActionResult ModifyOrg([FromBody] OrgResponse objresponse)
         {
             try
@@ -944,7 +734,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("ActivePositionOrg")]
+        [HttpPost("ActivePositionOrg")]
         public IActionResult ActivePositionOrg([FromBody] string ListID)
         {
             try
@@ -984,7 +774,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("DeActivePositionOrg")]
+        [HttpPost("DeActivePositionOrg")]
         public IActionResult DeActivePositionOrg([FromBody] string ListID)
         {
             try
@@ -1099,7 +889,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("ModifyPositionOrg")]
+        [HttpPost("ModifyPositionOrg")]
         public IActionResult ModifyPositionOrg([FromBody] PositionOrgResponse objresponse)
         {
             try
