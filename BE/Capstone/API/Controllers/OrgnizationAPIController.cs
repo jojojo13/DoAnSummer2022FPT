@@ -700,7 +700,8 @@ namespace API.Controllers
                 Level = x.Level,
                 ParentID = x.ParentId,
                 managerID= x.ManagerId,
-                managerName= x.Manager?.FullName
+                managerName= x.Manager?.FullName,
+                office= x.Address
             };
             if (x != null)
             {
