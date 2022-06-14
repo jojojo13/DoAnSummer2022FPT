@@ -1,7 +1,9 @@
-﻿using ModelAuto.Models;
+﻿using ModelAuto;
+using ModelAuto.Models;
 using Services.CommonServices;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -205,6 +207,15 @@ namespace Services.RequestServices
             {
                 return false;
             }
+        }
+
+        public int getTotalRequestRecord(string column, int? signID)
+        {
+            string query= "select count(*) COUNT from RC_Request where Rank=1 and "+ column + " = "+signID;
+            DataTable dt = DAOContext.GetDataBySql(query);
+            DataRow lastRow = dt.Rows[0];
+            int COUNT = Convert.ToInt32(lastRow["COUNT"]);
+            return COUNT;
         }
     }
 }

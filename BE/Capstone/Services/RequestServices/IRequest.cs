@@ -17,6 +17,7 @@ namespace Services.RequestServices
         bool DeleteRequest(List<int> list);
         bool ActiveOrDeActiveRequest(List<int> list, int status);
         RcRequest GetRequestByID(int ID);
+        int getTotalRequestRecord(string column , int? signID);
         #endregion
     }
 }

@@ -23,11 +23,11 @@ namespace API.Controllers
         private ICommon c = new CommonImpl();
 
         #region RC_REQUEST
-        [Authorize(Roles ="1")]
+        [Authorize(Roles = "1,2,3")]
         [HttpPost("GetAllRequest")]
         public IActionResult GetAllRequest(CommonResponse common)
         {
-            var id = GetCurrentUser();
+            Account a = GetCurrentUser();
             List<RcRequest> list = p.GetAllRequest(common.index, common.size);
             var listReturn = from x in list
                              select new
@@ -41,24 +41,58 @@ namespace API.Controllers
                                  quantity = x.Number,
                                  createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
                                  Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
-                                 Office = x.Sign?.FullName,
+                                 Office = x.Orgnization?.Address,
                                  Status = x.Status == -1 ? "Accept" : x.Status == 0 ? "Reject" : "pending",
                                  parentId = x.ParentId,
                                  rank = x.Rank,
                                  note = x.Note,
                                  comment = x.Comment,
-                                 HrInchange = x.hrEmp?.FullName
+                                 HrInchangeId = x.hrInchange,
+                                 HrInchange = x.hrEmp?.FullName == null ? "" : x.hrEmp?.FullName,
+                                 signID = x.SignId,
+                                 typeID = x.RequestLevel,
+                                 typename = x.RequestLevelNavigation?.Name,
+                                 OrgnizationName = x.Orgnization?.Name,
+                                 OrgnizationID = x.OrgnizationId,
+                                 projectname = x.ProjectNavigation?.Name,
+                                 projectID = x.Project
                              };
             if (list.Count > 0)
             {
-                return Ok(new
+                //phòng điều hành quản lý sẽ dk view all
+                if (a.Rule == 1)
                 {
-                    TotalItem = c.getTotalRecord("Rc_Request", true),
-                    Data = listReturn
-                });
+                    return Ok(new
+                    {
+                        TotalItem = c.getTotalRecord("Rc_Request", true),
+                        Data = listReturn
+                    });
+                }
+                //view những bản ghi dược phân quyền cho HR
+                else if (a.Rule == 3)
+                {
+                    return Ok(new
+                    {
+                        TotalItem = p.getTotalRequestRecord("hrInchange", a.EmployeeId),
+                        Data = listReturn.Where(x => x.HrInchangeId == a.EmployeeId)
+                    });
+                }
+                //view những bản ghi dược phân quyền cho người tạo bản ghi)
+                else
+                {
+                    return Ok(new
+                    {
+                        TotalItem = p.getTotalRequestRecord("signID",a.EmployeeId),
+                        Data = listReturn.Where(x => x.signID == a.EmployeeId)
+                    });
+
+                }
+
             }
             return StatusCode(200, "List is Null");
         }
+
+
         [HttpPost("GetChildRequestById")]
         public IActionResult GetChildRequestById(int parentId)
         {
@@ -75,13 +109,21 @@ namespace API.Controllers
                                  quantity = x.Number,
                                  createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
                                  Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
-                                 Office = x.Sign?.FullName,
+                                 Office = x.Orgnization?.Address,
                                  Status = x.Status == -1 ? "Accept" : x.Status == 0 ? "Reject" : "pending",
                                  parentId = x.ParentId,
                                  rank = x.Rank,
                                  note = x.Note,
                                  comment = x.Comment,
-                                 HrInchange = x.hrEmp?.FullName
+                                 HrInchangeId = x.hrInchange,
+                                 HrInchange = x.hrEmp?.FullName == null ? "" : x.hrEmp?.FullName,
+                                 signID = x.SignId,
+                                 typeID = x.RequestLevel,
+                                 typename = x.RequestLevelNavigation?.Name,
+                                 OrgnizationName = x.Orgnization?.Name,
+                                 OrgnizationID = x.OrgnizationId,
+                                 projectname = x.ProjectNavigation?.Name,
+                                 projectID = x.Project
                              };
             if (list.Count > 0)
             {

@@ -236,8 +236,6 @@ namespace Services.CommonServices
         }
 
 
-
-
         #region OtherList
         public List<OtherList> GetOtherListsCombo(string code)
         {
