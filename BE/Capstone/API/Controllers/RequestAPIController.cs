@@ -42,7 +42,8 @@ namespace API.Controllers
                                  createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
                                  Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
                                  Office = x.Orgnization?.Address,
-                                 Status = x.Status == -1 ? "Accept" : x.Status == 0 ? "Reject" : "pending",
+                                 StatusID= x.Status,
+                                 Status = x.Status == 1 ? "Draff" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" : "Rejected",
                                  parentId = x.ParentId,
                                  rank = x.Rank,
                                  note = x.Note,
@@ -110,7 +111,8 @@ namespace API.Controllers
                                  createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
                                  Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
                                  Office = x.Orgnization?.Address,
-                                 Status = x.Status == -1 ? "Accept" : x.Status == 0 ? "Reject" : "pending",
+                                 StatusID = x.Status,
+                                 Status = x.Status == 1 ? "Draff" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" : "Rejected",
                                  parentId = x.ParentId,
                                  rank = x.Rank,
                                  note = x.Note,
@@ -279,6 +281,7 @@ namespace API.Controllers
                 rc.Level = T.Level;
                 rc.RequestLevel = T.RequestLevel;
                 rc.Budget = T.Budget;
+                rc.Status = T.Status;
                 var check = p.InsertRequest(rc);
                 return Ok(new
                 {

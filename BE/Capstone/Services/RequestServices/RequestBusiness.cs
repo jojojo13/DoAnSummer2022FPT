@@ -151,6 +151,7 @@ namespace Services.RequestServices
             rc.Level = T.Level;
             rc.RequestLevel = T.RequestLevel;
             rc.Budget = T.Budget;
+            rc.Status = T.Status;
             if (rc.ParentId!=null && rc.ParentId>0)
             {
                 rc.Rank = GetRequestByID((int)rc.ParentId).Rank + 1;
