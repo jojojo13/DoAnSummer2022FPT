@@ -44,7 +44,7 @@ namespace Services.CommonServices
 
         public string autoGenCode(string tableName, int? rank, string nameColumn, int? parentID)
         {
-            if (rank > 1 && parentID!=null && parentID.HasValue && parentID!=0)
+            if (rank > 1 && parentID!=null&& parentID>0)
             {
                 string sql = "select count(*) COUNT from "+tableName+" where parentId= "+ parentID;
                 DataTable dt = DAOContext.GetDataBySql(sql);

@@ -149,7 +149,7 @@ namespace Services.RequestServices
             rc.Level = T.Level;
             rc.RequestLevel = T.RequestLevel;
             rc.Budget = T.Budget;
-            if (!rc.ParentId.HasValue && rc.ParentId!=null)
+            if (rc.ParentId!=null && rc.ParentId>0)
             {
                 rc.Rank = GetRequestByID((int)rc.ParentId).Rank + 1;
             }
