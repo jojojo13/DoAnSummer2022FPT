@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.ResponseModel;
 
 namespace API.Controllers
 {
@@ -22,6 +23,7 @@ namespace API.Controllers
         private ICommon c = new CommonImpl();
 
         #region RC_REQUEST
+        [Authorize(Roles ="1")]
         [HttpPost("GetAllRequest")]
         public IActionResult GetAllRequest(CommonResponse common)
         {

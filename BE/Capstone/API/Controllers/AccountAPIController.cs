@@ -49,6 +49,26 @@ namespace API.Controllers
 
             return StatusCode(401, "My error message");
         }
+
+        [Authorize]
+        [HttpGet("GetCurrentUser")]
+        public IActionResult GetCurrentUser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+                int Id = Convert.ToInt32(userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
+                return Ok(new
+                {
+                    Status = true,
+                    Data = Id
+                });
+            }
+            return null;
+        }
+
         private string Generate(Account a)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));

@@ -51,8 +51,5 @@ namespace Services.CommonServices
         bool DeleteOtherList(List<int> list);
         bool ActiveOrDeActiveOtherList(List<int> list, int status);
         #endregion
-
-
-
     }
 }
