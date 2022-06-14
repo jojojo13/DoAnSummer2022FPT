@@ -17,7 +17,7 @@ namespace API.Controllers
     //[CustomAuthorization]
     [Route("api/[controller]")]
     [ApiController]
-    public class RequestAPIController : ControllerBase
+    public class RequestAPIController : AuthorizeByIDController
     {
         private IRequest p = new Request();
         private ICommon c = new CommonImpl();
@@ -27,6 +27,7 @@ namespace API.Controllers
         [HttpPost("GetAllRequest")]
         public IActionResult GetAllRequest(CommonResponse common)
         {
+            var id = GetCurrentUser();
             List<RcRequest> list = p.GetAllRequest(common.index, common.size);
             var listReturn = from x in list
                              select new
@@ -58,7 +59,6 @@ namespace API.Controllers
             }
             return StatusCode(200, "List is Null");
         }
-
         [HttpPost("GetChildRequestById")]
         public IActionResult GetChildRequestById(int parentId)
         {
@@ -92,7 +92,6 @@ namespace API.Controllers
             }
             return StatusCode(200, "List is Null");
         }
-
 
 
         [HttpPut("ActiveRequest")]
