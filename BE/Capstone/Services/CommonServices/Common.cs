@@ -260,7 +260,7 @@ namespace Services.CommonServices
             {
                 OtherList tobj = new OtherList();
                 tobj.Name = T.Name;
-                tobj.Code = c.autoGenCode3character("OtherList", "OT");
+                tobj.Code = c.autoGenCode3character("Other_List", "OT");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
                 tobj.Atribute1 = T.Atribute1;
