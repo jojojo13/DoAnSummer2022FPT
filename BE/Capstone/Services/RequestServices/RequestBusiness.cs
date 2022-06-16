@@ -65,7 +65,7 @@ namespace Services.RequestServices
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<RcRequest> list = context.RcRequests.Where(x=>x.Rank==1).ToList().Skip(index * size).Take(size).OrderBy(x => x.Id).ToList();
+                    List<RcRequest> list = context.RcRequests.Where(x=>x.Rank==1).ToList().OrderByDescending(x => x.Id).Skip(index * size).Take(size).OrderBy(x => x.Id).ToList();
                     foreach(var item in list)
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();

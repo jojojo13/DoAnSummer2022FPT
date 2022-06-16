@@ -237,14 +237,14 @@ namespace Services.CommonServices
 
 
         #region OtherList
-        public List<OtherList> GetOtherListsCombo(string code)
+        public List<OtherList> GetOtherListsCombo(string code, int index, int size)
         {
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     OtherListType type = context.OtherListTypes.Where(x => x.Code.Trim().ToLower().Equals(code)).FirstOrDefault();
-                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id && x.Status == -1).ToList();
+                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id && x.Status == -1).OrderByDescending(x=>x.Id).Skip(index * size).Take(size).ToList();
                     return list;
                 }
             }

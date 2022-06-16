@@ -64,10 +64,10 @@ namespace API.Controllers
 
         #region "Tham số hệ thống"
         [HttpPost("GetOtherList")]
-        public IActionResult GetOtherList(string code)
+        public IActionResult GetOtherList(CommonResponseByCode common)
         {
             List<OtherList> list = new List<OtherList>();
-            list = p.GetOtherListsCombo(code);
+            list = p.GetOtherListsCombo(common.code, common.index, common.size);
             var listReturn = from l in list
                              select new
                              {
@@ -80,7 +80,7 @@ namespace API.Controllers
             {
                 return Ok(new
                 {
-                    Status = true,
+                    TotalItem = p.GetOtherListsCombo(common.code,0, Int32.MaxValue).Count(),
                     Data = listReturn
                 });
             }

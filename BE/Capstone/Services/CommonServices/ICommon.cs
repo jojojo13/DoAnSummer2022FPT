@@ -45,7 +45,7 @@ namespace Services.CommonServices
 
 
         #region OTherList
-        List<OtherList> GetOtherListsCombo(string code);
+        List<OtherList> GetOtherListsCombo(string code, int index, int size);
         bool InsertOtherList(OtherList T);
         bool ModifyOtherList(OtherList T);
         bool DeleteOtherList(List<int> list);
