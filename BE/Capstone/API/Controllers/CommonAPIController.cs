@@ -73,7 +73,8 @@ namespace API.Controllers
                              {
                                  name = l.Name,
                                  id = l.Id,
-                                 code = l.Code
+                                 code = l.Code,
+                                 note= l.Note
                              };
             if (list.Count > 0)
             {
