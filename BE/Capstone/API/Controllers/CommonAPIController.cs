@@ -74,7 +74,7 @@ namespace API.Controllers
                                  name = l.Name,
                                  id = l.Id,
                                  code = l.Code,
-                                 note= l.Note
+                                 note = l.Note
                              };
             if (list.Count > 0)
             {
@@ -169,20 +169,20 @@ namespace API.Controllers
 
 
         [HttpPost("DeleteOtherList")]
-        public IActionResult DeleteOtherList([FromBody] string ListID)
+        public IActionResult DeleteOtherList([FromBody] List<int> ListID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.DeleteOtherList(lst);
+                //string[] listID = ListID.Split(" ");
+                //List<int> lst = new List<int>();
+                //foreach (var item in listID)
+                //{
+                //    if (!item.Trim().Equals(""))
+                //    {
+                //        lst.Add(Convert.ToInt32(item));
+                //    }
+                //}
+                var check = p.DeleteOtherList(ListID);
                 if (check)
                 {
                     return Ok(new
