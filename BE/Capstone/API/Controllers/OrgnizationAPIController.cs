@@ -41,7 +41,7 @@ namespace API.Controllers
             {
                 return Ok(new
                 {
-                    Status = true,
+                    TotalItem = c.getTotalRecord("Title", false),
                     Data = ListResponse
                 });
             }
@@ -50,20 +50,11 @@ namespace API.Controllers
 
 
         [HttpPost("ActiveTitle")]
-        public IActionResult ActiveTitle([FromBody] string ListID)
+        public IActionResult ActiveTitle(List<int> listID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.ActiveOrDeActiveTitle(lst, -1);
+                var check = p.ActiveOrDeActiveTitle(listID, -1);
                 if (check)
                 {
                     return Ok(new
@@ -90,20 +81,11 @@ namespace API.Controllers
 
 
         [HttpPost("DeActiveTitle")]
-        public IActionResult DeActiveTitle([FromBody] string ListID)
+        public IActionResult DeActiveTitle(List<int>ListID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.ActiveOrDeActiveTitle(lst, 0);
+                var check = p.ActiveOrDeActiveTitle(ListID, 0);
                 if (check)
                 {
                     return Ok(new
@@ -130,20 +112,11 @@ namespace API.Controllers
 
 
         [HttpPost("DeleteTitle")]
-        public IActionResult DeleteTitle([FromBody] string ListID)
+        public IActionResult DeleteTitle(List<int> ListID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.DeleteTitle(lst);
+                var check = p.DeleteTitle(ListID);
                 if (check)
                 {
                     return Ok(new
