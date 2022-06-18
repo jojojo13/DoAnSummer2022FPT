@@ -89,20 +89,12 @@ namespace API.Controllers
 
 
         [HttpPut("ActiveOtherList")]
-        public IActionResult ActiveOtherList([FromBody] string ListID)
+        public IActionResult ActiveOtherList(List<int>ListID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.ActiveOrDeActiveOtherList(lst, -1);
+               
+                var check = p.ActiveOrDeActiveOtherList(ListID, -1);
                 if (check)
                 {
                     return Ok(new
@@ -129,20 +121,11 @@ namespace API.Controllers
 
 
         [HttpPut("DeActiveOtherList")]
-        public IActionResult DeActiveOtherList([FromBody] string ListID)
+        public IActionResult DeActiveOtherList(List<int> ListID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.ActiveOrDeActiveOtherList(lst, 0);
+                var check = p.ActiveOrDeActiveOtherList(ListID, 0);
                 if (check)
                 {
                     return Ok(new
@@ -173,15 +156,6 @@ namespace API.Controllers
         {
             try
             {
-                //string[] listID = ListID.Split(" ");
-                //List<int> lst = new List<int>();
-                //foreach (var item in listID)
-                //{
-                //    if (!item.Trim().Equals(""))
-                //    {
-                //        lst.Add(Convert.ToInt32(item));
-                //    }
-                //}
                 var check = p.DeleteOtherList(ListID);
                 if (check)
                 {
