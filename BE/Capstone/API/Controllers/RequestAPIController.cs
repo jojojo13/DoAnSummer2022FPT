@@ -138,21 +138,42 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("ActiveRequest")]
-        public IActionResult ActiveRequest([FromBody] string ListID)
+        [HttpPut("CancelRequest")]
+        public IActionResult CancelRequest(List<int> listID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
+                var check = p.ActiveOrDeActiveRequest(listID, 3);
+                if (check)
                 {
-                    if (!item.Trim().Equals(""))
+                    return Ok(new
                     {
-                        lst.Add(Convert.ToInt32(item));
-                    }
+                        Status = true
+                    });
                 }
-                var check = p.ActiveOrDeActiveRequest(lst, -1);
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [HttpPut("ApproveRequest")]
+        public IActionResult ApproveRequest(List<int> listID)
+        {
+            try
+            {
+                var check = p.ActiveOrDeActiveRequest(listID, 4);
                 if (check)
                 {
                     return Ok(new
@@ -178,21 +199,12 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("DeActiveRequest")]
-        public IActionResult DeActiveRequest([FromBody] string ListID)
+        [HttpPut("RejectRequest")]
+        public IActionResult RejectRequest(List<int> listID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.ActiveOrDeActiveRequest(lst, 0);
+                var check = p.ActiveOrDeActiveRequest(listID, 5);
                 if (check)
                 {
                     return Ok(new
@@ -219,20 +231,11 @@ namespace API.Controllers
 
 
         [HttpPost("DeleteRequest")]
-        public IActionResult DeleteRequest([FromBody] string ListID)
+        public IActionResult DeleteRequest(List<int> listID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.DeleteRequest(lst);
+                var check = p.DeleteRequest(listID);
                 if (check)
                 {
                     return Ok(new
