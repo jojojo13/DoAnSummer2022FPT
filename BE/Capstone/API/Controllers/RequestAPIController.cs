@@ -229,6 +229,36 @@ namespace API.Controllers
             }
         }
 
+        [HttpPut("SubmitRequest")]
+        public IActionResult SubmitRequest(List<int> listID)
+        {
+            try
+            {
+                var check = p.ActiveOrDeActiveRequest(listID, 2);
+                if (check)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
 
         [HttpPost("DeleteRequest")]
         public IActionResult DeleteRequest(List<int> listID)

@@ -43,6 +43,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = true,
+                    Role= a.Rule,
                     Data = token
                 });
             }
