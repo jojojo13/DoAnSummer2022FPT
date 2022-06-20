@@ -42,8 +42,8 @@ namespace API.Controllers
                                  createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
                                  Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
                                  Office = x.Orgnization?.Address,
-                                 StatusID= x.Status,
-                                 Status = x.Status == 1 ? "Draft" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" :x.Status==5? "Rejected":"",
+                                 StatusID = x.Status,
+                                 Status = x.Status == 1 ? "Draft" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" : x.Status == 5 ? "Rejected" : "",
                                  parentId = x.ParentId,
                                  rank = x.Rank,
                                  note = x.Note,
@@ -56,7 +56,8 @@ namespace API.Controllers
                                  OrgnizationName = x.Orgnization?.Name,
                                  OrgnizationID = x.OrgnizationId,
                                  projectname = x.ProjectNavigation?.Name,
-                                 projectID = x.Project
+                                 projectID = x.Project,
+                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + " Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
                              };
             if (list.Count > 0)
             {
@@ -83,7 +84,7 @@ namespace API.Controllers
                 {
                     return Ok(new
                     {
-                        TotalItem = p.getTotalRequestRecord("signID",a.EmployeeId),
+                        TotalItem = p.getTotalRequestRecord("signID", a.EmployeeId),
                         Data = listReturn.Where(x => x.signID == a.EmployeeId)
                     });
 
@@ -125,7 +126,8 @@ namespace API.Controllers
                                  OrgnizationName = x.Orgnization?.Name,
                                  OrgnizationID = x.OrgnizationId,
                                  projectname = x.ProjectNavigation?.Name,
-                                 projectID = x.Project
+                                 projectID = x.Project,
+                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + " Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
                              };
             if (list.Count > 0)
             {
@@ -294,8 +296,10 @@ namespace API.Controllers
         [HttpPost("InsertRequest")]
         public IActionResult InsertRequest([FromBody] RequestResponse T)
         {
+
             try
             {
+                Account a = GetCurrentUser();
                 RcRequest rc = new RcRequest();
                 rc.Name = T.Name;
                 rc.EffectDate = T.EffectDate;
@@ -315,6 +319,8 @@ namespace API.Controllers
                 rc.RequestLevel = T.RequestLevel;
                 rc.Budget = T.Budget;
                 rc.Status = T.Status;
+                rc.CreateDate = DateTime.Now;
+                rc.CreateBy = a.Employee.FullName;
                 var check = p.InsertRequest(rc);
                 return Ok(new
                 {
@@ -337,6 +343,7 @@ namespace API.Controllers
         {
             try
             {
+                Account a = GetCurrentUser();
                 RcRequest rc = new RcRequest();
                 rc.Name = T.Name;
                 rc.EffectDate = T.EffectDate;
@@ -353,8 +360,12 @@ namespace API.Controllers
                 rc.Comment = T.Comment;
                 rc.ParentId = T.ParentID;
                 rc.Level = T.Level;
+                rc.RequestLevel = T.RequestLevel;
                 rc.Budget = T.Budget;
-                var check = p.InsertRequest(rc);
+                rc.Comment = T.Comment;
+                rc.UpdateDate = DateTime.Now;
+                rc.UpdateBy = a.Employee.FullName;
+                var check = p.ModifyRequest(rc);
                 return Ok(new
                 {
                     Status = check

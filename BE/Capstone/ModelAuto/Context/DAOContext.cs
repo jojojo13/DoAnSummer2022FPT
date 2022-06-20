@@ -71,5 +71,22 @@ namespace ModelAuto
             con.Close();
             return dt;
         }
+
+
+
+        #region REQUEST
+        public static DataTable GetListRequestByID(int id)
+        {
+            var con = GetConnection();
+            con.Open();
+            SqlCommand command = new SqlCommand("REQUEST_RIGHT", con);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@ID", SqlDbType.Int).Value = id;
+            DataTable dt = new DataTable();
+            dt.Load(command.ExecuteReader());
+            con.Close();
+            return dt;
+        }
+        #endregion
     }
 }

@@ -21,9 +21,14 @@ namespace Services.RequestServices
                 {
                     foreach (var item in list)
                     {
-                        RcRequest tobj = new RcRequest();
-                        tobj = context.RcRequests.Where(x => x.Id == item).FirstOrDefault();
-                        tobj.Status = status;
+                        List<int> ListRCID = new List<int>();
+                        ListRCID = GetListRequestByID(item).Select(x => x.Id).ToList();
+                        foreach(var rcId in ListRCID)
+                        {
+                            RcRequest tobj = new RcRequest();
+                            tobj = context.RcRequests.Where(x => x.Id == rcId).FirstOrDefault();
+                            tobj.Status = status;
+                        }
                     }
                     context.SaveChanges();
                     return true;
@@ -152,6 +157,9 @@ namespace Services.RequestServices
             rc.RequestLevel = T.RequestLevel;
             rc.Budget = T.Budget;
             rc.Status = T.Status;
+            rc.Comment = T.Comment;
+            rc.UpdateDate = DateTime.Now;
+            rc.UpdateBy = T.UpdateBy;
             if (rc.ParentId!=null && rc.ParentId>0)
             {
                 rc.Rank = GetRequestByID((int)rc.ParentId).Rank + 1;
@@ -200,6 +208,8 @@ namespace Services.RequestServices
                     rc.Comment = T.Comment;
                     rc.Level = T.Level;
                     rc.Budget = T.Budget;
+                    rc.CreateDate = DateTime.Now;
+                    rc.CreateBy = T.UpdateBy;
                     context.SaveChanges();
                     return true;
                 }
@@ -208,6 +218,20 @@ namespace Services.RequestServices
             {
                 return false;
             }
+        }
+
+        public List<RcRequest> GetListRequestByID(int ID)
+        {
+            List<RcRequest> list = new List<RcRequest>();
+            DataTable dt = DAOContext.GetListRequestByID(ID);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                RcRequest o = new RcRequest();
+                DataRow row = dt.Rows[i];
+                o.Id = Convert.ToInt32(row["ID"].ToString());
+                list.Add(o);
+            }
+            return list;
         }
 
         public int getTotalRequestRecord(string column, int? signID)
