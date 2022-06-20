@@ -20,7 +20,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountAPIController : ControllerBase
+    public class AccountAPIController : AuthorizeByIDController
     {
         private IConfiguration _config;
         public AccountAPIController(IConfiguration config)
@@ -39,11 +39,10 @@ namespace API.Controllers
             if (account != null)
             {
                 var token = Generate(account);
-                string text = JsonSerializer.Serialize(token);
                 return Ok(new
                 {
                     Status = true,
-                    Role= a.Rule,
+                    Role=account.Rule,
                     Data = token
                 });
             }
