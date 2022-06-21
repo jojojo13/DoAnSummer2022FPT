@@ -22,6 +22,7 @@ namespace Services.ProfileServices
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Account tobj = context.Accounts.Where(x => x.UserName == a.UserName && x.Pass == common.sha256_hash(a.Pass)).FirstOrDefault();
+                    tobj.Employee = context.Employees.Where(x => x.Id == tobj.EmployeeId).FirstOrDefault();
                     if (tobj != null)
                     {
                         return tobj;

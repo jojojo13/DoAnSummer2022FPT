@@ -43,6 +43,7 @@ namespace API.Controllers
                 {
                     Status = true,
                     Role=account.Rule,
+                    Fullname= account.Employee?.FullName,
                     Data = token
                 });
             }
