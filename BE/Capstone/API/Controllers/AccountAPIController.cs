@@ -52,7 +52,7 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpPost("GetUserLog")]
+        [HttpGet("GetUserLog")]
         public IActionResult GetUserLog()
         {
             Account a = GetCurrentUser();
