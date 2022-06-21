@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Services.ProfileServices
 {
-   public partial class ProfileImpl : IProfile
+    public partial class ProfileImpl : IProfile
     {
 
         public Account GetAccount(Account a)
@@ -56,7 +56,21 @@ namespace Services.ProfileServices
                 return false;
             }
         }
-
+        public Employee GetEmployeeByID(int? ID)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    Employee e = context.Employees.Where(x => x.Id == ID).FirstOrDefault();
+                    return e;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public bool ResetPass(Account a, MailDTO mailDTO)
         {
             try
@@ -71,7 +85,7 @@ namespace Services.ProfileServices
                     EmployeeCv em = context.EmployeeCvs.Where(x => x.EmployeeId == tobj.EmployeeId).FirstOrDefault();
                     string email = em.EmailWork;
                     mailDTO.tomail = email;
-                    mailDTO.content = "Mật khẩu mới của bạn là : " + tobj.Pass+"</br>"+"Vui lòng thay đổi mật khẩu mới sau khi đăng nhập";
+                    mailDTO.content = "Mật khẩu mới của bạn là : " + tobj.Pass + "</br>" + "Vui lòng thay đổi mật khẩu mới sau khi đăng nhập";
                     ICommon common = new CommonImpl();
                     if (common.sendMail(mailDTO))
                     {

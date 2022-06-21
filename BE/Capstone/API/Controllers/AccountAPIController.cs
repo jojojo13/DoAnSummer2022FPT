@@ -42,13 +42,32 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = true,
-                    Role=account.Rule,
-                    Fullname= account.Employee?.FullName,
+                    Role = account.Rule,
+                    Fullname = account.Employee?.FullName,
                     Data = token
                 });
             }
 
             return StatusCode(401, "My error message");
+        }
+
+        [Authorize]
+        [HttpPost("GetUserLog")]
+        public IActionResult GetUserLog()
+        {
+            Account a = GetCurrentUser();
+            Employee emp = p.GetEmployeeByID(a.EmployeeId);
+            var empReturn = new
+            {
+                rule = a?.Rule,
+                name = emp?.FullName
+            };
+
+            return Ok(new
+            {
+                Data = empReturn
+            });
+
         }
 
         private string Generate(Account a)

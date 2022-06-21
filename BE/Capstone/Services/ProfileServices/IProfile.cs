@@ -69,7 +69,7 @@ namespace Services.ProfileServices
 
         List<Position> GetListPositionByOrgID(int ID);
         List<Employee> GetListEmployeeByOrgID(int OrgID, int index, int size);
-        
+        Employee GetEmployeeByID(int? ID);
 
         #endregion
 
