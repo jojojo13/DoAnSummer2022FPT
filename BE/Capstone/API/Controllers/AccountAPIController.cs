@@ -67,7 +67,6 @@ namespace API.Controllers
             {
                 Data = empReturn
             });
-
         }
 
         private string Generate(Account a)
