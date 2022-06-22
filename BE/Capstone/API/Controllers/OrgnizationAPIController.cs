@@ -25,9 +25,9 @@ namespace API.Controllers
         #region DM chuc danh
 
         [HttpPost("GetAllTitle")]
-        public IActionResult GetAllTitle([FromHeader] CommonResponse common)
+        public IActionResult GetAllTitle(int index, int size)
         {
-            List<Title> list = p.GetAllTitle(common.index, common.size);
+            List<Title> list = p.GetAllTitle(index, size);
             var ListResponse = from l in list
                                select new {
                                    id= l.Id,
@@ -216,9 +216,9 @@ namespace API.Controllers
         #region DM vi tri cong viec
 
         [HttpPost("GetAllPosition")]
-        public IActionResult GetAllPosition([FromHeader] CommonResponse common)
+        public IActionResult GetAllPosition(int index, int size)
         {
-            List<Position> list = p.GetAllPosition(common.index, common.size);
+            List<Position> list = p.GetAllPosition(index, size);
             if (list.Count > 0)
             {
                 return Ok(new
@@ -692,9 +692,9 @@ namespace API.Controllers
         #region Thiet lap vi tri cong viec cho phong ban
 
         [HttpPost("GetAllPositionOrg")]
-        public IActionResult GetAllPositionOrg(CommonResponse common)
+        public IActionResult GetAllPositionOrg(int index , int size)
         {
-            List<PositionOrg> list = p.GetAllPositionOrg(common.index, common.size);
+            List<PositionOrg> list = p.GetAllPositionOrg(index, size);
             if (list.Count > 0)
             {
                 return Ok(new

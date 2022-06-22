@@ -55,9 +55,9 @@ namespace API.Controllers
         }
 
         [HttpPost("GetListEmployeeByOrgID")]
-        public IActionResult GetListEmployeeByOrgID(CommonResponseByID common)
+        public IActionResult GetListEmployeeByOrgID(int id, int index, int size)
         {
-            List<Employee> list = profile.GetListEmployeeByOrgID(common.id, common.index, common.size);
+            List<Employee> list = profile.GetListEmployeeByOrgID(id, index, size);
 
             var listReturn = from l in list
                              select new
