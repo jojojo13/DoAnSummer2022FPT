@@ -24,7 +24,7 @@ namespace ModelAuto.Models
         public string VisaPlace { get; set; }
         public string Email { get; set; }
         public string EmailWork { get; set; }
-        public string Mobile { get; set; }
+        public string Phone { get; set; }
         public string NoiO { get; set; }
         public int? NationLive { get; set; }
         public int? PorvinceLive { get; set; }
@@ -37,6 +37,10 @@ namespace ModelAuto.Models
         public int? ProvinceHk { get; set; }
         public int? DistrictHk { get; set; }
         public int? WardHk { get; set; }
+        public string CreateBy { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public string UpdateBy { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public virtual District DistrictHkNavigation { get; set; }
         public virtual District DistrictLiveNavigation { get; set; }

@@ -48,7 +48,7 @@ namespace API.ResponseModel.Request
                 rank = x.Rank,
                 note = x.Note,
                 comment = x.Comment,
-                HrInchange = x.hrEmp?.FullName,
+                HrInchange = x.HrInchangeNavigation?.FullName,
                 Children = GetChildren(comments, x.Id),
 
             }).ToList();

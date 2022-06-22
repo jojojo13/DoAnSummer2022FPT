@@ -14,7 +14,11 @@ namespace ModelAuto.Models
         public int? ResultInterview { get; set; }
         public string Note { get; set; }
         public int? StatusContact { get; set; }
-        public int? IsMoveHsnv { get; set; }
+        public int? IsMoveEmployee { get; set; }
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        public string UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         public virtual RcCandidate Candidate { get; set; }
         public virtual OtherList StatusContactNavigation { get; set; }

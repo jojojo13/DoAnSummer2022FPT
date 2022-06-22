@@ -13,6 +13,7 @@ namespace ModelAuto.Models
             EmployeeCvProvinceHkNavigations = new HashSet<EmployeeCv>();
             EmployeeCvProvinceLiveNavigations = new HashSet<EmployeeCv>();
             EmployeeCvProvinceObNavigations = new HashSet<EmployeeCv>();
+            EmployeeFamilies = new HashSet<EmployeeFamily>();
             Orgnizations = new HashSet<Orgnization>();
             RcCandidateCvPorvinceHkNavigations = new HashSet<RcCandidateCv>();
             RcCandidateCvPorvinceLiveNavigations = new HashSet<RcCandidateCv>();
@@ -26,12 +27,17 @@ namespace ModelAuto.Models
         public int? Status { get; set; }
         public string Note { get; set; }
         public int? NationId { get; set; }
+        public string CreateBy { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public string UpdateBy { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public virtual Nation Nation { get; set; }
         public virtual ICollection<District> Districts { get; set; }
         public virtual ICollection<EmployeeCv> EmployeeCvProvinceHkNavigations { get; set; }
         public virtual ICollection<EmployeeCv> EmployeeCvProvinceLiveNavigations { get; set; }
         public virtual ICollection<EmployeeCv> EmployeeCvProvinceObNavigations { get; set; }
+        public virtual ICollection<EmployeeFamily> EmployeeFamilies { get; set; }
         public virtual ICollection<Orgnization> Orgnizations { get; set; }
         public virtual ICollection<RcCandidateCv> RcCandidateCvPorvinceHkNavigations { get; set; }
         public virtual ICollection<RcCandidateCv> RcCandidateCvPorvinceLiveNavigations { get; set; }

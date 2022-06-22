@@ -21,6 +21,10 @@ namespace ModelAuto.Models
         public int? HeDiem { get; set; }
         public int? DiemQua { get; set; }
         public int? PhaseId { get; set; }
+        public string CreateBy { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public string UpdateBy { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public virtual RcPhaseRequest Phase { get; set; }
         public virtual ICollection<RcRequestExamResult> RcRequestExamResults { get; set; }

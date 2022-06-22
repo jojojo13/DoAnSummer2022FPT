@@ -10,6 +10,17 @@ namespace ModelAuto.Models
         public OtherList()
         {
             EmployeeCvs = new HashSet<EmployeeCv>();
+            EmployeeEduDeeGree1Navigations = new HashSet<EmployeeEdu>();
+            EmployeeEduDeeGree2Navigations = new HashSet<EmployeeEdu>();
+            EmployeeEduDeeGree3Navigations = new HashSet<EmployeeEdu>();
+            EmployeeEduInforMaticsLevel1Navigations = new HashSet<EmployeeEdu>();
+            EmployeeEduInforMaticsLevel2Navigations = new HashSet<EmployeeEdu>();
+            EmployeeEduInforMaticsLevel3Navigations = new HashSet<EmployeeEdu>();
+            EmployeeEduLanguage1Navigations = new HashSet<EmployeeEdu>();
+            EmployeeEduLanguage2Navigations = new HashSet<EmployeeEdu>();
+            EmployeeEduLanguage3Navigations = new HashSet<EmployeeEdu>();
+            EmployeeEduLearningLevelNavigations = new HashSet<EmployeeEdu>();
+            EmployeeFamilies = new HashSet<EmployeeFamily>();
             Employees = new HashSet<Employee>();
             PositionFormWorkingNavigations = new HashSet<Position>();
             PositionInformationLevelNavigations = new HashSet<Position>();
@@ -29,14 +40,13 @@ namespace ModelAuto.Models
             RcCandidateEduLanguage3Navigations = new HashSet<RcCandidateEdu>();
             RcCandidateEduLearningLevelNavigations = new HashSet<RcCandidateEdu>();
             RcCandidateFamilies = new HashSet<RcCandidateFamily>();
-            RcCandidateHeals = new HashSet<RcCandidateHeal>();
+            RcRequestLevelNavigations = new HashSet<RcRequest>();
             RcRequestProjectNavigations = new HashSet<RcRequest>();
+            RcRequestRequestLevelNavigations = new HashSet<RcRequest>();
             RcRequestResultStatusContactNavigations = new HashSet<RcRequestResult>();
             RcRequestResultStatusRequestNavigations = new HashSet<RcRequestResult>();
             RcRequestScheduHinhThucNavigations = new HashSet<RcRequestSchedu>();
             RcRequestScheduStatusContactNavigations = new HashSet<RcRequestSchedu>();
-            RcRequestStatusHrNavigations = new HashSet<RcRequest>();
-            RcRequestStatusMgNavigations = new HashSet<RcRequest>();
             RcRequestTypeNavigations = new HashSet<RcRequest>();
         }
 
@@ -49,9 +59,24 @@ namespace ModelAuto.Models
         public string Atribute2 { get; set; }
         public string Atribute3 { get; set; }
         public int? TypeId { get; set; }
+        public string CreateBy { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public string UpdateBy { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public virtual OtherListType Type { get; set; }
         public virtual ICollection<EmployeeCv> EmployeeCvs { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduDeeGree1Navigations { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduDeeGree2Navigations { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduDeeGree3Navigations { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduInforMaticsLevel1Navigations { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduInforMaticsLevel2Navigations { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduInforMaticsLevel3Navigations { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduLanguage1Navigations { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduLanguage2Navigations { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduLanguage3Navigations { get; set; }
+        public virtual ICollection<EmployeeEdu> EmployeeEduLearningLevelNavigations { get; set; }
+        public virtual ICollection<EmployeeFamily> EmployeeFamilies { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<Position> PositionFormWorkingNavigations { get; set; }
         public virtual ICollection<Position> PositionInformationLevelNavigations { get; set; }
@@ -71,14 +96,13 @@ namespace ModelAuto.Models
         public virtual ICollection<RcCandidateEdu> RcCandidateEduLanguage3Navigations { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEduLearningLevelNavigations { get; set; }
         public virtual ICollection<RcCandidateFamily> RcCandidateFamilies { get; set; }
-        public virtual ICollection<RcCandidateHeal> RcCandidateHeals { get; set; }
+        public virtual ICollection<RcRequest> RcRequestLevelNavigations { get; set; }
         public virtual ICollection<RcRequest> RcRequestProjectNavigations { get; set; }
+        public virtual ICollection<RcRequest> RcRequestRequestLevelNavigations { get; set; }
         public virtual ICollection<RcRequestResult> RcRequestResultStatusContactNavigations { get; set; }
         public virtual ICollection<RcRequestResult> RcRequestResultStatusRequestNavigations { get; set; }
         public virtual ICollection<RcRequestSchedu> RcRequestScheduHinhThucNavigations { get; set; }
         public virtual ICollection<RcRequestSchedu> RcRequestScheduStatusContactNavigations { get; set; }
-        public virtual ICollection<RcRequest> RcRequestStatusHrNavigations { get; set; }
-        public virtual ICollection<RcRequest> RcRequestStatusMgNavigations { get; set; }
         public virtual ICollection<RcRequest> RcRequestTypeNavigations { get; set; }
     }
 }

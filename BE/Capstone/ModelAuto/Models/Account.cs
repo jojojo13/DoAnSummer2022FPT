@@ -14,6 +14,10 @@ namespace ModelAuto.Models
         public string Note { get; set; }
         public int? EmployeeId { get; set; }
         public int? Rule { get; set; }
+        public string CreateBy { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public string UpdateBy { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public virtual Employee Employee { get; set; }
     }

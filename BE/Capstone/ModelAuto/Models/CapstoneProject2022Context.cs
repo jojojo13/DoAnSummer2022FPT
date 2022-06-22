@@ -7,13 +7,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace ModelAuto.Models
 {
-    public partial class hung6nuh_Context : DbContext
+    public partial class CapstoneProject2022Context : DbContext
     {
-        public hung6nuh_Context()
+        public CapstoneProject2022Context()
         {
         }
 
-        public hung6nuh_Context(DbContextOptions<hung6nuh_Context> options)
+        public CapstoneProject2022Context(DbContextOptions<CapstoneProject2022Context> options)
             : base(options)
         {
         }
@@ -24,6 +24,9 @@ namespace ModelAuto.Models
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeContract> EmployeeContracts { get; set; }
         public virtual DbSet<EmployeeCv> EmployeeCvs { get; set; }
+        public virtual DbSet<EmployeeEdu> EmployeeEdus { get; set; }
+        public virtual DbSet<EmployeeFamily> EmployeeFamilies { get; set; }
+        public virtual DbSet<EmployeeSalary> EmployeeSalaries { get; set; }
         public virtual DbSet<Nation> Nations { get; set; }
         public virtual DbSet<Orgnization> Orgnizations { get; set; }
         public virtual DbSet<OtherList> OtherLists { get; set; }
@@ -35,8 +38,6 @@ namespace ModelAuto.Models
         public virtual DbSet<RcCandidateCv> RcCandidateCvs { get; set; }
         public virtual DbSet<RcCandidateEdu> RcCandidateEdus { get; set; }
         public virtual DbSet<RcCandidateFamily> RcCandidateFamilies { get; set; }
-        public virtual DbSet<RcCandidateHeal> RcCandidateHeals { get; set; }
-        public virtual DbSet<RcCandidateWorrkingBefore> RcCandidateWorrkingBefores { get; set; }
         public virtual DbSet<RcPhaseRequest> RcPhaseRequests { get; set; }
         public virtual DbSet<RcRequest> RcRequests { get; set; }
         public virtual DbSet<RcRequestExam> RcRequestExams { get; set; }
@@ -69,7 +70,15 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.EmployeeId, "IX_Account_EmployeeID");
 
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.Pass).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.Property(e => e.UserName).HasMaxLength(100);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Accounts)
@@ -80,11 +89,25 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("Contract_Type");
 
-                entity.Property(e => e.Bhtn).HasColumnName("BHTN");
+                entity.Property(e => e.Bhtn)
+                    .HasMaxLength(100)
+                    .HasColumnName("BHTN");
 
-                entity.Property(e => e.Bhxh).HasColumnName("BHXH");
+                entity.Property(e => e.Bhxh)
+                    .HasMaxLength(100)
+                    .HasColumnName("BHXH");
 
-                entity.Property(e => e.Bhyt).HasColumnName("BHYT");
+                entity.Property(e => e.Bhyt)
+                    .HasMaxLength(100)
+                    .HasColumnName("BHYT");
+
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
             });
 
             modelBuilder.Entity<District>(entity =>
@@ -93,7 +116,15 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.ProvinceId, "IX_District_ProvinceID");
 
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
                 entity.Property(e => e.ProvinceId).HasColumnName("ProvinceID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Province)
                     .WithMany(p => p.Districts)
@@ -104,19 +135,31 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("Employee");
 
-                entity.HasIndex(e => e.OrgId, "IX_Employee_OrgID");
+                entity.HasIndex(e => e.OrgnizationId, "IX_Employee_OrgnizationID");
 
                 entity.HasIndex(e => e.PositionId, "IX_Employee_PositionID");
 
                 entity.HasIndex(e => e.Status, "IX_Employee_Status");
 
-                entity.Property(e => e.OrgId).HasColumnName("OrgID");
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.FirstName).HasMaxLength(100);
+
+                entity.Property(e => e.FullName).HasMaxLength(100);
+
+                entity.Property(e => e.LastName).HasMaxLength(100);
+
+                entity.Property(e => e.OrgnizationId).HasColumnName("OrgnizationID");
 
                 entity.Property(e => e.PositionId).HasColumnName("PositionID");
 
-                entity.HasOne(d => d.Org)
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.HasOne(d => d.Orgnization)
                     .WithMany(p => p.Employees)
-                    .HasForeignKey(d => d.OrgId);
+                    .HasForeignKey(d => d.OrgnizationId);
 
                 entity.HasOne(d => d.Position)
                     .WithMany(p => p.Employees)
@@ -131,37 +174,41 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("EmployeeContract");
 
-                entity.HasIndex(e => e.ContractType, "IX_EmployeeContract_Contract_type");
+                entity.HasIndex(e => e.ContractTypeId, "IX_EmployeeContract_ContractTypeID");
 
                 entity.HasIndex(e => e.EmployeeId, "IX_EmployeeContract_EmployeeID");
 
-                entity.HasIndex(e => e.OrgId, "IX_EmployeeContract_OrgId");
+                entity.HasIndex(e => e.OrgnizationId, "IX_EmployeeContract_ORgnizationId");
 
                 entity.HasIndex(e => e.PositionId, "IX_EmployeeContract_PositionId");
 
                 entity.HasIndex(e => e.SignId, "IX_EmployeeContract_SignId");
 
-                entity.Property(e => e.ContractNo).HasColumnName("Contract_NO");
+                entity.Property(e => e.ContractNo)
+                    .HasMaxLength(100)
+                    .HasColumnName("Contract_NO");
 
-                entity.Property(e => e.ContractType).HasColumnName("Contract_type");
+                entity.Property(e => e.ContractTypeId).HasColumnName("ContractTypeID");
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
 
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
-                entity.Property(e => e.IsCamKet).HasColumnName("Is_CamKet");
+                entity.Property(e => e.OrgnizationId).HasColumnName("ORgnizationId");
 
-                entity.Property(e => e.IsThue).HasColumnName("Is_thue");
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
-                entity.HasOne(d => d.ContractTypeNavigation)
+                entity.HasOne(d => d.ContractType)
                     .WithMany(p => p.EmployeeContracts)
-                    .HasForeignKey(d => d.ContractType);
+                    .HasForeignKey(d => d.ContractTypeId);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.EmployeeContractEmployees)
                     .HasForeignKey(d => d.EmployeeId);
 
-                entity.HasOne(d => d.Org)
+                entity.HasOne(d => d.Orgnization)
                     .WithMany(p => p.EmployeeContracts)
-                    .HasForeignKey(d => d.OrgId);
+                    .HasForeignKey(d => d.OrgnizationId);
 
                 entity.HasOne(d => d.Position)
                     .WithMany(p => p.EmployeeContracts)
@@ -206,19 +253,37 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Cmnd).HasColumnName("CMND");
+                entity.Property(e => e.Cmnd)
+                    .HasMaxLength(100)
+                    .HasColumnName("CMND");
 
-                entity.Property(e => e.Cmndplace).HasColumnName("CMNDPlace");
+                entity.Property(e => e.Cmndplace)
+                    .HasMaxLength(100)
+                    .HasColumnName("CMNDPlace");
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
 
                 entity.Property(e => e.DistrictHk).HasColumnName("DistrictHK");
 
                 entity.Property(e => e.DistrictOb).HasColumnName("DistrictOB");
 
+                entity.Property(e => e.Email).HasMaxLength(100);
+
+                entity.Property(e => e.EmailWork).HasMaxLength(100);
+
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.HoKhau).HasMaxLength(100);
 
                 entity.Property(e => e.NationHk).HasColumnName("NationHK");
 
                 entity.Property(e => e.NationOb).HasColumnName("NationOB");
+
+                entity.Property(e => e.NoiO).HasMaxLength(100);
+
+                entity.Property(e => e.NoiSinh).HasMaxLength(100);
+
+                entity.Property(e => e.Phone).HasMaxLength(100);
 
                 entity.Property(e => e.PorvinceHk).HasColumnName("PorvinceHK");
 
@@ -227,6 +292,12 @@ namespace ModelAuto.Models
                 entity.Property(e => e.ProvinceHk).HasColumnName("ProvinceHK");
 
                 entity.Property(e => e.ProvinceOb).HasColumnName("ProvinceOB");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.Property(e => e.VisaNumber).HasMaxLength(100);
+
+                entity.Property(e => e.VisaPlace).HasMaxLength(100);
 
                 entity.Property(e => e.WardHk).HasColumnName("WardHK");
 
@@ -289,9 +360,222 @@ namespace ModelAuto.Models
                     .HasForeignKey(d => d.WardOb);
             });
 
+            modelBuilder.Entity<EmployeeEdu>(entity =>
+            {
+                entity.ToTable("EmployeeEdu");
+
+                entity.HasIndex(e => e.DeeGree1, "IX_EmployeeEdu_DeeGree1");
+
+                entity.HasIndex(e => e.DeeGree2, "IX_EmployeeEdu_DeeGree2");
+
+                entity.HasIndex(e => e.DeeGree3, "IX_EmployeeEdu_DeeGree3");
+
+                entity.HasIndex(e => e.EmployeeId1, "IX_EmployeeEdu_EmployeeID");
+
+                entity.HasIndex(e => e.InforMaticsLevel1, "IX_EmployeeEdu_InforMatics_Level1");
+
+                entity.HasIndex(e => e.InforMaticsLevel2, "IX_EmployeeEdu_InforMatics_Level2");
+
+                entity.HasIndex(e => e.InforMaticsLevel3, "IX_EmployeeEdu_InforMatics_Level3");
+
+                entity.HasIndex(e => e.Language1, "IX_EmployeeEdu_Language1");
+
+                entity.HasIndex(e => e.Language2, "IX_EmployeeEdu_Language2");
+
+                entity.HasIndex(e => e.Language3, "IX_EmployeeEdu_Language3");
+
+                entity.HasIndex(e => e.LearningLevel, "IX_EmployeeEdu_Learning_Level");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
+
+                entity.Property(e => e.EmployeeId1).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.InforMaticsLevel1).HasColumnName("InforMatics_Level1");
+
+                entity.Property(e => e.InforMaticsLevel2).HasColumnName("InforMatics_Level2");
+
+                entity.Property(e => e.InforMaticsLevel3).HasColumnName("InforMatics_Level3");
+
+                entity.Property(e => e.LearningLevel).HasColumnName("Learning_Level");
+
+                entity.Property(e => e.Major1).HasMaxLength(100);
+
+                entity.Property(e => e.Major2).HasMaxLength(100);
+
+                entity.Property(e => e.Major3).HasMaxLength(100);
+
+                entity.Property(e => e.School1).HasMaxLength(100);
+
+                entity.Property(e => e.School2).HasMaxLength(100);
+
+                entity.Property(e => e.School3).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.HasOne(d => d.DeeGree1Navigation)
+                    .WithMany(p => p.EmployeeEduDeeGree1Navigations)
+                    .HasForeignKey(d => d.DeeGree1);
+
+                entity.HasOne(d => d.DeeGree2Navigation)
+                    .WithMany(p => p.EmployeeEduDeeGree2Navigations)
+                    .HasForeignKey(d => d.DeeGree2);
+
+                entity.HasOne(d => d.DeeGree3Navigation)
+                    .WithMany(p => p.EmployeeEduDeeGree3Navigations)
+                    .HasForeignKey(d => d.DeeGree3);
+
+                entity.HasOne(d => d.EmployeeId1Navigation)
+                    .WithMany(p => p.EmployeeEdus)
+                    .HasForeignKey(d => d.EmployeeId1);
+
+                entity.HasOne(d => d.InforMaticsLevel1Navigation)
+                    .WithMany(p => p.EmployeeEduInforMaticsLevel1Navigations)
+                    .HasForeignKey(d => d.InforMaticsLevel1);
+
+                entity.HasOne(d => d.InforMaticsLevel2Navigation)
+                    .WithMany(p => p.EmployeeEduInforMaticsLevel2Navigations)
+                    .HasForeignKey(d => d.InforMaticsLevel2);
+
+                entity.HasOne(d => d.InforMaticsLevel3Navigation)
+                    .WithMany(p => p.EmployeeEduInforMaticsLevel3Navigations)
+                    .HasForeignKey(d => d.InforMaticsLevel3);
+
+                entity.HasOne(d => d.Language1Navigation)
+                    .WithMany(p => p.EmployeeEduLanguage1Navigations)
+                    .HasForeignKey(d => d.Language1);
+
+                entity.HasOne(d => d.Language2Navigation)
+                    .WithMany(p => p.EmployeeEduLanguage2Navigations)
+                    .HasForeignKey(d => d.Language2);
+
+                entity.HasOne(d => d.Language3Navigation)
+                    .WithMany(p => p.EmployeeEduLanguage3Navigations)
+                    .HasForeignKey(d => d.Language3);
+
+                entity.HasOne(d => d.LearningLevelNavigation)
+                    .WithMany(p => p.EmployeeEduLearningLevelNavigations)
+                    .HasForeignKey(d => d.LearningLevel);
+            });
+
+            modelBuilder.Entity<EmployeeFamily>(entity =>
+            {
+                entity.ToTable("Employee_Family");
+
+                entity.HasIndex(e => e.DistrictId, "IX_Employee_Family_DistrictID");
+
+                entity.HasIndex(e => e.EmployeeId, "IX_Employee_Family_EmployeeID");
+
+                entity.HasIndex(e => e.NationId, "IX_Employee_Family_NationID");
+
+                entity.HasIndex(e => e.Porvince, "IX_Employee_Family_Porvince");
+
+                entity.HasIndex(e => e.WardId, "IX_Employee_Family_WardID");
+
+                entity.Property(e => e.Address).HasMaxLength(100);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
+
+                entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.Fullname).HasMaxLength(100);
+
+                entity.Property(e => e.IsDeduct).HasColumnName("Is_Deduct");
+
+                entity.Property(e => e.NationId).HasColumnName("NationID");
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.Property(e => e.WardId).HasColumnName("WardID");
+
+                entity.HasOne(d => d.District)
+                    .WithMany(p => p.EmployeeFamilies)
+                    .HasForeignKey(d => d.DistrictId);
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.EmployeeFamilies)
+                    .HasForeignKey(d => d.EmployeeId);
+
+                entity.HasOne(d => d.EmployeeNavigation)
+                    .WithMany(p => p.EmployeeFamilies)
+                    .HasForeignKey(d => d.EmployeeId);
+
+                entity.HasOne(d => d.Nation)
+                    .WithMany(p => p.EmployeeFamilies)
+                    .HasForeignKey(d => d.NationId);
+
+                entity.HasOne(d => d.PorvinceNavigation)
+                    .WithMany(p => p.EmployeeFamilies)
+                    .HasForeignKey(d => d.Porvince);
+
+                entity.HasOne(d => d.Ward)
+                    .WithMany(p => p.EmployeeFamilies)
+                    .HasForeignKey(d => d.WardId);
+            });
+
+            modelBuilder.Entity<EmployeeSalary>(entity =>
+            {
+                entity.ToTable("Employee_Salary");
+
+                entity.HasIndex(e => e.EmployeeId, "IX_Employee_Salary_EmployeeID");
+
+                entity.HasIndex(e => e.SignId, "IX_Employee_Salary_Sign_ID");
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.DecisiongNo)
+                    .HasMaxLength(100)
+                    .HasColumnName("Decisiong_NO");
+
+                entity.Property(e => e.EffectDate).HasColumnName("Effect_Date");
+
+                entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.ExpireDate).HasColumnName("Expire_Date");
+
+                entity.Property(e => e.IsWage).HasColumnName("Is_Wage");
+
+                entity.Property(e => e.Kpi).HasColumnName("KPI");
+
+                entity.Property(e => e.SalBasic).HasColumnName("SAL_Basic");
+
+                entity.Property(e => e.SalRank).HasColumnName("SAL_Rank");
+
+                entity.Property(e => e.SalTotal).HasColumnName("SAL_Total");
+
+                entity.Property(e => e.SignDate).HasColumnName("Sign_Date");
+
+                entity.Property(e => e.SignId).HasColumnName("Sign_ID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.EmployeeSalaryEmployees)
+                    .HasForeignKey(d => d.EmployeeId);
+
+                entity.HasOne(d => d.Sign)
+                    .WithMany(p => p.EmployeeSalarySigns)
+                    .HasForeignKey(d => d.SignId);
+            });
+
             modelBuilder.Entity<Nation>(entity =>
             {
                 entity.ToTable("Nation");
+
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Orgnization>(entity =>
@@ -308,15 +592,31 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.WardId, "IX_ORgnization_WardID");
 
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
                 entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
+
+                entity.Property(e => e.Email).HasMaxLength(100);
+
+                entity.Property(e => e.Fax).HasMaxLength(100);
 
                 entity.Property(e => e.ManagerId).HasColumnName("ManagerID");
 
+                entity.Property(e => e.Name).HasMaxLength(50);
+
                 entity.Property(e => e.NationId).HasColumnName("NationID");
+
+                entity.Property(e => e.NumberBussines).HasMaxLength(50);
 
                 entity.Property(e => e.ParentId).HasColumnName("ParentID");
 
+                entity.Property(e => e.Phone).HasMaxLength(50);
+
                 entity.Property(e => e.ProvinceId).HasColumnName("ProvinceID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.Property(e => e.WardId).HasColumnName("WardID");
 
@@ -347,7 +647,21 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.TypeId, "IX_Other_List_TypeID");
 
+                entity.Property(e => e.Atribute1).HasMaxLength(100);
+
+                entity.Property(e => e.Atribute2).HasMaxLength(100);
+
+                entity.Property(e => e.Atribute3).HasMaxLength(100);
+
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
                 entity.Property(e => e.TypeId).HasColumnName("TypeID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Type)
                     .WithMany(p => p.OtherLists)
@@ -357,6 +671,14 @@ namespace ModelAuto.Models
             modelBuilder.Entity<OtherListType>(entity =>
             {
                 entity.ToTable("Other_List_Type");
+
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Position>(entity =>
@@ -377,6 +699,10 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.MajorGroup, "IX_Position_majorGroup");
 
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
                 entity.Property(e => e.InformationLevel).HasColumnName("Information_level");
 
                 entity.Property(e => e.Language).HasColumnName("language");
@@ -385,13 +711,21 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.LearningLevel).HasColumnName("Learning_level");
 
-                entity.Property(e => e.Major).HasColumnName("major");
+                entity.Property(e => e.Major)
+                    .HasMaxLength(100)
+                    .HasColumnName("major");
 
                 entity.Property(e => e.MajorGroup).HasColumnName("majorGroup");
 
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.OtherSkill).HasMaxLength(100);
+
                 entity.Property(e => e.TitleId).HasColumnName("TitleID");
 
-                entity.Property(e => e.YearExp).HasColumnName("year_exp");
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.Property(e => e.YearExperience).HasMaxLength(100);
 
                 entity.HasOne(d => d.FormWorkingNavigation)
                     .WithMany(p => p.PositionFormWorkingNavigations)
@@ -430,9 +764,13 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.PositionId, "IX_PositionOrg_positionID");
 
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
                 entity.Property(e => e.OrgId).HasColumnName("OrgID");
 
                 entity.Property(e => e.PositionId).HasColumnName("positionID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Org)
                     .WithMany(p => p.PositionOrgs)
@@ -449,7 +787,15 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.NationId, "IX_Province_NationID");
 
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
                 entity.Property(e => e.NationId).HasColumnName("NationID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Nation)
                     .WithMany(p => p.Provinces)
@@ -464,11 +810,23 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.ResourceId, "IX_Rc_Candidate_ResourceID");
 
+                entity.Property(e => e.Code).HasMaxLength(100);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.FirstName).HasMaxLength(100);
+
+                entity.Property(e => e.FullName).HasMaxLength(100);
+
+                entity.Property(e => e.LastName).HasMaxLength(100);
+
                 entity.Property(e => e.PhaseId).HasColumnName("PhaseID");
 
                 entity.Property(e => e.ResourceId).HasColumnName("ResourceID");
 
                 entity.Property(e => e.StepCv).HasColumnName("StepCV");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Phase)
                     .WithMany(p => p.RcCandidates)
@@ -516,12 +874,14 @@ namespace ModelAuto.Models
                 entity.Property(e => e.CandidateId).HasColumnName("CandidateID");
 
                 entity.Property(e => e.Cmnd)
-                    .HasMaxLength(50)
+                    .HasMaxLength(100)
                     .HasColumnName("CMND");
 
                 entity.Property(e => e.Cmndplace)
                     .HasMaxLength(100)
                     .HasColumnName("CMNDPlace");
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
 
                 entity.Property(e => e.DistrictHk).HasColumnName("DistrictHK");
 
@@ -529,31 +889,51 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.Dob).HasColumnType("date");
 
-                entity.Property(e => e.Email).HasMaxLength(50);
+                entity.Property(e => e.Email).HasMaxLength(100);
 
-                entity.Property(e => e.Facebook).HasMaxLength(50);
+                entity.Property(e => e.EmailWork).HasMaxLength(100);
 
-                entity.Property(e => e.Linkedin).HasMaxLength(50);
+                entity.Property(e => e.Facebook)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.HoKhau).HasMaxLength(100);
+
+                entity.Property(e => e.LinkedIn)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.NationHk).HasColumnName("NationHK");
 
                 entity.Property(e => e.NationOb).HasColumnName("NationOB");
 
-                entity.Property(e => e.Phone).HasMaxLength(50);
+                entity.Property(e => e.NoiO).HasMaxLength(100);
+
+                entity.Property(e => e.NoiSinh).HasMaxLength(100);
+
+                entity.Property(e => e.Phone).HasMaxLength(100);
 
                 entity.Property(e => e.PorvinceHk).HasColumnName("PorvinceHK");
 
                 entity.Property(e => e.PorvinceOb).HasColumnName("PorvinceOB");
 
-                entity.Property(e => e.Twitter).HasMaxLength(50);
+                entity.Property(e => e.Twiter)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.VisaNumber).HasMaxLength(50);
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.Property(e => e.VisaNumber).HasMaxLength(100);
+
+                entity.Property(e => e.VisaPlace).HasMaxLength(100);
 
                 entity.Property(e => e.WardHk).HasColumnName("WardHK");
 
                 entity.Property(e => e.WardOb).HasColumnName("WardOB");
 
-                entity.Property(e => e.Zalo).HasMaxLength(50);
+                entity.Property(e => e.Zalo)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Candidate)
                     .WithMany(p => p.RcCandidateCvs)
@@ -640,11 +1020,37 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Awards1).HasMaxLength(100);
-
-                entity.Property(e => e.Awards2).HasMaxLength(100);
+                entity.Property(e => e.Awards1)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.CandidateId).HasColumnName("Candidate_ID");
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.ExpOpeSystem1)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ExpOpeSystem2)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ExpOpeSystem3)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ExpProLanguage1)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ExpProLanguage2)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ExpProLanguage3)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Gpa1)
                     .HasColumnType("decimal(18, 2)")
@@ -654,9 +1060,15 @@ namespace ModelAuto.Models
                     .HasColumnType("decimal(18, 2)")
                     .HasColumnName("GPA2");
 
+                entity.Property(e => e.Gpa3)
+                    .HasColumnType("decimal(18, 3)")
+                    .HasColumnName("GPA3");
+
                 entity.Property(e => e.Graduate1).HasColumnType("date");
 
                 entity.Property(e => e.Graduate2).HasColumnType("date");
+
+                entity.Property(e => e.Graduate3).HasColumnType("date");
 
                 entity.Property(e => e.InforMaticsLevel1).HasColumnName("InforMatics_Level1");
 
@@ -678,6 +1090,66 @@ namespace ModelAuto.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.LevelOpeSystem1)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LevelOpeSystem2)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LevelOpeSystem3)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LevelProLanguge1)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LevelProLanguge2)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LevelProLanguge3)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Major1).HasMaxLength(100);
+
+                entity.Property(e => e.Major2).HasMaxLength(100);
+
+                entity.Property(e => e.Major3).HasMaxLength(100);
+
+                entity.Property(e => e.OpeSystem1)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.OpeSystem2)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.OpeSystem3)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProLanguage1)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProLanguage2)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProLanguage3)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.School1).HasMaxLength(100);
+
+                entity.Property(e => e.School2).HasMaxLength(100);
+
+                entity.Property(e => e.School3).HasMaxLength(100);
+
                 entity.Property(e => e.TypeLanguage1)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -689,6 +1161,8 @@ namespace ModelAuto.Models
                 entity.Property(e => e.TypeLanguage3)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Candidate)
                     .WithMany(p => p.RcCandidateEdus)
@@ -751,13 +1225,19 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.Ward, "IX_Rc_Candidate_Family_Ward");
 
+                entity.Property(e => e.Address).HasMaxLength(100);
+
                 entity.Property(e => e.CandidateId).HasColumnName("CandidateID");
 
-                entity.Property(e => e.DeductFrom).HasColumnName("Deduct_From");
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
 
-                entity.Property(e => e.DeductTo).HasColumnName("Deduct_To");
+                entity.Property(e => e.Fullname).HasMaxLength(100);
 
                 entity.Property(e => e.IsDeduct).HasColumnName("Is_Deduct");
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Candidate)
                     .WithMany(p => p.RcCandidateFamilies)
@@ -784,56 +1264,6 @@ namespace ModelAuto.Models
                     .HasForeignKey(d => d.Ward);
             });
 
-            modelBuilder.Entity<RcCandidateHeal>(entity =>
-            {
-                entity.ToTable("Rc_Candidate_Heal");
-
-                entity.HasIndex(e => e.CadidateId, "IX_Rc_Candidate_Heal_Cadidate_ID");
-
-                entity.HasIndex(e => e.LoaiSk, "IX_Rc_Candidate_Heal_LoaiSK");
-
-                entity.Property(e => e.BenhKhac).HasColumnName("Benh_Khac");
-
-                entity.Property(e => e.CadidateId).HasColumnName("Cadidate_ID");
-
-                entity.Property(e => e.CanNang).HasColumnName("Can_Nang");
-
-                entity.Property(e => e.ChieuCao).HasColumnName("Chieu_Cao");
-
-                entity.Property(e => e.HuyetAp).HasColumnName("Huyet_Ap");
-
-                entity.Property(e => e.LoaiSk).HasColumnName("LoaiSK");
-
-                entity.Property(e => e.MatPhai).HasColumnName("Mat_Phai");
-
-                entity.Property(e => e.MatTrai).HasColumnName("Mat_Trai");
-
-                entity.Property(e => e.NhomMau).HasColumnName("Nhom_mau");
-
-                entity.Property(e => e.TaiMuiHong).HasColumnName("Tai_Mui_Hong");
-
-                entity.HasOne(d => d.Cadidate)
-                    .WithMany(p => p.RcCandidateHeals)
-                    .HasForeignKey(d => d.CadidateId);
-
-                entity.HasOne(d => d.LoaiSkNavigation)
-                    .WithMany(p => p.RcCandidateHeals)
-                    .HasForeignKey(d => d.LoaiSk);
-            });
-
-            modelBuilder.Entity<RcCandidateWorrkingBefore>(entity =>
-            {
-                entity.ToTable("Rc_Candidate_Worrking_Before");
-
-                entity.HasIndex(e => e.CandidateId, "IX_Rc_Candidate_Worrking_Before_CandidateID");
-
-                entity.Property(e => e.CandidateId).HasColumnName("CandidateID");
-
-                entity.HasOne(d => d.Candidate)
-                    .WithMany(p => p.RcCandidateWorrkingBefores)
-                    .HasForeignKey(d => d.CandidateId);
-            });
-
             modelBuilder.Entity<RcPhaseRequest>(entity =>
             {
                 entity.ToTable("Rc_Phase_Request");
@@ -842,7 +1272,15 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.RequestId, "IX_Rc_Phase_Request_RequestId");
 
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
                 entity.Property(e => e.Note).HasColumnName("note");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Position)
                     .WithMany(p => p.RcPhaseRequests)
@@ -857,25 +1295,48 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("Rc_Request");
 
-                entity.HasIndex(e => e.OrgId, "IX_Rc_Request_OrgId");
+                entity.HasIndex(e => e.Level, "IX_Rc_Request_Level");
+
+                entity.HasIndex(e => e.OrgnizationId, "IX_Rc_Request_OrgnizationId");
 
                 entity.HasIndex(e => e.PositionId, "IX_Rc_Request_PositionID");
 
                 entity.HasIndex(e => e.Project, "IX_Rc_Request_Project");
 
+                entity.HasIndex(e => e.RequestLevel, "IX_Rc_Request_RequestLevel");
+
                 entity.HasIndex(e => e.SignId, "IX_Rc_Request_SignId");
-
-                entity.HasIndex(e => e.StatusHr, "IX_Rc_Request_StatusHr");
-
-                entity.HasIndex(e => e.StatusMg, "IX_Rc_Request_StatusMg");
 
                 entity.HasIndex(e => e.Type, "IX_Rc_Request_Type");
 
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.Comment).HasMaxLength(100);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.HrInchange).HasColumnName("hrInchange");
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.ParentId).HasColumnName("ParentID");
+
                 entity.Property(e => e.PositionId).HasColumnName("PositionID");
 
-                entity.HasOne(d => d.Org)
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.HasOne(d => d.HrInchangeNavigation)
+                    .WithMany(p => p.RcRequestHrInchangeNavigations)
+                    .HasForeignKey(d => d.HrInchange)
+                    .HasConstraintName("FK__Rc_Reques__hrInc__59C55456");
+
+                entity.HasOne(d => d.LevelNavigation)
+                    .WithMany(p => p.RcRequestLevelNavigations)
+                    .HasForeignKey(d => d.Level);
+
+                entity.HasOne(d => d.Orgnization)
                     .WithMany(p => p.RcRequests)
-                    .HasForeignKey(d => d.OrgId);
+                    .HasForeignKey(d => d.OrgnizationId);
 
                 entity.HasOne(d => d.Position)
                     .WithMany(p => p.RcRequests)
@@ -885,17 +1346,13 @@ namespace ModelAuto.Models
                     .WithMany(p => p.RcRequestProjectNavigations)
                     .HasForeignKey(d => d.Project);
 
+                entity.HasOne(d => d.RequestLevelNavigation)
+                    .WithMany(p => p.RcRequestRequestLevelNavigations)
+                    .HasForeignKey(d => d.RequestLevel);
+
                 entity.HasOne(d => d.Sign)
-                    .WithMany(p => p.RcRequests)
+                    .WithMany(p => p.RcRequestSigns)
                     .HasForeignKey(d => d.SignId);
-
-                entity.HasOne(d => d.StatusHrNavigation)
-                    .WithMany(p => p.RcRequestStatusHrNavigations)
-                    .HasForeignKey(d => d.StatusHr);
-
-                entity.HasOne(d => d.StatusMgNavigation)
-                    .WithMany(p => p.RcRequestStatusMgNavigations)
-                    .HasForeignKey(d => d.StatusMg);
 
                 entity.HasOne(d => d.TypeNavigation)
                     .WithMany(p => p.RcRequestTypeNavigations)
@@ -908,7 +1365,15 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.PhaseId, "IX_Rc_Request_Exam_Phase_ID");
 
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
                 entity.Property(e => e.PhaseId).HasColumnName("Phase_ID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Phase)
                     .WithMany(p => p.RcRequestExams)
@@ -925,7 +1390,11 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.CandidateId).HasColumnName("CandidateID");
 
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
                 entity.Property(e => e.ExamId).HasColumnName("ExamID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Candidate)
                     .WithMany(p => p.RcRequestExamResults)
@@ -942,9 +1411,15 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.PhaseRequestId, "IX_Rc_Request_History_Phase_Request_ID");
 
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
                 entity.Property(e => e.PhaseRequestId).HasColumnName("Phase_Request_ID");
 
-                entity.Property(e => e.UserLog).HasColumnName("User_log");
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.Property(e => e.UserLog)
+                    .HasMaxLength(100)
+                    .HasColumnName("User_log");
 
                 entity.HasOne(d => d.PhaseRequest)
                     .WithMany(p => p.RcRequestHistories)
@@ -957,7 +1432,15 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.PhaseId, "IX_Rc_Request_InterView_Phase_ID");
 
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
                 entity.Property(e => e.PhaseId).HasColumnName("Phase_ID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Phase)
                     .WithMany(p => p.RcRequestInterViews)
@@ -974,7 +1457,11 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.CandidateId).HasColumnName("CandidateID");
 
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
                 entity.Property(e => e.InterviewId).HasColumnName("InterviewID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Candidate)
                     .WithMany(p => p.RcRequestInterViewResults)
@@ -999,11 +1486,15 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.CandidateId).HasColumnName("CandidateID");
 
-                entity.Property(e => e.IsMoveHsnv).HasColumnName("Is_Move_HSNV");
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.IsMoveEmployee).HasColumnName("Is_Move_Employee");
 
                 entity.Property(e => e.ResultInterview).HasColumnName("Result_Interview");
 
                 entity.Property(e => e.StatusRequest).HasColumnName("Status_Request");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Candidate)
                     .WithMany(p => p.RcRequestResults)
@@ -1038,7 +1529,11 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.CandidateId).HasColumnName("Candidate_ID");
 
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
                 entity.Property(e => e.DateNotify).HasColumnName("Date_Notify");
+
+                entity.Property(e => e.DiaDiem).HasMaxLength(100);
 
                 entity.Property(e => e.ExamId).HasColumnName("ExamID");
 
@@ -1055,6 +1550,8 @@ namespace ModelAuto.Models
                 entity.Property(e => e.IsInteview).HasColumnName("Is_Inteview");
 
                 entity.Property(e => e.StatusContact).HasColumnName("Status_Contact");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.Candidate)
                     .WithMany(p => p.RcRequestSchedus)
@@ -1084,11 +1581,27 @@ namespace ModelAuto.Models
             modelBuilder.Entity<RcResourceCandidate>(entity =>
             {
                 entity.ToTable("Rc_Resource_Candidate");
+
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Title>(entity =>
             {
                 entity.ToTable("Title");
+
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Ward>(entity =>
@@ -1097,7 +1610,13 @@ namespace ModelAuto.Models
 
                 entity.HasIndex(e => e.DistrictId, "IX_Ward_DistrictID");
 
+                entity.Property(e => e.CreateBy).HasMaxLength(100);
+
                 entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
                 entity.HasOne(d => d.District)
                     .WithMany(p => p.Wards)

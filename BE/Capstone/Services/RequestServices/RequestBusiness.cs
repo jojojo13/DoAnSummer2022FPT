@@ -80,7 +80,7 @@ namespace Services.RequestServices
                         item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
                         item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
                         item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
-                        item.hrEmp = context.Employees.Where(x => x.Id == item.hrInchange).FirstOrDefault();
+                        item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
                     }
                     return list;
                 }
@@ -107,7 +107,7 @@ namespace Services.RequestServices
                         item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
                         item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
                         item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
-                        item.hrEmp = context.Employees.Where(x => x.Id == item.hrInchange).FirstOrDefault();
+                        item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
                     }
                     return list;
                 }

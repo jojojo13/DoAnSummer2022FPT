@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 namespace ModelAuto.Models
 {
-    public partial class RcCandidateEdu
+    public partial class EmployeeEdu
     {
         public int Id { get; set; }
-        public int? CandidateId { get; set; }
+        public int? EmployeeId { get; set; }
+        public int? EmployeeId1 { get; set; }
         public int? LearningLevel { get; set; }
         public int? InforMaticsLevel1 { get; set; }
         public string School1 { get; set; }
@@ -29,42 +30,11 @@ namespace ModelAuto.Models
         public DateTime? CreateDate { get; set; }
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
-        public DateTime? Graduate1 { get; set; }
-        public DateTime? Graduate2 { get; set; }
-        public DateTime? Graduate3 { get; set; }
-        public decimal? Gpa1 { get; set; }
-        public decimal? Gpa2 { get; set; }
-        public decimal? Gpa3 { get; set; }
-        public string Awards1 { get; set; }
-        public string TypeLanguage1 { get; set; }
-        public string TypeLanguage2 { get; set; }
-        public string TypeLanguage3 { get; set; }
-        public string LevelLanguage1 { get; set; }
-        public string LevelLanguage2 { get; set; }
-        public string LevelLanguage3 { get; set; }
-        public string ProLanguage1 { get; set; }
-        public string ProLanguage2 { get; set; }
-        public string ProLanguage3 { get; set; }
-        public string LevelProLanguge1 { get; set; }
-        public string LevelProLanguge2 { get; set; }
-        public string LevelProLanguge3 { get; set; }
-        public string ExpProLanguage1 { get; set; }
-        public string ExpProLanguage2 { get; set; }
-        public string ExpProLanguage3 { get; set; }
-        public string OpeSystem1 { get; set; }
-        public string OpeSystem2 { get; set; }
-        public string OpeSystem3 { get; set; }
-        public string LevelOpeSystem1 { get; set; }
-        public string LevelOpeSystem2 { get; set; }
-        public string LevelOpeSystem3 { get; set; }
-        public string ExpOpeSystem1 { get; set; }
-        public string ExpOpeSystem2 { get; set; }
-        public string ExpOpeSystem3 { get; set; }
 
-        public virtual RcCandidate Candidate { get; set; }
         public virtual OtherList DeeGree1Navigation { get; set; }
         public virtual OtherList DeeGree2Navigation { get; set; }
         public virtual OtherList DeeGree3Navigation { get; set; }
+        public virtual Employee EmployeeId1Navigation { get; set; }
         public virtual OtherList InforMaticsLevel1Navigation { get; set; }
         public virtual OtherList InforMaticsLevel2Navigation { get; set; }
         public virtual OtherList InforMaticsLevel3Navigation { get; set; }

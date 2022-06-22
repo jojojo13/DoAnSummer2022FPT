@@ -48,8 +48,8 @@ namespace API.Controllers
                                  rank = x.Rank,
                                  note = x.Note,
                                  comment = x.Comment,
-                                 HrInchangeId = x.hrInchange,
-                                 HrInchange = x.hrEmp?.FullName == null ? "" : x.hrEmp?.FullName,
+                                 HrInchangeId = x.HrInchange,
+                                 HrInchange = x.HrInchangeNavigation?.FullName == null ? "" : x.HrInchangeNavigation?.FullName,
                                  signID = x.SignId,
                                  typeID = x.RequestLevel,
                                  typename = x.RequestLevelNavigation?.Name,
@@ -67,7 +67,7 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = c.getTotalRecord("Rc_Request", true),
-                        Data = listReturn.Where(x => x.StatusID == 3).ToList()
+                        Data = listReturn.Where(x => x.StatusID == 2).ToList()
                     });
                 }
                 //view những bản ghi dược phân quyền cho HR
@@ -118,8 +118,8 @@ namespace API.Controllers
                                  rank = x.Rank,
                                  note = x.Note,
                                  comment = x.Comment,
-                                 HrInchangeId = x.hrInchange,
-                                 HrInchange = x.hrEmp?.FullName == null ? "" : x.hrEmp?.FullName,
+                                 HrInchangeId = x.HrInchange,
+                                 HrInchange = x.HrInchangeNavigation?.FullName == null ? "" : x.HrInchangeNavigation?.FullName,
                                  signID = x.SignId,
                                  typeID = x.RequestLevel,
                                  typename = x.RequestLevelNavigation?.Name,
