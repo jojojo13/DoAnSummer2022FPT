@@ -25,7 +25,7 @@ namespace API.Controllers
         #region DM chuc danh
 
         [HttpPost("GetAllTitle")]
-        public IActionResult GetAllTitle(CommonResponse common)
+        public IActionResult GetAllTitle([FromHeader] CommonResponse common)
         {
             List<Title> list = p.GetAllTitle(common.index, common.size);
             var ListResponse = from l in list
@@ -216,7 +216,7 @@ namespace API.Controllers
         #region DM vi tri cong viec
 
         [HttpPost("GetAllPosition")]
-        public IActionResult GetAllPosition(CommonResponse common)
+        public IActionResult GetAllPosition([FromHeader] CommonResponse common)
         {
             List<Position> list = p.GetAllPosition(common.index, common.size);
             if (list.Count > 0)

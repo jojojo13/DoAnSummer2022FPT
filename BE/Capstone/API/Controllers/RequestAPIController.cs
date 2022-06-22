@@ -25,7 +25,7 @@ namespace API.Controllers
         #region RC_REQUEST
         [Authorize(Roles = "1,2,3")]
         [HttpPost("GetAllRequest")]
-        public IActionResult GetAllRequest(CommonResponse common)
+        public IActionResult GetAllRequest([FromHeader] CommonResponse common)
         {
             Account a = GetCurrentUser();
             List<RcRequest> list = p.GetAllRequest(common.index, common.size);
@@ -67,7 +67,7 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = c.getTotalRecord("Rc_Request", true),
-                        Data = listReturn
+                        Data = listReturn.Where(x => x.StatusID == 2).ToList()
                     });
                 }
                 //view những bản ghi dược phân quyền cho HR

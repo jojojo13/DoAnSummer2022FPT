@@ -64,7 +64,7 @@ namespace API.Controllers
 
         #region "Tham số hệ thống"
         [HttpPost("GetOtherList")]
-        public IActionResult GetOtherList(CommonResponseByCode common)
+        public IActionResult GetOtherList([FromHeader] CommonResponseByCode common)
         {
             List<OtherList> list = new List<OtherList>();
             list = p.GetOtherListsCombo(common.code, common.index, common.size);
