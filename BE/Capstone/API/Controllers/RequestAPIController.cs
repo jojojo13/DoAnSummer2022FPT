@@ -38,6 +38,7 @@ namespace API.Controllers
                                  requestLevel = x.RequestLevelNavigation?.Name,
                                  department = x.Orgnization?.Name,
                                  position = x.Position?.Name,
+                                 positionID= x.PositionId,
                                  quantity = x.Number,
                                  createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
                                  Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
@@ -57,6 +58,9 @@ namespace API.Controllers
                                  OrgnizationID = x.OrgnizationId,
                                  projectname = x.ProjectNavigation?.Name,
                                  projectID = x.Project,
+                                 experience= x.YearExperience,
+                                 level= x.Level,
+                                 levelName= x.LevelNavigation?.Name,
                                  history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + " Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
                              };
             if (list.Count > 0)
@@ -108,6 +112,7 @@ namespace API.Controllers
                                  requestLevel = x.RequestLevelNavigation?.Name,
                                  department = x.Orgnization?.Name,
                                  position = x.Position?.Name,
+                                 positionID = x.PositionId,
                                  quantity = x.Number,
                                  createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
                                  Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
@@ -127,6 +132,9 @@ namespace API.Controllers
                                  OrgnizationID = x.OrgnizationId,
                                  projectname = x.ProjectNavigation?.Name,
                                  projectID = x.Project,
+                                 experience = x.YearExperience,
+                                 level = x.Level,
+                                 levelName = x.LevelNavigation?.Name,
                                  history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + " Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
                              };
             if (list.Count > 0)
