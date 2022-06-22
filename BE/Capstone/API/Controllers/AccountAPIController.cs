@@ -60,7 +60,8 @@ namespace API.Controllers
             var empReturn = new
             {
                 rule = a?.Rule,
-                name = emp?.FullName
+                name = emp?.FullName,
+                orgID= emp?.OrgnizationId
             };
 
             return Ok(new
@@ -84,7 +85,7 @@ namespace API.Controllers
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Audience"],
               claims,
-              expires: DateTime.Now.AddSeconds(5),
+              expires: DateTime.Now.AddMinutes(10),
               signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

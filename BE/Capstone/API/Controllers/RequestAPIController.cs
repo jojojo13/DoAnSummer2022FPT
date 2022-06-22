@@ -328,7 +328,7 @@ namespace API.Controllers
                 rc.Budget = T.Budget;
                 rc.Status = T.Status;
                 rc.CreateDate = DateTime.Now;
-                rc.CreateBy = a.Employee.FullName;
+                rc.CreateBy = a.Employee?.FullName;
                 var check = p.InsertRequest(rc);
                 return Ok(new
                 {
