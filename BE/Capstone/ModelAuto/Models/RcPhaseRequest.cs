@@ -26,10 +26,6 @@ namespace ModelAuto.Models
         public int? NumberNeed { get; set; }
         public int? Cost { get; set; }
         public int? Status { get; set; }
-        public string CreateBy { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public string UpdateBy { get; set; }
-        public DateTime? UpdateDate { get; set; }
 
         public virtual Position Position { get; set; }
         public virtual RcRequest Request { get; set; }

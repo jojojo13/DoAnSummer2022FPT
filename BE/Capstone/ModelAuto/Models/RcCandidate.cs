@@ -11,6 +11,8 @@ namespace ModelAuto.Models
         {
             RcCandidateEdus = new HashSet<RcCandidateEdu>();
             RcCandidateFamilies = new HashSet<RcCandidateFamily>();
+            RcCandidateHeals = new HashSet<RcCandidateHeal>();
+            RcCandidateWorrkingBefores = new HashSet<RcCandidateWorrkingBefore>();
             RcRequestExamResults = new HashSet<RcRequestExamResult>();
             RcRequestInterViewResults = new HashSet<RcRequestInterViewResult>();
             RcRequestResults = new HashSet<RcRequestResult>();
@@ -25,15 +27,14 @@ namespace ModelAuto.Models
         public int? PhaseId { get; set; }
         public int? ResourceId { get; set; }
         public int? Status { get; set; }
-        public string CreateBy { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public string UpdateBy { get; set; }
-        public DateTime? UpdateDate { get; set; }
+        public int? StepCv { get; set; }
 
         public virtual RcPhaseRequest Phase { get; set; }
         public virtual RcResourceCandidate Resource { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEdus { get; set; }
         public virtual ICollection<RcCandidateFamily> RcCandidateFamilies { get; set; }
+        public virtual ICollection<RcCandidateHeal> RcCandidateHeals { get; set; }
+        public virtual ICollection<RcCandidateWorrkingBefore> RcCandidateWorrkingBefores { get; set; }
         public virtual ICollection<RcRequestExamResult> RcRequestExamResults { get; set; }
         public virtual ICollection<RcRequestInterViewResult> RcRequestInterViewResults { get; set; }
         public virtual ICollection<RcRequestResult> RcRequestResults { get; set; }

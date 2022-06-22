@@ -24,10 +24,6 @@ namespace ModelAuto.Models
         public int? StatusContact { get; set; }
         public DateTime? GioPv { get; set; }
         public int? IdNguoiPv { get; set; }
-        public string CreateBy { get; set; }
-        public DateTime CreateDate { get; set; }
-        public string UpdateBy { get; set; }
-        public DateTime UpdateDate { get; set; }
 
         public virtual RcCandidate Candidate { get; set; }
         public virtual RcRequestExam Exam { get; set; }

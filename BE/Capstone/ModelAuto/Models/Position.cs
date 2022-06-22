@@ -26,16 +26,12 @@ namespace ModelAuto.Models
         public string OtherSkill { get; set; }
         public int? FormWorking { get; set; }
         public int? LearningLevel { get; set; }
-        public string YearExperience { get; set; }
+        public string YearExp { get; set; }
         public int? MajorGroup { get; set; }
         public string Major { get; set; }
         public int? Language { get; set; }
         public int? LanguageLevel { get; set; }
         public int? InformationLevel { get; set; }
-        public string CreateBy { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public string UpdateBy { get; set; }
-        public DateTime? UpdateDate { get; set; }
 
         public virtual OtherList FormWorkingNavigation { get; set; }
         public virtual OtherList InformationLevelNavigation { get; set; }

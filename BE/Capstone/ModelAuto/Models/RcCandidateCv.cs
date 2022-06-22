@@ -34,10 +34,10 @@ namespace ModelAuto.Models
         public int? PorvinceHk { get; set; }
         public int? DistrictHk { get; set; }
         public int? WardHk { get; set; }
-        public string CreateBy { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public string UpdateBy { get; set; }
-        public DateTime? UpdateDate { get; set; }
+        public string Zalo { get; set; }
+        public string Linkedin { get; set; }
+        public string Facebook { get; set; }
+        public string Twitter { get; set; }
 
         public virtual Employee Candidate { get; set; }
         public virtual District DistrictHkNavigation { get; set; }

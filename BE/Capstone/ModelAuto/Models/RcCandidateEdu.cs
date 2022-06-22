@@ -25,10 +25,18 @@ namespace ModelAuto.Models
         public int? DeeGree3 { get; set; }
         public string Major3 { get; set; }
         public int? Language3 { get; set; }
-        public string CreateBy { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public string UpdateBy { get; set; }
-        public DateTime? UpdateDate { get; set; }
+        public DateTime? Graduate1 { get; set; }
+        public decimal? Gpa1 { get; set; }
+        public DateTime? Graduate2 { get; set; }
+        public decimal? Gpa2 { get; set; }
+        public string Awards1 { get; set; }
+        public string Awards2 { get; set; }
+        public string TypeLanguage1 { get; set; }
+        public string LevelLanguage1 { get; set; }
+        public string TypeLanguage2 { get; set; }
+        public string LevelLanguage2 { get; set; }
+        public string TypeLanguage3 { get; set; }
+        public string LevelLanguage3 { get; set; }
 
         public virtual RcCandidate Candidate { get; set; }
         public virtual OtherList DeeGree1Navigation { get; set; }

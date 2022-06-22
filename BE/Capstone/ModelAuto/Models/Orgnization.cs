@@ -20,12 +20,13 @@ namespace ModelAuto.Models
         public string Name { get; set; }
         public int? ParentId { get; set; }
         public int? Level { get; set; }
-        public DateTime? DissolutionDate { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime DissolutionDate { get; set; }
         public int? Status { get; set; }
         public string Note { get; set; }
         public string Fax { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
+        public string Mobile { get; set; }
         public string NumberBussines { get; set; }
         public string Address { get; set; }
         public int? NationId { get; set; }
@@ -33,10 +34,6 @@ namespace ModelAuto.Models
         public int? DistrictId { get; set; }
         public int? WardId { get; set; }
         public int? ManagerId { get; set; }
-        public string CreateBy { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public string UpdateBy { get; set; }
-        public DateTime? UpdateDate { get; set; }
 
         public virtual District District { get; set; }
         public virtual Employee Manager { get; set; }
