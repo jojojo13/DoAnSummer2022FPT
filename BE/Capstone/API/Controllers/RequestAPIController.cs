@@ -299,7 +299,6 @@ namespace API.Controllers
                 });
             }
         }
-        [Authorize(Roles = "1,2,3")]
         [HttpPost("InsertRequest")]
         public IActionResult InsertRequest([FromBody] RequestResponse T)
         {
@@ -343,7 +342,6 @@ namespace API.Controllers
                 });
             }
         }
-        [Authorize(Roles = "1,2,3")]
         [HttpPut("ModifyRequest")]
         public IActionResult ModifyRequest([FromBody] RequestResponse T)
         {
