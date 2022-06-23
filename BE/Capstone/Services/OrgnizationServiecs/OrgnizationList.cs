@@ -150,7 +150,10 @@ namespace Services.OrgnizationServiecs
                 tobj.Note = T.Note;
                 tobj.TitleId = T.TitleId;
                 tobj.OtherSkill = T.OtherSkill;
-                tobj.FormWorking = T.FormWorking;
+                if (T.FormWorking != 0)
+                {
+                    tobj.FormWorking = T.FormWorking;
+                }
                 tobj.BasicSalary = T.BasicSalary;
                 tobj.LearningLevel = T.LearningLevel;
                 tobj.YearExperience = T.YearExperience;
@@ -183,7 +186,10 @@ namespace Services.OrgnizationServiecs
                     tobj.OtherSkill = T.OtherSkill;
                     tobj.FormWorking = T.FormWorking;
                     tobj.OtherSkill = T.OtherSkill;
-                    tobj.FormWorking = T.FormWorking;
+                    if (T.FormWorking != 0)
+                    {
+                        tobj.FormWorking = T.FormWorking;
+                    }
                     tobj.BasicSalary = T.BasicSalary;
                     tobj.LearningLevel = T.LearningLevel;
                     tobj.YearExperience = T.YearExperience;
