@@ -35,7 +35,7 @@ namespace API.Controllers
         public IActionResult GetOtherListType(int phanHe)
         {
             List<OtherListType> list = new List<OtherListType>();
-            list = p.GetOtherListType().Where(x => x.PhanHe == phanHe).ToList();
+            list = p.GetOtherListType().ToList();
             if (list.Count > 0)
                 return Ok(new
                 {
@@ -84,7 +84,11 @@ namespace API.Controllers
                     Data = listReturn
                 });
             }
-            return StatusCode(200, "List is Null");
+            return Ok(new
+            {
+                TotalItem = p.GetOtherListsCombo(code, 0, Int32.MaxValue).Count(),
+                Data = new List<OtherList>()
+            });
         }
 
 

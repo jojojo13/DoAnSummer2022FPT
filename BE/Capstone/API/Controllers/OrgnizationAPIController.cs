@@ -219,12 +219,26 @@ namespace API.Controllers
         public IActionResult GetAllPosition(int index, int size)
         {
             List<Position> list = p.GetAllPosition(index, size);
+            var listReturn = from l in list
+                             select new
+                             {
+                                 id= l.Id,
+                                 name = l.Name,
+                                 code = l.Code,
+                                 note = l.Note,
+                                 title = l.Title?.Name,
+                                 titleId = l.TitleId,
+                                 basicSalary= l.BasicSalary,
+                                 otherSkill=l.OtherSkill,
+                                 workForm= l.FormWorkingNavigation?.Name,
+                                 workFormID= l.FormWorking
+                             };
             if (list.Count > 0)
             {
                 return Ok(new
                 {
-                    Status = true,
-                    Data = list
+                    TotalItem = c.getTotalRecord("Position", false),
+                    Data = listReturn
                 });
             }
             return StatusCode(200, "List is Null");
@@ -401,6 +415,7 @@ namespace API.Controllers
             try
             {
                 Position tobj = new Position();
+                tobj.Id = objresponse.Id;
                 tobj.Name = objresponse.Name;
                 tobj.Note = objresponse.Note;
                 tobj.TitleId = objresponse.TitleID;
@@ -788,19 +803,10 @@ namespace API.Controllers
 
 
         [HttpPost("DeletePositionOrg")]
-        public IActionResult DeletePositionOrg([FromBody] string ListID)
+        public IActionResult DeletePositionOrg(List<int>lst)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
                 var check = p.DeletePositionOrg(lst);
                 if (check)
                 {
