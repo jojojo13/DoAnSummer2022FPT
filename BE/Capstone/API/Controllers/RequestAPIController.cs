@@ -14,7 +14,7 @@ using API.ResponseModel;
 
 namespace API.Controllers
 {
-    //[CustomAuthorization]
+
     [Route("api/[controller]")]
     [ApiController]
     public class RequestAPIController : AuthorizeByIDController
@@ -28,7 +28,7 @@ namespace API.Controllers
         public IActionResult GetAllRequest(int index, int size)
         {
             Account a = GetCurrentUser();
-            List<RcRequest> list = p.GetAllRequest(index,size);
+            List<RcRequest> list = p.GetAllRequest(index, size);
             var listReturn = from x in list
                              select new
                              {
@@ -38,7 +38,7 @@ namespace API.Controllers
                                  requestLevel = x.RequestLevelNavigation?.Name,
                                  department = x.Orgnization?.Name,
                                  position = x.Position?.Name,
-                                 positionID= x.PositionId,
+                                 positionID = x.PositionId,
                                  quantity = x.Number,
                                  createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
                                  Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
@@ -58,9 +58,9 @@ namespace API.Controllers
                                  OrgnizationID = x.OrgnizationId,
                                  projectname = x.ProjectNavigation?.Name,
                                  projectID = x.Project,
-                                 experience= x.YearExperience,
-                                 level= x.Level,
-                                 levelName= x.LevelNavigation?.Name,
+                                 experience = x.YearExperience,
+                                 level = x.Level,
+                                 levelName = x.LevelNavigation?.Name,
                                  history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + " Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
                              };
             if (list.Count > 0)
@@ -299,8 +299,7 @@ namespace API.Controllers
                 });
             }
         }
-
-
+        [Authorize(Roles = "1,2,3")]
         [HttpPost("InsertRequest")]
         public IActionResult InsertRequest([FromBody] RequestResponse T)
         {
@@ -344,8 +343,7 @@ namespace API.Controllers
                 });
             }
         }
-
-
+        [Authorize(Roles = "1,2,3")]
         [HttpPut("ModifyRequest")]
         public IActionResult ModifyRequest([FromBody] RequestResponse T)
         {
@@ -353,6 +351,7 @@ namespace API.Controllers
             {
                 Account a = GetCurrentUser();
                 RcRequest rc = new RcRequest();
+                rc.Id = T.Id;
                 rc.Name = T.Name;
                 rc.EffectDate = T.EffectDate;
                 rc.ExpireDate = T.ExpireDate;
@@ -372,7 +371,7 @@ namespace API.Controllers
                 rc.Budget = T.Budget;
                 rc.Comment = T.Comment;
                 rc.UpdateDate = DateTime.Now;
-                rc.UpdateBy = a.Employee.FullName;
+                rc.UpdateBy = a.Employee?.FullName;
                 var check = p.ModifyRequest(rc);
                 return Ok(new
                 {
