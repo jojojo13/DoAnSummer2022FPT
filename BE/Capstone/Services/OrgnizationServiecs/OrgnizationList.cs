@@ -123,10 +123,11 @@ namespace Services.OrgnizationServiecs
             {
                   using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<Position> list = (List<Position>)context.Positions.ToList().Skip(index * size).Take(size);
+                    List<Position> list =context.Positions.Skip(index * size).Take(size).ToList();
                     foreach (var item in list)
                     {
                         item.Title = context.Titles.Where(x => x.Id == item.TitleId).FirstOrDefault();
+                        item.FormWorkingNavigation = context.OtherLists.Where(x => x.Id == item.FormWorking).FirstOrDefault();
                     }
                     return list;
                 }
