@@ -61,7 +61,7 @@ namespace API.Controllers
                                  experience = x.YearExperience,
                                  level = x.Level,
                                  levelName = x.LevelNavigation?.Name,
-                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + " Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
+                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
                              };
             if (list.Count > 0)
             {
@@ -135,7 +135,7 @@ namespace API.Controllers
                                  experience = x.YearExperience,
                                  level = x.Level,
                                  levelName = x.LevelNavigation?.Name,
-                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + " Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
+                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
                              };
             if (list.Count > 0)
             {
