@@ -36,30 +36,6 @@ namespace ModelAuto.Models
         public decimal? Gpa2 { get; set; }
         public decimal? Gpa3 { get; set; }
         public string Awards1 { get; set; }
-        public string TypeLanguage1 { get; set; }
-        public string TypeLanguage2 { get; set; }
-        public string TypeLanguage3 { get; set; }
-        public string LevelLanguage1 { get; set; }
-        public string LevelLanguage2 { get; set; }
-        public string LevelLanguage3 { get; set; }
-        public string ProLanguage1 { get; set; }
-        public string ProLanguage2 { get; set; }
-        public string ProLanguage3 { get; set; }
-        public string LevelProLanguge1 { get; set; }
-        public string LevelProLanguge2 { get; set; }
-        public string LevelProLanguge3 { get; set; }
-        public string ExpProLanguage1 { get; set; }
-        public string ExpProLanguage2 { get; set; }
-        public string ExpProLanguage3 { get; set; }
-        public string OpeSystem1 { get; set; }
-        public string OpeSystem2 { get; set; }
-        public string OpeSystem3 { get; set; }
-        public string LevelOpeSystem1 { get; set; }
-        public string LevelOpeSystem2 { get; set; }
-        public string LevelOpeSystem3 { get; set; }
-        public string ExpOpeSystem1 { get; set; }
-        public string ExpOpeSystem2 { get; set; }
-        public string ExpOpeSystem3 { get; set; }
 
         public virtual RcCandidate Candidate { get; set; }
         public virtual OtherList DeeGree1Navigation { get; set; }

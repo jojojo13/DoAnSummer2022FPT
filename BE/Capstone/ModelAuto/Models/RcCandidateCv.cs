@@ -42,6 +42,8 @@ namespace ModelAuto.Models
         public string LinkedIn { get; set; }
         public string Facebook { get; set; }
         public string Twiter { get; set; }
+        public string Skype { get; set; }
+        public string Website { get; set; }
 
         public virtual Employee Candidate { get; set; }
         public virtual District DistrictHkNavigation { get; set; }

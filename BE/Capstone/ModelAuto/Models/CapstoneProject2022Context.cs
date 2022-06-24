@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -38,6 +37,7 @@ namespace ModelAuto.Models
         public virtual DbSet<RcCandidateCv> RcCandidateCvs { get; set; }
         public virtual DbSet<RcCandidateEdu> RcCandidateEdus { get; set; }
         public virtual DbSet<RcCandidateFamily> RcCandidateFamilies { get; set; }
+        public virtual DbSet<RcCandidateSkill> RcCandidateSkills { get; set; }
         public virtual DbSet<RcPhaseRequest> RcPhaseRequests { get; set; }
         public virtual DbSet<RcRequest> RcRequests { get; set; }
         public virtual DbSet<RcRequestExam> RcRequestExams { get; set; }
@@ -55,8 +55,8 @@ namespace ModelAuto.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var config = new ConfigurationBuilder().AddJsonFile("contextJson.json").Build();
-                optionsBuilder.UseSqlServer(config.GetConnectionString("MyDB"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=SQL8002.site4now.net;Initial Catalog=db_a87e9c_hungnx;User Id=db_a87e9c_hungnx_admin;Password=hung1207");
             }
         }
 
@@ -814,11 +814,7 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.CreateBy).HasMaxLength(100);
 
-                entity.Property(e => e.FirstName).HasMaxLength(100);
-
                 entity.Property(e => e.FullName).HasMaxLength(100);
-
-                entity.Property(e => e.LastName).HasMaxLength(100);
 
                 entity.Property(e => e.PhaseId).HasColumnName("PhaseID");
 
@@ -917,6 +913,10 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.PorvinceOb).HasColumnName("PorvinceOB");
 
+                entity.Property(e => e.Skype)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Twiter)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -930,6 +930,10 @@ namespace ModelAuto.Models
                 entity.Property(e => e.WardHk).HasColumnName("WardHK");
 
                 entity.Property(e => e.WardOb).HasColumnName("WardOB");
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Zalo)
                     .HasMaxLength(50)
@@ -1028,30 +1032,6 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.CreateBy).HasMaxLength(100);
 
-                entity.Property(e => e.ExpOpeSystem1)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ExpOpeSystem2)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ExpOpeSystem3)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ExpProLanguage1)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ExpProLanguage2)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ExpProLanguage3)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Gpa1)
                     .HasColumnType("decimal(18, 2)")
                     .HasColumnName("GPA1");
@@ -1078,89 +1058,17 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.LearningLevel).HasColumnName("Learning_Level");
 
-                entity.Property(e => e.LevelLanguage1)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LevelLanguage2)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LevelLanguage3)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LevelOpeSystem1)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LevelOpeSystem2)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LevelOpeSystem3)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LevelProLanguge1)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LevelProLanguge2)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LevelProLanguge3)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Major1).HasMaxLength(100);
 
                 entity.Property(e => e.Major2).HasMaxLength(100);
 
                 entity.Property(e => e.Major3).HasMaxLength(100);
 
-                entity.Property(e => e.OpeSystem1)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.OpeSystem2)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.OpeSystem3)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ProLanguage1)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ProLanguage2)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ProLanguage3)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.School1).HasMaxLength(100);
 
                 entity.Property(e => e.School2).HasMaxLength(100);
 
                 entity.Property(e => e.School3).HasMaxLength(100);
-
-                entity.Property(e => e.TypeLanguage1)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.TypeLanguage2)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.TypeLanguage3)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
@@ -1262,6 +1170,40 @@ namespace ModelAuto.Models
                 entity.HasOne(d => d.WardNavigation)
                     .WithMany(p => p.RcCandidateFamilies)
                     .HasForeignKey(d => d.Ward);
+            });
+
+            modelBuilder.Entity<RcCandidateSkill>(entity =>
+            {
+                entity.ToTable("RcCandidateSkill");
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Goal)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RcCandidateId).HasColumnName("RcCandidateID");
+
+                entity.HasOne(d => d.IdNavigation)
+                    .WithOne(p => p.RcCandidateSkill)
+                    .HasForeignKey<RcCandidateSkill>(d => d.Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RcCandidateSkill_Rc_Candidate");
+
+                entity.HasOne(d => d.LevelNavigation)
+                    .WithMany(p => p.RcCandidateSkillLevelNavigations)
+                    .HasForeignKey(d => d.Level)
+                    .HasConstraintName("FK_RcCandidateSkill_Other_List2");
+
+                entity.HasOne(d => d.TypeNavigation)
+                    .WithMany(p => p.RcCandidateSkillTypeNavigations)
+                    .HasForeignKey(d => d.Type)
+                    .HasConstraintName("FK_RcCandidateSkill_Other_List1");
+
+                entity.HasOne(d => d.TypeSkillNavigation)
+                    .WithMany(p => p.RcCandidateSkillTypeSkillNavigations)
+                    .HasForeignKey(d => d.TypeSkill)
+                    .HasConstraintName("FK_RcCandidateSkill_Other_List");
             });
 
             modelBuilder.Entity<RcPhaseRequest>(entity =>

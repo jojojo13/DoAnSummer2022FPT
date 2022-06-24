@@ -19,8 +19,6 @@ namespace ModelAuto.Models
 
         public int Id { get; set; }
         public string Code { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string FullName { get; set; }
         public int? PhaseId { get; set; }
         public int? ResourceId { get; set; }
@@ -33,6 +31,7 @@ namespace ModelAuto.Models
 
         public virtual RcPhaseRequest Phase { get; set; }
         public virtual RcResourceCandidate Resource { get; set; }
+        public virtual RcCandidateSkill RcCandidateSkill { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEdus { get; set; }
         public virtual ICollection<RcCandidateFamily> RcCandidateFamilies { get; set; }
         public virtual ICollection<RcRequestExamResult> RcRequestExamResults { get; set; }
