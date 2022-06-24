@@ -15,7 +15,7 @@ namespace ModelAuto.Models
         public DateTime? CreateDate { get; set; }
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
-
+        public string Note { get; set; }
         public virtual Orgnization Org { get; set; }
         public virtual Position Position { get; set; }
     }

@@ -144,21 +144,21 @@ namespace Services.OrgnizationServiecs
 
         public List<Orgnization> GetListOrgByOrgID(int ID)
         {
-               
-                List<Orgnization> list = new List<Orgnization>();
-                DataTable dt = DAOContext.GetListOrgbyOrgID(ID);
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    Orgnization o = new Orgnization();
-                    DataRow row = dt.Rows[i];
-                    o.Name = row["ORG_NAME"].ToString();
-                    o.Code = row["CODE"].ToString();
-                    o.Id = Convert.ToInt32(row["ID"].ToString());
-                    o.Level= Convert.ToInt32(row["LEVEL_NAME"].ToString());
-                    o.ParentId = Convert.ToInt32(row["ParentID"].ToString());
-                    list.Add(o);
-                }
-                return list;
+
+            List<Orgnization> list = new List<Orgnization>();
+            DataTable dt = DAOContext.GetListOrgbyOrgID(ID);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Orgnization o = new Orgnization();
+                DataRow row = dt.Rows[i];
+                o.Name = row["ORG_NAME"].ToString();
+                o.Code = row["CODE"].ToString();
+                o.Id = Convert.ToInt32(row["ID"].ToString());
+                o.Level = Convert.ToInt32(row["LEVEL_NAME"].ToString());
+                o.ParentId = Convert.ToInt32(row["ParentID"].ToString());
+                list.Add(o);
+            }
+            return list;
 
         }
 
@@ -166,17 +166,42 @@ namespace Services.OrgnizationServiecs
 
         #region Thiet lap vi tri cong viec cho phong ban
 
+        public bool CheckPositionExist(int orgId, int positionId)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    PositionOrg p = context.PositionOrgs.Where(x => x.OrgId == orgId && x.PositionId == positionId).FirstOrDefault();
+                    if (p != null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
         public List<PositionOrg> GetAllPositionOrg(int index, int size)
         {
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<PositionOrg> list = (List<PositionOrg>)context.PositionOrgs.ToList().Skip(index * size).Take(size);
+                    List<PositionOrg> list = (List<PositionOrg>)context.PositionOrgs.OrderByDescending(x => x.Id).Skip(index * size).Take(size).ToList();
                     foreach (var item in list)
                     {
                         item.Org = context.Orgnizations.Where(x => x.Id == item.OrgId).FirstOrDefault();
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
+                        item.Position.Title = context.Titles.Where(x => x.Id == item.Position.TitleId).FirstOrDefault();
                     }
                     return list;
                 }
@@ -194,6 +219,9 @@ namespace Services.OrgnizationServiecs
                 tobj.PositionId = T.PositionId;
                 tobj.Status = -1;
                 tobj.OrgId = T.OrgId;
+                tobj.Note = T.Note;
+                tobj.CreateBy = T.CreateBy;
+                tobj.CreateDate = DateTime.UtcNow;
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.PositionOrgs.Add(tobj);
@@ -214,7 +242,10 @@ namespace Services.OrgnizationServiecs
                 {
                     PositionOrg tobj = context.PositionOrgs.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.PositionId = T.PositionId;
+                    tobj.Note = T.Note;
                     tobj.OrgId = T.OrgId;
+                    tobj.UpdateBy = T.UpdateBy;
+                    tobj.UpdateDate = DateTime.UtcNow;
                     context.SaveChanges();
                     return true;
                 }

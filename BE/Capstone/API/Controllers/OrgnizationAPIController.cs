@@ -29,12 +29,13 @@ namespace API.Controllers
         {
             List<Title> list = p.GetAllTitle(index, size);
             var ListResponse = from l in list
-                               select new {
-                                   id= l.Id,
-                                   name= l.Name,
-                                   code= l.Code,
-                                   status  = l.Status == -1 ? "Active" : "Deactive",
-                                   note= l.Note
+                               select new
+                               {
+                                   id = l.Id,
+                                   name = l.Name,
+                                   code = l.Code,
+                                   status = l.Status == -1 ? "Active" : "Deactive",
+                                   note = l.Note
                                };
 
             if (list.Count > 0)
@@ -81,7 +82,7 @@ namespace API.Controllers
 
 
         [HttpPost("DeActiveTitle")]
-        public IActionResult DeActiveTitle(List<int>ListID)
+        public IActionResult DeActiveTitle(List<int> ListID)
         {
             try
             {
@@ -222,16 +223,16 @@ namespace API.Controllers
             var listReturn = from l in list
                              select new
                              {
-                                 id= l.Id,
+                                 id = l.Id,
                                  name = l.Name,
                                  code = l.Code,
                                  note = l.Note,
                                  title = l.Title?.Name,
                                  titleId = l.TitleId,
-                                 basicSalary= l.BasicSalary,
-                                 otherSkill=l.OtherSkill,
-                                 workForm= l.FormWorkingNavigation?.Name,
-                                 workFormID= l.FormWorking
+                                 basicSalary = l.BasicSalary,
+                                 otherSkill = l.OtherSkill,
+                                 workForm = l.FormWorkingNavigation?.Name,
+                                 workFormID = l.FormWorking
                              };
             if (list.Count > 0)
             {
@@ -477,9 +478,9 @@ namespace API.Controllers
                 Code = x.Code,
                 Level = x.Level,
                 ParentID = x.ParentId,
-                managerID= x.ManagerId,
-                managerName= x.Manager?.FullName,
-                office= x.Address
+                managerID = x.ManagerId,
+                managerName = x.Manager?.FullName,
+                office = x.Address
             };
             if (x != null)
             {
@@ -706,16 +707,40 @@ namespace API.Controllers
 
         #region Thiet lap vi tri cong viec cho phong ban
 
+        [HttpPost("CheckPositionExist")]
+        public IActionResult CheckPositionExist(int orgId, int positionId)
+        {
+            return Ok(new
+            {
+                Status = p.CheckPositionExist(orgId, positionId)
+            });
+        }
+
         [HttpPost("GetAllPositionOrg")]
-        public IActionResult GetAllPositionOrg(int index , int size)
+        public IActionResult GetAllPositionOrg(int index, int size)
         {
             List<PositionOrg> list = p.GetAllPositionOrg(index, size);
+            var listReturn = from l in list
+                             select new
+                             {
+                                 Id = l.Id,
+                                 orgName = l.Org?.Name,
+                                 orgCode = l.Org?.Code,
+                                 orgId = l.OrgId,
+                                 positionName = l.Position?.Name,
+                                 positionCode = l.Position?.Code,
+                                 positionId = l.PositionId,
+                                 titleName = l.Position?.Title.Name,
+                                 titleCode = l.Position?.Title.Code,
+                                 titleId = l.Position?.TitleId,
+                                 note = l.Note
+                             };
             if (list.Count > 0)
             {
                 return Ok(new
                 {
                     Status = true,
-                    Data = list
+                    Data = listReturn
                 });
             }
             return StatusCode(200, "List is Null");
@@ -803,7 +828,7 @@ namespace API.Controllers
 
 
         [HttpPost("DeletePositionOrg")]
-        public IActionResult DeletePositionOrg(List<int>lst)
+        public IActionResult DeletePositionOrg(List<int> lst)
         {
             try
             {
@@ -842,6 +867,8 @@ namespace API.Controllers
                 tobj.Status = -1;
                 tobj.OrgId = objresponse.OrgID;
                 tobj.PositionId = objresponse.positionID;
+                tobj.Note = objresponse.Note;
+                tobj.CreateBy = "HUNGNX";
                 var check = p.InsertPositionOrg(tobj);
                 if (check)
                 {
@@ -874,8 +901,11 @@ namespace API.Controllers
             try
             {
                 PositionOrg tobj = new PositionOrg();
+                tobj.Id = objresponse.Id;
+                tobj.Note = objresponse.Note;
                 tobj.OrgId = objresponse.OrgID;
                 tobj.PositionId = objresponse.positionID;
+                tobj.UpdateBy = "HUNGNX" ;
                 var check = p.ModifyPositionOrg(tobj);
                 if (check)
                 {

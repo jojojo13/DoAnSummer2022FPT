@@ -46,6 +46,7 @@ namespace Services.OrgnizationServiecs
         bool ModifyPositionOrg(PositionOrg T);
         bool DeletePositionOrg(List<int> list);
         bool ActiveOrDeActivePositionOrg(List<int> list, int status);
+        bool CheckPositionExist(int orgId, int positionId);
         #endregion
 
         #endregion

@@ -13,5 +13,6 @@ namespace API.ResponseModel.Orgnization
         public int? Status { get; set; }
         public string positionName { get; set; }
         public string OrgName { get; set; }
+        public string Note { get; set; }
     }
 }
