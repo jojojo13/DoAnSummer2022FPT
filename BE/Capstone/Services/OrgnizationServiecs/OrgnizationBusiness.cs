@@ -23,7 +23,7 @@ namespace Services.OrgnizationServiecs
                 obj.Name = o.Name;
                 obj.Code = c.autoGenCode3character("Orgnization", "ORG");
                 obj.ParentId = o.ParentId;
-                if (!o.ParentId.HasValue)
+                if (o.ParentId>0)
                 {
                     obj.Level = c.getOrgByID((int)o.ParentId).Level + 1;
                 }
@@ -45,7 +45,8 @@ namespace Services.OrgnizationServiecs
                 obj.ProvinceId = o.ProvinceId;
                 obj.NationId = o.NationId;
                 obj.ManagerId = o.ManagerId;
-
+                obj.CreateBy = o.CreateBy;
+                obj.CreateDate = DateTime.UtcNow;
 
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {

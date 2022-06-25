@@ -15,7 +15,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrgnizationAPIController : ControllerBase
+    public class OrgnizationAPIController : AuthorizeByIDController
     {
         private IOrgnization p = new OrgnizationImpl();
         private ICommon c = new CommonImpl();
@@ -612,13 +612,15 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1,2,3")]
         [HttpPost("InsertOrg")]
-        public IActionResult InsertOrg([FromBody] OrgResponse objresponse)
+        public IActionResult InsertOrg([FromBody] OrgResponse1 objresponse)
         {
             try
             {
+                Account a = GetCurrentUser();
                 Orgnization obj = new Orgnization();
+                obj.Name = objresponse.Name;
                 obj.Note = objresponse.Note;
                 obj.Status = -1;
                 obj.CreateDate = objresponse.CreateDate;
@@ -637,6 +639,7 @@ namespace API.Controllers
                 obj.ProvinceId = objresponse.ProvinceID;
                 obj.DistrictId = objresponse.DistrictID;
                 obj.WardId = objresponse.WardID;
+                obj.CreateBy = a.Employee?.FullName;
                 if (objresponse.ManagerID != 0)
                 {
                     obj.ManagerId = objresponse.ManagerID;

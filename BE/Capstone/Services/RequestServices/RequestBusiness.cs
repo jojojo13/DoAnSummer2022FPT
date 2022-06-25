@@ -139,7 +139,6 @@ namespace Services.RequestServices
         {
             RcRequest rc = new RcRequest();
             rc.Name = T.Name;
-          
             rc.EffectDate = T.EffectDate;
             rc.ExpireDate = T.ExpireDate;
             rc.Number = T.Number;
