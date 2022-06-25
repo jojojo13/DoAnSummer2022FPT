@@ -41,9 +41,9 @@ namespace API.Controllers
             var listReturn = from l in list
                              select new
                              {
-                                 Name = l.Name,
-                                 Code = l.Code,
-                                 ID = l.Id
+                                 name = l.Name,
+                                 code = l.Code,
+                                 id = l.Id
                              };
             if (list.Count > 0)
                 return Ok(new

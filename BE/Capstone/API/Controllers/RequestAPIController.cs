@@ -370,6 +370,7 @@ namespace API.Controllers
                 rc.Comment = T.Comment;
                 rc.UpdateDate = DateTime.Now;
                 rc.UpdateBy = a.Employee?.FullName;
+                rc.HrInchange = T.HrInchange;
                 var check = p.ModifyRequest(rc);
                 return Ok(new
                 {

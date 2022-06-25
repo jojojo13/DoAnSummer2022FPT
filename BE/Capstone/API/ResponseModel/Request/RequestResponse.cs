@@ -31,5 +31,6 @@ namespace API.ResponseModel.Request
         public DateTime? CreateDate { get; set; }
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
+        public int? HrInchange { get; set; }
     }
 }

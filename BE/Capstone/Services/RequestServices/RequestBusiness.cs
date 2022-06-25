@@ -210,6 +210,7 @@ namespace Services.RequestServices
                     rc.Budget = T.Budget;
                     rc.CreateDate = DateTime.Now;
                     rc.CreateBy = T.UpdateBy;
+                    rc.HrInchange = T.HrInchange;
                     context.SaveChanges();
                     return true;
                 }
