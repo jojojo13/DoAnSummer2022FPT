@@ -385,6 +385,85 @@ namespace API.Controllers
                 });
             }
         }
+
+        [Authorize(Roles = "1")]
+        [HttpPut("SendComment")]
+        public IActionResult SendComment([FromBody] CommentResponse T)
+        {
+            try
+            {
+                Account a = GetCurrentUser();
+                RcRequest rc = new RcRequest();
+                rc.Id = T.Id;
+                rc.Comment = T.comment;
+                var check = p.SendComment(rc);
+                return Ok(new
+                {
+                    Status = check
+                }); ;
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
+        [HttpPut("GetRequestByID")]
+        public IActionResult GetRequestByID(int Id)
+        {
+            try
+            {
+                RcRequest x = p.GetRequestByID(Id);
+                var objreturn = new
+                {
+                    id = x.Id,
+                    code = x.Code,
+                    name = x.Name,
+                    requestLevel = x.RequestLevelNavigation?.Name,
+                    department = x.Orgnization?.Name,
+                    position = x.Position?.Name,
+                    positionID = x.PositionId,
+                    quantity = x.Number,
+                    createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
+                    Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
+                    Office = x.Orgnization?.Address,
+                    StatusID = x.Status,
+                    Status = x.Status == 1 ? "Draft" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" : x.Status == 5 ? "Rejected" : "",
+                    parentId = x.ParentId,
+                    rank = x.Rank,
+                    note = x.Note,
+                    comment = x.Comment,
+                    HrInchangeId = x.HrInchange,
+                    HrInchange = x.HrInchangeNavigation?.FullName == null ? "" : x.HrInchangeNavigation?.FullName,
+                    signID = x.SignId,
+                    typeID = x.RequestLevel,
+                    typename = x.RequestLevelNavigation?.Name,
+                    OrgnizationName = x.Orgnization?.Name,
+                    OrgnizationID = x.OrgnizationId,
+                    projectname = x.ProjectNavigation?.Name,
+                    projectID = x.Project,
+                    experience = x.YearExperience,
+                    level = x.Level,
+                    levelName = x.LevelNavigation?.Name,
+                    history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
+                };
+                return Ok(new
+                {
+                    Data= objreturn
+                });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Data = new RcRequest()
+                }); ; 
+            }
+        }
         #endregion
 
 

@@ -19,6 +19,7 @@ namespace Services.RequestServices
         RcRequest GetRequestByID(int ID);
         int getTotalRequestRecord(string column , int? signID);
         List<RcRequest> GetListRequestByID(int ID);
+        bool SendComment(RcRequest T);
         #endregion
     }
 }

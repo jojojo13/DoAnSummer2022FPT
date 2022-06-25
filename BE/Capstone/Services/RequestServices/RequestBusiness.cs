@@ -124,9 +124,17 @@ namespace Services.RequestServices
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    RcRequest tobj = new RcRequest();
-                    tobj = context.RcRequests.Where(x => x.Id == ID).FirstOrDefault();
-                    return tobj;
+                    RcRequest item = new RcRequest();
+                    item = context.RcRequests.Where(x => x.Id == ID).FirstOrDefault();
+                    item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
+                    item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();
+                    item.ProjectNavigation = context.OtherLists.Where(x => x.Id == item.Project).FirstOrDefault();
+                    item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
+                    item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
+                    item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
+                    item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
+                    item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
+                    return item;
                 }
             }
             catch
@@ -220,6 +228,27 @@ namespace Services.RequestServices
             }
         }
 
+
+        public bool SendComment(RcRequest T)
+        {
+
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+
+                    RcRequest rc = context.RcRequests.Where(x => x.Id == T.Id).FirstOrDefault();
+                   
+                    rc.Comment = T.Comment;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public List<RcRequest> GetListRequestByID(int ID)
         {
             List<RcRequest> list = new List<RcRequest>();
