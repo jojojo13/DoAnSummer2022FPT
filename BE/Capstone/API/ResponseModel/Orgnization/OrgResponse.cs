@@ -14,6 +14,7 @@ namespace API.ResponseModel.Orgnization
         public int? ParentID { get; set; }
         public int? Level { get; set; }
         public DateTime CreateDate { get; set; }
+        public DateTime EfectDate { get; set; }
         public DateTime DissolutionDate { get; set; }
         public int? Status { get; set; }
         public string Note { get; set; }

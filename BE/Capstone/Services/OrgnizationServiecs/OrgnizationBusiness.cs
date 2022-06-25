@@ -45,8 +45,12 @@ namespace Services.OrgnizationServiecs
                 obj.ProvinceId = o.ProvinceId;
                 obj.NationId = o.NationId;
                 obj.ManagerId = o.ManagerId;
+
+
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
+                    Account a = context.Accounts.Where(x => x.EmployeeId == o.ManagerId).FirstOrDefault();
+                    a.Rule = 2;
                     context.Orgnizations.Add(obj);
                     context.SaveChanges();
                     return true;

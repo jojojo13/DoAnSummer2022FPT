@@ -622,6 +622,7 @@ namespace API.Controllers
                 obj.Note = objresponse.Note;
                 obj.Status = -1;
                 obj.CreateDate = objresponse.CreateDate;
+                obj.Effectdate = objresponse.EfectDate;
                 obj.DissolutionDate = objresponse.DissolutionDate;
                 obj.ParentId = objresponse.ParentID;
                 obj.CreateDate = objresponse.CreateDate;
@@ -636,7 +637,11 @@ namespace API.Controllers
                 obj.ProvinceId = objresponse.ProvinceID;
                 obj.DistrictId = objresponse.DistrictID;
                 obj.WardId = objresponse.WardID;
-                obj.ManagerId = objresponse.ManagerID;
+                if (objresponse.ManagerID != 0)
+                {
+                    obj.ManagerId = objresponse.ManagerID;
+                }
+
                 var check = p.InsertOrg(obj);
                 if (check)
                     return Ok(new

@@ -37,6 +37,7 @@ namespace ModelAuto.Models
         public DateTime? CreateDate { get; set; }
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
+        public DateTime? Effectdate { get; set; }
 
         public virtual District District { get; set; }
         public virtual Employee Manager { get; set; }
