@@ -32,6 +32,7 @@ namespace Services.OrgnizationServiecs
                     obj.Level = 1;
                 }
                 obj.CreateDate = o.CreateDate;
+                obj.Effectdate = o.Effectdate;
                 obj.DissolutionDate = o.DissolutionDate;
                 obj.Status = o.Status;
                 obj.Note = o.Note;
