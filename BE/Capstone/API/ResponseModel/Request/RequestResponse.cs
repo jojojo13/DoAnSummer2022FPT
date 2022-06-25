@@ -7,8 +7,8 @@ namespace API.ResponseModel.Request
 {
     public class RequestResponse
     {
-        public int Id { get; set; }   
-        public string Name { get; set; } 
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string Code { get; set; }
         public int? RequestLevel { get; set; }
         public int? OrgnizationId { get; set; }
@@ -32,5 +32,11 @@ namespace API.ResponseModel.Request
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
         public int? HrInchange { get; set; }
+    }
+
+    public class CommentResponse
+    {
+        public int Id { get; set; }
+        public string comment { get; set; }
     }
 }
