@@ -44,26 +44,34 @@ namespace Services.CommonServices
 
         public string autoGenCode(string tableName, int? rank, string nameColumn, int? parentID)
         {
-            if (rank > 1 && parentID!=null&& parentID>0)
+            try
             {
-                string sql = "select count(*) COUNT from "+tableName+" where parentId= "+ parentID;
-                DataTable dt = DAOContext.GetDataBySql(sql);
-                DataRow lastRow = dt.Rows[0];
-                int count = Convert.ToInt32(lastRow["COUNT"])+1;
-                string sql2 = "select code from "+tableName+" where id ="+parentID;
-                DataTable dt2 = DAOContext.GetDataBySql(sql2);
-                DataRow lastRow2 = dt2.Rows[0];
-                string code = lastRow2["code"].ToString()+"."+ count;
-                return code;
+                if (rank > 1 && parentID != null && parentID > 0)
+                {
+                    string sql = "select count(*) COUNT from " + tableName + " where parentId= " + parentID;
+                    DataTable dt = DAOContext.GetDataBySql(sql);
+                    DataRow lastRow = dt.Rows[0];
+                    int count = Convert.ToInt32(lastRow["COUNT"]) + 1;
+                    string sql2 = "select code from " + tableName + " where id =" + parentID;
+                    DataTable dt2 = DAOContext.GetDataBySql(sql2);
+                    DataRow lastRow2 = dt2.Rows[0];
+                    string code = lastRow2["code"].ToString() + "." + count;
+                    return code;
+                }
+                else
+                {
+                    string sql = "select CODE from " + tableName + " where " + nameColumn + " = 1 order by id desc";
+                    DataTable dt = DAOContext.GetDataBySql(sql);
+                    DataRow lastRow = dt.Rows[0];
+                    int code = Convert.ToInt32(lastRow["CODE"]);
+                    return (code + 1).ToString();
+                }
             }
-            else
+            catch
             {
-                string sql = "select CODE from " + tableName + " where " + nameColumn + " = 1 order by id desc";
-                DataTable dt = DAOContext.GetDataBySql(sql);
-                DataRow lastRow = dt.Rows[0];
-                int code = Convert.ToInt32(lastRow["CODE"]);
-                return (code + 1).ToString();
+                return "1";
             }
+           
         }
 
        
@@ -151,8 +159,7 @@ namespace Services.CommonServices
         #region EMAIL
         public bool sendMail(MailDTO mailobj)
         {
-            try
-            {
+
                 MailMessage mail = new MailMessage();
                 // you need to enter your mail address
                 mail.From = new MailAddress(mailobj.fromMail);
@@ -193,14 +200,10 @@ namespace Services.CommonServices
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.Credentials = networkCredential;
                 smtpClient.Port = 25; // this is default port number - you can also change this
-                smtpClient.EnableSsl = false; // if ssl required you need to enable it
+                smtpClient.EnableSsl = true; // if ssl required you need to enable it
                 smtpClient.Send(mail);
                 return true;
-            }
-            catch
-            {
-                return false;
-            }
+
         }
         #endregion
 

@@ -15,6 +15,18 @@ namespace API.ResponseModel
         public string username{get; set;}
         public string password { get; set; }
     }
+
+    public class ChangePassResponse
+    {
+        public string username { get; set; }
+        public string fromMail { get; set; }
+        public string pass { get; set; }
+        public string tomail { get; set; }
+        public string content { get; set; }
+        public string subject { get; set; }
+        public List<string> listCC { get; set; }
+        public List<string> listBC { get; set; }
+    }
     public static class ApiCall
     {
         public static string GetApi(string ApiUrl)

@@ -165,8 +165,8 @@ namespace Services.RequestServices
             rc.Budget = T.Budget;
             rc.Status = T.Status;
             rc.Comment = T.Comment;
-            rc.UpdateDate = DateTime.Now;
-            rc.UpdateBy = T.UpdateBy;
+            rc.CreateDate = DateTime.Now;
+            rc.CreateBy = T.CreateBy;
             if (rc.ParentId!=null && rc.ParentId>0)
             {
                 rc.Rank = GetRequestByID((int)rc.ParentId).Rank + 1;

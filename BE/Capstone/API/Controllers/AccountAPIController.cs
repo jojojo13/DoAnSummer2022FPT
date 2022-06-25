@@ -15,6 +15,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Services.CommonModel;
 
 namespace API.Controllers
 {
@@ -89,7 +90,35 @@ namespace API.Controllers
               signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-    }
 
+
+        [AllowAnonymous]
+        [HttpPost("ResetpassWord")]
+        public IActionResult ResetpassWord([FromBody] AccountResponse acc)
+        {
+            try
+            {
+                MailDTO obj = new MailDTO();
+                obj.fromMail = "aisolutionssum22@gmail.com";
+                obj.pass = "miztlfnbereqmeko";
+                obj.listCC = new List<string>();
+                obj.listBC = new List<string>();
+                obj.subject = "Thông báo thay đổi mật khẩu";
+                return Ok(new
+                {
+                    Status = p.ResetPass(acc.username, obj)
+                });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                }) ;
+            }
+           
+        }
+
+    }
 
 }

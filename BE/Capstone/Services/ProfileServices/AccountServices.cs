@@ -71,23 +71,24 @@ namespace Services.ProfileServices
                 return null;
             }
         }
-        public bool ResetPass(Account a, MailDTO mailDTO)
+        public bool ResetPass(string userName, MailDTO mailobj)
         {
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     ICommon c = new CommonImpl();
-                    Account tobj = context.Accounts.Where(x => x.UserName == a.UserName && x.Pass == a.Pass).FirstOrDefault();
-                    string newPass = c.sha256_hash(Guid.NewGuid().ToString("d").Substring(1, 8));
-                    tobj.Pass = newPass;
+                    Account tobj = context.Accounts.Where(x => x.UserName.Equals(userName)).FirstOrDefault();
+                    string newpass = Guid.NewGuid().ToString("d").Substring(1, 8);
+                    string newHashPass = c.sha256_hash(newpass);
+                    tobj.Pass = newHashPass;
                     context.SaveChanges();
                     EmployeeCv em = context.EmployeeCvs.Where(x => x.EmployeeId == tobj.EmployeeId).FirstOrDefault();
                     string email = em.EmailWork;
-                    mailDTO.tomail = email;
-                    mailDTO.content = "Mật khẩu mới của bạn là : " + tobj.Pass + "</br>" + "Vui lòng thay đổi mật khẩu mới sau khi đăng nhập";
+                    mailobj.tomail = email;
+                    mailobj.content = "Mật khẩu mới của bạn là : " + newpass  + "</br>   Vui lòng thay đổi mật khẩu mới sau khi đăng nhập";
                     ICommon common = new CommonImpl();
-                    if (common.sendMail(mailDTO))
+                    if (common.sendMail(mailobj))
                     {
                         return true;
                     }
@@ -98,6 +99,7 @@ namespace Services.ProfileServices
             {
                 return false;
             }
+
         }
     }
 }
