@@ -13,17 +13,13 @@ namespace Services.ProfileServices
 
         #region Nation
 
-        public List<Nation> GetNationList(Nation T)
+        public List<Nation> GetNationList()
         {
             try
             {
                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<Nation> list = context.Nations.ToList();
-                    if (T.Status.HasValue)
-                    {
-                        list = list.Where(x => x.Status == T.Status).ToList();
-                    }
                     return list;
                 }
             }
@@ -42,7 +38,9 @@ namespace Services.ProfileServices
                 tobj.Code = c.autoGenCode3character("Nation", "QG");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                tobj.CreateBy = T.CreateBy;
+                tobj.CreateDate = DateTime.UtcNow;
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Nations.Add(tobj);
                     context.SaveChanges();
@@ -63,6 +61,8 @@ namespace Services.ProfileServices
                     Nation tobj = context.Nations.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
+                    tobj.UpdateBy = T.UpdateBy;
+                    tobj.UpdateDate = DateTime.UtcNow;
                     context.SaveChanges();
                     return true;
                 }
@@ -118,17 +118,13 @@ namespace Services.ProfileServices
 
         #region Province
 
-        public List<Province> GetProvinceListByNationID(Province T, int ID)
+        public List<Province> GetProvinceListByNationID(int ID)
         {
             try
             {
                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<Province> list = context.Provinces.Where(x=>x.NationId==ID).ToList();
-                    if (T.Status.HasValue)
-                    {
-                        list = list.Where(x => x.Status == T.Status).ToList();
-                    }
                     return list;
                 }
             }
@@ -148,6 +144,8 @@ namespace Services.ProfileServices
                 tobj.Status = -1;
                 tobj.Note = T.Note;
                 tobj.NationId = T.NationId;
+                tobj.CreateDate = DateTime.UtcNow;
+                tobj.CreateBy = T.CreateBy;
                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Provinces.Add(tobj);
@@ -170,6 +168,8 @@ namespace Services.ProfileServices
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
                     tobj.NationId = T.NationId;
+                    tobj.UpdateBy = T.UpdateBy;
+                    tobj.UpdateDate = DateTime.UtcNow;
                     context.SaveChanges();
                     return true;
                 }
@@ -225,17 +225,13 @@ namespace Services.ProfileServices
 
         #region District
 
-        public List<District> GetDistrictListByProvinceID(District T, int ID)
+        public List<District> GetDistrictListByProvinceID(int ID)
         {
             try
             {
                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<District> list = context.Districts.Where(x => x.ProvinceId == ID).ToList();
-                    if (T.Status.HasValue)
-                    {
-                        list = list.Where(x => x.Status == T.Status).ToList();
-                    }
                     return list;
                 }
             }
@@ -256,7 +252,9 @@ namespace Services.ProfileServices
                 tobj.Status = -1;
                 tobj.Note = T.Note;
                 tobj.ProvinceId = T.ProvinceId;
-                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                tobj.CreateBy = T.CreateBy;
+                tobj.CreateDate = DateTime.UtcNow;
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Districts.Add(tobj);
                     context.SaveChanges();
@@ -278,6 +276,8 @@ namespace Services.ProfileServices
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
                     tobj.ProvinceId = T.ProvinceId;
+                    tobj.UpdateBy = T.UpdateBy;
+                    tobj.UpdateDate = DateTime.UtcNow;
                     context.SaveChanges();
                     return true;
                 }
@@ -334,17 +334,13 @@ namespace Services.ProfileServices
 
         #region Ward
 
-        public List<Ward> GetWardListByDistrictID(Ward T, int ID)
+        public List<Ward> GetWardListByDistrictID(int ID)
         {
             try
             {
                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<Ward> list = context.Wards.Where(x => x.DistrictId == ID).ToList();
-                    if (T.Status.HasValue)
-                    {
-                        list = list.Where(x => x.Status == T.Status).ToList();
-                    }
                     return list;
                 }
             }
@@ -364,7 +360,9 @@ namespace Services.ProfileServices
                 tobj.Status = -1;
                 tobj.Note = T.Note;
                 tobj.DistrictId = T.DistrictId;
-                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                tobj.CreateBy = T.CreateBy;
+                tobj.CreateDate =DateTime.UtcNow;
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Wards.Add(tobj);
                     context.SaveChanges();
@@ -386,6 +384,8 @@ namespace Services.ProfileServices
                     tobj.Name = T.Name;
                     tobj.Note = T.Note;
                     tobj.DistrictId = T.DistrictId;
+                    tobj.UpdateBy = T.UpdateBy;
+                    tobj.UpdateDate = DateTime.UtcNow;
                     context.SaveChanges();
                     return true;
                 }
@@ -493,6 +493,8 @@ namespace Services.ProfileServices
                     tobj.Bhtn = T.Bhtn;
                     tobj.Bhxh = T.Bhxh;
                     tobj.Bhyt = T.Bhyt;
+                    tobj.UpdateBy = T.UpdateBy;
+                    tobj.UpdateDate = DateTime.UtcNow;
                     context.SaveChanges();
                     return true;
                 }

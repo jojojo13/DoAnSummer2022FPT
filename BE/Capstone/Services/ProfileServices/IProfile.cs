@@ -24,28 +24,28 @@ namespace Services.ProfileServices
 
 
         #region "DM dia diem, dia chi"
-        List<Nation> GetNationList(Nation T);
+        List<Nation> GetNationList();
         bool InsertNation(Nation T);
         bool ModifyNation(Nation T);
         bool DeleteNation(List<int> list);
         bool ActiveOrDeActiveNation(List<int> list, int status);
 
 
-        List<Province> GetProvinceListByNationID(Province T, int ID);
+        List<Province> GetProvinceListByNationID(int ID);
         bool InsertProvince(Province T);
         bool ModifyProvince(Province T);
         bool DeleteProvince(List<int> list);
         bool ActiveOrDeActiveProvince(List<int> list, int status);
 
 
-        List<District> GetDistrictListByProvinceID(District T, int ID);
+        List<District> GetDistrictListByProvinceID(int ID);
         bool InsertDistrict(District T);
         bool ModifyDistrict(District T);
         bool DeleteDistrict(List<int> list);
         bool ActiveOrDeActiveDistrict(List<int> list, int status);
 
 
-        List<Ward> GetWardListByDistrictID(Ward T, int ID);
+        List<Ward> GetWardListByDistrictID(int ID);
         bool InsertWard(Ward T);
         bool ModifyWard(Ward T);
         bool DeleteWard(List<int> list);

@@ -71,7 +71,7 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = c.getTotalRecord("Rc_Request", true),
-                        Data = listReturn.Where(x => x.StatusID == 2).ToList()
+                        Data = listReturn.Where(x => x.StatusID == 2||x.StatusID==4|| x.StatusID==5).ToList()
                     });
                 }
                 //view những bản ghi dược phân quyền cho HR
