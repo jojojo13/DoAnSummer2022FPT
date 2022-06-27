@@ -1,5 +1,6 @@
 ﻿using ModelAuto;
 using ModelAuto.Models;
+using Services.CommonModel;
 using Services.CommonServices;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Services.RequestServices
     public class Request : IRequest
     {
         private ICommon c = new CommonImpl();
-        public bool ActiveOrDeActiveRequest(List<int> list, int status)
+        public bool ActiveOrDeActiveRequest(List<int> list, int status, string actionBy)
         {
             try
             {
@@ -23,11 +24,30 @@ namespace Services.RequestServices
                     {
                         List<int> ListRCID = new List<int>();
                         ListRCID = GetListRequestByID(item).Select(x => x.Id).ToList();
-                        foreach(var rcId in ListRCID)
+                        foreach (var rcId in ListRCID)
                         {
                             RcRequest tobj = new RcRequest();
                             tobj = context.RcRequests.Where(x => x.Id == rcId).FirstOrDefault();
                             tobj.Status = status;
+                            if (status == 4 || status == 5)
+                            {
+                                EmployeeCv em = context.EmployeeCvs.Where(x => x.EmployeeId == tobj.SignId).FirstOrDefault();
+                                ICommon c = new CommonImpl();
+                                if (em.EmailWork != "")
+                                {
+                                    MailDTO mailDTO = new MailDTO();
+                                    string statusName = status == 4 ? "Approved" : status == 5 ? "Rejected" : "";
+                                    mailDTO.content = "Your Request '" + tobj.Name + "' has been " + statusName + " by " + actionBy + " If there is feedback, please give feedback to the manager";
+                                    mailDTO.subject = "Notice the status of your recruitment request";
+                                    mailDTO.fromMail = "aisolutionssum22@gmail.com";
+                                    mailDTO.pass = "miztlfnbereqmeko";
+                                    mailDTO.listCC = new List<string>();
+                                    mailDTO.listBC = new List<string>();
+                                    mailDTO.tomail = em?.EmailWork;
+                                    c.sendMail(mailDTO);
+                                }
+
+                            }
                         }
                     }
                     context.SaveChanges();
@@ -70,8 +90,8 @@ namespace Services.RequestServices
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<RcRequest> list = context.RcRequests.Where(x=>x.Rank==1).ToList().OrderByDescending(x => x.Id).Skip(index * size).Take(size).OrderBy(x => x.Id).ToList();
-                    foreach(var item in list)
+                    List<RcRequest> list = context.RcRequests.Where(x => x.Rank == 1).ToList().OrderByDescending(x => x.Id).Skip(index * size).Take(size).OrderBy(x => x.Id).ToList();
+                    foreach (var item in list)
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
                         item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();
@@ -167,7 +187,7 @@ namespace Services.RequestServices
             rc.Comment = T.Comment;
             rc.CreateDate = DateTime.Now;
             rc.CreateBy = T.CreateBy;
-            if (rc.ParentId!=null && rc.ParentId>0)
+            if (rc.ParentId != null && rc.ParentId > 0)
             {
                 rc.Rank = GetRequestByID((int)rc.ParentId).Rank + 1;
             }
@@ -175,7 +195,7 @@ namespace Services.RequestServices
             {
                 rc.Rank = 1;
             }
-            rc.Code = c.autoGenCode("Rc_Request", rc.Rank, "Rank",  rc.ParentId);
+            rc.Code = c.autoGenCode("Rc_Request", rc.Rank, "Rank", rc.ParentId);
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
@@ -193,7 +213,7 @@ namespace Services.RequestServices
 
         public bool ModifyRequest(RcRequest T)
         {
-           
+
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
@@ -238,7 +258,7 @@ namespace Services.RequestServices
                 {
 
                     RcRequest rc = context.RcRequests.Where(x => x.Id == T.Id).FirstOrDefault();
-                   
+
                     rc.Comment = T.Comment;
                     context.SaveChanges();
                     return true;
@@ -279,7 +299,7 @@ namespace Services.RequestServices
                 RcRequest o = new RcRequest();
                 DataRow row = dt.Rows[i];
                 o.Id = Convert.ToInt32(row["ID"].ToString());
-                o.Number= Convert.ToInt32(row["Number"].ToString());
+                o.Number = Convert.ToInt32(row["Number"].ToString());
                 list.Add(o);
             }
             return list;
@@ -287,7 +307,7 @@ namespace Services.RequestServices
 
         public int getTotalRequestRecord(string column, int? signID)
         {
-            string query= "select count(*) COUNT from RC_Request where Rank=1 and "+ column + " = "+signID;
+            string query = "select count(*) COUNT from RC_Request where Rank=1 and " + column + " = " + signID;
             DataTable dt = DAOContext.GetDataBySql(query);
             DataRow lastRow = dt.Rows[0];
             int COUNT = Convert.ToInt32(lastRow["COUNT"]);

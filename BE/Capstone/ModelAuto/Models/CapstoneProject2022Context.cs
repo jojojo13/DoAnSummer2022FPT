@@ -56,7 +56,7 @@ namespace ModelAuto.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=SQL8002.site4now.net;Initial Catalog=db_a87e9c_hungnx;User Id=db_a87e9c_hungnx_admin;Password=hung1207");
+                optionsBuilder.UseSqlServer("server=SQL8002.site4now.net; database=db_a87e9c_hungnx;user=db_a87e9c_hungnx_admin;password=hung1207");
             }
         }
 
@@ -766,6 +766,8 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.CreateBy).HasMaxLength(100);
 
+                entity.Property(e => e.Note).HasMaxLength(250);
+
                 entity.Property(e => e.OrgId).HasColumnName("OrgID");
 
                 entity.Property(e => e.PositionId).HasColumnName("positionID");
@@ -816,6 +818,8 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.FullName).HasMaxLength(100);
 
+                entity.Property(e => e.InterViewId).HasColumnName("InterViewID");
+
                 entity.Property(e => e.PhaseId).HasColumnName("PhaseID");
 
                 entity.Property(e => e.ResourceId).HasColumnName("ResourceID");
@@ -823,6 +827,11 @@ namespace ModelAuto.Models
                 entity.Property(e => e.StepCv).HasColumnName("StepCV");
 
                 entity.Property(e => e.UpdateBy).HasMaxLength(100);
+
+                entity.HasOne(d => d.InterView)
+                    .WithMany(p => p.RcCandidates)
+                    .HasForeignKey(d => d.InterViewId)
+                    .HasConstraintName("FK_Rc_Candidate_Employee");
 
                 entity.HasOne(d => d.Phase)
                     .WithMany(p => p.RcCandidates)

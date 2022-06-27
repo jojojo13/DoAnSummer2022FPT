@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.ResponseModel;
+using Services.CommonModel;
 
 namespace API.Controllers
 {
@@ -178,13 +179,14 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-
+        [Authorize(Roles = "1,2,3")]
         [HttpPut("CancelRequest")]
         public IActionResult CancelRequest(List<int> listID)
         {
             try
             {
-                var check = p.ActiveOrDeActiveRequest(listID, 3);
+                Account account = GetCurrentUser();
+                var check = p.ActiveOrDeActiveRequest(listID,3, account.Employee?.FullName);
                 if (check)
                 {
                     return Ok(new
@@ -209,12 +211,14 @@ namespace API.Controllers
             }
         }
 
+        [Authorize(Roles = "1,2,3")]
         [HttpPut("ApproveRequest")]
         public IActionResult ApproveRequest(List<int> listID)
         {
             try
             {
-                var check = p.ActiveOrDeActiveRequest(listID, 4);
+                Account account = GetCurrentUser();
+                var check = p.ActiveOrDeActiveRequest(listID, 4, account.Employee?.FullName);
                 if (check)
                 {
                     return Ok(new
@@ -239,13 +243,14 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1,2,3")]
         [HttpPut("RejectRequest")]
         public IActionResult RejectRequest(List<int> listID)
         {
             try
             {
-                var check = p.ActiveOrDeActiveRequest(listID, 5);
+                Account account = GetCurrentUser();
+                var check = p.ActiveOrDeActiveRequest(listID, 5 ,account.Employee?.FullName);
                 if (check)
                 {
                     return Ok(new
@@ -269,13 +274,14 @@ namespace API.Controllers
                 });
             }
         }
-
+        [Authorize(Roles = "1,2,3")]
         [HttpPut("SubmitRequest")]
         public IActionResult SubmitRequest(List<int> listID)
         {
             try
             {
-                var check = p.ActiveOrDeActiveRequest(listID, 2);
+                Account account = GetCurrentUser();
+                var check = p.ActiveOrDeActiveRequest(listID, 2, account.Employee?.FullName);
                 if (check)
                 {
                     return Ok(new
@@ -300,7 +306,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1,2,3")]
         [HttpPost("DeleteRequest")]
         public IActionResult DeleteRequest(List<int> listID)
         {

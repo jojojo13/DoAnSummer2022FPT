@@ -28,7 +28,9 @@ namespace ModelAuto.Models
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
         public int? StepCv { get; set; }
+        public int? InterViewId { get; set; }
 
+        public virtual Employee InterView { get; set; }
         public virtual RcPhaseRequest Phase { get; set; }
         public virtual RcResourceCandidate Resource { get; set; }
         public virtual RcCandidateSkill RcCandidateSkill { get; set; }

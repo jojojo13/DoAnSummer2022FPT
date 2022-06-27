@@ -15,7 +15,7 @@ namespace Services.RequestServices
         bool InsertRequest(RcRequest T);
         bool ModifyRequest(RcRequest T);
         bool DeleteRequest(List<int> list);
-        bool ActiveOrDeActiveRequest(List<int> list, int status);
+        bool ActiveOrDeActiveRequest(List<int> list, int status, string actionBy);
         RcRequest GetRequestByID(int ID);
         int getTotalRequestRecord(string column , int? signID);
         List<RcRequest> GetListRequestByID(int ID);
