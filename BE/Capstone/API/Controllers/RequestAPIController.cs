@@ -442,6 +442,31 @@ namespace API.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
+        [HttpPut("setHrInchage")]
+        public IActionResult setHrInchage([FromBody] HrinchangeResponse T)
+        {
+            try
+            {
+                Account a = GetCurrentUser();
+                RcRequest rc = new RcRequest();
+                rc.Id = T.Id;
+                rc.HrInchange = T.hrID;
+                var check = p.setHrInchange(rc);
+                return Ok(new
+                {
+                    Status = check
+                }); ;
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
 
         [HttpPut("GetRequestByID")]
         public IActionResult GetRequestByID(int Id)

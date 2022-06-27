@@ -919,7 +919,7 @@ namespace API.Controllers
             if (list.Count > 0)
                 return Ok(new
                 {
-                    Status = true,
+                    TotalItem = profile.getTotalEmployee(id),
                     Data = listReturn
                 });
             else

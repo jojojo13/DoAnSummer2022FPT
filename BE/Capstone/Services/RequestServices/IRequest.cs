@@ -20,6 +20,7 @@ namespace Services.RequestServices
         int getTotalRequestRecord(string column , int? signID);
         List<RcRequest> GetListRequestByID(int ID);
         bool SendComment(RcRequest T);
+        bool setHrInchange(RcRequest T);
         #endregion
     }
 }

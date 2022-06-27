@@ -49,5 +49,12 @@ namespace Services.ProfileServices
             }
             return list;
         }
+
+        public int getTotalEmployee(int OrgID)
+        {
+            List<Employee> list = new List<Employee>();
+            DataTable dt = DAOContext.GetListEmployeeByOrgID(OrgID, 0, Int32.MaxValue);
+            return dt.Rows.Count;
+        }
     }
 }

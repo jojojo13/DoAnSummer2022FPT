@@ -39,4 +39,10 @@ namespace API.ResponseModel.Request
         public int Id { get; set; }
         public string comment { get; set; }
     }
+
+    public class HrinchangeResponse
+    {
+        public int Id { get; set; }
+        public int hrID { get; set; }
+    }
 }

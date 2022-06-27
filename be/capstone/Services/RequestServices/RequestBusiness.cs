@@ -249,6 +249,27 @@ namespace Services.RequestServices
                 return false;
             }
         }
+
+        public bool setHrInchange(RcRequest T)
+        {
+
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+
+                    RcRequest rc = context.RcRequests.Where(x => x.Id == T.Id).FirstOrDefault();
+
+                    rc.HrInchange = T.HrInchange;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public List<RcRequest> GetListRequestByID(int ID)
         {
             List<RcRequest> list = new List<RcRequest>();
