@@ -258,6 +258,7 @@ namespace Services.RequestServices
                 RcRequest o = new RcRequest();
                 DataRow row = dt.Rows[i];
                 o.Id = Convert.ToInt32(row["ID"].ToString());
+                o.Number= Convert.ToInt32(row["Number"].ToString());
                 list.Add(o);
             }
             return list;

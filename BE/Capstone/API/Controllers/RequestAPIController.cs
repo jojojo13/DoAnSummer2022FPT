@@ -71,7 +71,7 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = c.getTotalRecord("Rc_Request", true),
-                        Data = listReturn.Where(x => x.StatusID == 2||x.StatusID==4|| x.StatusID==5).ToList()
+                        Data = listReturn.Where(x => x.StatusID == 2 || x.StatusID == 4 || x.StatusID == 5).ToList()
                     });
                 }
                 //view những bản ghi dược phân quyền cho HR
@@ -97,6 +97,37 @@ namespace API.Controllers
             }
             return StatusCode(200, "List is Null");
         }
+
+
+        [HttpPost("CheckTotalQuantity")]
+        public IActionResult CheckTotalQuantity(int id, int quantity)
+        {
+            RcRequest obj = p.GetRequestByID(id);
+
+            List<RcRequest> list = p.GetListRequestByID(id);
+            int? number = 0;
+            foreach(var item in list)
+            {
+                if(item.Id!=obj.Id)
+                number += item.Number;
+            }
+            if (quantity + number <= obj.Number)
+            {
+                return Ok(new
+                {
+                    Status = true
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+
+        }
+
 
 
         [HttpPost("GetChildRequestById")]
@@ -453,7 +484,7 @@ namespace API.Controllers
                 };
                 return Ok(new
                 {
-                    Data= objreturn
+                    Data = objreturn
                 });
             }
             catch
@@ -461,7 +492,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Data = new RcRequest()
-                }); ; 
+                }); ;
             }
         }
         #endregion
