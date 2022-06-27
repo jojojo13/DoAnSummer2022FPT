@@ -240,6 +240,25 @@ namespace Services.CommonServices
 
 
         #region OtherList
+
+        public List<OtherList> GetOtherList(string code, int index, int size)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    OtherListType type = context.OtherListTypes.Where(x => x.Code.Trim().ToLower().Equals(code)).FirstOrDefault();
+                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id).OrderByDescending(x => x.Id).Skip(index * size).Take(size).ToList();
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<OtherList>();
+            }
+        }
+
+
         public List<OtherList> GetOtherListsCombo(string code, int index, int size)
         {
             try

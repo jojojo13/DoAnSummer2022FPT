@@ -54,7 +54,7 @@ namespace Services.ProfileServices
         #endregion
 
         #region dm loai HD
-        List<ContractType> GetContractTypeList(ContractType T);
+        List<ContractType> GetContractTypeList();
         bool InsertContractType(ContractType T);
         bool ModifyContractType(ContractType T);
         bool DeleteContractType(List<int> list);

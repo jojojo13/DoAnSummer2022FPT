@@ -440,16 +440,12 @@ namespace Services.ProfileServices
         #endregion
 
         #region DM loai hop dong
-        public List<ContractType> GetContractTypeList(ContractType T){
+        public List<ContractType> GetContractTypeList(){
             try
             {
                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<ContractType> list = context.ContractTypes.ToList();
-                    if (T.Status.HasValue)
-                    {
-                        list = list.Where(x => x.Status == T.Status).ToList();
-                    }
                     return list;
                 }
             }

@@ -35,7 +35,17 @@ namespace API.Controllers
         public IActionResult GetOtherListType(int phanHe)
         {
             List<OtherListType> list = new List<OtherListType>();
+            // nhớ tách phân hệ
             list = p.GetOtherListType().ToList();
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name= l.Name,
+                                 coed= l.Code,
+                                 note=l.Note,
+                                 statusName = l.Status==-1?"Active": "Deactive",
+                                 id= l.Id
+                             };
             if (list.Count > 0)
                 return Ok(new
                 {
@@ -72,9 +82,10 @@ namespace API.Controllers
                              select new
                              {
                                  name = l.Name,
-                                 id = l.Id,
                                  code = l.Code,
-                                 note = l.Note
+                                 note = l.Note,
+                                 statusName = l.Status == -1 ? "Active" : "Deactive",
+                                 id = l.Id
                              };
             if (list.Count > 0)
             {
@@ -91,8 +102,37 @@ namespace API.Controllers
             });
         }
 
+        [HttpPost("GetAllOtherList")]
+        public IActionResult GetAllOtherList(string code, int index, int size)
+        {
+            List<OtherList> list = new List<OtherList>();
+            list = p.GetOtherList(code, index, size);
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 code = l.Code,
+                                 note = l.Note,
+                                 statusName = l.Status == -1 ? "Active" : "Deactive",
+                                 id = l.Id
+                             };
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    TotalItem = p.GetOtherListsCombo(code, 0, Int32.MaxValue).Count(),
+                    Data = listReturn
+                });
+            }
+            return Ok(new
+            {
+                TotalItem = p.GetOtherListsCombo(code, 0, Int32.MaxValue).Count(),
+                Data = new List<OtherList>()
+            });
+        }
 
-        [HttpPut("ActiveOtherList")]
+
+        [HttpPost("ActiveOtherList")]
         public IActionResult ActiveOtherList(List<int>ListID)
         {
             try
@@ -124,7 +164,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("DeActiveOtherList")]
+        [HttpPost("DeActiveOtherList")]
         public IActionResult DeActiveOtherList(List<int> ListID)
         {
             try

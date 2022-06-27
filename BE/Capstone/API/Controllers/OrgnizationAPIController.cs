@@ -21,11 +21,37 @@ namespace API.Controllers
         private ICommon c = new CommonImpl();
         #region List
 
-
+        
         #region DM chuc danh
-
+        [Authorize]
         [HttpPost("GetAllTitle")]
         public IActionResult GetAllTitle(int index, int size)
+        {
+            List<Title> list = p.GetAllTitle(index, size).Where(x=>x.Status==-1).ToList();
+            var ListResponse = from l in list
+                               select new
+                               {
+                                   id = l.Id,
+                                   name = l.Name,
+                                   code = l.Code,
+                                   status = l.Status == -1 ? "Active" : "Deactive",
+                                   note = l.Note
+                               };
+
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    TotalItem = c.getTotalRecord("Title", false),
+                    Data = ListResponse
+                });
+            }
+            return StatusCode(200, "List is Null");
+        }
+
+        [Authorize]
+        [HttpPost("GetAllOfTitle")]
+        public IActionResult GetAllOfTitle(int index, int size)
         {
             List<Title> list = p.GetAllTitle(index, size);
             var ListResponse = from l in list
@@ -49,7 +75,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("ActiveTitle")]
         public IActionResult ActiveTitle(List<int> listID)
         {
@@ -80,7 +106,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("DeActiveTitle")]
         public IActionResult DeActiveTitle(List<int> ListID)
         {
@@ -111,7 +137,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("DeleteTitle")]
         public IActionResult DeleteTitle(List<int> ListID)
         {
@@ -142,7 +168,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("InsertTitle")]
         public IActionResult InsertTitle([FromBody] TitleResponse objresponse)
         {
@@ -178,7 +204,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("ModifyTitle")]
         public IActionResult ModifyTitle([FromBody] TitleResponse objresponse)
         {
@@ -215,9 +241,39 @@ namespace API.Controllers
         #endregion
 
         #region DM vi tri cong viec
-
+        [Authorize]
         [HttpPost("GetAllPosition")]
         public IActionResult GetAllPosition(int index, int size)
+        {
+            List<Position> list = p.GetAllPosition(index, size).Where(x=>x.Status==-1).ToList();
+            var listReturn = from l in list
+                             select new
+                             {
+                                 id = l.Id,
+                                 name = l.Name,
+                                 code = l.Code,
+                                 note = l.Note,
+                                 title = l.Title?.Name,
+                                 titleId = l.TitleId,
+                                 basicSalary = l.BasicSalary,
+                                 otherSkill = l.OtherSkill,
+                                 workForm = l.FormWorkingNavigation?.Name,
+                                 workFormID = l.FormWorking,
+                                 statusName = l.Status == -1 ? "Active" : "Deactive"
+                             };
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    TotalItem = c.getTotalRecord("Position", false),
+                    Data = listReturn
+                });
+            }
+            return StatusCode(200, "List is Null");
+        }
+        [Authorize]
+        [HttpPost("GetAllOfPosition")]
+        public IActionResult GetAllOfPosition(int index, int size)
         {
             List<Position> list = p.GetAllPosition(index, size);
             var listReturn = from l in list
@@ -232,7 +288,8 @@ namespace API.Controllers
                                  basicSalary = l.BasicSalary,
                                  otherSkill = l.OtherSkill,
                                  workForm = l.FormWorkingNavigation?.Name,
-                                 workFormID = l.FormWorking
+                                 workFormID = l.FormWorking,
+                                 statusName = l.Status == -1 ? "Active" : "Deactive"
                              };
             if (list.Count > 0)
             {
@@ -245,22 +302,14 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("ActivePosition")]
-        public IActionResult ActivePosition([FromBody] string ListID)
+        public IActionResult ActivePosition(List<int>ListID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.ActiveOrDeActivePosition(lst, -1);
+                
+                 var check = p.ActiveOrDeActivePosition(ListID, -1);
                 if (check)
                 {
                     return Ok(new
@@ -285,22 +334,14 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("DeActivePosition")]
-        public IActionResult DeActivePosition([FromBody] string ListID)
+        public IActionResult DeActivePosition(List<int> ListID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.ActiveOrDeActivePosition(lst, 0);
+               
+                var check = p.ActiveOrDeActivePosition(ListID, 0);
                 if (check)
                 {
                     return Ok(new
@@ -325,7 +366,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("DeletePosition")]
         public IActionResult DeletePosition([FromBody] string ListID)
         {
@@ -365,7 +406,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("InsertPosition")]
         public IActionResult InsertPosition([FromBody] PositionResponse objresponse)
         {
@@ -408,8 +449,8 @@ namespace API.Controllers
                 });
             }
         }
-
-
+                
+        [Authorize(Roles = "1")]
         [HttpPost("ModifyPosition")]
         public IActionResult ModifyPosition([FromBody] PositionResponse objresponse)
         {
@@ -465,7 +506,7 @@ namespace API.Controllers
 
         #region Quan ly to chuc
 
-
+        [Authorize]
         [HttpPost("getOrgByID")]
         public IActionResult getOrgByID(int Id)
         {
@@ -493,6 +534,7 @@ namespace API.Controllers
             return StatusCode(200, "obj is Null");
         }
 
+        [Authorize]
         [HttpPost("GetAllOrg")]
         public IActionResult GetAllOrg()
         {
@@ -519,6 +561,7 @@ namespace API.Controllers
         }
 
 
+        [Authorize(Roles = "1")]
         [HttpPost("ActiveOrg")]
         public IActionResult ActiveOrg([FromBody] int ID)
         {
@@ -549,7 +592,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("DeActiveOrg")]
         public IActionResult DeActiveOrg([FromBody] int ID)
         {
@@ -580,7 +623,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("DeleteOrg")]
         public IActionResult DeleteOrg([FromBody] int ID)
         {
@@ -612,7 +655,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1,2,3")]
+        [Authorize(Roles = "1")]
         [HttpPost("InsertOrg")]
         public IActionResult InsertOrg([FromBody] OrgResponse1 objresponse)
         {
@@ -666,7 +709,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("ModifyOrg")]
         public IActionResult ModifyOrg([FromBody] OrgResponse objresponse)
         {
@@ -715,6 +758,7 @@ namespace API.Controllers
 
         #region Thiet lap vi tri cong viec cho phong ban
 
+
         [HttpPost("CheckPositionExist")]
         public IActionResult CheckPositionExist(int orgId, int positionId)
         {
@@ -724,6 +768,8 @@ namespace API.Controllers
             });
         }
 
+
+        [Authorize]
         [HttpPost("GetAllPositionOrg")]
         public IActionResult GetAllPositionOrg(int index, int size)
         {
@@ -741,7 +787,8 @@ namespace API.Controllers
                                  titleName = l.Position?.Title.Name,
                                  titleCode = l.Position?.Title.Code,
                                  titleId = l.Position?.TitleId,
-                                 note = l.Note
+                                 note = l.Note,
+                                 statusName= l.Status==-1?"Active":"Deactive"
                              };
             if (list.Count > 0)
             {
@@ -754,7 +801,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("ActivePositionOrg")]
         public IActionResult ActivePositionOrg([FromBody] string ListID)
         {
@@ -794,7 +841,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("DeActivePositionOrg")]
         public IActionResult DeActivePositionOrg([FromBody] string ListID)
         {
@@ -834,7 +881,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("DeletePositionOrg")]
         public IActionResult DeletePositionOrg(List<int> lst)
         {
@@ -865,7 +912,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("InsertPositionOrg")]
         public IActionResult InsertPositionOrg([FromBody] PositionOrgResponse objresponse)
         {
@@ -902,7 +949,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize(Roles = "1")]
         [HttpPost("ModifyPositionOrg")]
         public IActionResult ModifyPositionOrg([FromBody] PositionOrgResponse objresponse)
         {
@@ -939,7 +986,7 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpPost("GetListOrgByOrgID")]
         public IActionResult GetListOrgByOrgID(int ID)
         {

@@ -27,6 +27,175 @@ namespace API.Controllers
 
 
         #region DM loai HOP DONG
+        [Authorize(Roles = "1")]
+        [HttpPost("GetContractType")]
+        public IActionResult GetContractType()
+        {
+            List<ContractType> list = profile.GetContractTypeList();
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 code = l.Code,
+                                 id = l.Id,
+                                 note = l.Note
+                             };
+            if (list.Count > 0)
+                return Ok(new
+                {
+                    Status = true,
+                    Data = listReturn
+                });
+            else
+                return StatusCode(200, "List is Null");
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("InsertContractType")]
+        public IActionResult InsertContractType([FromBody] ContractTypeResponse objresponse)
+        {
+            try
+            {
+                ContractType obj = new ContractType();
+                obj.Note = objresponse.Note;
+                obj.Name = objresponse.Name;
+                obj.CreateBy = "HUNGNX";
+                var check = profile.InsertContractType(obj);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeleteContractType")]
+        public IActionResult DeleteContractType(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.DeleteContractType(ListID);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("ActiveContractType")]
+        public IActionResult ActiveContractType(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveContractType(ListID, -1);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeActiveContractType")]
+        public IActionResult DeActiveContractType(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveContractType(ListID, 0);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
+
+
+        [Authorize(Roles = "1")]
+        [HttpPost("ModifyContractType")]
+        public IActionResult ModifyContractType([FromBody] ContractTypeResponse objresponse)
+        {
+            try
+            {
+                ContractType obj = new ContractType();
+                obj.Id = objresponse.Id;
+                obj.Note = objresponse.Note;
+                obj.Name = objresponse.Name;
+                obj.CreateBy = "HUNGNX";
+                var check = profile.ModifyContractType(obj);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
 
         #endregion
 
@@ -129,7 +298,7 @@ namespace API.Controllers
                 Nation obj = new Nation();
                 obj.Note = objresponse.Note;
                 obj.Name = objresponse.Name;
-                obj.CreateBy ="HUNGNX";
+                obj.CreateBy = "HUNGNX";
                 var check = profile.InsertNation(obj);
                 if (check)
                     return Ok(new
@@ -372,6 +541,336 @@ namespace API.Controllers
             }
         }
 
+
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeleteNation")]
+        public IActionResult DeleteNation(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.DeleteNation(ListID);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("ActiveNation")]
+        public IActionResult ActiveNation(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveNation(ListID, -1);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeActiveNation")]
+        public IActionResult DeActiveNation(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveNation(ListID, 0);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeleteProvince")]
+        public IActionResult DeleteProvince(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.DeleteProvince(ListID);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("ActiveProvince")]
+        public IActionResult ActiveProvince(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveProvince(ListID, -1);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeActiveProvince")]
+        public IActionResult DeActiveProvince(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveProvince(ListID, 0);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeleteDistrict")]
+        public IActionResult DeleteDistrict(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.DeleteDistrict(ListID);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("ActiveDistrict")]
+        public IActionResult ActiveDistrict(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveDistrict(ListID, -1);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeActiveDistrict")]
+        public IActionResult DeActiveDistrict(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveDistrict(ListID, 0);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeleteWard")]
+        public IActionResult DeleteWard(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.DeleteWard(ListID);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("ActiveWard")]
+        public IActionResult ActiveWard(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveWard(ListID, -1);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeActiveWard")]
+        public IActionResult DeActiveWard(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveWard(ListID, 0);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+
         #endregion
 
         #endregion
@@ -410,12 +909,12 @@ namespace API.Controllers
                                  FullName = l.FullName,
                                  Code = l.Code,
                                  ID = l.Id,
-                                 OrgnizationName= l.Orgnization.Name,
-                                 PositionName=l.Position.Name,
-                                 OrgId= l.Orgnization.Id,
-                                 PositionId=l.Position.Id,
-                                 StatusName=l.StatusNavigation.Name,
-                                 TitleName=l.Position.Title.Name
+                                 OrgnizationName = l.Orgnization.Name,
+                                 PositionName = l.Position.Name,
+                                 OrgId = l.Orgnization.Id,
+                                 PositionId = l.Position.Id,
+                                 StatusName = l.StatusNavigation.Name,
+                                 TitleName = l.Position.Title.Name
                              };
             if (list.Count > 0)
                 return Ok(new

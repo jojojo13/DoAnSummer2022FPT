@@ -375,7 +375,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = check
-                }); ;
+                });
             }
             catch
             {
