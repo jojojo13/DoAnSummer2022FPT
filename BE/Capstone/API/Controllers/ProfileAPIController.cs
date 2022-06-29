@@ -31,7 +31,7 @@ namespace API.Controllers
         [HttpPost("GetContractType")]
         public IActionResult GetContractType(int index, int size)
         {
-            List<ContractType> list = profile.GetContractTypeList( index,  size);
+            List<ContractType> list = profile.GetContractTypeList(index, size);
             var listReturn = from l in list
                              select new
                              {
@@ -64,7 +64,7 @@ namespace API.Controllers
                                  id = l.Id,
                                  note = l.Note,
                                  term = l.Term,
-                                 status= l.Status==-1?"Active":"Deactive"
+                                 status = l.Status == -1 ? "Active" : "Deactive"
                              };
             if (list.Count > 0)
                 return Ok(new
@@ -955,6 +955,112 @@ namespace API.Controllers
             else
                 return StatusCode(200, "Obj is Null");
         }
+
+
+        [HttpPost("GetAllInforOfEmployee")]
+        public IActionResult GetAllInforOfEmployee(int empID)
+        {
+
+            Employee e = profile.GetEmployeeByID(empID);
+            EmployeeCv cv = profile.GetEmployeeCvByEmpID(empID);
+            EmployeeEdu edu = profile.GetEmployeeEduByEmpID(empID);
+            List<EmployeeContract> listEmpContract = profile.GetListEmployeeContractByEmpID(empID);
+            var employeeReturn = new
+            {
+                //e
+                firstname = e.FirstName,
+                lastName = e.LastName,
+                fullName = e.FullName,
+                joinDate = e.JoinDate,
+                lastDate = e.LastDate,
+                statusEmp = e.StatusNavigation?.Name,
+                statusEmpId = e.Status,
+                isFromRecuirement = e.IsFronmRecruit,
+                orgName = e.Orgnization?.Name,
+                orgId = e.OrgnizationId,
+                positionName = e.Position?.Name,
+                positionId = e.PositionId,
+
+                //CV
+                gender = cv.GenderNavigation?.Name,
+                genderId = cv.Gender,
+                image = cv.Image,
+                dateOfBirth = cv.Dob,
+                cmnd = cv.Cmnd,
+                cmndPlace = cv.Cmndplace,
+                email = cv.Email,
+                emailWork = cv.EmailWork,
+                phoneNumber = cv.Phone,
+                hokhau = cv.HoKhau,
+                nationHK = cv.NationHk,
+                provinceHK = cv.ProvinceHk,
+                districtHK = cv.DistrictHk,
+                noisinh = cv.NoiSinh,
+                nationBirth = cv.NationOb,
+                provinceBirth = cv.ProvinceOb,
+                districtBirth = cv.DistrictOb,
+                noiO = cv.NoiO,
+                nationLive = cv.NationLive,
+                provinceLive = cv.ProvinceLive,
+                districtLive = cv.DistrictLive,
+
+
+                //edu
+                learningLevelMax = edu.LearningLevelNavigation?.Name,
+                learningLevelMaxId = edu.LearningLevel,
+                SchoolName1 = edu.School1,
+                SchoolName2 = edu.School1,
+                SchoolName3 = edu.School1,
+                major1 = edu.Major1,
+                major2 = edu.Major2,
+                major3 = edu.Major3,
+                degree1 = edu.DeeGree1Navigation?.Name,
+                degree2 = edu.DeeGree2Navigation?.Name,
+                degree3 = edu.DeeGree3Navigation?.Name,
+                degreeId1 = edu.DeeGree1,
+                degreeId2 = edu.DeeGree2,
+                degreeId3 = edu.DeeGree3,
+                informatic1 = edu.InforMaticsLevel1Navigation?.Name,
+                informatic2 = edu.InforMaticsLevel2Navigation?.Name,
+                informatic3 = edu.InforMaticsLevel3Navigation?.Name,
+                informaticId1 = edu.InforMaticsLevel1,
+                informaticId2 = edu.InforMaticsLevel2,
+                informaticId3 = edu.InforMaticsLevel3,
+                GPA1 = "",
+                GPA2 = "",
+                GPA3 = "",
+                Award1 = "",
+                Award2 = "",
+                Award3 = "",
+                language1 = edu.Language1Navigation?.Name,
+                language2 = edu.Language2Navigation?.Name,
+                language3 = edu.Language3Navigation?.Name,
+                language1Id = edu.Language1,
+                language2Id = edu.Language2,
+                language3Id = edu.Language3,
+                EmpContract = from lst in listEmpContract
+                              select new
+                              {
+                                  contractNo = lst.ContractNo,
+                                  contractType = lst.ContractType?.Name,
+                                  effectdate = lst.EffectDate,
+                                  expiredate = lst.ExpireDate,
+                                  signName = lst.Sign?.FullName,
+                                  signDate = lst.SignDate,
+                                  status = lst.Status,
+                                  note = lst.Note,
+                                  positionName = lst.Position?.Name,
+                                  orgname = lst.Orgnization?.Name
+                              }
+            };
+            return Ok(new
+            {
+                Data = employeeReturn
+            });
+        }
+
+
+
 
         #endregion
 

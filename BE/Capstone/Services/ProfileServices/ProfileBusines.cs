@@ -3,12 +3,13 @@ using ModelAuto.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace Services.ProfileServices
 {
     public partial class ProfileImpl : IProfile
     {
-      public List<Position> GetListPositionByOrgID(int ID)
+        public List<Position> GetListPositionByOrgID(int ID)
         {
             List<Position> list = new List<Position>();
             DataTable dt = DAOContext.GetListPositionByOrgID(ID);
@@ -27,7 +28,7 @@ namespace Services.ProfileServices
         public List<Employee> GetListEmployeeByOrgID(int OrgID, int index, int size)
         {
             List<Employee> list = new List<Employee>();
-            DataTable dt = DAOContext.GetListEmployeeByOrgID( OrgID,  index,  size);
+            DataTable dt = DAOContext.GetListEmployeeByOrgID(OrgID, index, size);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 Employee o = new Employee();
@@ -36,7 +37,7 @@ namespace Services.ProfileServices
                 o.Code = row["Code"].ToString();
                 o.Id = Convert.ToInt32(row["Id"].ToString());
                 o.Orgnization = new Orgnization();
-                o.Orgnization.Id= Convert.ToInt32(row["OrgnizationID"].ToString());
+                o.Orgnization.Id = Convert.ToInt32(row["OrgnizationID"].ToString());
                 o.Position = new Position();
                 o.Position.Id = Convert.ToInt32(row["PositionID"].ToString());
                 o.StatusNavigation = new OtherList();
@@ -44,7 +45,7 @@ namespace Services.ProfileServices
                 o.Orgnization.Name = row["ORG_NAME"].ToString();
                 o.Position.Name = row["PositionName"].ToString();
                 o.Position.Title = new Title();
-                o.Position.Title.Name= row["TitleName"].ToString();
+                o.Position.Title.Name = row["TitleName"].ToString();
                 list.Add(o);
             }
             return list;
@@ -56,5 +57,60 @@ namespace Services.ProfileServices
             DataTable dt = DAOContext.GetListEmployeeByOrgID(OrgID, 0, Int32.MaxValue);
             return dt.Rows.Count;
         }
+
+        public EmployeeCv GetEmployeeCvByEmpID(int? ID)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    EmployeeCv e = context.EmployeeCvs.Where(x => x.EmployeeId == ID).FirstOrDefault();
+                    if (e != null)
+                        return e;
+                    else
+                        return new EmployeeCv();
+                }
+            }
+            catch
+            {
+                return new EmployeeCv();
+            }
+        }
+
+        public EmployeeEdu GetEmployeeEduByEmpID(int? ID)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    EmployeeEdu e = context.EmployeeEdus.Where(x => x.EmployeeId == ID).FirstOrDefault();
+                    if (e != null)
+                        return e;
+                    else
+                        return new EmployeeEdu();
+                }
+            }
+            catch
+            {
+                return new EmployeeEdu();
+            }
+        }
+
+        public List<EmployeeContract> GetListEmployeeContractByEmpID(int? ID)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    List<EmployeeContract> listContract = context.EmployeeContracts.Where(x => x.EmployeeId == ID).ToList();
+                    return listContract;
+                }
+            }
+            catch
+            {
+                return new List<EmployeeContract>();
+            }
+        }
+
     }
 }

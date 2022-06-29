@@ -71,6 +71,9 @@ namespace Services.ProfileServices
         List<Position> GetListPositionByOrgID(int ID);
         List<Employee> GetListEmployeeByOrgID(int OrgID, int index, int size);
         Employee GetEmployeeByID(int? ID);
+        EmployeeCv GetEmployeeCvByEmpID(int? ID);
+        EmployeeEdu GetEmployeeEduByEmpID(int? ID);
+        List<EmployeeContract> GetListEmployeeContractByEmpID(int? ID);
         int getTotalEmployee(int OrgID);
 
         #endregion
