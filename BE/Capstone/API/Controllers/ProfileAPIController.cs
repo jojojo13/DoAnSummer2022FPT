@@ -18,7 +18,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfileAPIController : ControllerBase
+    public class ProfileAPIController : AuthorizeByIDController
     {
         private ICommon p = new CommonImpl();
 
@@ -29,16 +29,42 @@ namespace API.Controllers
         #region DM loai HOP DONG
         [Authorize(Roles = "1")]
         [HttpPost("GetContractType")]
-        public IActionResult GetContractType()
+        public IActionResult GetContractType(int index, int size)
         {
-            List<ContractType> list = profile.GetContractTypeList();
+            List<ContractType> list = profile.GetContractTypeList( index,  size);
             var listReturn = from l in list
                              select new
                              {
                                  name = l.Name,
                                  code = l.Code,
                                  id = l.Id,
-                                 note = l.Note
+                                 note = l.Note,
+                                 term = l.Term
+                             };
+            if (list.Count > 0)
+                return Ok(new
+                {
+                    Status = true,
+                    Data = listReturn
+                });
+            else
+                return StatusCode(200, "List is Null");
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("GetAllContractType")]
+        public IActionResult GetAllContractType(int index, int size)
+        {
+            List<ContractType> list = profile.GetAllContractTypeList(index, size);
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 code = l.Code,
+                                 id = l.Id,
+                                 note = l.Note,
+                                 term = l.Term,
+                                 status= l.Status==-1?"Active":"Deactive"
                              };
             if (list.Count > 0)
                 return Ok(new
@@ -56,10 +82,12 @@ namespace API.Controllers
         {
             try
             {
+                Account a = GetCurrentUser();
                 ContractType obj = new ContractType();
                 obj.Note = objresponse.Note;
                 obj.Name = objresponse.Name;
-                obj.CreateBy = "HUNGNX";
+                obj.CreateBy = a.Employee?.FullName;
+                obj.Term = objresponse.Term;
                 var check = profile.InsertContractType(obj);
                 if (check)
                     return Ok(new
@@ -171,11 +199,13 @@ namespace API.Controllers
         {
             try
             {
+                Account a = GetCurrentUser();
                 ContractType obj = new ContractType();
                 obj.Id = objresponse.Id;
                 obj.Note = objresponse.Note;
                 obj.Name = objresponse.Name;
-                obj.CreateBy = "HUNGNX";
+                obj.UpdateBy = a.Employee?.FullName;
+                obj.Term = objresponse.Term;
                 var check = profile.ModifyContractType(obj);
                 if (check)
                     return Ok(new

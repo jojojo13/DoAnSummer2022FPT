@@ -15,5 +15,6 @@ namespace API.ResponseModel.Profile
         public string BHXH { get; set; }
         public string BHYT { get; set; }
         public string BHTN { get; set; }
+        public string Term { get; set; }
     }
 }

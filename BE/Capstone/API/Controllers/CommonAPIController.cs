@@ -56,6 +56,31 @@ namespace API.Controllers
                 return StatusCode(200, "List is Null");
         }
 
+        [HttpPost("CheckUsinginDatabase")]
+        public IActionResult CheckUsinginDatabase(int id, string table)
+        {
+            List<OtherListType> list = new List<OtherListType>();
+            // nhớ tách phân hệ
+            list = p.GetOtherListType().ToList();
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 coed = l.Code,
+                                 note = l.Note,
+                                 statusName = l.Status == -1 ? "Active" : "Deactive",
+                                 id = l.Id
+                             };
+            if (list.Count > 0)
+                return Ok(new
+                {
+                    Status = true,
+                    Data = list
+                });
+            else
+                return StatusCode(200, "List is Null");
+        }
+
         #region getbyID
         [HttpPost("GetTitleByID")]
         public IActionResult GetTitleByID(int ID)

@@ -440,12 +440,27 @@ namespace Services.ProfileServices
         #endregion
 
         #region DM loai hop dong
-        public List<ContractType> GetContractTypeList(){
+        public List<ContractType> GetContractTypeList(int index, int size){
             try
             {
                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<ContractType> list = context.ContractTypes.ToList();
+                    List<ContractType> list = context.ContractTypes.Where(x=>x.Status==-1).Skip(size * index).Take(size).ToList();
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<ContractType>();
+            }
+        }
+        public List<ContractType> GetAllContractTypeList(int index, int size)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    List<ContractType> list = context.ContractTypes.Skip(size * index).Take(size).ToList();
                     return list;
                 }
             }
@@ -460,12 +475,13 @@ namespace Services.ProfileServices
             {
                 ContractType tobj = new ContractType();
                 tobj.Name = T.Name;
-                tobj.Code = c.autoGenCode3character("ContractType", "LHD");
+                tobj.Code = c.autoGenCode3character("Contract_Type", "LHD");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
                 tobj.Bhtn = T.Bhtn;
                 tobj.Bhxh = T.Bhxh;
                 tobj.Bhyt = T.Bhyt;
+                tobj.Term = T.Term;
                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.ContractTypes.Add(tobj);
@@ -489,6 +505,7 @@ namespace Services.ProfileServices
                     tobj.Bhtn = T.Bhtn;
                     tobj.Bhxh = T.Bhxh;
                     tobj.Bhyt = T.Bhyt;
+                    tobj.Term = T.Term;
                     tobj.UpdateBy = T.UpdateBy;
                     tobj.UpdateDate = DateTime.UtcNow;
                     context.SaveChanges();
