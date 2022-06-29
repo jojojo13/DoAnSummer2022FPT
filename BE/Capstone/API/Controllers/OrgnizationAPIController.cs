@@ -368,20 +368,11 @@ namespace API.Controllers
 
         [Authorize(Roles = "1")]
         [HttpPost("DeletePosition")]
-        public IActionResult DeletePosition([FromBody] string ListID)
+        public IActionResult DeletePosition(List<int> ListID)
         {
             try
             {
-                string[] listID = ListID.Split(" ");
-                List<int> lst = new List<int>();
-                foreach (var item in listID)
-                {
-                    if (!item.Trim().Equals(""))
-                    {
-                        lst.Add(Convert.ToInt32(item));
-                    }
-                }
-                var check = p.DeletePosition(lst);
+                var check = p.DeletePosition(ListID);
                 if (check)
                 {
                     return Ok(new
