@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.RcCandidateServices
 {
-    internal class RcCandidateBus : IRcCandidate
+    public class RcCandidateBus : IRcCandidate
     {
         ICommon c = new CommonImpl();
         public bool AddRcCandidate(RcCandidate r)
@@ -19,8 +19,11 @@ namespace Services.RcCandidateServices
 
                 using (var context = new CapstoneProject2022Context())
                 {
+                    List<RcCandidate> list = context.RcCandidates.ToList();
+                    int code = list.Count + 1;
                     RcCandidate r1 = new RcCandidate();
-                    r1.Code = c.autoGenCode3character("Rc_Candidate", "CA");
+
+                    r1.Code = "CDD" + code;
                     r1.FullName = r.FullName;
                     r1.StepCv = 1;
                     r1.CreateDate= DateTime.Now;
@@ -98,9 +101,142 @@ namespace Services.RcCandidateServices
 
         }
 
+        public bool AddRcCandidateSkill(RcCandidateSkill r)
+        {
+            try {
+                using var context = new CapstoneProject2022Context();
+                context.RcCandidateSkills.Add(r);
+                context.SaveChanges();  
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
+        public List<RcCandidate> GetAllCandidate(int index, int size)
+        {
+            List<RcCandidate> list = new List<RcCandidate>();
+            try
+            {
+                using var context = new CapstoneProject2022Context();
+                list = context.RcCandidates.Skip(index * size).Take(size).ToList();
+            }
+            catch
+            {
+
+            }
+            return list;
+        }
+
+        public List<RcCandidate> GetAllCandidateByStep(int step)
+        {
+            List<RcCandidate> list = new List<RcCandidate>();
+            try {
+                using var context = new CapstoneProject2022Context();
+                list = context.RcCandidates.Where(x => x.StepCv == step).ToList();
+            } catch 
+            {
+            }
+            return list;
+        }
+
+        public RcCandidate GetCandidateByID(int id)
+        {
+            RcCandidate candidate= new RcCandidate();
+            try {
+                using var context= new CapstoneProject2022Context();    
+                candidate= context.RcCandidates.Where(x=>x.Id==id).SingleOrDefault();
+            }
+            catch
+            {
+
+            }
+            return candidate;
+        }
+
+        public RcCandidateCv GetCandidateCVbyID(int id)
+        {
+            RcCandidateCv cv = new RcCandidateCv(); 
+            try {
+                using var context = new CapstoneProject2022Context();
+                cv = context.RcCandidateCvs.Where(x => x.CandidateId == id).SingleOrDefault();
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return cv;
+        }
+
+        public RcCandidateEdu GetCandidateEdubyID(int id)
+        {
+           RcCandidateEdu edu = new RcCandidateEdu();
+            try {
+                using var context = new CapstoneProject2022Context();
+                edu = context.RcCandidateEdus.Where(x => x.CandidateId == id).SingleOrDefault();
+            }catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
+            return edu;
+        }
+
+        public List<RcCandidateSkill> GetCandidateSkillbyID(int id)
+        {
+            List<RcCandidateSkill> list = new List<RcCandidateSkill>(); 
+            try {
+
+                using var context = new CapstoneProject2022Context();
+                list = context.RcCandidateSkills.Where(x => x.RcCandidateId == id).ToList();
+            } catch
+            {
+
+            }
+            return list;
+        }
+
+        public bool PromoteCandidate(int CandidateID)
+        {
+            try
+            {
+                using var context = new CapstoneProject2022Context();
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            };
+        }
+
         public bool UpdateStepCandidate(RcCandidate r)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var context = new CapstoneProject2022Context();
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ViewFailedCandidate(int CandidateID)
+        {
+            try
+            {
+                using var context = new CapstoneProject2022Context();
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

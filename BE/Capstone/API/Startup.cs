@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace API
@@ -46,7 +47,8 @@ namespace API
             services.AddMvc();
             services.AddControllers();
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+               x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromSeconds(1000);
                 options.Cookie.IsEssential = true;

@@ -48,6 +48,9 @@ namespace Services.CommonServices
         #region OTherList
         List<OtherList> GetOtherListsCombo(string code, int index, int size);
         List<OtherList> GetOtherList(string code, int index, int size);
+        List<OtherList> List_OtherList_ByID(string code);
+        List<OtherList> List_OtherList_OfLevel(string code,string level);
+        string Level_Of_OtherListType(string code);
         bool InsertOtherList(OtherList T);
         bool ModifyOtherList(OtherList T);
         bool DeleteOtherList(List<int> list);

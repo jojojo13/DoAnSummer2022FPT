@@ -247,8 +247,8 @@ namespace Services.CommonServices
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    OtherListType type = context.OtherListTypes.Where(x => x.Code.Trim().ToLower().Equals(code)).FirstOrDefault();
-                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id).OrderByDescending(x => x.Id).Skip(index * size).Take(size).ToList();
+                    OtherListType type = context.OtherListTypes.Where(x => x.Level.Trim().ToLower().Equals(code)).FirstOrDefault();
+                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id).OrderByDescending(x => x.Id).ToList();
                     return list;
                 }
             }
@@ -362,9 +362,63 @@ namespace Services.CommonServices
                 return false;
             }
         }
+
+        public List<OtherList> List_OtherList_ByID(string code)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    OtherListType type = context.OtherListTypes.Where(x => x.Code== code).FirstOrDefault();
+                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id && x.Status == -1).ToList();
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<OtherList>();
+            }
+        }
+
+        public List<OtherList> List_OtherList_OfLevel(string code,string level)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    //   OtherListType type = context.OtherListTypes.Where(x => x.Level == level && x.Code== code).FirstOrDefault();
+                    OtherListType type = context.OtherListTypes.Where(x => x.Code == level).SingleOrDefault();
+                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId== type.Id && x.Status == -1).ToList();
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<OtherList>();
+            }
+        }
+
+        public string Level_Of_OtherListType(string code)
+        {
+            string level="";
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    OtherListType type = context.OtherListTypes.Where(x => x.Code == code).SingleOrDefault();
+                    level = type.Level;
+                   
+                }
+            }
+            catch
+            {
+               
+            }
+            return level;
+        }
         #endregion
 
 
-      
+
     }
 }
