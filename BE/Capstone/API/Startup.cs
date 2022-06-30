@@ -47,8 +47,6 @@ namespace API
             services.AddMvc();
             services.AddControllers();
 
-            services.AddControllers().AddJsonOptions(x =>
-               x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromSeconds(1000);
                 options.Cookie.IsEssential = true;

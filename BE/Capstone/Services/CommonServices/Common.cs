@@ -71,10 +71,10 @@ namespace Services.CommonServices
             {
                 return "1";
             }
-           
+
         }
 
-       
+
         #endregion
 
 
@@ -83,7 +83,7 @@ namespace Services.CommonServices
         {
             try
             {
-                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Orgnization obj = context.Orgnizations.Where(x => x.Id == id).FirstOrDefault();
                     obj.Manager = context.Employees.Where(x => x.Id == obj.ManagerId).FirstOrDefault();
@@ -101,7 +101,7 @@ namespace Services.CommonServices
         {
             try
             {
-                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Title obj = context.Titles.Where(x => x.Id == id).FirstOrDefault();
                     return obj;
@@ -117,7 +117,7 @@ namespace Services.CommonServices
         {
             try
             {
-                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Position obj = context.Positions.Where(x => x.Id == id).FirstOrDefault();
                     return obj;
@@ -140,7 +140,7 @@ namespace Services.CommonServices
         {
             try
             {
-                using (CapstoneProject2022Context context =new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<OtherListType> list = context.OtherListTypes.Where(x => x.Status == -1).ToList();
                     return list;
@@ -160,49 +160,49 @@ namespace Services.CommonServices
         public bool sendMail(MailDTO mailobj)
         {
 
-                MailMessage mail = new MailMessage();
-                // you need to enter your mail address
-                mail.From = new MailAddress(mailobj.fromMail);
+            MailMessage mail = new MailMessage();
+            // you need to enter your mail address
+            mail.From = new MailAddress(mailobj.fromMail);
 
-                //To Email Address - your need to enter your to email address
-                mail.To.Add(mailobj.tomail);
+            //To Email Address - your need to enter your to email address
+            mail.To.Add(mailobj.tomail);
 
-                mail.Subject = mailobj.subject;
+            mail.Subject = mailobj.subject;
 
-                //you can specify also CC and BCC - i will skip this
-                if (mailobj.listCC.Count > 0)
+            //you can specify also CC and BCC - i will skip this
+            if (mailobj.listCC.Count > 0)
+            {
+                foreach (var item in mailobj.listCC)
                 {
-                    foreach (var item in mailobj.listCC)
-                    {
-                        mail.CC.Add(item);
-                    }
+                    mail.CC.Add(item);
                 }
+            }
 
-                if (mailobj.listBC.Count > 0)
+            if (mailobj.listBC.Count > 0)
+            {
+                foreach (var item in mailobj.listBC)
                 {
-                    foreach (var item in mailobj.listBC)
-                    {
-                        mail.Bcc.Add(item);
-                    }
+                    mail.Bcc.Add(item);
                 }
+            }
 
-                mail.IsBodyHtml = true;
-                mail.Body = mailobj.content;
+            mail.IsBodyHtml = true;
+            mail.Body = mailobj.content;
 
 
-                //create SMTP instant
+            //create SMTP instant
 
-                //you need to pass mail server address and you can also specify the port number if you required
-                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            //you need to pass mail server address and you can also specify the port number if you required
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
 
-                //Create nerwork credential and you need to give from email address and password
-                NetworkCredential networkCredential = new NetworkCredential(mailobj.fromMail, mailobj.pass);
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = networkCredential;
-                smtpClient.Port = 25; // this is default port number - you can also change this
-                smtpClient.EnableSsl = true; // if ssl required you need to enable it
-                smtpClient.Send(mail);
-                return true;
+            //Create nerwork credential and you need to give from email address and password
+            NetworkCredential networkCredential = new NetworkCredential(mailobj.fromMail, mailobj.pass);
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = networkCredential;
+            smtpClient.Port = 25; // this is default port number - you can also change this
+            smtpClient.EnableSsl = true; // if ssl required you need to enable it
+            smtpClient.Send(mail);
+            return true;
 
         }
         #endregion
@@ -231,7 +231,7 @@ namespace Services.CommonServices
 
         public int getTotalRecord(string tableName, bool isRank)
         {
-            string query =isRank==true? ("select count(*) COUNT from " + tableName+" where Rank=1"): ("select count(*) COUNT from " + tableName);
+            string query = isRank == true ? ("select count(*) COUNT from " + tableName + " where Rank=1") : ("select count(*) COUNT from " + tableName);
             DataTable dt = DAOContext.GetDataBySql(query);
             DataRow lastRow = dt.Rows[0];
             int COUNT = Convert.ToInt32(lastRow["COUNT"]);
@@ -247,8 +247,8 @@ namespace Services.CommonServices
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    OtherListType type = context.OtherListTypes.Where(x => x.Level.Trim().ToLower().Equals(code)).FirstOrDefault();
-                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id).OrderByDescending(x => x.Id).ToList();
+                    OtherListType type = context.OtherListTypes.Where(x => x.Code.Trim().ToLower().Equals(code)).FirstOrDefault();
+                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id).OrderByDescending(x => x.Id).Skip(index * size).Take(size).ToList();
                     return list;
                 }
             }
@@ -266,7 +266,7 @@ namespace Services.CommonServices
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     OtherListType type = context.OtherListTypes.Where(x => x.Code.Trim().ToLower().Equals(code)).FirstOrDefault();
-                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id && x.Status == -1).OrderByDescending(x=>x.Id).Skip(index * size).Take(size).ToList();
+                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id && x.Status == -1).OrderByDescending(x => x.Id).Skip(index * size).Take(size).ToList();
                     return list;
                 }
             }
@@ -361,60 +361,6 @@ namespace Services.CommonServices
             {
                 return false;
             }
-        }
-
-        public List<OtherList> List_OtherList_ByID(string code)
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    OtherListType type = context.OtherListTypes.Where(x => x.Code== code).FirstOrDefault();
-                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId == type.Id && x.Status == -1).ToList();
-                    return list;
-                }
-            }
-            catch
-            {
-                return new List<OtherList>();
-            }
-        }
-
-        public List<OtherList> List_OtherList_OfLevel(string code,string level)
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    //   OtherListType type = context.OtherListTypes.Where(x => x.Level == level && x.Code== code).FirstOrDefault();
-                    OtherListType type = context.OtherListTypes.Where(x => x.Code == level).SingleOrDefault();
-                    List<OtherList> list = context.OtherLists.Where(x => x.TypeId== type.Id && x.Status == -1).ToList();
-                    return list;
-                }
-            }
-            catch
-            {
-                return new List<OtherList>();
-            }
-        }
-
-        public string Level_Of_OtherListType(string code)
-        {
-            string level="";
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    OtherListType type = context.OtherListTypes.Where(x => x.Code == code).SingleOrDefault();
-                    level = type.Level;
-                   
-                }
-            }
-            catch
-            {
-               
-            }
-            return level;
         }
         #endregion
 
