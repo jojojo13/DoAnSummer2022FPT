@@ -1,4 +1,5 @@
 ﻿using ModelAuto.Models;
+using Services.CommonServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,10 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddRcCandidate(RcCandidate r)
+        ICommon c = new CommonImpl();
+        public string AddRcCandidate(RcCandidate r)
         {
+            string code1;
             try
             {
 
@@ -44,13 +47,14 @@ namespace Services.CandidateService
                     r1.CreateBy = r.CreateBy;
                     context.RcCandidates.Add(r1);
                     context.SaveChanges();
+                    code1 = r1.Code;
                 }
-                return true;
+                return code1;
 
             }
             catch
             {
-                return false;
+                return null;
             }
         }
 
@@ -157,6 +161,21 @@ namespace Services.CandidateService
             {
             }
             return list;
+        }
+
+        public RcCandidate GetCandidateByCode(string code)
+        {
+            RcCandidate candidate = new RcCandidate();
+            try
+            {
+                using var context = new CapstoneProject2022Context();
+                candidate = context.RcCandidates.Where(x => x.Code == code).SingleOrDefault();
+            }
+            catch
+            {
+
+            }
+            return candidate;
         }
 
         public RcCandidate GetCandidateByID(int id)

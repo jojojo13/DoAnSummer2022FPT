@@ -17,7 +17,7 @@ namespace Services.CandidateService
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
-        bool AddRcCandidate(RcCandidate r);
+        string AddRcCandidate(RcCandidate r);
         /// <summary>
         /// add thong tin vao bang rccandidate cv
         /// </summary>
@@ -70,6 +70,8 @@ namespace Services.CandidateService
         /// <param name="id"></param>
         /// <returns></returns>
         RcCandidate GetCandidateByID(int id);
+
+        RcCandidate GetCandidateByCode(string code);
         /// <summary>
         /// lay ra thong tin 1 cv trong ban rccandidatecv theo candidateID
         /// </summary>

@@ -17,6 +17,6 @@ namespace ModelAuto.Models
         public virtual RcCandidate IdNavigation { get; set; }
         public virtual OtherList LevelNavigation { get; set; }
         public virtual OtherList TypeNavigation { get; set; }
-        public virtual OtherList TypeSkillNavigation { get; set; }
+        public virtual OtherListType TypeSkillNavigation { get; set; }
     }
 }

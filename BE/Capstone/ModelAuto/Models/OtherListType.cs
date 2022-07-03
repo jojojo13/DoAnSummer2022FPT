@@ -10,6 +10,7 @@ namespace ModelAuto.Models
         public OtherListType()
         {
             OtherLists = new HashSet<OtherList>();
+            RcCandidateSkills = new HashSet<RcCandidateSkill>();
         }
 
         public int Id { get; set; }
@@ -24,6 +25,8 @@ namespace ModelAuto.Models
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
         public string Level { get; set; }
+
         public virtual ICollection<OtherList> OtherLists { get; set; }
+        public virtual ICollection<RcCandidateSkill> RcCandidateSkills { get; set; }
     }
 }
