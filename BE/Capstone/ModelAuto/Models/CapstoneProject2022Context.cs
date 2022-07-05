@@ -36,6 +36,7 @@ namespace ModelAuto.Models
         public virtual DbSet<RcCandidate> RcCandidates { get; set; }
         public virtual DbSet<RcCandidateCv> RcCandidateCvs { get; set; }
         public virtual DbSet<RcCandidateEdu> RcCandidateEdus { get; set; }
+        public virtual DbSet<RcCandidateExp> RcCandidateExps { get; set; }
         public virtual DbSet<RcCandidateFamily> RcCandidateFamilies { get; set; }
         public virtual DbSet<RcCandidateSkill> RcCandidateSkills { get; set; }
         public virtual DbSet<RcPhaseRequest> RcPhaseRequests { get; set; }
@@ -1129,6 +1130,39 @@ namespace ModelAuto.Models
                 entity.HasOne(d => d.LearningLevelNavigation)
                     .WithMany(p => p.RcCandidateEduLearningLevelNavigations)
                     .HasForeignKey(d => d.LearningLevel);
+            });
+
+            modelBuilder.Entity<RcCandidateExp>(entity =>
+            {
+                entity.ToTable("RcCandidateExp");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreateBy).HasMaxLength(50);
+
+                entity.Property(e => e.CreateDate).HasColumnType("date");
+
+                entity.Property(e => e.Firm).HasMaxLength(100);
+
+                entity.Property(e => e.Position).HasMaxLength(100);
+
+                entity.Property(e => e.Time).HasMaxLength(100);
+
+                entity.Property(e => e.TypeId).HasColumnName("TypeID");
+
+                entity.Property(e => e.UpdateBy).HasMaxLength(50);
+
+                entity.Property(e => e.UpdateDate).HasColumnType("date");
+
+                entity.HasOne(d => d.RcCandidateNavigation)
+                    .WithMany(p => p.RcCandidateExps)
+                    .HasForeignKey(d => d.RcCandidate)
+                    .HasConstraintName("FK_RcCandidateExp_Rc_Candidate");
+
+                entity.HasOne(d => d.Type)
+                    .WithMany(p => p.RcCandidateExps)
+                    .HasForeignKey(d => d.TypeId)
+                    .HasConstraintName("FK_RcCandidateExp_Other_List");
             });
 
             modelBuilder.Entity<RcCandidateFamily>(entity =>

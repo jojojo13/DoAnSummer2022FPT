@@ -11,6 +11,7 @@ namespace ModelAuto.Models
         {
             RcCandidateCvs = new HashSet<RcCandidateCv>();
             RcCandidateEdus = new HashSet<RcCandidateEdu>();
+            RcCandidateExps = new HashSet<RcCandidateExp>();
             RcCandidateFamilies = new HashSet<RcCandidateFamily>();
             RcCandidateSkills = new HashSet<RcCandidateSkill>();
             RcRequestExamResults = new HashSet<RcRequestExamResult>();
@@ -37,6 +38,7 @@ namespace ModelAuto.Models
         public virtual RcResourceCandidate Resource { get; set; }
         public virtual ICollection<RcCandidateCv> RcCandidateCvs { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEdus { get; set; }
+        public virtual ICollection<RcCandidateExp> RcCandidateExps { get; set; }
         public virtual ICollection<RcCandidateFamily> RcCandidateFamilies { get; set; }
         public virtual ICollection<RcCandidateSkill> RcCandidateSkills { get; set; }
         public virtual ICollection<RcRequestExamResult> RcRequestExamResults { get; set; }

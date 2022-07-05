@@ -39,6 +39,7 @@ namespace ModelAuto.Models
             RcCandidateEduLanguage2Navigations = new HashSet<RcCandidateEdu>();
             RcCandidateEduLanguage3Navigations = new HashSet<RcCandidateEdu>();
             RcCandidateEduLearningLevelNavigations = new HashSet<RcCandidateEdu>();
+            RcCandidateExps = new HashSet<RcCandidateExp>();
             RcCandidateFamilies = new HashSet<RcCandidateFamily>();
             RcCandidateSkillLevelNavigations = new HashSet<RcCandidateSkill>();
             RcCandidateSkillTypeNavigations = new HashSet<RcCandidateSkill>();
@@ -97,6 +98,7 @@ namespace ModelAuto.Models
         public virtual ICollection<RcCandidateEdu> RcCandidateEduLanguage2Navigations { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEduLanguage3Navigations { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEduLearningLevelNavigations { get; set; }
+        public virtual ICollection<RcCandidateExp> RcCandidateExps { get; set; }
         public virtual ICollection<RcCandidateFamily> RcCandidateFamilies { get; set; }
         public virtual ICollection<RcCandidateSkill> RcCandidateSkillLevelNavigations { get; set; }
         public virtual ICollection<RcCandidateSkill> RcCandidateSkillTypeNavigations { get; set; }
