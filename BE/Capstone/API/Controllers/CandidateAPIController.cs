@@ -143,7 +143,7 @@ namespace API.Controllers
                 edu.Gpa1 = decimal.Parse(T.Gpa);
                 edu.Awards1 = T.Awards;
                 check = rc.AddRcCandidateEdu(edu);
-                // rccandidate Skill
+                // rccandidate skill
                 foreach (Skill item in T.listSkill)
                 {
                     RcCandidateSkill skill = new RcCandidateSkill();
@@ -154,6 +154,11 @@ namespace API.Controllers
                     skill.Goal = item.Goal;
                     check = rc.AddRcCandidateSkill(skill);
                 }
+
+
+                //insert experience + domain
+
+
 
 
                 return Ok(new

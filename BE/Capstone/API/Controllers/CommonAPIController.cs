@@ -139,7 +139,8 @@ namespace API.Controllers
                                  code = l.Code,
                                  note = l.Note,
                                  statusName = l.Status == -1 ? "Active" : "Deactive",
-                                 id = l.Id
+                                 id = l.Id,
+                                 attribute1= l.Atribute1
                              };
             if (list.Count > 0)
             {
