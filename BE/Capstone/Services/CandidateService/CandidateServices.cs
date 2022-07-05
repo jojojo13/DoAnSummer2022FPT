@@ -37,10 +37,8 @@ namespace Services.CandidateService
                 using (var context = new CapstoneProject2022Context())
                 {
                     List<RcCandidate> list = context.RcCandidates.ToList();
-                    int code = list.Count + 1;
                     RcCandidate r1 = new RcCandidate();
-
-                    r1.Code = "CDD" + code;
+                    r1.Code =c.autoGenCode3character("Rc_Candidate", "UV");
                     r1.FullName = r.FullName;
                     r1.StepCv = 1;
                     r1.CreateDate = DateTime.Now;
