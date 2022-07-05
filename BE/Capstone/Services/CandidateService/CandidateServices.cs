@@ -281,5 +281,21 @@ namespace Services.CandidateService
                 return false;
             }
         }
+
+       public List<OtherListType> GetSkillType(int type)
+        {
+            List<OtherListType> list = new List<OtherListType>();
+            try
+            {
+
+                using var context = new CapstoneProject2022Context();
+                list = context.OtherListTypes.Where(x => x.TypeSkill == type).ToList();
+            }
+            catch
+            {
+
+            }
+            return list;
+        }
     }
 }

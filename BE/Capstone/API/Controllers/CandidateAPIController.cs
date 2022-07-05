@@ -77,6 +77,28 @@ namespace API.Controllers
         }
 
 
+        [HttpPost("GetTypeSkill")]
+        public IActionResult GetTypeSkill(int type)
+        {
+            List<OtherListType> list = new List<OtherListType>();
+            list = rc.GetSkillType(type);
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 code = l.Code,
+                                 id= l.Id
+                             };
+
+            return Ok(new
+            {
+                Data = listReturn
+            });
+
+        }
+
+
+
         [HttpPost("InsertRcCandidate")]
         public IActionResult InsertRcCandidate([FromBody] Candidate T)
         {
@@ -159,8 +181,7 @@ namespace API.Controllers
                                    id = l.Id,
                                    fullname = l.FullName,
                                    code = l.Code,
-                                   cv = rc.GetCandidateCVbyID(l.Id),
-                                   dateOfBirth= rc.GetCandidateCVbyID(l.Id)?.Dob,
+                                   dateOfBirth = rc.GetCandidateCVbyID(l.Id)?.Dob,
                                    phoneNumber = rc.GetCandidateCVbyID(l.Id)?.Phone,
                                    email = rc.GetCandidateCVbyID(l.Id)?.Email,
                                    location = rc.GetCandidateCVbyID(l.Id)?.NoiO,
@@ -177,5 +198,7 @@ namespace API.Controllers
             }
             return StatusCode(200, "List is Null");
         }
+
+
     }
 }

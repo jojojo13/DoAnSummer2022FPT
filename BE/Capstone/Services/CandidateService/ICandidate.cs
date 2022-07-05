@@ -92,6 +92,8 @@ namespace Services.CandidateService
         List<RcCandidateSkill> GetCandidateSkillbyID(int id);
 
 
+        List<OtherListType> GetSkillType(int type);
+
 
         #endregion
     }
