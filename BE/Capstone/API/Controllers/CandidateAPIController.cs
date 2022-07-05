@@ -78,10 +78,10 @@ namespace API.Controllers
 
 
         [HttpPost("GetTypeSkill")]
-        public IActionResult GetTypeSkill(int type)
+        public IActionResult GetTypeSkill()
         {
             List<OtherListType> list = new List<OtherListType>();
-            list = rc.GetSkillType(type);
+            list = rc.GetSkillType(2);
             var listReturn = from l in list
                              select new
                              {
