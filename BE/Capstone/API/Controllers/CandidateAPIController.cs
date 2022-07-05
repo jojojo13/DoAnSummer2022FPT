@@ -88,7 +88,7 @@ namespace API.Controllers
                 // rccandidate
                 RcCandidate candidate = new RcCandidate();
                 candidate.FullName = T.FullName;
-                candidate.CreateBy = a.Id.ToString();
+                candidate.CreateBy = a.Employee?.FullName;
                 string code = rc.AddRcCandidate(candidate);
                 RcCandidate candidate1 = rc.GetCandidateByCode(code);
 
@@ -147,6 +147,35 @@ namespace API.Controllers
                     Status = false
                 });
             }
+        }
+
+        [HttpPost("GetAllCandidate")]
+        public IActionResult GetAllCandidate(int index, int size)
+        {
+            List<RcCandidate> list = rc.GetAllCandidate(index, size);
+            var ListResponse = from l in list
+                               select new
+                               {
+                                   id = l.Id,
+                                   fullname = l.FullName,
+                                   code = l.Code,
+                                   cv = rc.GetCandidateCVbyID(l.Id),
+                                   dateOfBirth= rc.GetCandidateCVbyID(l.Id)?.Dob,
+                                   phoneNumber = rc.GetCandidateCVbyID(l.Id)?.Phone,
+                                   email = rc.GetCandidateCVbyID(l.Id)?.Email,
+                                   location = rc.GetCandidateCVbyID(l.Id)?.NoiO,
+                                   status = l.Status == -1 ? "Active" : "Deactive"
+                               };
+
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    TotalItem = c.getTotalRecord("Rc_Candidate", false),
+                    Data = ListResponse
+                });
+            }
+            return StatusCode(200, "List is Null");
         }
     }
 }
