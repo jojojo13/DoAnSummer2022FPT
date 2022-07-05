@@ -45,7 +45,7 @@ namespace ModelAuto.Models
         public string Skype { get; set; }
         public string Website { get; set; }
 
-        public virtual Employee Candidate { get; set; }
+        public virtual RcCandidate Candidate { get; set; }
         public virtual District DistrictHkNavigation { get; set; }
         public virtual District DistrictLiveNavigation { get; set; }
         public virtual District DistrictObNavigation { get; set; }

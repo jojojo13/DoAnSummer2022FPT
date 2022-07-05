@@ -18,7 +18,6 @@ namespace ModelAuto.Models
             EmployeeSalaryEmployees = new HashSet<EmployeeSalary>();
             EmployeeSalarySigns = new HashSet<EmployeeSalary>();
             Orgnizations = new HashSet<Orgnization>();
-            RcCandidateCvs = new HashSet<RcCandidateCv>();
             RcCandidates = new HashSet<RcCandidate>();
             RcRequestHrInchangeNavigations = new HashSet<RcRequest>();
             RcRequestSchedus = new HashSet<RcRequestSchedu>();
@@ -54,7 +53,6 @@ namespace ModelAuto.Models
         public virtual ICollection<EmployeeSalary> EmployeeSalaryEmployees { get; set; }
         public virtual ICollection<EmployeeSalary> EmployeeSalarySigns { get; set; }
         public virtual ICollection<Orgnization> Orgnizations { get; set; }
-        public virtual ICollection<RcCandidateCv> RcCandidateCvs { get; set; }
         public virtual ICollection<RcCandidate> RcCandidates { get; set; }
         public virtual ICollection<RcRequest> RcRequestHrInchangeNavigations { get; set; }
         public virtual ICollection<RcRequestSchedu> RcRequestSchedus { get; set; }

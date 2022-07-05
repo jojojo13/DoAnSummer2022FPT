@@ -14,8 +14,8 @@ namespace ModelAuto.Models
         public int? Level { get; set; }
         public string Goal { get; set; }
 
-        public virtual RcCandidate IdNavigation { get; set; }
         public virtual OtherList LevelNavigation { get; set; }
+        public virtual RcCandidate RcCandidate { get; set; }
         public virtual OtherList TypeNavigation { get; set; }
         public virtual OtherListType TypeSkillNavigation { get; set; }
     }

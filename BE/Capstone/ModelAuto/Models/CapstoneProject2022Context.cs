@@ -954,7 +954,8 @@ namespace ModelAuto.Models
 
                 entity.HasOne(d => d.Candidate)
                     .WithMany(p => p.RcCandidateCvs)
-                    .HasForeignKey(d => d.CandidateId);
+                    .HasForeignKey(d => d.CandidateId)
+                    .HasConstraintName("FK_Rc_Candidate_CV_Employee_CandidateID");
 
                 entity.HasOne(d => d.DistrictHkNavigation)
                     .WithMany(p => p.RcCandidateCvDistrictHkNavigations)
@@ -1189,24 +1190,21 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("RcCandidateSkill");
 
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Goal)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.RcCandidateId).HasColumnName("RcCandidateID");
 
-                entity.HasOne(d => d.IdNavigation)
-                    .WithOne(p => p.RcCandidateSkill)
-                    .HasForeignKey<RcCandidateSkill>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_RcCandidateSkill_Rc_Candidate");
-
                 entity.HasOne(d => d.LevelNavigation)
                     .WithMany(p => p.RcCandidateSkillLevelNavigations)
                     .HasForeignKey(d => d.Level)
                     .HasConstraintName("FK_RcCandidateSkill_Other_List2");
+
+                entity.HasOne(d => d.RcCandidate)
+                    .WithMany(p => p.RcCandidateSkills)
+                    .HasForeignKey(d => d.RcCandidateId)
+                    .HasConstraintName("FK_RcCandidateSkill_Rc_Candidate");
 
                 entity.HasOne(d => d.TypeNavigation)
                     .WithMany(p => p.RcCandidateSkillTypeNavigations)

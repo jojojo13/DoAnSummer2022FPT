@@ -9,8 +9,10 @@ namespace ModelAuto.Models
     {
         public RcCandidate()
         {
+            RcCandidateCvs = new HashSet<RcCandidateCv>();
             RcCandidateEdus = new HashSet<RcCandidateEdu>();
             RcCandidateFamilies = new HashSet<RcCandidateFamily>();
+            RcCandidateSkills = new HashSet<RcCandidateSkill>();
             RcRequestExamResults = new HashSet<RcRequestExamResult>();
             RcRequestInterViewResults = new HashSet<RcRequestInterViewResult>();
             RcRequestResults = new HashSet<RcRequestResult>();
@@ -33,9 +35,10 @@ namespace ModelAuto.Models
         public virtual Employee InterView { get; set; }
         public virtual RcPhaseRequest Phase { get; set; }
         public virtual RcResourceCandidate Resource { get; set; }
-        public virtual RcCandidateSkill RcCandidateSkill { get; set; }
+        public virtual ICollection<RcCandidateCv> RcCandidateCvs { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEdus { get; set; }
         public virtual ICollection<RcCandidateFamily> RcCandidateFamilies { get; set; }
+        public virtual ICollection<RcCandidateSkill> RcCandidateSkills { get; set; }
         public virtual ICollection<RcRequestExamResult> RcRequestExamResults { get; set; }
         public virtual ICollection<RcRequestInterViewResult> RcRequestInterViewResults { get; set; }
         public virtual ICollection<RcRequestResult> RcRequestResults { get; set; }
