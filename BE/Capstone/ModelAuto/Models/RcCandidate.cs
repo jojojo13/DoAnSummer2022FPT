@@ -23,7 +23,6 @@ namespace ModelAuto.Models
         public int Id { get; set; }
         public string Code { get; set; }
         public string FullName { get; set; }
-        public int? PhaseId { get; set; }
         public int? ResourceId { get; set; }
         public int? Status { get; set; }
         public string CreateBy { get; set; }
@@ -32,9 +31,11 @@ namespace ModelAuto.Models
         public DateTime? UpdateDate { get; set; }
         public int? StepCv { get; set; }
         public int? InterViewId { get; set; }
+        public int? RequestId { get; set; }
+        public int? RecordStatus { get; set; }
 
         public virtual Employee InterView { get; set; }
-        public virtual RcPhaseRequest Phase { get; set; }
+        public virtual RcRequest Request { get; set; }
         public virtual RcResourceCandidate Resource { get; set; }
         public virtual ICollection<RcCandidateCv> RcCandidateCvs { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEdus { get; set; }

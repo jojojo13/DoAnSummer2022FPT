@@ -57,7 +57,7 @@ namespace ModelAuto.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=SQL8002.site4now.net;Initial Catalog=db_a87e9c_hungnx;User Id=db_a87e9c_hungnx_admin;Password=hung1207");
+                optionsBuilder.UseSqlServer("server=SQL8002.site4now.net; database=db_a87e9c_hungnx;user=db_a87e9c_hungnx_admin;password=hung1207");
             }
         }
 
@@ -813,8 +813,6 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("Rc_Candidate");
 
-                entity.HasIndex(e => e.PhaseId, "IX_Rc_Candidate_PhaseID");
-
                 entity.HasIndex(e => e.ResourceId, "IX_Rc_Candidate_ResourceID");
 
                 entity.Property(e => e.Code).HasMaxLength(100);
@@ -825,7 +823,7 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.InterViewId).HasColumnName("InterViewID");
 
-                entity.Property(e => e.PhaseId).HasColumnName("PhaseID");
+                entity.Property(e => e.RequestId).HasColumnName("RequestID");
 
                 entity.Property(e => e.ResourceId).HasColumnName("ResourceID");
 
@@ -838,9 +836,10 @@ namespace ModelAuto.Models
                     .HasForeignKey(d => d.InterViewId)
                     .HasConstraintName("FK_Rc_Candidate_Employee");
 
-                entity.HasOne(d => d.Phase)
+                entity.HasOne(d => d.Request)
                     .WithMany(p => p.RcCandidates)
-                    .HasForeignKey(d => d.PhaseId);
+                    .HasForeignKey(d => d.RequestId)
+                    .HasConstraintName("FK_Rc_Candidate_Rc_Request");
 
                 entity.HasOne(d => d.Resource)
                     .WithMany(p => p.RcCandidates)

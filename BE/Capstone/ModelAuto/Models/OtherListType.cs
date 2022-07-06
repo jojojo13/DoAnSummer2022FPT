@@ -27,7 +27,6 @@ namespace ModelAuto.Models
         public string Level { get; set; }
         public int? TypeSkill { get; set; }
 
-
         public virtual ICollection<OtherList> OtherLists { get; set; }
         public virtual ICollection<RcCandidateSkill> RcCandidateSkills { get; set; }
     }
