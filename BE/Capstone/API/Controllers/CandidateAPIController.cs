@@ -131,8 +131,8 @@ namespace API.Controllers
                 cv.NoiO = T.NoiO;
                 cv.NationLive = T.NationLive;
                 cv.PorvinceLive = T.PorvinceLive;
-                cv.DistrictLive = T.DistrictLive;
-                cv.WardLive = T.WardLive;
+                //cv.DistrictLive = T.DistrictLive;
+                //cv.WardLive = T.WardLive;
                 check = rc.AddRcCandidateCV(cv);
 
                 // rccandidate Edu
