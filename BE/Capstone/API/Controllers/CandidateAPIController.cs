@@ -111,6 +111,7 @@ namespace API.Controllers
                 RcCandidate candidate = new RcCandidate();
                 candidate.FullName = T.FullName;
                 candidate.CreateBy = a.Employee?.FullName;
+                candidate.RecordStatus = T.RecordStatus;
                 string code = rc.AddRcCandidate(candidate);
                 RcCandidate candidate1 = rc.GetCandidateByCode(code);
 
@@ -158,7 +159,16 @@ namespace API.Controllers
 
                 //insert experience + domain
 
-
+                foreach (Exp item in T.listExp)
+                {
+                    RcCandidateExp exp = new RcCandidateExp();
+                    exp.RcCandidate = candidate1.Id;
+                    exp.TypeId = item.TypeID;
+                    exp.Firm = item.Firm;
+                    exp.Position = item.Positiob;
+                    exp.Time = item.Time;
+                    check = rc.AddRcCandidateExp(exp);
+                }
 
 
                 return Ok(new

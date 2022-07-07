@@ -32,6 +32,8 @@ namespace Services.CandidateService
         bool AddRcCandidateEdu(RcCandidateEdu r);
 
         bool AddRcCandidateSkill(RcCandidateSkill r);
+
+        bool AddRcCandidateExp(RcCandidateExp r);
         #endregion
 
         #region  de thuc hien 5 man phong van

@@ -32,8 +32,6 @@ namespace Services.CandidateService
             string code1;
             try
             {
-
-
                 using (var context = new CapstoneProject2022Context())
                 {
                     List<RcCandidate> list = context.RcCandidates.ToList();
@@ -43,6 +41,7 @@ namespace Services.CandidateService
                     r1.StepCv = 1;
                     r1.CreateDate = DateTime.Now;
                     r1.CreateBy = r.CreateBy;
+                    r1.RecordStatus = r.RecordStatus;
                     context.RcCandidates.Add(r1);
                     context.SaveChanges();
                     code1 = r1.Code;
@@ -296,6 +295,32 @@ namespace Services.CandidateService
 
             }
             return list;
+        }
+
+        public bool AddRcCandidateExp(RcCandidateExp r)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    RcCandidateExp r1 = new RcCandidateExp();
+                    r1.RcCandidate = r.RcCandidate;
+                    r1.TypeId = r.TypeId;
+                    r1.Firm = r.Firm;
+                    r1.Position = r.Position;
+                    r1.Time = r.Time;
+                    r1.CreateBy = r.CreateBy;
+                    r1.CreateDate = DateTime.Now;
+                    context.RcCandidateExps.Add(r1);
+                    context.SaveChanges();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

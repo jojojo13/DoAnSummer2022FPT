@@ -31,6 +31,10 @@ namespace API.ResponseModel.Candidate
 
         // trong ban rccandidate Skill
         public List<Skill> listSkill { get; set; }
+        public List<Exp> listExp { get; set; }
+
+
+        public int RecordStatus { get; set; }
     }
     public class Skill
     {
@@ -39,4 +43,15 @@ namespace API.ResponseModel.Candidate
         public int Level { get; set; }
         public string Goal { get; set; }
     }
+
+    public class Exp
+    {
+        public int TypeID { get; set; }
+        public string Firm { get; set; }
+        public string Positiob { get; set; }
+        public string Time { get; set; }
+
+    }
+
+
 }
