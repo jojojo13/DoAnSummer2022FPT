@@ -92,7 +92,7 @@ namespace Services.CandidateService
         /// <param name="id"></param>
         /// <returns></returns>
         List<RcCandidateSkill> GetCandidateSkillbyID(int id);
-
+        List<RcCandidateExp> GetCandidateExpbyID(int id);
 
         List<OtherListType> GetSkillType(int type);
 

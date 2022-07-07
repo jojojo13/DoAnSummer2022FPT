@@ -137,7 +137,7 @@ namespace Services.CandidateService
             try
             {
                 using var context = new CapstoneProject2022Context();
-                list = context.RcCandidates.Skip(index * size).Take(size).ToList();
+                list = context.RcCandidates.Where(x=>x.RecordStatus==1).Skip(index * size).Take(size).ToList();
             }
             catch
             {
@@ -321,6 +321,22 @@ namespace Services.CandidateService
             {
                 return false;
             }
+        }
+
+        public List<RcCandidateExp> GetCandidateExpbyID(int id)
+        {
+            List<RcCandidateExp> list = new List<RcCandidateExp>();
+            try
+            {
+
+                using var context = new CapstoneProject2022Context();
+                list = context.RcCandidateExps.Where(x => x.RcCandidate == id).ToList();
+            }
+            catch
+            {
+
+            }
+            return list;
         }
     }
 }

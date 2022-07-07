@@ -141,7 +141,7 @@ namespace API.Controllers
                 edu.Major1 = T.Major;
                 edu.Graduate1 = T.Graduate;
                 edu.School1 = T.School;
-                edu.Gpa1 = decimal.Parse(T.Gpa);
+                edu.Gpa1 = T.Gpa;
                 edu.Awards1 = T.Awards;
                 check = rc.AddRcCandidateEdu(edu);
                 // rccandidate skill
@@ -189,27 +189,67 @@ namespace API.Controllers
         [HttpPost("GetAllCandidate")]
         public IActionResult GetAllCandidate(int index, int size)
         {
-            List<RcCandidate> list = rc.GetAllCandidate(index, size);
-            var ListResponse = from l in list
-                               select new
-                               {
-                                   id = l.Id,
-                                   fullname = l.FullName,
-                                   code = l.Code,
-                                   dateOfBirth = rc.GetCandidateCVbyID(l.Id)?.Dob,
-                                   phoneNumber = rc.GetCandidateCVbyID(l.Id)?.Phone,
-                                   email = rc.GetCandidateCVbyID(l.Id)?.Email,
-                                   location = rc.GetCandidateCVbyID(l.Id)?.NoiO,
-                                   status = l.Status == -1 ? "Active" : "Deactive"
-                               };
+            List<RcCandidate> list1 = rc.GetAllCandidate(index, size);
+            List<Candidate> list = new List<Candidate>();
+            foreach (RcCandidate item in list1)
+            {
+                RcCandidateCv T= rc.GetCandidateCVbyID(item.Id);
+                RcCandidateEdu edu = rc.GetCandidateEdubyID(item.Id);
+                List<RcCandidateSkill> skill= rc.GetCandidateSkillbyID(item.Id);
+                List<RcCandidateExp> exp= rc.GetCandidateExpbyID(item.Id);
+
+                Candidate c = new Candidate();
+                c.FullName= item.FullName;
+                // get  cv
+                c.Dob = T.Dob;
+                c.Gender = T.Gender;
+                c.Phone = T.Phone;
+                c.Zalo = T.Zalo;
+                c.Email = T.Email;
+                c.LinkedIn = T.LinkedIn;
+                c.Facebook = T.Facebook;
+                c.Twiter = T.Twiter;
+                c.NoiO = T.NoiO;
+                c.NationLive = T.NationLive;
+                c.PorvinceLive = T.PorvinceLive;
+                c.DistrictLive = T.DistrictLive;
+                c.WardLive = T.WardLive;
+                // get edu
+               c.Major = edu.Major1;
+                c.Graduate = edu.Graduate1;
+                c.School = edu.School1;
+                c.Gpa = edu.Gpa1;
+                c.Awards = edu.Awards1;
+                // get lít skill
+                List<Skill> skills = new List<Skill>(); 
+                foreach(RcCandidateSkill i1 in skill)
+                {
+                    skills.Add(new Skill { TypeSkill = i1.TypeSkill, Type = i1.Type, Level= i1.Level , Goal= i1.Goal }) ;
+                }
+                c.listSkill= skills ;
+                // get list exp 
+                List<Exp> exps = new List<Exp>();   
+                foreach(RcCandidateExp i in exp)
+                {
+                    exps.Add( new Exp { TypeID = i.TypeId, Firm= i.Firm, Positiob= i.Position, Time= i.Time});
+                }
+                c.listExp= exps ;
+
+                list.Add(c);
+
+
+
+
+
+            }
 
             if (list.Count > 0)
             {
                 return Ok(new
                 {
-                    TotalItem = c.getTotalRecord("Rc_Candidate", false),
-                    Data = ListResponse
-                });
+                    TotalItem = list.Count,
+                    Data = list
+                }) ;
             }
             return StatusCode(200, "List is Null");
         }
