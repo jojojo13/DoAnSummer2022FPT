@@ -23,7 +23,7 @@ namespace Services.OrgnizationServiecs
                 obj.Name = o.Name;
                 obj.Code = c.autoGenCode3character("Orgnization", "ORG");
                 obj.ParentId = o.ParentId;
-                if (o.ParentId>0)
+                if (o.ParentId > 0)
                 {
                     obj.Level = c.getOrgByID((int)o.ParentId).Level + 1;
                 }
@@ -48,11 +48,13 @@ namespace Services.OrgnizationServiecs
                 obj.ManagerId = o.ManagerId;
                 obj.CreateBy = o.CreateBy;
                 obj.CreateDate = DateTime.UtcNow;
-
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    Account a = context.Accounts.Where(x => x.EmployeeId == o.ManagerId).FirstOrDefault();
-                    a.Rule = 2;
+                    if (obj.ManagerId != 0 && obj.ManagerId != null)
+                    {
+                        Account a = context.Accounts.Where(x => x.EmployeeId == o.ManagerId).FirstOrDefault();
+                        a.Rule = 2;
+                    }
                     context.Orgnizations.Add(obj);
                     context.SaveChanges();
                     return true;
@@ -63,247 +65,247 @@ namespace Services.OrgnizationServiecs
                 return false;
             }
         }
-        public bool ModifyOrg(Orgnization o)
+    public bool ModifyOrg(Orgnization o)
+    {
+        try
         {
-            try
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
             {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    Orgnization obj = context.Orgnizations.Where(x => x.Id == o.Id).FirstOrDefault();
-                    obj.Name = o.Name;
-                    obj.CreateDate = o.CreateDate;
-                    obj.DissolutionDate = o.DissolutionDate;
-                    obj.Status = o.Status;
-                    obj.Note = o.Note;
-                    obj.Fax = o.Fax;
-                    obj.Email = o.Email;
-                    obj.Phone = o.Phone;
-                    obj.NumberBussines = o.NumberBussines;
-                    obj.Address = o.Address;
-                    obj.DistrictId = o.DistrictId;
-                    obj.WardId = o.WardId;
-                    obj.ProvinceId = o.ProvinceId;
-                    obj.NationId = o.NationId;
-                    obj.ManagerId = o.ManagerId;
-                    context.SaveChanges();
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
+                Orgnization obj = context.Orgnizations.Where(x => x.Id == o.Id).FirstOrDefault();
+                obj.Name = o.Name;
+                obj.CreateDate = o.CreateDate;
+                obj.DissolutionDate = o.DissolutionDate;
+                obj.Status = o.Status;
+                obj.Note = o.Note;
+                obj.Fax = o.Fax;
+                obj.Email = o.Email;
+                obj.Phone = o.Phone;
+                obj.NumberBussines = o.NumberBussines;
+                obj.Address = o.Address;
+                obj.DistrictId = o.DistrictId;
+                obj.WardId = o.WardId;
+                obj.ProvinceId = o.ProvinceId;
+                obj.NationId = o.NationId;
+                obj.ManagerId = o.ManagerId;
+                context.SaveChanges();
+                return true;
             }
         }
-        public bool DeleteOrg(int OrgId)
+        catch
         {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    Orgnization tobj = new Orgnization();
-                    tobj = context.Orgnizations.Where(x => x.Id == OrgId).FirstOrDefault();
-                    context.Orgnizations.Remove(tobj);
-                    context.SaveChanges();
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
-
-        public bool ActiveOrDeActiveOrg(int OrgId, int status)
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    Orgnization tobj = new Orgnization();
-                    tobj = context.Orgnizations.Where(x => x.Id == OrgId).FirstOrDefault();
-                    tobj.Status = status;
-                    context.SaveChanges();
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public List<Orgnization> GetAllOrgnization()
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    List<Orgnization> list = context.Orgnizations.ToList();
-                    return list;
-                }
-            }
-            catch
-            {
-                return new List<Orgnization>();
-            }
-        }
-
-        public List<Orgnization> GetListOrgByOrgID(int ID)
-        {
-
-            List<Orgnization> list = new List<Orgnization>();
-            DataTable dt = DAOContext.GetListOrgbyOrgID(ID);
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                Orgnization o = new Orgnization();
-                DataRow row = dt.Rows[i];
-                o.Name = row["ORG_NAME"].ToString();
-                o.Code = row["CODE"].ToString();
-                o.Id = Convert.ToInt32(row["ID"].ToString());
-                o.Level = Convert.ToInt32(row["LEVEL_NAME"].ToString());
-                o.ParentId = Convert.ToInt32(row["ParentID"].ToString());
-                list.Add(o);
-            }
-            return list;
-
-        }
-
-        #endregion
-
-        #region Thiet lap vi tri cong viec cho phong ban
-
-        public bool CheckPositionExist(int orgId, int positionId)
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    PositionOrg p = context.PositionOrgs.Where(x => x.OrgId == orgId && x.PositionId == positionId).FirstOrDefault();
-                    if (p != null)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-
-        public List<PositionOrg> GetAllPositionOrg(int index, int size)
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    List<PositionOrg> list = (List<PositionOrg>)context.PositionOrgs.OrderByDescending(x => x.Id).Skip(index * size).Take(size).ToList();
-                    foreach (var item in list)
-                    {
-                        item.Org = context.Orgnizations.Where(x => x.Id == item.OrgId).FirstOrDefault();
-                        item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
-                        item.Position.Title = context.Titles.Where(x => x.Id == item.Position.TitleId).FirstOrDefault();
-                    }
-                    return list;
-                }
-            }
-            catch
-            {
-                return new List<PositionOrg>();
-            }
-        }
-        public bool InsertPositionOrg(PositionOrg T)
-        {
-            try
-            {
-                PositionOrg tobj = new PositionOrg();
-                tobj.PositionId = T.PositionId;
-                tobj.Status = -1;
-                tobj.OrgId = T.OrgId;
-                tobj.Note = T.Note;
-                tobj.CreateBy = T.CreateBy;
-                tobj.CreateDate = DateTime.UtcNow;
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    context.PositionOrgs.Add(tobj);
-                    context.SaveChanges();
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public bool ModifyPositionOrg(PositionOrg T)
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    PositionOrg tobj = context.PositionOrgs.Where(x => x.Id == T.Id).FirstOrDefault();
-                    tobj.PositionId = T.PositionId;
-                    tobj.Note = T.Note;
-                    tobj.OrgId = T.OrgId;
-                    tobj.UpdateBy = T.UpdateBy;
-                    tobj.UpdateDate = DateTime.UtcNow;
-                    context.SaveChanges();
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public bool DeletePositionOrg(List<int> list)
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    foreach (var item in list)
-                    {
-                        PositionOrg tobj = new PositionOrg();
-                        tobj = context.PositionOrgs.Where(x => x.Id == item).FirstOrDefault();
-                        context.PositionOrgs.Remove(tobj);
-                    }
-                    context.SaveChanges();
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public bool ActiveOrDeActivePositionOrg(List<int> list, int status)
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    foreach (var item in list)
-                    {
-                        PositionOrg tobj = new PositionOrg();
-                        tobj = context.PositionOrgs.Where(x => x.Id == item).FirstOrDefault();
-                        tobj.Status = status;
-                    }
-                    context.SaveChanges();
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        #endregion
     }
+    public bool DeleteOrg(int OrgId)
+    {
+        try
+        {
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+            {
+                Orgnization tobj = new Orgnization();
+                tobj = context.Orgnizations.Where(x => x.Id == OrgId).FirstOrDefault();
+                context.Orgnizations.Remove(tobj);
+                context.SaveChanges();
+                return true;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public bool ActiveOrDeActiveOrg(int OrgId, int status)
+    {
+        try
+        {
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+            {
+                Orgnization tobj = new Orgnization();
+                tobj = context.Orgnizations.Where(x => x.Id == OrgId).FirstOrDefault();
+                tobj.Status = status;
+                context.SaveChanges();
+                return true;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public List<Orgnization> GetAllOrgnization()
+    {
+        try
+        {
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+            {
+                List<Orgnization> list = context.Orgnizations.ToList();
+                return list;
+            }
+        }
+        catch
+        {
+            return new List<Orgnization>();
+        }
+    }
+
+    public List<Orgnization> GetListOrgByOrgID(int ID)
+    {
+
+        List<Orgnization> list = new List<Orgnization>();
+        DataTable dt = DAOContext.GetListOrgbyOrgID(ID);
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+            Orgnization o = new Orgnization();
+            DataRow row = dt.Rows[i];
+            o.Name = row["ORG_NAME"].ToString();
+            o.Code = row["CODE"].ToString();
+            o.Id = Convert.ToInt32(row["ID"].ToString());
+            o.Level = Convert.ToInt32(row["LEVEL_NAME"].ToString());
+            o.ParentId = Convert.ToInt32(row["ParentID"].ToString());
+            list.Add(o);
+        }
+        return list;
+
+    }
+
+    #endregion
+
+    #region Thiet lap vi tri cong viec cho phong ban
+
+    public bool CheckPositionExist(int orgId, int positionId)
+    {
+        try
+        {
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+            {
+                PositionOrg p = context.PositionOrgs.Where(x => x.OrgId == orgId && x.PositionId == positionId).FirstOrDefault();
+                if (p != null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+
+    public List<PositionOrg> GetAllPositionOrg(int index, int size)
+    {
+        try
+        {
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+            {
+                List<PositionOrg> list = (List<PositionOrg>)context.PositionOrgs.OrderByDescending(x => x.Id).Skip(index * size).Take(size).ToList();
+                foreach (var item in list)
+                {
+                    item.Org = context.Orgnizations.Where(x => x.Id == item.OrgId).FirstOrDefault();
+                    item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
+                    item.Position.Title = context.Titles.Where(x => x.Id == item.Position.TitleId).FirstOrDefault();
+                }
+                return list;
+            }
+        }
+        catch
+        {
+            return new List<PositionOrg>();
+        }
+    }
+    public bool InsertPositionOrg(PositionOrg T)
+    {
+        try
+        {
+            PositionOrg tobj = new PositionOrg();
+            tobj.PositionId = T.PositionId;
+            tobj.Status = -1;
+            tobj.OrgId = T.OrgId;
+            tobj.Note = T.Note;
+            tobj.CreateBy = T.CreateBy;
+            tobj.CreateDate = DateTime.UtcNow;
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+            {
+                context.PositionOrgs.Add(tobj);
+                context.SaveChanges();
+                return true;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    public bool ModifyPositionOrg(PositionOrg T)
+    {
+        try
+        {
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+            {
+                PositionOrg tobj = context.PositionOrgs.Where(x => x.Id == T.Id).FirstOrDefault();
+                tobj.PositionId = T.PositionId;
+                tobj.Note = T.Note;
+                tobj.OrgId = T.OrgId;
+                tobj.UpdateBy = T.UpdateBy;
+                tobj.UpdateDate = DateTime.UtcNow;
+                context.SaveChanges();
+                return true;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    public bool DeletePositionOrg(List<int> list)
+    {
+        try
+        {
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+            {
+                foreach (var item in list)
+                {
+                    PositionOrg tobj = new PositionOrg();
+                    tobj = context.PositionOrgs.Where(x => x.Id == item).FirstOrDefault();
+                    context.PositionOrgs.Remove(tobj);
+                }
+                context.SaveChanges();
+                return true;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    public bool ActiveOrDeActivePositionOrg(List<int> list, int status)
+    {
+        try
+        {
+            using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+            {
+                foreach (var item in list)
+                {
+                    PositionOrg tobj = new PositionOrg();
+                    tobj = context.PositionOrgs.Where(x => x.Id == item).FirstOrDefault();
+                    tobj.Status = status;
+                }
+                context.SaveChanges();
+                return true;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    #endregion
+}
 }

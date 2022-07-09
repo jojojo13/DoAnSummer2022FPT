@@ -21,13 +21,13 @@ namespace API.Controllers
         private ICommon c = new CommonImpl();
         #region List
 
-        
+
         #region DM chuc danh
         [Authorize]
         [HttpPost("GetAllTitle")]
         public IActionResult GetAllTitle(int index, int size)
         {
-            List<Title> list = p.GetAllTitle(index, size).Where(x=>x.Status==-1).ToList();
+            List<Title> list = p.GetAllTitle(index, size).Where(x => x.Status == -1).ToList();
             var ListResponse = from l in list
                                select new
                                {
@@ -245,7 +245,7 @@ namespace API.Controllers
         [HttpPost("GetAllPosition")]
         public IActionResult GetAllPosition(int index, int size)
         {
-            List<Position> list = p.GetAllPosition(index, size).Where(x=>x.Status==-1).ToList();
+            List<Position> list = p.GetAllPosition(index, size).Where(x => x.Status == -1).ToList();
             var listReturn = from l in list
                              select new
                              {
@@ -304,12 +304,12 @@ namespace API.Controllers
 
         [Authorize(Roles = "1")]
         [HttpPost("ActivePosition")]
-        public IActionResult ActivePosition(List<int>ListID)
+        public IActionResult ActivePosition(List<int> ListID)
         {
             try
             {
-                
-                 var check = p.ActiveOrDeActivePosition(ListID, -1);
+
+                var check = p.ActiveOrDeActivePosition(ListID, -1);
                 if (check)
                 {
                     return Ok(new
@@ -340,7 +340,7 @@ namespace API.Controllers
         {
             try
             {
-               
+
                 var check = p.ActiveOrDeActivePosition(ListID, 0);
                 if (check)
                 {
@@ -440,7 +440,7 @@ namespace API.Controllers
                 });
             }
         }
-                
+
         [Authorize(Roles = "1")]
         [HttpPost("ModifyPosition")]
         public IActionResult ModifyPosition([FromBody] PositionResponse objresponse)
@@ -669,12 +669,24 @@ namespace API.Controllers
                 obj.Phone = objresponse.Mobile;
                 obj.NumberBussines = objresponse.NumberBussines;
                 obj.Address = objresponse.Address;
-                obj.NationId = objresponse.NationID;
-                obj.ProvinceId = objresponse.ProvinceID;
-                obj.DistrictId = objresponse.DistrictID;
-                obj.WardId = objresponse.WardID;
+                if (objresponse.NationID != 0)
+                {
+                    obj.NationId = objresponse.NationID;
+                }
+                if (objresponse.ProvinceID != 0)
+                {
+                    obj.ProvinceId = objresponse.ProvinceID;
+                }
+                if (objresponse.DistrictID != 0)
+                {
+                    obj.DistrictId = objresponse.DistrictID;
+                }
+                if (objresponse.WardID != 0)
+                {
+                    obj.WardId = objresponse.WardID;
+                }
                 obj.CreateBy = a.Employee?.FullName;
-                if (objresponse.ManagerID != 0)
+                if (objresponse.ManagerID != 0 && objresponse.ManagerID != null)
                 {
                     obj.ManagerId = objresponse.ManagerID;
                 }
@@ -779,7 +791,7 @@ namespace API.Controllers
                                  titleCode = l.Position?.Title.Code,
                                  titleId = l.Position?.TitleId,
                                  note = l.Note,
-                                 statusName= l.Status==-1?"Active":"Deactive"
+                                 statusName = l.Status == -1 ? "Active" : "Deactive"
                              };
             if (list.Count > 0)
             {
@@ -951,7 +963,7 @@ namespace API.Controllers
                 tobj.Note = objresponse.Note;
                 tobj.OrgId = objresponse.OrgID;
                 tobj.PositionId = objresponse.positionID;
-                tobj.UpdateBy = "HUNGNX" ;
+                tobj.UpdateBy = "HUNGNX";
                 var check = p.ModifyPositionOrg(tobj);
                 if (check)
                 {

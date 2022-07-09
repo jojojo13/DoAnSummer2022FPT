@@ -103,30 +103,38 @@ namespace API.Controllers
         [HttpPost("CheckTotalQuantity")]
         public IActionResult CheckTotalQuantity(int id, int quantity)
         {
-            RcRequest obj = p.GetRequestByID(id);
-
-            List<RcRequest> list = p.GetListRequestByID(id);
-            int? number = 0;
-            foreach(var item in list)
+            if (id != 0)
             {
-                if(item.Id!=obj.Id)
-                number += item.Number;
+                RcRequest obj = p.GetRequestByID(id);
+                List<RcRequest> list = p.GetListRequestByID(id);
+                int? number = 0;
+                foreach (var item in list)
+                {
+                    if (item.Id != obj.Id)
+                        number += item.Number;
+                }
+                if (quantity + number <= obj.Number)
+                {
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+                }
             }
-            if (quantity + number <= obj.Number)
+            else
             {
                 return Ok(new
                 {
                     Status = true
                 });
             }
-            else
-            {
-                return Ok(new
-                {
-                    Status = false
-                });
-            }
-
         }
 
 
