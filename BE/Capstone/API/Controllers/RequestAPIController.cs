@@ -372,6 +372,7 @@ namespace API.Controllers
                 rc.Status = T.Status;
                 rc.CreateDate = DateTime.Now;
                 rc.CreateBy = a.Employee?.FullName;
+                rc.OtherSkill = T.OtherSkill;
                 var check = p.InsertRequest(rc);
                 return Ok(new
                 {
@@ -416,6 +417,7 @@ namespace API.Controllers
                 rc.UpdateDate = DateTime.Now;
                 rc.UpdateBy = a.Employee?.FullName;
                 rc.HrInchange = T.HrInchange;
+                rc.OtherSkill = T.OtherSkill;
                 var check = p.ModifyRequest(rc);
                 return Ok(new
                 {
@@ -519,7 +521,9 @@ namespace API.Controllers
                     experience = x.YearExperience,
                     level = x.Level,
                     levelName = x.LevelNavigation?.Name,
-                    history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
+                    history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
+                    otherSkillName = x.OtherSkillNavigation?.Name,
+                    otherSkill = x.OtherSkill
                 };
                 return Ok(new
                 {

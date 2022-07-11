@@ -187,6 +187,7 @@ namespace Services.RequestServices
             rc.Comment = T.Comment;
             rc.CreateDate = DateTime.Now;
             rc.CreateBy = T.CreateBy;
+            rc.OtherSkill = T.OtherSkill;
             if (rc.ParentId != null && rc.ParentId > 0)
             {
                 rc.Rank = GetRequestByID((int)rc.ParentId).Rank + 1;
@@ -238,6 +239,7 @@ namespace Services.RequestServices
                     rc.CreateDate = DateTime.Now;
                     rc.CreateBy = T.UpdateBy;
                     rc.HrInchange = T.HrInchange;
+                    rc.OtherSkill = T.OtherSkill;
                     context.SaveChanges();
                     return true;
                 }

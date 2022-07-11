@@ -49,7 +49,6 @@ namespace ModelAuto.Models
         public virtual District DistrictHkNavigation { get; set; }
         public virtual District DistrictLiveNavigation { get; set; }
         public virtual District DistrictObNavigation { get; set; }
-        public virtual OtherList GenderNavigation { get; set; }
         public virtual Nation NationHkNavigation { get; set; }
         public virtual Nation NationLiveNavigation { get; set; }
         public virtual Nation NationObNavigation { get; set; }

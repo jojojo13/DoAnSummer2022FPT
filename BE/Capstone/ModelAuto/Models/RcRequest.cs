@@ -11,6 +11,7 @@ namespace ModelAuto.Models
         {
             RcCandidates = new HashSet<RcCandidate>();
             RcPhaseRequests = new HashSet<RcPhaseRequest>();
+            RcRequestCandidates = new HashSet<RcRequestCandidate>();
         }
 
         public int Id { get; set; }
@@ -38,10 +39,12 @@ namespace ModelAuto.Models
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
         public int? HrInchange { get; set; }
+        public int? OtherSkill { get; set; }
 
         public virtual Employee HrInchangeNavigation { get; set; }
         public virtual OtherList LevelNavigation { get; set; }
         public virtual Orgnization Orgnization { get; set; }
+        public virtual OtherList OtherSkillNavigation { get; set; }
         public virtual Position Position { get; set; }
         public virtual OtherList ProjectNavigation { get; set; }
         public virtual OtherList RequestLevelNavigation { get; set; }
@@ -49,5 +52,6 @@ namespace ModelAuto.Models
         public virtual OtherList TypeNavigation { get; set; }
         public virtual ICollection<RcCandidate> RcCandidates { get; set; }
         public virtual ICollection<RcPhaseRequest> RcPhaseRequests { get; set; }
+        public virtual ICollection<RcRequestCandidate> RcRequestCandidates { get; set; }
     }
 }

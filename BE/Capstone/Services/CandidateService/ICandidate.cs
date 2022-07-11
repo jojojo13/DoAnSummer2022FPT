@@ -98,5 +98,14 @@ namespace Services.CandidateService
 
 
         #endregion
+
+
+        #region "matching request"
+        bool MatchingCandidate(int requestID, List<int> lstCandidateID);
+        List<RcCandidate> GetCandidateByRequest(int requestID);
+        bool  CheckQuantity(int requestID, List<int> lstCandidateID);
+        bool DeleteCandidateRequest(List<int> listID);
+
+        #endregion
     }
 }

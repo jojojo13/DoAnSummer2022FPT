@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.CandidateService
 {
-   public class CandidateImpl: ICandidate
+    public class CandidateImpl : ICandidate
     {
         public List<OtherList> GetOtherListByAttribute(int? ID)
         {
@@ -36,7 +36,7 @@ namespace Services.CandidateService
                 {
                     List<RcCandidate> list = context.RcCandidates.ToList();
                     RcCandidate r1 = new RcCandidate();
-                    r1.Code =c.autoGenCode3character("Rc_Candidate", "UV");
+                    r1.Code = c.autoGenCode3character("Rc_Candidate", "UV");
                     r1.FullName = r.FullName;
                     r1.StepCv = 1;
                     r1.CreateDate = DateTime.Now;
@@ -137,7 +137,7 @@ namespace Services.CandidateService
             try
             {
                 using var context = new CapstoneProject2022Context();
-                list = context.RcCandidates.Where(x=>x.RecordStatus==1).Skip(index * size).Take(size).ToList();
+                list = context.RcCandidates.Where(x => x.RecordStatus == 1).Skip(index * size).Take(size).ToList();
             }
             catch
             {
@@ -281,7 +281,7 @@ namespace Services.CandidateService
             }
         }
 
-       public List<OtherListType> GetSkillType(int type)
+        public List<OtherListType> GetSkillType(int type)
         {
             List<OtherListType> list = new List<OtherListType>();
             try
@@ -322,7 +322,6 @@ namespace Services.CandidateService
                 return false;
             }
         }
-
         public List<RcCandidateExp> GetCandidateExpbyID(int id)
         {
             List<RcCandidateExp> list = new List<RcCandidateExp>();
@@ -338,5 +337,106 @@ namespace Services.CandidateService
             }
             return list;
         }
+
+
+        #region matching REquesst
+        public bool MatchingCandidate(int requestID, List<int> lstCandidateID)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    if (requestID != 0 && lstCandidateID.Count > 0)
+                    {
+                        foreach (var id in lstCandidateID)
+                        {
+                            RcRequestCandidate obj = new RcRequestCandidate();
+                            obj.CandidateId = id;
+                            obj.RequestId = requestID;
+                            context.RcRequestCandidates.Add(obj);
+                        }
+                        context.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public List<RcCandidate> GetCandidateByRequest(int requestID)
+        {
+            List<RcCandidate> returrnList = new List<RcCandidate>();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    if (requestID != 0)
+                    {
+                        List<RcRequestCandidate> listCandidate = context.RcRequestCandidates.Where(x => x.RequestId == requestID).ToList();
+                        foreach (var item in listCandidate)
+                        {
+                            RcCandidate obj = new RcCandidate();
+
+                            //Viết thêm filter vào đây (để sau)
+                            obj = context.RcCandidates.Where(x => x.Id == item.CandidateId).FirstOrDefault();
+                            returrnList.Add(obj);
+                        }
+                    }
+                }
+                return returrnList;
+            }
+            catch
+            {
+                return returrnList;
+            }
+        }
+        public bool CheckQuantity(int requestID, List<int> lstCandidateID)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    if (requestID != 0)
+                    {
+                        int count = lstCandidateID.Count;
+                        int countInList = context.RcRequestCandidates.Where(x => x.RequestId == requestID).Count();
+                        RcRequest request = context.RcRequests.Where(x => x.Id == requestID).FirstOrDefault();
+                        if(count+countInList> request.Number)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool DeleteCandidateRequest(List<int> listID)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+
+                    foreach (var id in listID)
+                    {
+                        RcRequestCandidate obj = context.RcRequestCandidates.Where(x => x.Id == id).FirstOrDefault();
+                        context.RcRequestCandidates.Remove(obj);
+                    }
+                    context.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }

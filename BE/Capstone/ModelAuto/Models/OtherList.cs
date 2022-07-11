@@ -28,7 +28,6 @@ namespace ModelAuto.Models
             PositionLanguageNavigations = new HashSet<Position>();
             PositionLearningLevelNavigations = new HashSet<Position>();
             PositionMajorGroupNavigations = new HashSet<Position>();
-            RcCandidateCvs = new HashSet<RcCandidateCv>();
             RcCandidateEduDeeGree1Navigations = new HashSet<RcCandidateEdu>();
             RcCandidateEduDeeGree2Navigations = new HashSet<RcCandidateEdu>();
             RcCandidateEduDeeGree3Navigations = new HashSet<RcCandidateEdu>();
@@ -44,6 +43,7 @@ namespace ModelAuto.Models
             RcCandidateSkillLevelNavigations = new HashSet<RcCandidateSkill>();
             RcCandidateSkillTypeNavigations = new HashSet<RcCandidateSkill>();
             RcRequestLevelNavigations = new HashSet<RcRequest>();
+            RcRequestOtherSkillNavigations = new HashSet<RcRequest>();
             RcRequestProjectNavigations = new HashSet<RcRequest>();
             RcRequestRequestLevelNavigations = new HashSet<RcRequest>();
             RcRequestResultStatusContactNavigations = new HashSet<RcRequestResult>();
@@ -87,7 +87,6 @@ namespace ModelAuto.Models
         public virtual ICollection<Position> PositionLanguageNavigations { get; set; }
         public virtual ICollection<Position> PositionLearningLevelNavigations { get; set; }
         public virtual ICollection<Position> PositionMajorGroupNavigations { get; set; }
-        public virtual ICollection<RcCandidateCv> RcCandidateCvs { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEduDeeGree1Navigations { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEduDeeGree2Navigations { get; set; }
         public virtual ICollection<RcCandidateEdu> RcCandidateEduDeeGree3Navigations { get; set; }
@@ -103,6 +102,7 @@ namespace ModelAuto.Models
         public virtual ICollection<RcCandidateSkill> RcCandidateSkillLevelNavigations { get; set; }
         public virtual ICollection<RcCandidateSkill> RcCandidateSkillTypeNavigations { get; set; }
         public virtual ICollection<RcRequest> RcRequestLevelNavigations { get; set; }
+        public virtual ICollection<RcRequest> RcRequestOtherSkillNavigations { get; set; }
         public virtual ICollection<RcRequest> RcRequestProjectNavigations { get; set; }
         public virtual ICollection<RcRequest> RcRequestRequestLevelNavigations { get; set; }
         public virtual ICollection<RcRequestResult> RcRequestResultStatusContactNavigations { get; set; }

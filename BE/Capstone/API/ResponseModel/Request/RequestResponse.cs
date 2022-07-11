@@ -32,6 +32,7 @@ namespace API.ResponseModel.Request
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
         public int? HrInchange { get; set; }
+        public int? OtherSkill { get; set; }
     }
 
     public class CommentResponse

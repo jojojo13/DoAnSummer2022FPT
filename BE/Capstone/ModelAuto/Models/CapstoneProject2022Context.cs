@@ -41,6 +41,7 @@ namespace ModelAuto.Models
         public virtual DbSet<RcCandidateSkill> RcCandidateSkills { get; set; }
         public virtual DbSet<RcPhaseRequest> RcPhaseRequests { get; set; }
         public virtual DbSet<RcRequest> RcRequests { get; set; }
+        public virtual DbSet<RcRequestCandidate> RcRequestCandidates { get; set; }
         public virtual DbSet<RcRequestExam> RcRequestExams { get; set; }
         public virtual DbSet<RcRequestExamResult> RcRequestExamResults { get; set; }
         public virtual DbSet<RcRequestHistory> RcRequestHistories { get; set; }
@@ -969,10 +970,6 @@ namespace ModelAuto.Models
                     .WithMany(p => p.RcCandidateCvDistrictObNavigations)
                     .HasForeignKey(d => d.DistrictOb);
 
-                entity.HasOne(d => d.GenderNavigation)
-                    .WithMany(p => p.RcCandidateCvs)
-                    .HasForeignKey(d => d.Gender);
-
                 entity.HasOne(d => d.NationHkNavigation)
                     .WithMany(p => p.RcCandidateCvNationHkNavigations)
                     .HasForeignKey(d => d.NationHk);
@@ -1324,6 +1321,11 @@ namespace ModelAuto.Models
                     .WithMany(p => p.RcRequests)
                     .HasForeignKey(d => d.OrgnizationId);
 
+                entity.HasOne(d => d.OtherSkillNavigation)
+                    .WithMany(p => p.RcRequestOtherSkillNavigations)
+                    .HasForeignKey(d => d.OtherSkill)
+                    .HasConstraintName("FK_Rc_Request_Other_List");
+
                 entity.HasOne(d => d.Position)
                     .WithMany(p => p.RcRequests)
                     .HasForeignKey(d => d.PositionId);
@@ -1343,6 +1345,25 @@ namespace ModelAuto.Models
                 entity.HasOne(d => d.TypeNavigation)
                     .WithMany(p => p.RcRequestTypeNavigations)
                     .HasForeignKey(d => d.Type);
+            });
+
+            modelBuilder.Entity<RcRequestCandidate>(entity =>
+            {
+                entity.ToTable("RC_Request_Candidate");
+
+                entity.Property(e => e.CandidateId).HasColumnName("CandidateID");
+
+                entity.Property(e => e.RequestId).HasColumnName("RequestID");
+
+                entity.HasOne(d => d.Candidate)
+                    .WithMany(p => p.RcRequestCandidates)
+                    .HasForeignKey(d => d.CandidateId)
+                    .HasConstraintName("FK_RC_Request_Candidate_Rc_Candidate");
+
+                entity.HasOne(d => d.Request)
+                    .WithMany(p => p.RcRequestCandidates)
+                    .HasForeignKey(d => d.RequestId)
+                    .HasConstraintName("FK_RC_Request_Candidate_Rc_Request");
             });
 
             modelBuilder.Entity<RcRequestExam>(entity =>

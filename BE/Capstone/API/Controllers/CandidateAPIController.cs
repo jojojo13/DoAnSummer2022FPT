@@ -215,7 +215,7 @@ namespace API.Controllers
                 c.DistrictLive = T.DistrictLive;
                 c.WardLive = T.WardLive;
                 // get edu
-               c.Major = edu.Major1;
+                c.Major = edu.Major1;
                 c.Graduate = edu.Graduate1;
                 c.School = edu.School1;
                 c.Gpa = edu.Gpa1;
@@ -254,6 +254,10 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
+        //[HttpPost("MatchingCandidate")]
+        //public IActionResult MatchingCandidate()
+        //{
 
-    }
+        //}
+    }                                                                                                                                                                                                                                                                                                   
 }
