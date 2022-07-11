@@ -659,7 +659,10 @@ namespace API.Controllers
                 obj.Status = -1;
                 obj.CreateDate = objresponse.CreateDate;
                 obj.Effectdate = objresponse.EfectDate;
-                obj.DissolutionDate = objresponse.DissolutionDate;
+                if (!objresponse.DissolutionDate.ToString("yyyy").Equals("1000"))
+                {
+                    obj.DissolutionDate = objresponse.DissolutionDate;
+                } 
                 obj.ParentId = objresponse.ParentID;
                 obj.CreateDate = objresponse.CreateDate;
                 obj.DissolutionDate = objresponse.DissolutionDate;
