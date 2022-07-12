@@ -143,23 +143,23 @@ namespace Services.RequestServices
                     {
                         list = list.Where(x => x.Position.Name.Contains(PositionName)).ToList();
                     }
-                    if (Status.Trim().Equals("Draft"))
+                    if (Status.Trim().ToLower().Equals("draft"))
                     {
                         list = list.Where(x => x.Status == 1).ToList();
                     }
-                    if (Status.Trim().Equals("Submited"))
+                    if (Status.Trim().ToLower().Equals("submited"))
                     {
                         list = list.Where(x => x.Status == 2).ToList();
                     }
-                    if (Status.Trim().Equals("Cancel"))
+                    if (Status.Trim().ToLower().Equals("cancel"))
                     {
                         list = list.Where(x => x.Status == 3).ToList();
                     }
-                    if (Status.Trim().Equals("Approved"))
+                    if (Status.Trim().ToLower().Equals("approved"))
                     {
                         list = list.Where(x => x.Status == 4).ToList();
                     }
-                    if (Status.Trim().Equals("Rejected"))
+                    if (Status.Trim().ToLower().Equals("rejected"))
                     {
                         list = list.Where(x => x.Status == 5).ToList();
                     }
