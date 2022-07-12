@@ -11,6 +11,7 @@ namespace Services.RequestServices
     {
         #region RcRequest
         List<RcRequest> GetAllRequest(int index, int size);
+        List<RcRequest> GetAllRequestByFillter( int index, int size, string Code, string Name, string OrgName, string PositionName, int Quantity, string Status,  string HrInchange, DateTime CreateOn, DateTime DeadLine);
         List<RcRequest> GetChildRequestById(int ID);
         bool InsertRequest(RcRequest T);
         bool ModifyRequest(RcRequest T);

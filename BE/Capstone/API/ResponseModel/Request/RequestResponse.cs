@@ -35,6 +35,21 @@ namespace API.ResponseModel.Request
         public int? OtherSkill { get; set; }
     }
 
+    public class RequestFillterResponse
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public string OrgName { get; set; }
+        public string PositionName { get; set; }
+        public int Quantity { get; set; }
+        public DateTime CreateOn { get; set; }
+        public DateTime DeadLine { get; set; }
+        public string HrInchange { get; set; }
+        public string Status { get; set; }
+        public int index { get; set; }
+        public int size { get; set; }
+    }
+
     public class CommentResponse
     {
         public int Id { get; set; }

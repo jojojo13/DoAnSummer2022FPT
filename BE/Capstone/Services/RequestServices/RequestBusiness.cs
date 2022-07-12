@@ -111,6 +111,89 @@ namespace Services.RequestServices
             }
         }
 
+
+
+        public List<RcRequest> GetAllRequestByFillter(int index, int size, string Code, string Name, string OrgName, string PositionName, int Quantity, string Status, string HrInchange, DateTime CreateOn, DateTime DeadLine)
+        {
+
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    List<RcRequest> list = context.RcRequests.Where(x => x.Rank == 1).ToList().OrderByDescending(x => x.Id).OrderBy(x => x.Id).ToList();
+                    foreach (var item in list)
+                    {
+                        item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
+                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();
+                        item.ProjectNavigation = context.OtherLists.Where(x => x.Id == item.Project).FirstOrDefault();
+                        item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
+                        item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
+                        item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
+                        item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
+                        item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
+                    }
+                   
+                    if (!Code.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.Code.Contains(Code)).ToList();
+                    }
+                    if (!Name.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.Name.Contains(Name)).ToList();
+                    }
+                    if (!OrgName.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.Orgnization.Name.Contains(OrgName)).ToList();
+                    }
+                    if (!PositionName.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.Position.Name.Contains(PositionName)).ToList();
+                    }
+                    if (Status.Trim().Equals("Draft"))
+                    {
+                        list = list.Where(x => x.Status == 1).ToList();
+                    }
+                    if (Status.Trim().Equals("Submited"))
+                    {
+                        list = list.Where(x => x.Status == 2).ToList();
+                    }
+                    if (Status.Trim().Equals("Cancel"))
+                    {
+                        list = list.Where(x => x.Status == 3).ToList();
+                    }
+                    if (Status.Trim().Equals("Approved"))
+                    {
+                        list = list.Where(x => x.Status == 4).ToList();
+                    }
+                    if (Status.Trim().Equals("Rejected"))
+                    {
+                        list = list.Where(x => x.Status == 5).ToList();
+                    }
+                    if (!HrInchange.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.HrInchangeNavigation.FullName.Contains(HrInchange)).ToList();
+                    }
+                    if (Quantity!=0)
+                    {
+                        list = list.Where(x => x.Number== Quantity).ToList();
+                    }
+                    if (CreateOn.Year!=1000)
+                    {
+                        list = list.Where(x => x.EffectDate== CreateOn).ToList();
+                    }
+                    if (DeadLine.Year != 1000)
+                    {
+                        list = list.Where(x => x.ExpireDate == DeadLine).ToList();
+                    }
+                    return list.Skip(index * size).Take(size).ToList();
+                }
+            }
+            catch
+            {
+                return new List<RcRequest>();
+            }
+        }
+
         public List<RcRequest> GetChildRequestById(int ID)
         {
             try

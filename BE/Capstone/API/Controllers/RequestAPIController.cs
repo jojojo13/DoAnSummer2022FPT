@@ -100,6 +100,83 @@ namespace API.Controllers
         }
 
 
+
+        [Authorize(Roles = "1,2,3")]
+        [HttpPost("GetAllRequestByFilter")]
+        public IActionResult GetAllRequestByFilter([FromBody] RequestFillterResponse obj)
+        {
+            Account a = GetCurrentUser();
+            List<RcRequest> list = p.GetAllRequestByFillter(obj.index, obj.size, obj.Code, obj.Name, obj.OrgName,obj.PositionName, obj.Quantity, obj.Status, obj.HrInchange, obj.CreateOn, obj.DeadLine);
+            var listReturn = from x in list
+                             select new
+                             {
+                                 id = x.Id,
+                                 code = x.Code,
+                                 name = x.Name,
+                                 requestLevel = x.RequestLevelNavigation?.Name,
+                                 department = x.Orgnization?.Name,
+                                 position = x.Position?.Name,
+                                 positionID = x.PositionId,
+                                 quantity = x.Number,
+                                 createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
+                                 Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
+                                 Office = x.Orgnization?.Address,
+                                 StatusID = x.Status,
+                                 Status = x.Status == 1 ? "Draft" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" : x.Status == 5 ? "Rejected" : "",
+                                 parentId = x.ParentId,
+                                 rank = x.Rank,
+                                 note = x.Note,
+                                 comment = x.Comment,
+                                 HrInchangeId = x.HrInchange,
+                                 HrInchange = x.HrInchangeNavigation?.FullName == null ? "" : x.HrInchangeNavigation?.FullName,
+                                 signID = x.SignId,
+                                 typeID = x.RequestLevel,
+                                 typename = x.RequestLevelNavigation?.Name,
+                                 OrgnizationName = x.Orgnization?.Name,
+                                 OrgnizationID = x.OrgnizationId,
+                                 projectname = x.ProjectNavigation?.Name,
+                                 projectID = x.Project,
+                                 experience = x.YearExperience,
+                                 level = x.Level,
+                                 levelName = x.LevelNavigation?.Name,
+                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
+                             };
+            if (list.Count > 0)
+            {
+                //phòng điều hành quản lý sẽ dk view all
+                if (a.Rule == 1)
+                {
+                    return Ok(new
+                    {
+                        TotalItem = c.getTotalRecord("Rc_Request", true),
+                        Data = listReturn.Where(x => x.StatusID == 2 || x.StatusID == 4 || x.StatusID == 5).ToList()
+                    });
+                }
+                //view những bản ghi dược phân quyền cho HR
+                else if (a.Rule == 3)
+                {
+                    return Ok(new
+                    {
+                        TotalItem = p.getTotalRequestRecord("hrInchange", a.EmployeeId),
+                        Data = listReturn.Where(x => x.HrInchangeId == a.EmployeeId)
+                    });
+                }
+                //view những bản ghi dược phân quyền cho người tạo bản ghi)
+                else
+                {
+                    return Ok(new
+                    {
+                        TotalItem = p.getTotalRequestRecord("signID", a.EmployeeId),
+                        Data = listReturn.Where(x => x.signID == a.EmployeeId)
+                    });
+
+                }
+
+            }
+            return StatusCode(200, "List is Null");
+        }
+
+
         [HttpPost("CheckTotalQuantity")]
         public IActionResult CheckTotalQuantity(int id, int quantity)
         {
