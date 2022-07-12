@@ -54,4 +54,7 @@ namespace API.ResponseModel.Candidate
     }
 
 
+    
+
+
 }

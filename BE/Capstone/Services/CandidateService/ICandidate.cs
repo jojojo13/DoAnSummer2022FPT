@@ -96,9 +96,11 @@ namespace Services.CandidateService
 
         List<OtherListType> GetSkillType(int type);
 
-
+        Province GetLocation(int id);
         #endregion
-
+        string GetSkill(int candidateID);
+        string Position(int candidateID);
+        string Exp(int candidateID);
 
         #region "matching request"
         bool MatchingCandidate(int requestID, List<int> lstCandidateID);

@@ -437,6 +437,101 @@ namespace Services.CandidateService
                 return false;
             }
         }
+
+        public Province GetLocation(int id)
+        {
+            Province p = new Province();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    p= context.Provinces.Where(x=>x.Id== id).SingleOrDefault();
+                    return p;
+                }
+            }
+            catch
+            {
+                return p;
+            }
+        }
+
+        public string GetSkill(int candidateID)
+        {
+            string skill="";
+            try {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcCandidateSkill> list = context.RcCandidateSkills.Where(x => x.RcCandidateId == candidateID).ToList();
+                    foreach(RcCandidateSkill item in list)
+                    {
+                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).SingleOrDefault();
+                        if(item.TypeNavigation != null)
+                        {
+                            skill += item.TypeNavigation.Name+",";
+                        }
+                    }
+                }
+                return skill;
+
+            } catch
+            {
+                return null;
+            }
+        }
+
+        public string Position(int candidateID)
+        {
+            string position = "";
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
+                    if (list.Count == 0)
+                    {
+                        position = "Chua co";
+                    }
+                    else
+                    {
+                        position = list.Take(1).FirstOrDefault().Position;
+                       
+
+                    }
+                }
+            }
+            catch
+            {
+                position = "";
+            }
+            return position;
+        }
+
+        public string Exp(int candidateID)
+        {
+            string exp = "";
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
+                    if (list.Count == 0)
+                    {
+                        exp = "Chua co";
+                    }
+                    else
+                    {
+                        exp = list.Take(1).FirstOrDefault().Time;
+
+
+                    }
+                }
+            }
+            catch
+            {
+                exp = "";
+            }
+            return exp;
+        }
         #endregion
     }
 }
