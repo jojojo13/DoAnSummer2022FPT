@@ -58,7 +58,10 @@ namespace Services.CandidateService
         /// </summary>
         /// <returns></returns>
 
-        List<RcCandidate> GetAllCandidate(int page, int total);
+        List<RcCandidate> GetAllCandidate(int page, int total,int status);
+
+        List<RcCandidate> GetAllCandidate(int status);
+
         /// <summary>
         /// Lay ra tat ca cac candidate co step khac nhau
         /// </summary>

@@ -263,8 +263,9 @@ namespace API.Controllers
         [HttpPost("GetAllCandidate")]
         public IActionResult GetAllCandidate(int index, int size)
         {
-            List<RcCandidate> list1 = rc.GetAllCandidate(index, size);
-            var list = from c in list1
+            List<RcCandidate> list = rc.GetAllCandidate( 1);
+            List<RcCandidate> list1 = rc.GetAllCandidate(index, size,1);
+            var list2 = from c in list1
                        let k1 = rc.GetSkill(c.Id) 
                        select new
                        {
@@ -284,7 +285,39 @@ namespace API.Controllers
                 return Ok(new
                 {
                     TotalItem = list.ToList().Count,
-                    Data = list
+                    Data = list2
+                });
+            }
+            return StatusCode(200, "List is Null");
+
+        }
+
+        [HttpPost("GetAllCandidateDraff")]
+        public IActionResult GetAllCandidateDraff(int index, int size)
+        {
+            List<RcCandidate> list = rc.GetAllCandidate(0);
+            List<RcCandidate> list1 = rc.GetAllCandidate(index, size, 0);
+            var list2 = from c in list1
+                        let k1 = rc.GetSkill(c.Id)
+                        select new
+                        {
+                            ID = c.Id,
+                            Name = c.FullName,
+                            Dob = rc.GetCandidateCVbyID(c.Id).Dob,
+                            Phone = rc.GetCandidateCVbyID(c.Id).Phone,
+                            Email = rc.GetCandidateCVbyID(c.Id).Email,
+                            Location = rc.GetLocation((int)rc.GetCandidateCVbyID(c.Id).PorvinceLive).Name,
+                            Position = rc.Position(c.Id),
+                            YearExp = rc.Exp(c.Id),
+                            Language = k1
+
+                        };
+            if (list.ToList().Count > 0)
+            {
+                return Ok(new
+                {
+                    TotalItem = list.ToList().Count,
+                    Data = list2
                 });
             }
             return StatusCode(200, "List is Null");

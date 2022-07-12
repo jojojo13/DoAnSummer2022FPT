@@ -131,13 +131,28 @@ namespace Services.CandidateService
             }
         }
 
-        public List<RcCandidate> GetAllCandidate(int index, int size)
+        public List<RcCandidate> GetAllCandidate(int index, int size, int status)
         {
             List<RcCandidate> list = new List<RcCandidate>();
             try
             {
                 using var context = new CapstoneProject2022Context();
-                list = context.RcCandidates.Where(x => x.RecordStatus == 1).Skip(index * size).Take(size).ToList();
+                list = context.RcCandidates.Where(x => x.RecordStatus == status).Skip(index * size).Take(size).ToList();
+            }
+            catch
+            {
+
+            }
+            return list;
+        }
+
+        public List<RcCandidate> GetAllCandidate( int status)
+        {
+            List<RcCandidate> list = new List<RcCandidate>();
+            try
+            {
+                using var context = new CapstoneProject2022Context();
+                list = context.RcCandidates.Where(x => x.RecordStatus == status).ToList();
             }
             catch
             {
