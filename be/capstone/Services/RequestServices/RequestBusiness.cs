@@ -165,6 +165,7 @@ namespace Services.RequestServices
                     }
                     if (!HrInchange.Trim().Equals(""))
                     {
+                        list = list.Where(x => x.HrInchange != null).ToList();
                         list = list.Where(x => x.HrInchangeNavigation.FullName.Contains(HrInchange)).ToList();
                     }
                     if (Quantity!=0)

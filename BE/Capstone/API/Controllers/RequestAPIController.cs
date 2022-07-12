@@ -177,7 +177,10 @@ namespace API.Controllers
                 }
 
             }
-            return StatusCode(200, "List is Null");
+            return Ok(new
+            {
+                 message = "Do not have record"
+            });
         }
 
 
