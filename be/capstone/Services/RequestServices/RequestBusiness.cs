@@ -95,7 +95,6 @@ namespace Services.RequestServices
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
                         item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
-                        item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
                         item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
                         item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
                     }
@@ -122,7 +121,6 @@ namespace Services.RequestServices
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
                         item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
-                        item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
                         item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
                         item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
                     }
@@ -205,7 +203,6 @@ namespace Services.RequestServices
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
                         item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
-                        item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
                         item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
                         item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
                     }
