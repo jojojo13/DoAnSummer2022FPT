@@ -58,7 +58,10 @@ namespace Services.CandidateService
         /// </summary>
         /// <returns></returns>
 
-        List<RcCandidate> GetAllCandidate(int page, int total);
+        List<RcCandidate> GetAllCandidate(int page, int total,int status);
+
+        List<RcCandidate> GetAllCandidate(int status);
+
         /// <summary>
         /// Lay ra tat ca cac candidate co step khac nhau
         /// </summary>
@@ -96,9 +99,11 @@ namespace Services.CandidateService
 
         List<OtherListType> GetSkillType(int type);
 
-
+        Province GetLocation(int id);
         #endregion
-
+        string GetSkill(int candidateID);
+        string Position(int candidateID);
+        string Exp(int candidateID);
 
         #region "matching request"
         bool MatchingCandidate(int requestID, List<int> lstCandidateID);

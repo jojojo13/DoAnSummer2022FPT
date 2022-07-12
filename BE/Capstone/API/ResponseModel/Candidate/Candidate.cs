@@ -59,4 +59,7 @@ namespace API.ResponseModel.Candidate
         public List<int> lstCandidateID { get; set; }
     }
 
+    
+
+
 }
