@@ -46,6 +46,7 @@ namespace API.ResponseModel.Request
         public DateTime DeadLine { get; set; }
         public string HrInchange { get; set; }
         public string Status { get; set; }
+        public string OtherSkill { get; set; }
         public int index { get; set; }
         public int size { get; set; }
     }
