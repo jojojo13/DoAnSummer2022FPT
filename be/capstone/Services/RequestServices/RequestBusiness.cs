@@ -94,13 +94,10 @@ namespace Services.RequestServices
                     foreach (var item in list)
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
-                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();
-                        item.ProjectNavigation = context.OtherLists.Where(x => x.Id == item.Project).FirstOrDefault();
                         item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
                         item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
-                        item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
-                        item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
                         item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
+                        item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
                     }
                     return list;
                 }
@@ -124,13 +121,10 @@ namespace Services.RequestServices
                     foreach (var item in list)
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
-                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();
-                        item.ProjectNavigation = context.OtherLists.Where(x => x.Id == item.Project).FirstOrDefault();
                         item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
                         item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
-                        item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
-                        item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
                         item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
+                        item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
                     }
                    
                     if (!Code.Trim().Equals(""))
@@ -204,13 +198,10 @@ namespace Services.RequestServices
                     foreach (var item in list)
                     {
                         item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
-                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();
-                        item.ProjectNavigation = context.OtherLists.Where(x => x.Id == item.Project).FirstOrDefault();
                         item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
                         item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
-                        item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
-                        item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
                         item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
+                        item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
                     }
                     return list;
                 }
@@ -234,9 +225,9 @@ namespace Services.RequestServices
                     item.ProjectNavigation = context.OtherLists.Where(x => x.Id == item.Project).FirstOrDefault();
                     item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
                     item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
-                    item.RequestLevelNavigation = context.OtherLists.Where(x => x.Id == item.RequestLevel).FirstOrDefault();
                     item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
                     item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
+                    item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
                     return item;
                 }
             }

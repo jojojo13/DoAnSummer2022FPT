@@ -62,7 +62,9 @@ namespace API.Controllers
                                  experience = x.YearExperience,
                                  level = x.Level,
                                  levelName = x.LevelNavigation?.Name,
-                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
+                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
+                                 otherSkill= x.OtherSkill,
+                                 otherSkillname= x.OtherSkillNavigation?.Name
                              };
             if (list.Count > 0)
             {
@@ -139,7 +141,9 @@ namespace API.Controllers
                                  experience = x.YearExperience,
                                  level = x.Level,
                                  levelName = x.LevelNavigation?.Name,
-                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
+                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
+                                 otherSkill = x.OtherSkill,
+                                 otherSkillname = x.OtherSkillNavigation?.Name
                              };
             if (list.Count > 0)
             {
@@ -252,7 +256,10 @@ namespace API.Controllers
                                  experience = x.YearExperience,
                                  level = x.Level,
                                  levelName = x.LevelNavigation?.Name,
-                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy")
+                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
+                                 otherSkill = x.OtherSkill,
+                                 otherSkillname = x.OtherSkillNavigation?.Name
+
                              };
             if (list.Count > 0)
             {
@@ -599,8 +606,8 @@ namespace API.Controllers
                     level = x.Level,
                     levelName = x.LevelNavigation?.Name,
                     history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
-                    otherSkillName = x.OtherSkillNavigation?.Name,
-                    otherSkill = x.OtherSkill
+                    otherSkill = x.OtherSkill,
+                    otherSkillname = x.OtherSkillNavigation?.Name
                 };
                 return Ok(new
                 {
@@ -615,14 +622,6 @@ namespace API.Controllers
                 }); ;
             }
         }
-        #endregion
-
-
-
-        #region "màn Thêm mới request"
-
-
-
         #endregion
     }
 }

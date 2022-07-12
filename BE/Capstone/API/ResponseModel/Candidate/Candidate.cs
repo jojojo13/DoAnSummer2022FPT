@@ -53,5 +53,10 @@ namespace API.ResponseModel.Candidate
 
     }
 
+    public class MatchingResponse
+    {
+        public int RequestID { get; set; }
+        public List<int> lstCandidateID { get; set; }
+    }
 
 }
