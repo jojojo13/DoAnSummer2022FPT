@@ -108,7 +108,7 @@ namespace API.Controllers
         public IActionResult GetAllRequestByFilter([FromBody] RequestFillterResponse obj)
         {
             Account a = GetCurrentUser();
-            List<RcRequest> list = p.GetAllRequestByFillter(obj.index, obj.size, obj.Code, obj.Name, obj.OrgName,obj.PositionName, obj.Quantity, obj.Status, obj.HrInchange, obj.CreateOn, obj.DeadLine);
+            List<RcRequest> list = p.GetAllRequestByFillter(obj.index, obj.size, obj.Code, obj.Name, obj.OrgName,obj.PositionName, obj.Quantity, obj.Status, obj.HrInchange, obj.CreateOn, obj.DeadLine, obj.OtherSkill);
             var listReturn = from x in list
                              select new
                              {

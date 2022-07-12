@@ -110,7 +110,7 @@ namespace Services.RequestServices
 
 
 
-        public List<RcRequest> GetAllRequestByFillter(int index, int size, string Code, string Name, string OrgName, string PositionName, int Quantity, string Status, string HrInchange, DateTime CreateOn, DateTime DeadLine)
+        public List<RcRequest> GetAllRequestByFillter(int index, int size, string Code, string Name, string OrgName, string PositionName, int Quantity, string Status, string HrInchange, DateTime CreateOn, DateTime DeadLine, string otherSkill)
         {
 
             try
@@ -165,6 +165,7 @@ namespace Services.RequestServices
                     }
                     if (!HrInchange.Trim().Equals(""))
                     {
+                        list = list.Where(x => x.HrInchange != null).ToList();
                         list = list.Where(x => x.HrInchangeNavigation.FullName.Contains(HrInchange)).ToList();
                     }
                     if (Quantity!=0)
@@ -179,6 +180,11 @@ namespace Services.RequestServices
                     {
                         list = list.Where(x => x.ExpireDate?.ToString("dd/MM/YYYY") == DeadLine.ToString("dd/MM/YYYY")).ToList();
                     }
+                    if (!otherSkill.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.OtherSkill != null).ToList();
+                        list = list.Where(x => x.OtherSkillNavigation.Name.Contains(otherSkill)).ToList();
+                    } 
                     return list.Skip(index * size).Take(size).ToList();
                 }
             }
