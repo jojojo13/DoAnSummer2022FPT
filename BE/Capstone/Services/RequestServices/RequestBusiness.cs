@@ -173,11 +173,11 @@ namespace Services.RequestServices
                     }
                     if (CreateOn.Year!=1000)
                     {
-                        list = list.Where(x => x.EffectDate== CreateOn).ToList();
+                        list = list.Where(x => x.EffectDate?.ToString("dd/MM/YYYY")==CreateOn.ToString("dd/MM/YYYY")).ToList();
                     }
                     if (DeadLine.Year != 1000)
                     {
-                        list = list.Where(x => x.ExpireDate == DeadLine).ToList();
+                        list = list.Where(x => x.ExpireDate?.ToString("dd/MM/YYYY") == DeadLine.ToString("dd/MM/YYYY")).ToList();
                     }
                     return list.Skip(index * size).Take(size).ToList();
                 }
