@@ -63,8 +63,8 @@ namespace API.Controllers
                                  level = x.Level,
                                  levelName = x.LevelNavigation?.Name,
                                  history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
-                                 otherSkill= x.OtherSkill,
-                                 otherSkillname= x.OtherSkillNavigation?.Name
+                                 otherSkill = x.OtherSkill,
+                                 otherSkillname = x.OtherSkillNavigation?.Name
                              };
             if (list.Count > 0)
             {
@@ -108,7 +108,7 @@ namespace API.Controllers
         public IActionResult GetAllRequestByFilter([FromBody] RequestFillterResponse obj)
         {
             Account a = GetCurrentUser();
-            List<RcRequest> list = p.GetAllRequestByFillter(obj.index, obj.size, obj.Code, obj.Name, obj.OrgName,obj.PositionName, obj.Quantity, obj.Status, obj.HrInchange, obj.CreateOn, obj.DeadLine, obj.OtherSkill);
+            List<RcRequest> list = p.GetAllRequestByFillter(obj.index, obj.size, obj.Code, obj.Name, obj.OrgName, obj.PositionName, obj.Quantity, obj.Status, obj.HrInchange, obj.CreateOn, obj.DeadLine, obj.OtherSkill);
             var listReturn = from x in list
                              select new
                              {
@@ -179,7 +179,7 @@ namespace API.Controllers
             }
             return Ok(new
             {
-                 message = "Do not have record"
+                message = "Do not have record"
             });
         }
 
@@ -281,7 +281,7 @@ namespace API.Controllers
             try
             {
                 Account account = GetCurrentUser();
-                var check = p.ActiveOrDeActiveRequest(listID,3, account.Employee?.FullName);
+                var check = p.ActiveOrDeActiveRequest(listID, 3, account.Employee?.FullName);
                 if (check)
                 {
                     return Ok(new
@@ -345,7 +345,7 @@ namespace API.Controllers
             try
             {
                 Account account = GetCurrentUser();
-                var check = p.ActiveOrDeActiveRequest(listID, 5 ,account.Employee?.FullName);
+                var check = p.ActiveOrDeActiveRequest(listID, 5, account.Employee?.FullName);
                 if (check)
                 {
                     return Ok(new
@@ -440,26 +440,67 @@ namespace API.Controllers
                 Account a = GetCurrentUser();
                 RcRequest rc = new RcRequest();
                 rc.Name = T.Name;
-                rc.EffectDate = T.EffectDate;
-                rc.ExpireDate = T.ExpireDate;
-                rc.Number = T.Number;
-                rc.OrgnizationId = T.OrgnizationId;
-                rc.SignId = T.SignId;
+                if (T.EffectDate.Value.Year != 1000)
+                {
+                    rc.EffectDate = T.EffectDate;
+                }
+                if (T.ExpireDate.Value.Year != 1000)
+                {
+                    rc.ExpireDate = T.ExpireDate;
+                }
+                if (T.Number != 0)
+                {
+                    rc.Number = T.Number;
+                }
+                if (T.OrgnizationId != 0)
+                {
+                    rc.OrgnizationId = T.OrgnizationId;
+                }
+                if (T.SignId != 0)
+                {
+                    rc.SignId = T.SignId;
+                }
                 rc.Note = T.Note;
-                rc.Number = T.Number;
-                rc.YearExperience = T.YearExperience;
-                rc.Project = T.Project;
-                rc.PositionId = T.PositionID;
-                rc.Type = T.Type;
+                if (T.Number != 0)
+                {
+                    rc.Number = T.Number;
+                }
+                if (T.YearExperience != 0)
+                {
+                    rc.YearExperience = T.YearExperience;
+                }
+                if (T.PositionID != 0)
+                {
+                    rc.PositionId = T.PositionID;
+                }
+                if (T.Type != 0)
+                {
+                    rc.Type = T.Type;
+                }
                 rc.Comment = T.Comment;
-                rc.ParentId = T.ParentID;
-                rc.Level = T.Level;
-                rc.RequestLevel = T.RequestLevel;
+                if (T.Type != 0)
+                {
+                    rc.ParentId = T.ParentID;
+                }
+                if (T.Level != 0)
+                {
+                    rc.Level = T.Level;
+                }
+                if (T.RequestLevel != 0)
+                {
+                    rc.RequestLevel = T.RequestLevel;
+                }
                 rc.Budget = T.Budget;
-                rc.Status = T.Status;
+                if (T.Status != 0)
+                {
+                    rc.Status = T.Status;
+                }
                 rc.CreateDate = DateTime.Now;
                 rc.CreateBy = a.Employee?.FullName;
-                rc.OtherSkill = T.OtherSkill;
+                if (T.OtherSkill != 0)
+                {
+                    rc.OtherSkill = T.OtherSkill;
+                }
                 var check = p.InsertRequest(rc);
                 return Ok(new
                 {

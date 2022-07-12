@@ -129,19 +129,19 @@ namespace Services.RequestServices
                    
                     if (!Code.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.Code.Contains(Code)).ToList();
+                        list = list.Where(x => x.Code.ToLower().Contains(Code.ToLower())).ToList();
                     }
                     if (!Name.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.Name.Contains(Name)).ToList();
+                        list = list.Where(x => x.Name.ToLower().Contains(Name.ToLower())).ToList();
                     }
                     if (!OrgName.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.Orgnization.Name.Contains(OrgName)).ToList();
+                        list = list.Where(x => x.Orgnization.Name.ToLower().Contains(OrgName.ToLower())).ToList();
                     }
                     if (!PositionName.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.Position.Name.Contains(PositionName)).ToList();
+                        list = list.Where(x => x.Position.Name.ToLower().Contains(PositionName.ToLower())).ToList();
                     }
                     if (Status.Trim().ToLower().Equals("draft"))
                     {
@@ -166,7 +166,7 @@ namespace Services.RequestServices
                     if (!HrInchange.Trim().Equals(""))
                     {
                         list = list.Where(x => x.HrInchange != null).ToList();
-                        list = list.Where(x => x.HrInchangeNavigation.FullName.Contains(HrInchange)).ToList();
+                        list = list.Where(x => x.HrInchangeNavigation.FullName.ToLower().Contains(HrInchange.ToLower())).ToList();
                     }
                     if (Quantity!=0)
                     {
@@ -183,7 +183,7 @@ namespace Services.RequestServices
                     if (!otherSkill.Trim().Equals(""))
                     {
                         list = list.Where(x => x.OtherSkill != null).ToList();
-                        list = list.Where(x => x.OtherSkillNavigation.Name.Contains(otherSkill)).ToList();
+                        list = list.Where(x => x.OtherSkillNavigation.Name.ToLower().Contains(otherSkill.ToLower())).ToList();
                     } 
                     return list.Skip(index * size).Take(size).ToList();
                 }
