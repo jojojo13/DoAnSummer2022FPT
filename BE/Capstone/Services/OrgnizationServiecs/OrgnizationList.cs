@@ -18,7 +18,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     List<Title> list = context.Titles.ToList().Skip(index * size).Take(size).ToList();
                     return list;
@@ -31,7 +31,7 @@ namespace Services.OrgnizationServiecs
         }
         public bool InsertTitle(Title T)
         {
-             ICommon c = new CommonImpl();
+            ICommon c = new CommonImpl();
             try
             {
                 Title tobj = new Title();
@@ -39,7 +39,7 @@ namespace Services.OrgnizationServiecs
                 tobj.Code = c.autoGenCode3character("Title", "CD");
                 tobj.Status = -1;
                 tobj.Note = T.Note;
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Titles.Add(tobj);
                     context.SaveChanges();
@@ -55,7 +55,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Title tobj = context.Titles.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
@@ -73,7 +73,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -94,7 +94,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -121,9 +121,9 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<Position> list =context.Positions.Skip(index * size).Take(size).ToList();
+                    List<Position> list = context.Positions.Skip(index * size).Take(size).ToList();
                     foreach (var item in list)
                     {
                         item.Title = context.Titles.Where(x => x.Id == item.TitleId).FirstOrDefault();
@@ -140,7 +140,7 @@ namespace Services.OrgnizationServiecs
 
         public bool InsertPosition(Position T)
         {
-             ICommon c = new CommonImpl();
+            ICommon c = new CommonImpl();
             try
             {
                 Position tobj = new Position();
@@ -161,7 +161,7 @@ namespace Services.OrgnizationServiecs
                 tobj.Language = T.Language;
                 tobj.LanguageLevel = T.LanguageLevel;
                 tobj.InformationLevel = T.InformationLevel;
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     context.Positions.Add(tobj);
                     context.SaveChanges();
@@ -177,7 +177,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Position tobj = context.Positions.Where(x => x.Id == T.Id).FirstOrDefault();
                     tobj.Name = T.Name;
@@ -210,7 +210,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -231,7 +231,7 @@ namespace Services.OrgnizationServiecs
         {
             try
             {
-                  using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     foreach (var item in list)
                     {
@@ -251,6 +251,87 @@ namespace Services.OrgnizationServiecs
         #endregion
 
 
+        #region Dia diem
+
+        public List<Nation> GetAllNation(int index, int size)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    List<Nation> list = context.Nations.Skip(index * size).Take(size).ToList();
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Nation>();
+            }
+        }
+        public List<Province> GetAllProvince(int index, int size)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    List<Province> list = context.Provinces.Skip(index * size).Take(size).ToList();
+                    foreach (var item in list)
+                    {
+                        item.Nation = context.Nations.Where(x => x.Id == item.NationId).FirstOrDefault();
+                    }
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Province>();
+            }
+        }
+        public List<District> GetAllDistrict(int index, int size)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    List<District> list = context.Districts.Skip(index * size).Take(size).ToList();
+                    foreach (var item in list)
+                    {
+                        item.Province = context.Provinces.Where(x => x.Id == item.ProvinceId).FirstOrDefault();
+                        item.Province.Nation = context.Nations.Where(x => x.Id == item.Province.NationId).FirstOrDefault();
+                    }
+
+                    var sql = from d in context.Districts
+                              from p in context.Provinces.Where(x => x.Id == d.ProvinceId).DefaultIfEmpty()
+                              select new
+                              {
+
+                              };
+
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<District>();
+            }
+        }
+        public List<Ward> GetAllWard(int index, int size)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    List<Ward> list = context.Wards.Skip(index * size).Take(size).ToList();
+                    return list;
+                }
+            }
+            catch
+            {
+                return new List<Ward>();
+            }
+        }
+
+        #endregion
 
     }
 }

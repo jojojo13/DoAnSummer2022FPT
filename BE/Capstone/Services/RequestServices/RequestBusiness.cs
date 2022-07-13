@@ -2,6 +2,7 @@
 using ModelAuto.Models;
 using Services.CommonModel;
 using Services.CommonServices;
+using Services.ResponseModel.RequestModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -83,160 +84,279 @@ namespace Services.RequestServices
             }
         }
 
-        public List<RcRequest> GetAllRequest(int index, int size)
+        public List<RequestResponseServices> GetAllRequest(int index, int size)
         {
-
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<RcRequest> list = context.RcRequests.Where(x => x.Rank == 1).ToList().OrderByDescending(x => x.Id).Skip(index * size).Take(size).OrderBy(x => x.Id).ToList();
-                    foreach (var item in list)
-                    {
-                        item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
-                        item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
-                        item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
-                        item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
-                    }
-                    return list;
+                    var query = from r in context.RcRequests.Where(x => x.Rank == 1)
+                                from p in context.Positions.Where(x => x.Id == r.PositionId).DefaultIfEmpty()
+                                from o in context.Orgnizations.Where(x => x.Id == r.OrgnizationId).DefaultIfEmpty()
+                                from e in context.Employees.Where(x => x.Id == r.HrInchange).DefaultIfEmpty()
+                                from skill in context.OtherLists.Where(x => x.Id == r.OtherSkill).DefaultIfEmpty()
+                                select new RequestResponseServices
+                                {
+                                    id = r.Id,
+                                    code = r.Code,
+                                    name = r.Name,
+                                    department = o.Name,
+                                    position = p.Name,
+                                    positionID = r.PositionId,
+                                    quantity = r.Number,
+                                    createdOn = r.EffectDate,
+                                    createdOnString= Convert.ToDateTime(r.EffectDate).ToString("dd/M/yyyy"),
+                                    Deadline = r.ExpireDate,
+                                    DeadlineString= Convert.ToDateTime(r.ExpireDate).ToString("dd/M/yyyy"),
+                                    Office = o.Address,
+                                    StatusID = r.Status,
+                                    Status = r.Status == 1 ? "Draft" : r.Status == 2 ? "Submited" : r.Status == 3 ? "Cancel" : r.Status == 4 ? "Approved" : r.Status == 5 ? "Rejected" : "",
+                                    parentId = r.ParentId,
+                                    rank = r.Rank,
+                                    note = r.Note,
+                                    comment = r.Comment,
+                                    HrInchangeId = r.HrInchange,
+                                    HrInchange = e.FullName,
+                                    signID = r.SignId,
+                                    OrgnizationName = o.Name,
+                                    OrgnizationID = r.OrgnizationId,
+                                    otherSkill = r.OtherSkill,
+                                    otherSkillname = skill.Name
+                                };
+                    return query.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
                 }
             }
             catch
             {
-                return new List<RcRequest>();
+                return new List<RequestResponseServices>();
             }
         }
 
 
 
-        public List<RcRequest> GetAllRequestByFillter(int index, int size, string Code, string Name, string OrgName, string PositionName, int Quantity, string Status, string HrInchange, DateTime CreateOn, DateTime DeadLine, string otherSkill)
+        public List<RequestResponseServices> GetAllRequestByFillter(int index, int size, string Code, string Name, string OrgName, string PositionName, int Quantity, string Status, string HrInchange, DateTime CreateOn, DateTime DeadLine, string otherSkill)
         {
 
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<RcRequest> list = context.RcRequests.Where(x => x.Rank == 1).ToList().OrderByDescending(x => x.Id).OrderBy(x => x.Id).ToList();
-                    foreach (var item in list)
-                    {
-                        item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
-                        item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
-                        item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
-                        item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
-                    }
-                   
+                    List<RequestResponseServices> list = new List<RequestResponseServices>();
+                    var query = from r in context.RcRequests.Where(x => x.Rank == 1)
+                                from p in context.Positions.Where(x => x.Id == r.PositionId).DefaultIfEmpty()
+                                from o in context.Orgnizations.Where(x => x.Id == r.OrgnizationId).DefaultIfEmpty()
+                                from e in context.Employees.Where(x => x.Id == r.HrInchange).DefaultIfEmpty()
+                                from skill in context.OtherLists.Where(x => x.Id == r.OtherSkill).DefaultIfEmpty()
+                                select new RequestResponseServices
+                                {
+                                    id = r.Id,
+                                    code = r.Code,
+                                    name = r.Name,
+                                    department = o.Name,
+                                    position = p.Name,
+                                    positionID = r.PositionId,
+                                    quantity = r.Number,
+                                    createdOn = r.EffectDate,
+                                    createdOnString = Convert.ToDateTime(r.EffectDate).ToString("dd/M/yyyy"),
+                                    Deadline = r.ExpireDate,
+                                    DeadlineString = Convert.ToDateTime(r.ExpireDate).ToString("dd/M/yyyy"),
+                                    Office = o.Address,
+                                    StatusID = r.Status,
+                                    Status = r.Status == 1 ? "Draft" : r.Status == 2 ? "Submited" : r.Status == 3 ? "Cancel" : r.Status == 4 ? "Approved" : r.Status == 5 ? "Rejected" : "",
+                                    parentId = r.ParentId,
+                                    rank = r.Rank,
+                                    note = r.Note,
+                                    comment = r.Comment,
+                                    HrInchangeId = r.HrInchange,
+                                    HrInchange = e.FullName,
+                                    signID = r.SignId,
+                                    OrgnizationName = o.Name,
+                                    OrgnizationID = r.OrgnizationId,
+                                    otherSkill = r.OtherSkill,
+                                    otherSkillname = skill.Name
+                                };
+                    list = query.ToList();
+
                     if (!Code.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.Code.ToLower().Contains(Code.ToLower())).ToList();
+                        list = list.Where(x => x.code.ToLower().Contains(Code.ToLower())).ToList();
                     }
                     if (!Name.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.Name.ToLower().Contains(Name.ToLower())).ToList();
+                        list = list.Where(x => x.name.ToLower().Contains(Name.ToLower())).ToList();
                     }
                     if (!OrgName.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.Orgnization.Name.ToLower().Contains(OrgName.ToLower())).ToList();
+                        list = list.Where(x => x.department.ToLower().Contains(OrgName.ToLower())).ToList();
                     }
                     if (!PositionName.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.Position.Name.ToLower().Contains(PositionName.ToLower())).ToList();
+                        list = list.Where(x => x.position.ToLower().Contains(PositionName.ToLower())).ToList();
                     }
                     if (Status.Trim().ToLower().Equals("draft"))
                     {
-                        list = list.Where(x => x.Status == 1).ToList();
+                        list = list.Where(x => x.StatusID == 1).ToList();
                     }
                     if (Status.Trim().ToLower().Equals("submited"))
                     {
-                        list = list.Where(x => x.Status == 2).ToList();
+                        list = list.Where(x => x.StatusID == 2).ToList();
                     }
                     if (Status.Trim().ToLower().Equals("cancel"))
                     {
-                        list = list.Where(x => x.Status == 3).ToList();
+                        list = list.Where(x => x.StatusID == 3).ToList();
                     }
                     if (Status.Trim().ToLower().Equals("approved"))
                     {
-                        list = list.Where(x => x.Status == 4).ToList();
+                        list = list.Where(x => x.StatusID == 4).ToList();
                     }
                     if (Status.Trim().ToLower().Equals("rejected"))
                     {
-                        list = list.Where(x => x.Status == 5).ToList();
+                        list = list.Where(x => x.StatusID == 5).ToList();
                     }
                     if (!HrInchange.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.HrInchange != null).ToList();
-                        list = list.Where(x => x.HrInchangeNavigation.FullName.ToLower().Contains(HrInchange.ToLower())).ToList();
+                        list = list.Where(x => x.HrInchangeId != null).ToList();
+                        list = list.Where(x => x.HrInchange.ToLower().Contains(HrInchange.ToLower())).ToList();
                     }
-                    if (Quantity!=0)
+                    if (Quantity != 0)
                     {
-                        list = list.Where(x => x.Number== Quantity).ToList();
+                        list = list.Where(x => x.quantity == Quantity).ToList();
                     }
-                    if (CreateOn.Year!=1000)
+                    if (CreateOn.Year != 1000)
                     {
-                        list = list.Where(x => x.EffectDate?.ToString("dd/MM/YYYY")==CreateOn.ToString("dd/MM/YYYY")).ToList();
+                        list = list.Where(x => x.createdOn?.ToString("dd/MM/YYYY") == CreateOn.ToString("dd/MM/YYYY")).ToList();
                     }
                     if (DeadLine.Year != 1000)
                     {
-                        list = list.Where(x => x.ExpireDate?.ToString("dd/MM/YYYY") == DeadLine.ToString("dd/MM/YYYY")).ToList();
+                        list = list.Where(x => x.Deadline?.ToString("dd/MM/YYYY") == DeadLine.ToString("dd/MM/YYYY")).ToList();
                     }
                     if (!otherSkill.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.OtherSkill != null).ToList();
-                        list = list.Where(x => x.OtherSkillNavigation.Name.ToLower().Contains(otherSkill.ToLower())).ToList();
-                    } 
-                    return list.Skip(index * size).Take(size).ToList();
-                }
-            }
-            catch
-            {
-                return new List<RcRequest>();
-            }
-        }
-
-        public List<RcRequest> GetChildRequestById(int ID)
-        {
-            try
-            {
-                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
-                {
-                    List<RcRequest> list = context.RcRequests.Where(x => x.ParentId == ID).OrderBy(x => x.Id).ToList();
-                    foreach (var item in list)
-                    {
-                        item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
-                        item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
-                        item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
-                        item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
+                        list = list.Where(x => x.otherSkill != null).ToList();
+                        list = list.Where(x => x.otherSkillname.ToLower().Contains(otherSkill.ToLower())).ToList();
                     }
-                    return list;
+                    return list.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
                 }
             }
             catch
             {
-                return new List<RcRequest>();
+                return new List<RequestResponseServices>();
             }
         }
 
-        public RcRequest GetRequestByID(int ID)
+        public List<RequestResponseServices> GetChildRequestById(int ID)
+        {
+            List<RequestResponseServices> listReturn = new List<RequestResponseServices>();
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+
+                    var query = from r in context.RcRequests.Where(x => x.ParentId == ID)
+                                from p in context.Positions.Where(x => x.Id == r.PositionId).DefaultIfEmpty()
+                                from o in context.Orgnizations.Where(x => x.Id == r.OrgnizationId).DefaultIfEmpty()
+                                from e in context.Employees.Where(x => x.Id == r.HrInchange).DefaultIfEmpty()
+                                from skill in context.OtherLists.Where(x => x.Id == r.OtherSkill).DefaultIfEmpty()
+                                select new RequestResponseServices
+                                {
+                                    id = r.Id,
+                                    code = r.Code,
+                                    name = r.Name,
+                                    department = o.Name,
+                                    position = p.Name,
+                                    positionID = r.PositionId,
+                                    quantity = r.Number,
+                                    createdOn = r.EffectDate,
+                                    createdOnString = Convert.ToDateTime(r.EffectDate).ToString("dd/M/yyyy"),
+                                    Deadline = r.ExpireDate,
+                                    DeadlineString = Convert.ToDateTime(r.ExpireDate).ToString("dd/M/yyyy"),
+                                    Office = o.Address,
+                                    StatusID = r.Status,
+                                    Status = r.Status == 1 ? "Draft" : r.Status == 2 ? "Submited" : r.Status == 3 ? "Cancel" : r.Status == 4 ? "Approved" : r.Status == 5 ? "Rejected" : "",
+                                    parentId = r.ParentId,
+                                    rank = r.Rank,
+                                    note = r.Note,
+                                    comment = r.Comment,
+                                    HrInchangeId = r.HrInchange,
+                                    HrInchange = e.FullName,
+                                    signID = r.SignId,
+                                    OrgnizationName = o.Name,
+                                    OrgnizationID = r.OrgnizationId,
+                                    otherSkill = r.OtherSkill,
+                                    otherSkillname = skill.Name
+                                };
+                    listReturn = query.ToList();
+                    return listReturn;
+                }
+            }
+            catch
+            {
+                return listReturn.ToList();
+            }
+        }
+
+        public RequestResponseServices GetRequestByID(int ID)
         {
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    RcRequest item = new RcRequest();
-                    item = context.RcRequests.Where(x => x.Id == ID).FirstOrDefault();
-                    item.Position = context.Positions.Where(x => x.Id == item.PositionId).FirstOrDefault();
-                    item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).FirstOrDefault();
-                    item.ProjectNavigation = context.OtherLists.Where(x => x.Id == item.Project).FirstOrDefault();
-                    item.Orgnization = context.Orgnizations.Where(x => x.Id == item.OrgnizationId).FirstOrDefault();
-                    item.Sign = context.Employees.Where(x => x.Id == item.SignId).FirstOrDefault();
-                    item.LevelNavigation = context.OtherLists.Where(x => x.Id == item.Level).FirstOrDefault();
-                    item.HrInchangeNavigation = context.Employees.Where(x => x.Id == item.HrInchange).FirstOrDefault();
-                    item.OtherSkillNavigation = context.OtherLists.Where(x => x.Id == item.OtherSkill).FirstOrDefault();
-                    return item;
+                    var query = from r in context.RcRequests.Where(x => x.Id == ID)
+                                from p in context.Positions.Where(x => x.Id == r.PositionId).DefaultIfEmpty()
+                                from typ in context.OtherLists.Where(x => x.Id == r.Type).DefaultIfEmpty()
+                                from Project in context.OtherLists.Where(x => x.Id == r.Project).DefaultIfEmpty()
+                                from Org in context.Orgnizations.Where(x => x.Id == r.OrgnizationId).DefaultIfEmpty()
+                                from Sign in context.Employees.Where(x => x.Id == r.SignId).DefaultIfEmpty()
+                                from Lev in context.OtherLists.Where(x => x.Id == r.Level).DefaultIfEmpty()
+                                from Hr in context.Employees.Where(x => x.Id == r.HrInchange).DefaultIfEmpty()
+                                from skill in context.OtherLists.Where(x => x.Id == r.OtherSkill).DefaultIfEmpty()
+                                from rele in context.OtherLists.Where(x => x.Id == r.RequestLevel).DefaultIfEmpty()
+                                select new RequestResponseServices
+                                {
+                                    id = r.Id,
+                                    code = r.Code,
+                                    name = r.Name,
+                                    requestLevel = rele.Name,
+                                    department = Org.Name,
+                                    position = p.Name,
+                                    positionID = r.PositionId,
+                                    quantity = r.Number,
+                                    createdOn = r.EffectDate,
+                                    createdOnString = Convert.ToDateTime(r.EffectDate).ToString("dd/M/yyyy"),
+                                    Deadline = r.ExpireDate,
+                                    DeadlineString = Convert.ToDateTime(r.ExpireDate).ToString("dd/M/yyyy"),
+                                    Office =Org.Address,
+                                    StatusID = r.Status,
+                                    Status = r.Status == 1 ? "Draft" : r.Status == 2 ? "Submited" : r.Status == 3 ? "Cancel" : r.Status == 4 ? "Approved" : r.Status == 5 ? "Rejected" : "",
+                                    parentId = r.ParentId,
+                                    rank = r.Rank,
+                                    note = r.Note,
+                                    comment = r.Comment,
+                                    HrInchangeId = r.HrInchange,
+                                    HrInchange = Hr.FullName,
+                                    signID = r.SignId,
+                                    typeID = r.RequestLevel,
+                                    typename = rele.Name,
+                                    OrgnizationName = Org.Name,
+                                    OrgnizationID = r.OrgnizationId,
+                                    projectname = Project.Name,
+                                    projectID = r.Project,
+                                    experience = r.YearExperience,
+                                    level = r.Level,
+                                    levelName = Lev.Name,
+                                    CreateBy= r.CreateBy,
+                                    CreateDate= r.CreateDate,
+                                    UpdateBy= r.UpdateBy,
+                                    UpdateDate= r.UpdateDate,
+                                    otherSkill = r.OtherSkill,
+                                    otherSkillname = skill.Name
+                                };
+                    return query.FirstOrDefault();
                 }
             }
             catch
             {
-                return new RcRequest();
+                return new RequestResponseServices();
             }
         }
 
@@ -267,7 +387,7 @@ namespace Services.RequestServices
             rc.OtherSkill = T.OtherSkill;
             if (rc.ParentId != null && rc.ParentId > 0)
             {
-                rc.Rank = GetRequestByID((int)rc.ParentId).Rank + 1;
+                rc.Rank = GetRequestByID((int)rc.ParentId).rank + 1;
             }
             else
             {
@@ -369,6 +489,7 @@ namespace Services.RequestServices
                 return false;
             }
         }
+        //for check total request
         public List<RcRequest> GetListRequestByID(int ID)
         {
             List<RcRequest> list = new List<RcRequest>();

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.ResponseModel;
 using Services.CommonModel;
+using Services.ResponseModel.RequestModel;
 
 namespace API.Controllers
 {
@@ -29,43 +30,7 @@ namespace API.Controllers
         public IActionResult GetAllRequest(int index, int size)
         {
             Account a = GetCurrentUser();
-            List<RcRequest> list = p.GetAllRequest(index, size);
-            var listReturn = from x in list
-                             select new
-                             {
-                                 id = x.Id,
-                                 code = x.Code,
-                                 name = x.Name,
-                                 requestLevel = x.RequestLevelNavigation?.Name,
-                                 department = x.Orgnization?.Name,
-                                 position = x.Position?.Name,
-                                 positionID = x.PositionId,
-                                 quantity = x.Number,
-                                 createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
-                                 Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
-                                 Office = x.Orgnization?.Address,
-                                 StatusID = x.Status,
-                                 Status = x.Status == 1 ? "Draft" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" : x.Status == 5 ? "Rejected" : "",
-                                 parentId = x.ParentId,
-                                 rank = x.Rank,
-                                 note = x.Note,
-                                 comment = x.Comment,
-                                 HrInchangeId = x.HrInchange,
-                                 HrInchange = x.HrInchangeNavigation?.FullName == null ? "" : x.HrInchangeNavigation?.FullName,
-                                 signID = x.SignId,
-                                 typeID = x.RequestLevel,
-                                 typename = x.RequestLevelNavigation?.Name,
-                                 OrgnizationName = x.Orgnization?.Name,
-                                 OrgnizationID = x.OrgnizationId,
-                                 projectname = x.ProjectNavigation?.Name,
-                                 projectID = x.Project,
-                                 experience = x.YearExperience,
-                                 level = x.Level,
-                                 levelName = x.LevelNavigation?.Name,
-                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
-                                 otherSkill = x.OtherSkill,
-                                 otherSkillname = x.OtherSkillNavigation?.Name
-                             };
+            List<RequestResponseServices> list = p.GetAllRequest(index, size); 
             if (list.Count > 0)
             {
                 //phòng điều hành quản lý sẽ dk view all
@@ -74,7 +39,7 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = c.getTotalRecord("Rc_Request", true),
-                        Data = listReturn.Where(x => x.StatusID == 2 || x.StatusID == 4 || x.StatusID == 5).ToList()
+                        Data = list.Where(x => x.StatusID == 2 || x.StatusID == 4 || x.StatusID == 5).ToList()
                     });
                 }
                 //view những bản ghi dược phân quyền cho HR
@@ -83,7 +48,7 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = p.getTotalRequestRecord("hrInchange", a.EmployeeId),
-                        Data = listReturn.Where(x => x.HrInchangeId == a.EmployeeId)
+                        Data = list.Where(x => x.HrInchangeId == a.EmployeeId)
                     });
                 }
                 //view những bản ghi dược phân quyền cho người tạo bản ghi)
@@ -92,11 +57,10 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = p.getTotalRequestRecord("signID", a.EmployeeId),
-                        Data = listReturn.Where(x => x.signID == a.EmployeeId)
+                        Data = list.Where(x => x.signID == a.EmployeeId)
                     });
 
                 }
-
             }
             return StatusCode(200, "List is Null");
         }
@@ -108,43 +72,7 @@ namespace API.Controllers
         public IActionResult GetAllRequestByFilter([FromBody] RequestFillterResponse obj)
         {
             Account a = GetCurrentUser();
-            List<RcRequest> list = p.GetAllRequestByFillter(obj.index, obj.size, obj.Code, obj.Name, obj.OrgName, obj.PositionName, obj.Quantity, obj.Status, obj.HrInchange, obj.CreateOn, obj.DeadLine, obj.OtherSkill);
-            var listReturn = from x in list
-                             select new
-                             {
-                                 id = x.Id,
-                                 code = x.Code,
-                                 name = x.Name,
-                                 requestLevel = x.RequestLevelNavigation?.Name,
-                                 department = x.Orgnization?.Name,
-                                 position = x.Position?.Name,
-                                 positionID = x.PositionId,
-                                 quantity = x.Number,
-                                 createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
-                                 Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
-                                 Office = x.Orgnization?.Address,
-                                 StatusID = x.Status,
-                                 Status = x.Status == 1 ? "Draft" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" : x.Status == 5 ? "Rejected" : "",
-                                 parentId = x.ParentId,
-                                 rank = x.Rank,
-                                 note = x.Note,
-                                 comment = x.Comment,
-                                 HrInchangeId = x.HrInchange,
-                                 HrInchange = x.HrInchangeNavigation?.FullName == null ? "" : x.HrInchangeNavigation?.FullName,
-                                 signID = x.SignId,
-                                 typeID = x.RequestLevel,
-                                 typename = x.RequestLevelNavigation?.Name,
-                                 OrgnizationName = x.Orgnization?.Name,
-                                 OrgnizationID = x.OrgnizationId,
-                                 projectname = x.ProjectNavigation?.Name,
-                                 projectID = x.Project,
-                                 experience = x.YearExperience,
-                                 level = x.Level,
-                                 levelName = x.LevelNavigation?.Name,
-                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
-                                 otherSkill = x.OtherSkill,
-                                 otherSkillname = x.OtherSkillNavigation?.Name
-                             };
+            List<RequestResponseServices> list = p.GetAllRequestByFillter(obj.index, obj.size, obj.Code, obj.Name, obj.OrgName, obj.PositionName, obj.Quantity, obj.Status, obj.HrInchange, obj.CreateOn, obj.DeadLine, obj.OtherSkill);
             if (list.Count > 0)
             {
                 //phòng điều hành quản lý sẽ dk view all
@@ -153,7 +81,7 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = c.getTotalRecord("Rc_Request", true),
-                        Data = listReturn.Where(x => x.StatusID == 2 || x.StatusID == 4 || x.StatusID == 5).ToList()
+                        Data = list.Where(x => x.StatusID == 2 || x.StatusID == 4 || x.StatusID == 5).ToList()
                     });
                 }
                 //view những bản ghi dược phân quyền cho HR
@@ -162,7 +90,7 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = p.getTotalRequestRecord("hrInchange", a.EmployeeId),
-                        Data = listReturn.Where(x => x.HrInchangeId == a.EmployeeId)
+                        Data = list.Where(x => x.HrInchangeId == a.EmployeeId)
                     });
                 }
                 //view những bản ghi dược phân quyền cho người tạo bản ghi)
@@ -171,7 +99,7 @@ namespace API.Controllers
                     return Ok(new
                     {
                         TotalItem = p.getTotalRequestRecord("signID", a.EmployeeId),
-                        Data = listReturn.Where(x => x.signID == a.EmployeeId)
+                        Data = list.Where(x => x.signID == a.EmployeeId)
                     });
 
                 }
@@ -189,15 +117,15 @@ namespace API.Controllers
         {
             if (id != 0)
             {
-                RcRequest obj = p.GetRequestByID(id);
+                RequestResponseServices obj = p.GetRequestByID(id);
                 List<RcRequest> list = p.GetListRequestByID(id);
                 int? number = 0;
                 foreach (var item in list)
                 {
-                    if (item.Id != obj.Id)
+                    if (item.Id != obj.id)
                         number += item.Number;
                 }
-                if (quantity + number <= obj.Number)
+                if (quantity + number <= obj.quantity)
                 {
                     return Ok(new
                     {
@@ -226,49 +154,12 @@ namespace API.Controllers
         [HttpPost("GetChildRequestById")]
         public IActionResult GetChildRequestById(int parentId)
         {
-            List<RcRequest> list = p.GetChildRequestById(parentId);
-            var listReturn = from x in list
-                             select new
-                             {
-                                 id = x.Id,
-                                 code = x.Code,
-                                 name = x.Name,
-                                 requestLevel = x.RequestLevelNavigation?.Name,
-                                 department = x.Orgnization?.Name,
-                                 position = x.Position?.Name,
-                                 positionID = x.PositionId,
-                                 quantity = x.Number,
-                                 createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
-                                 Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
-                                 Office = x.Orgnization?.Address,
-                                 StatusID = x.Status,
-                                 Status = x.Status == 1 ? "Draft" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" : x.Status == 5 ? "Rejected" : "",
-                                 parentId = x.ParentId,
-                                 rank = x.Rank,
-                                 note = x.Note,
-                                 comment = x.Comment,
-                                 HrInchangeId = x.HrInchange,
-                                 HrInchange = x.HrInchangeNavigation?.FullName == null ? "" : x.HrInchangeNavigation?.FullName,
-                                 signID = x.SignId,
-                                 typeID = x.RequestLevel,
-                                 typename = x.RequestLevelNavigation?.Name,
-                                 OrgnizationName = x.Orgnization?.Name,
-                                 OrgnizationID = x.OrgnizationId,
-                                 projectname = x.ProjectNavigation?.Name,
-                                 projectID = x.Project,
-                                 experience = x.YearExperience,
-                                 level = x.Level,
-                                 levelName = x.LevelNavigation?.Name,
-                                 history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
-                                 otherSkill = x.OtherSkill,
-                                 otherSkillname = x.OtherSkillNavigation?.Name
-
-                             };
+            List<RequestResponseServices> list = p.GetChildRequestById(parentId);
             if (list.Count > 0)
             {
                 return Ok(new
                 {
-                    Data = listReturn
+                    Data = list
                 });
             }
             return StatusCode(200, "List is Null");
@@ -617,52 +508,19 @@ namespace API.Controllers
         {
             try
             {
-                RcRequest x = p.GetRequestByID(Id);
-                var objreturn = new
-                {
-                    id = x.Id,
-                    code = x.Code,
-                    name = x.Name,
-                    requestLevel = x.RequestLevelNavigation?.Name,
-                    department = x.Orgnization?.Name,
-                    position = x.Position?.Name,
-                    positionID = x.PositionId,
-                    quantity = x.Number,
-                    createdOn = x.EffectDate?.ToString("dd/MM/yyyy"),
-                    Deadline = x.ExpireDate?.ToString("dd/MM/yyyy"),
-                    Office = x.Orgnization?.Address,
-                    StatusID = x.Status,
-                    Status = x.Status == 1 ? "Draft" : x.Status == 2 ? "Submited" : x.Status == 3 ? "Cancel" : x.Status == 4 ? "Approved" : x.Status == 5 ? "Rejected" : "",
-                    parentId = x.ParentId,
-                    rank = x.Rank,
-                    note = x.Note,
-                    comment = x.Comment,
-                    HrInchangeId = x.HrInchange,
-                    HrInchange = x.HrInchangeNavigation?.FullName == null ? "" : x.HrInchangeNavigation?.FullName,
-                    signID = x.SignId,
-                    typeID = x.RequestLevel,
-                    typename = x.RequestLevelNavigation?.Name,
-                    OrgnizationName = x.Orgnization?.Name,
-                    OrgnizationID = x.OrgnizationId,
-                    projectname = x.ProjectNavigation?.Name,
-                    projectID = x.Project,
-                    experience = x.YearExperience,
-                    level = x.Level,
-                    levelName = x.LevelNavigation?.Name,
-                    history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy"),
-                    otherSkill = x.OtherSkill,
-                    otherSkillname = x.OtherSkillNavigation?.Name
-                };
+                RequestResponseServices x = p.GetRequestByID(Id);
+                x.history = "Create by :" + x.CreateBy + " - " + x.CreateDate?.ToString("dd/MM/yyyy") + "     Modify by " + x.UpdateBy + " - " + x.UpdateDate?.ToString("dd/MM/yyyy");
+                x.Deadline = x.Deadline;
                 return Ok(new
                 {
-                    Data = objreturn
+                    Data = x
                 });
             }
             catch
             {
                 return Ok(new
                 {
-                    Data = new RcRequest()
+                    Data = new RequestResponseServices()
                 }); ;
             }
         }

@@ -487,11 +487,109 @@ namespace API.Controllers
         }
         #endregion
 
+        #region Danh muc dia diem
+
+        [HttpPost("GetNationList")]
+        public IActionResult GetNation(int index, int size)
+        {
+            List<Nation> list = p.GetAllNation(index, size);
+
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 code = l.Code,
+                                 id = l.Id,
+                                 note= l.Note
+                             };
+            if (list.Count > 0)
+                return Ok(new
+                {
+                    TotalItem = c.getTotalRecord("Nation", false),
+                    Data = listReturn
+                });
+            else
+                return StatusCode(200, "List is Null");
+        }
+
+        [HttpPost("GetProvinceList")]
+        public IActionResult GetProvinceList(int index, int size)
+        {
+            List<Province> list = p.GetAllProvince(index, size);
+
+            var listReturn = from l in list
+                             select new
+                             {
+                                 nation = l.Nation?.Name,
+                                 nationId= l.NationId,
+                                 name = l.Name,
+                                 code = l.Code,
+                                 id = l.Id,
+                                 note = l.Note
+                             };
+            if (list.Count > 0)
+                return Ok(new
+                {
+                    TotalItem = c.getTotalRecord("Province", false),
+                    Data = listReturn
+                });
+            else
+                return StatusCode(200, "List is Null");
+        }
+
+        [HttpPost("GetDistrictList")]
+        public IActionResult GetDistrictList(int index, int size)
+        {
+            List<District> list = p.GetAllDistrict(index, size);
+
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 code = l.Code,
+                                 id = l.Id,
+                                 note = l.Note,
+                                 nation = l.Province?.Nation?.Name,
+                                 nationId = l.Province.NationId,
+                                 province = l.Province?.Name,
+                                 provinceId = l.ProvinceId,
+                             };
+            if (list.Count > 0)
+                return Ok(new
+                {
+                    TotalItem = c.getTotalRecord("District", false),
+                    Data = listReturn
+                });
+            else
+                return StatusCode(200, "List is Null");
+        }
+
+        [HttpPost("GetWardList")]
+        public IActionResult GetWardList(int index, int size)
+        {
+            List<Ward> list = p.GetAllWard(index, size);
+
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 code = l.Code,
+                                 id = l.Id,
+                                 note = l.Note
+                             };
+            if (list.Count > 0)
+                return Ok(new
+                {
+                    TotalItem = c.getTotalRecord("Ward", false),
+                    Data = listReturn
+                });
+            else
+                return StatusCode(200, "List is Null");
+        }
+
         #endregion
 
-
-
-
+        #endregion
 
         #region Business
 
@@ -662,7 +760,7 @@ namespace API.Controllers
                 if (!objresponse.DissolutionDate.ToString("yyyy").Equals("1000"))
                 {
                     obj.DissolutionDate = objresponse.DissolutionDate;
-                } 
+                }
                 obj.ParentId = objresponse.ParentID;
                 obj.CreateDate = objresponse.CreateDate;
                 obj.DissolutionDate = objresponse.DissolutionDate;
@@ -800,7 +898,7 @@ namespace API.Controllers
             {
                 return Ok(new
                 {
-                    Status = true,
+                    TotalItem = c.getTotalRecord("PositionOrg", false),
                     Data = listReturn
                 });
             }

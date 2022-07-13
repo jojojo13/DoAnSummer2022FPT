@@ -27,6 +27,14 @@ namespace Services.OrgnizationServiecs
          bool ActiveOrDeActivePosition(List<int> list, int status);
         #endregion
 
+        #region "Địa điểm"
+
+        List<Nation> GetAllNation(int index, int size);
+        List<Province> GetAllProvince(int index, int size);
+        List<District> GetAllDistrict(int index, int size);
+        List<Ward> GetAllWard(int index, int size);
+
+        #endregion
 
         #endregion
 

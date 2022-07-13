@@ -156,15 +156,15 @@ namespace Services.CandidateService
                 var returnList = from c in list
                                  select new
                                  {
-                                     ID = c.Id,
-                                     Name = c.FullName,
-                                     Dob = cv.Dob,
-                                     Phone = cv.Phone,
-                                     Email = cv.Email,
-                                     Location = rc.GetLocation((int)cv.PorvinceLive).Name,
-                                     Position = rc.Position(c.Id),
-                                     YearExp = rc.Exp(c.Id),
-                                     Language = k1
+                                     //ID = c.Id,
+                                     //Name = c.FullName,
+                                     //Dob = cv.Dob,
+                                     //Phone = cv.Phone,
+                                     //Email = cv.Email,
+                                     //Location = rc.GetLocation((int)cv.PorvinceLive).Name,
+                                     //Position = rc.Position(c.Id),
+                                     //YearExp = rc.Exp(c.Id),
+                                     //Language = k1
                                  };
             }
             catch
