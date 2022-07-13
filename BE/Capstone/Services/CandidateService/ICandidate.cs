@@ -60,7 +60,8 @@ namespace Services.CandidateService
 
         List<RcCandidate> GetAllCandidate(int page, int total,int status);
 
-        List<RcCandidate> GetAllCandidate(int status);
+
+        List<RcCandidate> GetAllCandidateByFillter( int index,  int size,  string name, DateTime dob,  string phone,  string email,  string location,  string position,  string yearExp,  string language, int status );
 
         /// <summary>
         /// Lay ra tat ca cac candidate co step khac nhau

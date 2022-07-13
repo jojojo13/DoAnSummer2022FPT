@@ -146,13 +146,26 @@ namespace Services.CandidateService
             return list;
         }
 
-        public List<RcCandidate> GetAllCandidate( int status)
+        public List<RcCandidate> GetAllCandidateByFillter(int index, int size, string name, DateTime dob, string phone, string email, string location, string position, string yearExp, string language, int status)
         {
             List<RcCandidate> list = new List<RcCandidate>();
             try
             {
                 using var context = new CapstoneProject2022Context();
                 list = context.RcCandidates.Where(x => x.RecordStatus == status).ToList();
+                var returnList = from c in list
+                                 select new
+                                 {
+                                     ID = c.Id,
+                                     Name = c.FullName,
+                                     Dob = cv.Dob,
+                                     Phone = cv.Phone,
+                                     Email = cv.Email,
+                                     Location = rc.GetLocation((int)cv.PorvinceLive).Name,
+                                     Position = rc.Position(c.Id),
+                                     YearExp = rc.Exp(c.Id),
+                                     Language = k1
+                                 };
             }
             catch
             {
@@ -160,6 +173,8 @@ namespace Services.CandidateService
             }
             return list;
         }
+
+
 
         public List<RcCandidate> GetAllCandidateByStep(int step)
         {
@@ -353,6 +368,103 @@ namespace Services.CandidateService
             return list;
         }
 
+        public Province GetLocation(int id)
+        {
+            Province p = new Province();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    p = context.Provinces.Where(x => x.Id == id).SingleOrDefault();
+                    return p;
+                }
+            }
+            catch
+            {
+                return p;
+            }
+        }
+
+        public string GetSkill(int candidateID)
+        {
+            string skill = "";
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcCandidateSkill> list = context.RcCandidateSkills.Where(x => x.RcCandidateId == candidateID).ToList();
+                    foreach (RcCandidateSkill item in list)
+                    {
+                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).SingleOrDefault();
+                        if (item.TypeNavigation != null)
+                        {
+                            skill += item.TypeNavigation.Name + ",";
+                        }
+                    }
+                }
+                return skill;
+
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public string Position(int candidateID)
+        {
+            string position = "";
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
+                    if (list.Count == 0)
+                    {
+                        position = "";
+                    }
+                    else
+                    {
+                        position = list.Take(1).FirstOrDefault().Position;
+
+
+                    }
+                }
+            }
+            catch
+            {
+                position = "";
+            }
+            return position;
+        }
+
+        public string Exp(int candidateID)
+        {
+            string exp = "";
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
+                    if (list.Count == 0)
+                    {
+                        exp = "";
+                    }
+                    else
+                    {
+                        exp = list.Take(1).FirstOrDefault().Time;
+
+
+                    }
+                }
+            }
+            catch
+            {
+                exp = "";
+            }
+            return exp;
+        }
+
 
         #region matching REquesst
         public bool MatchingCandidate(int requestID, List<int> lstCandidateID)
@@ -418,7 +530,7 @@ namespace Services.CandidateService
                         int count = lstCandidateID.Count;
                         int countInList = context.RcRequestCandidates.Where(x => x.RequestId == requestID).Count();
                         RcRequest request = context.RcRequests.Where(x => x.Id == requestID).FirstOrDefault();
-                        if(count+countInList> request.Number)
+                        if (count + countInList > request.Number)
                         {
                             return false;
                         }
@@ -451,101 +563,6 @@ namespace Services.CandidateService
             {
                 return false;
             }
-        }
-
-        public Province GetLocation(int id)
-        {
-            Province p = new Province();
-            try
-            {
-                using (var context = new CapstoneProject2022Context())
-                {
-                    p= context.Provinces.Where(x=>x.Id== id).SingleOrDefault();
-                    return p;
-                }
-            }
-            catch
-            {
-                return p;
-            }
-        }
-
-        public string GetSkill(int candidateID)
-        {
-            string skill="";
-            try {
-                using (var context = new CapstoneProject2022Context())
-                {
-                    List<RcCandidateSkill> list = context.RcCandidateSkills.Where(x => x.RcCandidateId == candidateID).ToList();
-                    foreach(RcCandidateSkill item in list)
-                    {
-                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).SingleOrDefault();
-                        if(item.TypeNavigation != null)
-                        {
-                            skill += item.TypeNavigation.Name+",";
-                        }
-                    }
-                }
-                return skill;
-
-            } catch
-            {
-                return null;
-            }
-        }
-
-        public string Position(int candidateID)
-        {
-            string position = "";
-            try
-            {
-                using (var context = new CapstoneProject2022Context())
-                {
-                    List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
-                    if (list.Count == 0)
-                    {
-                        position = "Chua co";
-                    }
-                    else
-                    {
-                        position = list.Take(1).FirstOrDefault().Position;
-                       
-
-                    }
-                }
-            }
-            catch
-            {
-                position = "";
-            }
-            return position;
-        }
-
-        public string Exp(int candidateID)
-        {
-            string exp = "";
-            try
-            {
-                using (var context = new CapstoneProject2022Context())
-                {
-                    List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
-                    if (list.Count == 0)
-                    {
-                        exp = "Chua co";
-                    }
-                    else
-                    {
-                        exp = list.Take(1).FirstOrDefault().Time;
-
-
-                    }
-                }
-            }
-            catch
-            {
-                exp = "";
-            }
-            return exp;
         }
         #endregion
     }

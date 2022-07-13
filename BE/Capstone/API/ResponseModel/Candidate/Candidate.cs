@@ -36,6 +36,21 @@ namespace API.ResponseModel.Candidate
 
         public int RecordStatus { get; set; }
     }
+
+    public class CandidateFillter
+    {
+        public string name { get; set; }
+        public DateTime dob { get; set; }
+        public string phone { get; set; }
+        public string email { get; set; }
+        public string location { get; set; }
+        public string position { get; set; }
+        public string yearExp { get; set; }
+        public string language { get; set; }
+        public int index { get; set; }
+        public int size { get; set; }
+        public int status { get; set; }
+    }
     public class Skill
     {
         public int? TypeSkill { get; set; }
@@ -59,7 +74,7 @@ namespace API.ResponseModel.Candidate
         public List<int> lstCandidateID { get; set; }
     }
 
-    
+
 
 
 }
