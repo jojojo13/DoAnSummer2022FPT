@@ -242,36 +242,36 @@ namespace API.Controllers
         }
 
 
-        //[HttpPost("GetAllCandidateByFillter")]
-        //public IActionResult GetAllCandidateByFillter([FromBody] CandidateFillter obj)
-        //{
-        //    List<RcCandidate> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.dob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status);
-        //    var list2 = from c in list1
-        //                let k1 = rc.GetSkill(c.Id)
-        //                let cv = rc.GetCandidateCVbyID(c.Id)
-        //                select new
-        //                {
-        //                    ID = c.Id,
-        //                    Name = c.FullName,
-        //                    Dob = cv.Dob,
-        //                    Phone = cv.Phone,
-        //                    Email = cv.Email,
-        //                    Location = rc.GetLocation((int)cv.PorvinceLive).Name,
-        //                    Position = rc.Position(c.Id),
-        //                    YearExp = rc.Exp(c.Id),
-        //                    Language = k1
-        //                };
-        //    if (list1.ToList().Count > 0)
-        //    {
-        //        return Ok(new
-        //        {
-        //            TotalItem = c.getTotalRecord("Rc_Candidate", false),
-        //            Data = list2
-        //        });
-        //    }
-        //    return StatusCode(200, "List is Null");
+        [HttpPost("GetAllCandidateByFillter")]
+        public IActionResult GetAllCandidateByFillter([FromBody] CandidateFillter obj)
+        {
+            List<RcCandidate> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.dob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status);
+            var list2 = from c in list1
+                        let k1 = rc.GetSkill(c.Id)
+                        let cv = rc.GetCandidateCVbyID(c.Id)
+                        select new
+                        {
+                            ID = c.Id,
+                            Name = c.FullName,
+                            Dob = cv.Dob,
+                            Phone = cv.Phone,
+                            Email = cv.Email,
+                            Location = rc.GetLocation((int)cv.PorvinceLive).Name,
+                            Position = rc.Position(c.Id),
+                            YearExp = rc.Exp(c.Id),
+                            Language = k1
+                        };
+            if (list1.ToList().Count > 0)
+            {
+                return Ok(new
+                {
+                    TotalItem = c.getTotalRecord("Rc_Candidate", false),
+                    Data = list2
+                });
+            }
+            return StatusCode(200, "List is Null");
 
-        //}
+        }
 
         [HttpPost("GetOneInforCandidate")]
         public IActionResult GetOneInforCandidate(int id)
