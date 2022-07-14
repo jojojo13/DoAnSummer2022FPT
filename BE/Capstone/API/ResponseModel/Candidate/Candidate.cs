@@ -40,7 +40,7 @@ namespace API.ResponseModel.Candidate
     public class CandidateFillter
     {
         public string name { get; set; }
-        public DateTime dob { get; set; }
+        public int yob { get; set; }
         public string phone { get; set; }
         public string email { get; set; }
         public string location { get; set; }

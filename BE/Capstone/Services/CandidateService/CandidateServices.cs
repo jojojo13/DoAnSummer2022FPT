@@ -177,26 +177,63 @@ namespace Services.CandidateService
             return list;
         }
 
-        public List<RcCandidate> GetAllCandidateByFillter(int index, int size, string name, DateTime dob, string phone, string email, string location, string position, string yearExp, string language, int status)
+        public List<CandidateResponeServices> GetAllCandidateByFillter(int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, int totalItems)
         {
-            List<RcCandidate> list = new List<RcCandidate>();
+            List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             try
             {
                 using var context = new CapstoneProject2022Context();
-                list = context.RcCandidates.Where(x => x.RecordStatus == status).ToList();
-                var returnList = from c in list
-                                 select new
-                                 {
-                                     //ID = c.Id,
-                                     //Name = c.FullName,
-                                     //Dob = cv.Dob,
-                                     //Phone = cv.Phone,
-                                     //Email = cv.Email,
-                                     //Location = rc.GetLocation((int)cv.PorvinceLive).Name,
-                                     //Position = rc.Position(c.Id),
-                                     //YearExp = rc.Exp(c.Id),
-                                     //Language = k1
-                                 };
+                var query = from c in context.RcCandidates.Where(x => x.RecordStatus == status)
+                            from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
+                            from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
+                            from pr in context.Provinces.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
+                            select new CandidateResponeServices
+                            {
+                                id = c.Id,
+                                name = c.FullName,
+                                code = c.Code,
+                                yob = cv.Dob.Value.Year,
+                                dob = cv.Dob,
+                                dobString = Convert.ToDateTime(cv.Dob).ToString("dd/MM/YYYY"),
+                                phoneNumber = cv.Phone,
+                                email = cv.Email,
+                                nation = na.Name,
+                                province = pr.Name,
+                                nationID = na.Id,
+                                provinceID = pr.Id,
+                                location = na.Name + " - " + pr.Name,
+                                status = c.RecordStatus.ToString(),
+                                statusId = c.RecordStatus
+                            };
+                totalItems = query.ToList().Count;
+                list = query.ToList();
+                if (!name.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.name.ToLower().Contains(name.ToLower())).ToList();
+                }
+                if (yob!=0)
+                {
+                    list = list.Where(x => x.yob==yob).ToList();
+                }
+                if (!phone.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.phoneNumber.ToLower().Contains(phone.ToLower())).ToList();
+                }
+                if (!email.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.email.ToLower().Contains(email.ToLower())).ToList();
+                }
+                if (!location.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.location.ToLower().Contains(location.ToLower())).ToList();
+                }
+                list = query.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
+                foreach (var item in list)
+                {
+                    item.lastestPosition = Position(item.id);
+                    item.experience = Exp(item.id);
+                    item.language = GetSkill(item.id);
+                }
             }
             catch
             {
