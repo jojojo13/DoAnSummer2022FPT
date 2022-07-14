@@ -221,19 +221,21 @@ namespace Services.CandidateService
             return candidate;
         }
 
-        public RcCandidateCv GetCandidateCVbyID(int id)
+        public RcCandidateCv GetCandidateCVbyID(int? id)
         {
             RcCandidateCv cv = new RcCandidateCv();
             try
             {
                 using var context = new CapstoneProject2022Context();
                 cv = context.RcCandidateCvs.Where(x => x.CandidateId == id).SingleOrDefault();
+                return cv;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return null;
             }
-            return cv;
+            
         }
 
         public RcCandidateEdu GetCandidateEdubyID(int id)
@@ -243,12 +245,14 @@ namespace Services.CandidateService
             {
                 using var context = new CapstoneProject2022Context();
                 edu = context.RcCandidateEdus.Where(x => x.CandidateId == id).SingleOrDefault();
+                return edu;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return null;
             }
-            return edu;
+          
         }
 
         public List<RcCandidateSkill> GetCandidateSkillbyID(int id)
@@ -259,12 +263,13 @@ namespace Services.CandidateService
 
                 using var context = new CapstoneProject2022Context();
                 list = context.RcCandidateSkills.Where(x => x.RcCandidateId == id).ToList();
+                return list;
             }
             catch
             {
-
+                return null;
             }
-            return list;
+           
         }
 
         public bool PromoteCandidate(int CandidateID)
@@ -369,7 +374,7 @@ namespace Services.CandidateService
             return list;
         }
 
-        public Province GetLocation(int id)
+        public Province GetLocation(int? id)
         {
             Province p = new Province();
             try
@@ -382,26 +387,29 @@ namespace Services.CandidateService
             }
             catch
             {
-                return p;
+                return null;
             }
         }
 
-        public string GetSkill(int candidateID)
+        public string GetSkill(int? candidateID)
         {
             string skill = "";
             try
             {
                 using (var context = new CapstoneProject2022Context())
                 {
-                    List<RcCandidateSkill> list = context.RcCandidateSkills.Where(x => x.RcCandidateId == candidateID).ToList();
-                    foreach (RcCandidateSkill item in list)
+                    List<RcCandidateSkill> list = context.RcCandidateSkills.Where(x => x.RcCandidateId == candidateID && x.TypeSkill==14).ToList();
+                    var group= list.GroupBy(x => x.Type);
+                    foreach(var item in group)
                     {
-                        item.TypeNavigation = context.OtherLists.Where(x => x.Id == item.Type).SingleOrDefault();
-                        if (item.TypeNavigation != null)
+                        OtherList o = context.OtherLists.Where(x => x.Id == item.Key).SingleOrDefault();
+                        if (o != null)
                         {
-                            skill += item.TypeNavigation.Name + ",";
+                            skill += o.Name + ",";
                         }
                     }
+
+                 
                 }
                 return skill;
 
@@ -412,7 +420,7 @@ namespace Services.CandidateService
             }
         }
 
-        public string Position(int candidateID)
+        public string Position(int? candidateID)
         {
             string position = "";
             try
@@ -439,7 +447,7 @@ namespace Services.CandidateService
             return position;
         }
 
-        public string Exp(int candidateID)
+        public string Exp(int? candidateID)
         {
             string exp = "";
             try
@@ -591,26 +599,42 @@ namespace Services.CandidateService
         public OtherListType GetOtherListTypesCandidate(int id)
         {
             OtherListType other = new OtherListType();
-            using (var context = new CapstoneProject2022Context())
+            try
             {
-                other = context.OtherListTypes.Where(x => x.Id == id).SingleOrDefault();
+                using (var context = new CapstoneProject2022Context())
+                {
+                    other = context.OtherListTypes.Where(x => x.Id == id).SingleOrDefault();
 
+                }
+                return other;
             }
-            return other;
+            catch
+            {
+                return null;
+            }
+           
         }
 
         public OtherList GetOtherListCandidate(int id)
         {
             OtherList other = new OtherList();
-            using (var context = new CapstoneProject2022Context())
+            try
             {
-                other = context.OtherLists.Where(x => x.Id == id).SingleOrDefault();
+                using (var context = new CapstoneProject2022Context())
+                {
+                    other = context.OtherLists.Where(x => x.Id == id).SingleOrDefault();
 
+                }
+                return other;
             }
-            return other;
+            catch
+            {
+                return null;
+            }
+          
         }
 
-        public Nation GetNation(int id)
+        public Nation GetNation(int? id)
         {
             Nation p = new Nation();
             try
@@ -623,11 +647,11 @@ namespace Services.CandidateService
             }
             catch
             {
-                return p;
+                return null;
             }
         }
 
-        public District GetDistrict(int id)
+        public District GetDistrict(int? id)
         {
             District p = new District();
             try
@@ -640,11 +664,11 @@ namespace Services.CandidateService
             }
             catch
             {
-                return p;
+                return null;
             }
         }
 
-        public Ward GetWard(int id)
+        public Ward GetWard(int? id)
         {
             Ward p = new Ward();
             try
@@ -657,7 +681,7 @@ namespace Services.CandidateService
             }
             catch
             {
-                return p;
+                return null;
             }
         }
         #endregion

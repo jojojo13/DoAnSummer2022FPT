@@ -84,7 +84,7 @@ namespace Services.CandidateService
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        RcCandidateCv GetCandidateCVbyID(int id);
+        RcCandidateCv GetCandidateCVbyID(int? id);
         /// <summary>
         /// lay ra thong tin 1 edu trong ban rccandidateedu theo candidateID
         /// </summary>
@@ -101,14 +101,14 @@ namespace Services.CandidateService
 
         List<OtherListType> GetSkillType(int type);
 
-        Province GetLocation(int id);
-        Nation GetNation(int id);
-        District GetDistrict(int id);
-        Ward GetWard(int id);
+        Province GetLocation(int? id);
+        Nation GetNation(int? id);
+        District GetDistrict(int? id);
+        Ward GetWard(int? id);
         #endregion
-        string GetSkill(int candidateID);
-        string Position(int candidateID);
-        string Exp(int candidateID);
+        string GetSkill(int? candidateID);
+        string Position(int? candidateID);
+        string Exp(int? candidateID);
         OtherListType GetOtherListTypesCandidate(int id);
         OtherList GetOtherListCandidate(int id);
         #region "matching request"
