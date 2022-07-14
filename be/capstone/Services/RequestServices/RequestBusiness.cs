@@ -433,8 +433,8 @@ namespace Services.RequestServices
                     rc.Comment = T.Comment;
                     rc.Level = T.Level;
                     rc.Budget = T.Budget;
-                    rc.CreateDate = DateTime.Now;
-                    rc.CreateBy = T.UpdateBy;
+                    rc.UpdateDate = DateTime.Now;
+                    rc.UpdateBy = T.UpdateBy;
                     rc.HrInchange = T.HrInchange;
                     rc.OtherSkill = T.OtherSkill;
                     context.SaveChanges();
