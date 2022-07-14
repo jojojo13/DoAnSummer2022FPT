@@ -587,6 +587,79 @@ namespace Services.CandidateService
                 return false;
             }
         }
+
+        public OtherListType GetOtherListTypesCandidate(int id)
+        {
+            OtherListType other = new OtherListType();
+            using (var context = new CapstoneProject2022Context())
+            {
+                other = context.OtherListTypes.Where(x => x.Id == id).SingleOrDefault();
+
+            }
+            return other;
+        }
+
+        public OtherList GetOtherListCandidate(int id)
+        {
+            OtherList other = new OtherList();
+            using (var context = new CapstoneProject2022Context())
+            {
+                other = context.OtherLists.Where(x => x.Id == id).SingleOrDefault();
+
+            }
+            return other;
+        }
+
+        public Nation GetNation(int id)
+        {
+            Nation p = new Nation();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    p = context.Nations.Where(x => x.Id == id).SingleOrDefault();
+                    return p;
+                }
+            }
+            catch
+            {
+                return p;
+            }
+        }
+
+        public District GetDistrict(int id)
+        {
+            District p = new District();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    p = context.Districts.Where(x => x.Id == id).SingleOrDefault();
+                    return p;
+                }
+            }
+            catch
+            {
+                return p;
+            }
+        }
+
+        public Ward GetWard(int id)
+        {
+            Ward p = new Ward();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    p = context.Wards.Where(x => x.Id == id).SingleOrDefault();
+                    return p;
+                }
+            }
+            catch
+            {
+                return p;
+            }
+        }
         #endregion
     }
 }

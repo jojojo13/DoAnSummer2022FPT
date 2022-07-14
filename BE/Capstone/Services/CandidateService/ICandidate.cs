@@ -102,11 +102,15 @@ namespace Services.CandidateService
         List<OtherListType> GetSkillType(int type);
 
         Province GetLocation(int id);
+        Nation GetNation(int id);
+        District GetDistrict(int id);
+        Ward GetWard(int id);
         #endregion
         string GetSkill(int candidateID);
         string Position(int candidateID);
         string Exp(int candidateID);
-
+        OtherListType GetOtherListTypesCandidate(int id);
+        OtherList GetOtherListCandidate(int id);
         #region "matching request"
         bool MatchingCandidate(int requestID, List<int> lstCandidateID);
         List<CandidateResponeServices> GetCandidateByRequest(int requestID, int totalItem);

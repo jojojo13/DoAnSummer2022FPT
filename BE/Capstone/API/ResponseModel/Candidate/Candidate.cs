@@ -37,7 +37,7 @@ namespace API.ResponseModel.Candidate
         public int RecordStatus { get; set; }
     }
 
-    public class CandidateFillter
+    public class F
     {
         public string name { get; set; }
         public DateTime dob { get; set; }
