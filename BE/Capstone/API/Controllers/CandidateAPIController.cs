@@ -178,12 +178,19 @@ namespace API.Controllers
                 {
                     RcCandidateExp exp = new RcCandidateExp();
                     exp.RcCandidate = candidate1.Id;
-                    if(item.TypeID!= null)
+                    if(item.TypeID!= 0)
                     {
                         exp.TypeId = item.TypeID;
                     }
-                    exp.Position = item.Positiob;
-                    exp.Time = item.Time;
+                    if(item.Positiob!= "")
+                    {
+                        exp.Position = item.Positiob;
+                    }
+                   if(item.Time != "")
+                    {
+                        exp.Time = item.Time;
+                    }
+                  
                     check = rc.AddRcCandidateExp(exp);
                 }
 
