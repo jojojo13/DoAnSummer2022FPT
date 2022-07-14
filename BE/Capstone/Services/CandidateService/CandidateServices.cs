@@ -132,16 +132,46 @@ namespace Services.CandidateService
             }
         }
 
-        public List<RcCandidate> GetAllCandidate(int index, int size, int status)
+        public List<CandidateResponeServices> GetAllCandidate(int index, int size, int status)
         {
-            List<RcCandidate> list = new List<RcCandidate>();
+            List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             try
             {
                 using var context = new CapstoneProject2022Context();
-                list = context.RcCandidates.Where(x => x.RecordStatus == status).Skip(index * size).Take(size).ToList();
+                var query = from c in context.RcCandidates.Where(x => x.RecordStatus == status)
+                            from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
+                            from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
+                            from pr in context.Provinces.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
+                            select new CandidateResponeServices
+                            {
+                                id = c.Id,
+                                name = c.FullName,
+                                code = c.Code,
+                                yob = cv.Dob.Value.Year,
+                                dob = cv.Dob,
+                                dobString = Convert.ToDateTime(cv.Dob).ToString("dd/MM/YYYY"),
+                                phoneNumber = cv.Phone,
+                                email = cv.Email,
+                                nation = na.Name,
+                                province = pr.Name,
+                                nationID = na.Id,
+                                provinceID = pr.Id,
+                                location = na.Name + " - " + pr.Name,
+                                status = c.RecordStatus.ToString(),
+                                statusId = c.RecordStatus
+                            };
+
+                list = query.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
+                foreach (var item in list)
+                {
+                    item.lastestPosition = Position(item.id);
+                    item.experience = Exp(item.id);
+                    item.language = GetSkill(item.id);
+                }
             }
-            catch
+            catch (Exception ex)
             {
+                string a = ex.Message.ToString();
 
             }
             return list;
@@ -235,7 +265,7 @@ namespace Services.CandidateService
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            
+
         }
 
         public RcCandidateEdu GetCandidateEdubyID(int id)
@@ -252,7 +282,7 @@ namespace Services.CandidateService
                 Console.WriteLine(ex.Message);
                 return null;
             }
-          
+
         }
 
         public List<RcCandidateSkill> GetCandidateSkillbyID(int id)
@@ -269,7 +299,7 @@ namespace Services.CandidateService
             {
                 return null;
             }
-           
+
         }
 
         public bool PromoteCandidate(int CandidateID)
@@ -398,9 +428,9 @@ namespace Services.CandidateService
             {
                 using (var context = new CapstoneProject2022Context())
                 {
-                    List<RcCandidateSkill> list = context.RcCandidateSkills.Where(x => x.RcCandidateId == candidateID && x.TypeSkill==14).ToList();
-                    var group= list.GroupBy(x => x.Type);
-                    foreach(var item in group)
+                    List<RcCandidateSkill> list = context.RcCandidateSkills.Where(x => x.RcCandidateId == candidateID && x.TypeSkill == 14).ToList();
+                    var group = list.GroupBy(x => x.Type);
+                    foreach (var item in group)
                     {
                         OtherList o = context.OtherLists.Where(x => x.Id == item.Key).SingleOrDefault();
                         if (o != null)
@@ -409,7 +439,7 @@ namespace Services.CandidateService
                         }
                     }
 
-                 
+
                 }
                 return skill;
 
@@ -536,8 +566,8 @@ namespace Services.CandidateService
                                         //languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == r.CandidateId)
                                         //                from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
                                         //                select new languageObj { name = ot.Name }).ToList(),
-                                        lastestPosition= (from lstpo in context.RcCandidateExps.Where(x => x.RcCandidate == r.CandidateId) select new positionObj { name = lstpo.Position }).ToList().LastOrDefault().name,
-                                        language= GetSkill(r.CandidateId??0)
+                                        lastestPosition = (from lstpo in context.RcCandidateExps.Where(x => x.RcCandidate == r.CandidateId) select new positionObj { name = lstpo.Position }).ToList().LastOrDefault().name,
+                                        language = GetSkill(r.CandidateId ?? 0)
                                     };
                         totalItem = query.ToList().Count();
                         returrnList = query.ToList();
@@ -612,7 +642,7 @@ namespace Services.CandidateService
             {
                 return null;
             }
-           
+
         }
 
         public OtherList GetOtherListCandidate(int id)
@@ -631,7 +661,7 @@ namespace Services.CandidateService
             {
                 return null;
             }
-          
+
         }
 
         public Nation GetNation(int? id)

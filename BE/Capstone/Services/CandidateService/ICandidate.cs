@@ -59,7 +59,7 @@ namespace Services.CandidateService
         /// </summary>
         /// <returns></returns>
 
-        List<RcCandidate> GetAllCandidate(int page, int total,int status);
+        List<CandidateResponeServices> GetAllCandidate(int page, int total,int status);
 
 
         List<RcCandidate> GetAllCandidateByFillter( int index,  int size,  string name, DateTime dob,  string phone,  string email,  string location,  string position,  string yearExp,  string language, int status );

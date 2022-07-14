@@ -206,29 +206,14 @@ namespace API.Controllers
         [HttpPost("GetAllCandidate")]
         public IActionResult GetAllCandidate(int index, int size)
         {
-            List<RcCandidate> list1 = rc.GetAllCandidate(index, size, 1);
-            var list2 = from c in list1
-                        let k1 = rc.GetSkill(c.Id)
-                        let cv = rc.GetCandidateCVbyID(c.Id)
-                        select new
-                        {
-                            ID = c.Id,
-                            Code= c.Code,
-                            Name = c.FullName,
-                            Dob = cv.Dob.Value.Year,
-                            Phone = cv.Phone,
-                            Email = cv.Email,
-                            Location = rc.GetLocation(cv.PorvinceLive).Name,
-                            Position = rc.Position(c.Id),
-                            YearExp = rc.Exp(c.Id),
-                            Language = k1
-                        };
+            List<CandidateResponeServices> list1 = rc.GetAllCandidate(index, size, 1);
+
             if (list1.ToList().Count > 0)
             {
                 return Ok(new
                 {
                     TotalItem = c.getTotalRecord("Rc_Candidate", false),
-                    Data = list2
+                    Data = list1
                 });
             }
             return StatusCode(200, "List is Null");
@@ -238,28 +223,13 @@ namespace API.Controllers
         [HttpPost("GetAllCandidateDraff")]
         public IActionResult GetAllCandidateDraff(int index, int size)
         {
-            List<RcCandidate> list1 = rc.GetAllCandidate(index, size, 0);
-            var list2 = from c in list1
-                        let k1 = rc.GetSkill(c.Id)
-                        let cv = rc.GetCandidateCVbyID(c.Id)
-                        select new
-                        {
-                            ID = c.Id,
-                            Name = c.FullName,
-                            Dob = cv.Dob.Value.Year,
-                            Phone = cv.Phone,
-                            Email = cv.Email,
-                            Location = rc.GetLocation((int)cv.PorvinceLive).Name,
-                            Position = rc.Position(c.Id),
-                            YearExp = rc.Exp(c.Id),
-                            Language = k1
-                        };
+            List<CandidateResponeServices> list1 = rc.GetAllCandidate(index, size, 0);
             if (list1.ToList().Count > 0)
             {
                 return Ok(new
                 {
                     TotalItem = c.getTotalRecord("Rc_Candidate", false),
-                    Data = list2
+                    Data = list1
                 });
             }
             return StatusCode(200, "List is Null");
