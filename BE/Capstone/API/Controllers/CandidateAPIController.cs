@@ -213,6 +213,7 @@ namespace API.Controllers
                         select new
                         {
                             ID = c.Id,
+                            Code= c.Code,
                             Name = c.FullName,
                             Dob = cv.Dob.Value.Year,
                             Phone = cv.Phone,
