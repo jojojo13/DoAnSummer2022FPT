@@ -242,38 +242,108 @@ namespace API.Controllers
         }
 
 
-        [HttpPost("GetAllCandidateByFillter")]
-        public IActionResult GetAllCandidateByFillter([FromBody] CandidateFillter obj)
+        //[HttpPost("GetAllCandidateByFillter")]
+        //public IActionResult GetAllCandidateByFillter([FromBody] CandidateFillter obj)
+        //{
+        //    List<RcCandidate> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.dob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status);
+        //    var list2 = from c in list1
+        //                let k1 = rc.GetSkill(c.Id)
+        //                let cv = rc.GetCandidateCVbyID(c.Id)
+        //                select new
+        //                {
+        //                    ID = c.Id,
+        //                    Name = c.FullName,
+        //                    Dob = cv.Dob,
+        //                    Phone = cv.Phone,
+        //                    Email = cv.Email,
+        //                    Location = rc.GetLocation((int)cv.PorvinceLive).Name,
+        //                    Position = rc.Position(c.Id),
+        //                    YearExp = rc.Exp(c.Id),
+        //                    Language = k1
+        //                };
+        //    if (list1.ToList().Count > 0)
+        //    {
+        //        return Ok(new
+        //        {
+        //            TotalItem = c.getTotalRecord("Rc_Candidate", false),
+        //            Data = list2
+        //        });
+        //    }
+        //    return StatusCode(200, "List is Null");
+
+        //}
+
+        [HttpPost("GetOneInforCandidate")]
+        public IActionResult GetOneInforCandidate(int id)
         {
-            List<RcCandidate> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.dob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status);
-            var list2 = from c in list1
-                        let k1 = rc.GetSkill(c.Id)
-                        let cv = rc.GetCandidateCVbyID(c.Id)
-                        select new
-                        {
-                            ID = c.Id,
-                            Name = c.FullName,
-                            Dob = cv.Dob,
-                            Phone = cv.Phone,
-                            Email = cv.Email,
-                            Location = rc.GetLocation((int)cv.PorvinceLive).Name,
-                            Position = rc.Position(c.Id),
-                            YearExp = rc.Exp(c.Id),
-                            Language = k1
-                        };
-            if (list1.ToList().Count > 0)
+            RcCandidate c = rc.GetCandidateByID(id);
+            if (c != null)
+            {
+                List<RcCandidate> list = new List<RcCandidate>();
+                list.Add(c);
+                var list1 = from b in list
+                            let cv = rc.GetCandidateCVbyID(b.Id)
+                            let edu = rc.GetCandidateEdubyID(b.Id)
+                            select new
+                            {
+                                ID = c.Id,
+                                FullName = c.FullName,
+                                Dob = cv.Dob.Value.Year,
+                                Phone = cv.Phone,
+                                Email = cv.Email,
+                                Gender = cv.Gender,
+                                Address = cv.NoiO ,
+                                NationLive= rc.GetNation((int)cv.NationLive)== null ?"" : rc.GetNation((int)cv.NationLive).Name,
+                                ProvinceLive = rc.GetLocation((int)cv.PorvinceLive)== null ?"" : rc.GetLocation((int)cv.PorvinceLive).Name,
+                              //  DistrictLive= rc.GetDistrict((int)cv.DistrictLive)== null ?"" : rc.GetDistrict((int)cv.DistrictLive).Name,
+                             //   WardLive= rc.GetWard((int)cv.WardLive)== null ?"": rc.GetWard((int)cv.WardLive).Name,
+                                School = edu.School1,
+                                Major = edu.Major1,
+                                Score = edu.Gpa1,
+                                Graduate = edu.Graduate1,
+                                listSkill = from a in rc.GetCandidateSkillbyID(b.Id)
+                                            group a by a.TypeSkill into g
+                                            select new
+                                            {
+                                                Id = rc.GetOtherListTypesCandidate((int)g.Key).Id,
+                                                TypeSkill = rc.GetOtherListTypesCandidate((int)g.Key).Name,
+                                                Child = from d in g.ToList()
+                                                        group d by d.Type into i
+                                                        select new
+                                                        {
+                                                            Type = rc.GetOtherListCandidate((int)i.Key).Name,
+                                                            Child = from k in i.ToList()
+                                                                    group k by k.Level into k1
+                                                                    select new
+                                                                    {
+                                                                        Level = rc.GetOtherListCandidate((int)k1.Key).Name,
+                                                                        Goal = k1.ToList().Find(x => x.Level == k1.Key).Goal
+
+                                                                    }
+                                                        }
+
+                                            }
+
+
+
+                            };
+
+                return Ok(new
+                {
+                    Status = true,
+                    Data = list1
+                });
+            }
+            else
             {
                 return Ok(new
                 {
-                    TotalItem = c.getTotalRecord("Rc_Candidate", false),
-                    Data = list2
+                    Status = false,
+                    Data = "Dont find"
                 });
             }
-            return StatusCode(200, "List is Null");
 
         }
-
-
 
         #region Matching Candidate
 
