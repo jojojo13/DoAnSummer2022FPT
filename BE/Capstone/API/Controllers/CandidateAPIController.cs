@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ModelAuto.Models;
 using Services.CandidateService;
 using Services.CommonServices;
+using Services.ResponseModel.CandidateModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,7 +88,7 @@ namespace API.Controllers
                              {
                                  name = l.Name,
                                  code = l.Code,
-                                 id= l.Id
+                                 id = l.Id
                              };
 
             return Ok(new
@@ -182,7 +183,7 @@ namespace API.Controllers
         [HttpPost("GetAllCandidate")]
         public IActionResult GetAllCandidate(int index, int size)
         {
-            List<RcCandidate> list1 = rc.GetAllCandidate(index, size,1);
+            List<RcCandidate> list1 = rc.GetAllCandidate(index, size, 1);
             var list2 = from c in list1
                         let k1 = rc.GetSkill(c.Id)
                         let cv = rc.GetCandidateCVbyID(c.Id)
@@ -216,7 +217,7 @@ namespace API.Controllers
             List<RcCandidate> list1 = rc.GetAllCandidate(index, size, 0);
             var list2 = from c in list1
                         let k1 = rc.GetSkill(c.Id)
-                        let cv= rc.GetCandidateCVbyID(c.Id)
+                        let cv = rc.GetCandidateCVbyID(c.Id)
                         select new
                         {
                             ID = c.Id,
@@ -244,7 +245,7 @@ namespace API.Controllers
         [HttpPost("GetAllCandidateByFillter")]
         public IActionResult GetAllCandidateByFillter([FromBody] CandidateFillter obj)
         {
-            List<RcCandidate> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name,obj.dob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language ,obj.status );
+            List<RcCandidate> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.dob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status);
             var list2 = from c in list1
                         let k1 = rc.GetSkill(c.Id)
                         let cv = rc.GetCandidateCVbyID(c.Id)
@@ -272,5 +273,93 @@ namespace API.Controllers
 
         }
 
-    }                                                                                                                                                                                                                                                                                                   
+
+
+        #region Matching Candidate
+
+        [HttpPost("MatchingCandidate")]
+        public IActionResult MatchingCandidate([FromBody] MatchingResponse obj)
+        {
+            try
+            {
+                return Ok(new
+                {
+                    Status = rc.MatchingCandidate(obj.RequestID, obj.lstCandidateID)
+                });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [HttpPost("CheckQuantity")]
+        public IActionResult CheckQuantity([FromBody] MatchingResponse obj)
+        {
+            try
+            {
+                return Ok(new
+                {
+                    Status = rc.CheckQuantity(obj.RequestID, obj.lstCandidateID)
+                });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [HttpPost("DeleteCandidateRequest")]
+        public IActionResult DeleteCandidateRequest([FromBody] List<int> listID)
+        {
+            try
+            {
+                return Ok(new
+                {
+                    Status = rc.DeleteCandidateRequest(listID)
+                });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [HttpPost("GetCandidateByRequest")]
+        public IActionResult GetCandidateByRequest(int id)
+        {
+            int totalItem = 0;
+            List<CandidateResponeServices> lst = new List<CandidateResponeServices>();
+            try
+            {
+
+                lst = rc.GetCandidateByRequest(id, totalItem);
+                return Ok(new
+                {
+                    TotalItem = totalItem,
+                    Data = lst
+                });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    TotalItem = totalItem,
+                    Data = lst
+                });
+            }
+        }
+
+
+        #endregion
+    }
 }

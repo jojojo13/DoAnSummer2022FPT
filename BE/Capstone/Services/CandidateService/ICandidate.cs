@@ -1,4 +1,5 @@
 ﻿using ModelAuto.Models;
+using Services.ResponseModel.CandidateModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,7 +109,7 @@ namespace Services.CandidateService
 
         #region "matching request"
         bool MatchingCandidate(int requestID, List<int> lstCandidateID);
-        List<RcCandidate> GetCandidateByRequest(int requestID);
+        List<CandidateResponeServices> GetCandidateByRequest(int requestID, int totalItem);
         bool  CheckQuantity(int requestID, List<int> lstCandidateID);
         bool DeleteCandidateRequest(List<int> listID);
 

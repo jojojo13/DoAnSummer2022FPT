@@ -1,5 +1,6 @@
 ﻿using ModelAuto.Models;
 using Services.CommonServices;
+using Services.ResponseModel.CandidateModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -492,24 +493,46 @@ namespace Services.CandidateService
                 return false;
             }
         }
-        public List<RcCandidate> GetCandidateByRequest(int requestID)
+        public List<CandidateResponeServices> GetCandidateByRequest(int requestID, int totalItem)
         {
-            List<RcCandidate> returrnList = new List<RcCandidate>();
+            List<CandidateResponeServices> returrnList = new List<CandidateResponeServices>();
             try
             {
                 using (var context = new CapstoneProject2022Context())
                 {
                     if (requestID != 0)
                     {
-                        List<RcRequestCandidate> listCandidate = context.RcRequestCandidates.Where(x => x.RequestId == requestID).ToList();
-                        foreach (var item in listCandidate)
-                        {
-                            RcCandidate obj = new RcCandidate();
-
-                            //Viết thêm filter vào đây (để sau)
-                            obj = context.RcCandidates.Where(x => x.Id == item.CandidateId).FirstOrDefault();
-                            returrnList.Add(obj);
-                        }
+                        var query = from r in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
+                                    from c in context.RcCandidates.Where(x => x.Id == r.CandidateId).DefaultIfEmpty()
+                                    from cv in context.RcCandidateCvs.Where(x => x.CandidateId == r.CandidateId).DefaultIfEmpty()
+                                    from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
+                                    from pr in context.Nations.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
+                                    select new CandidateResponeServices
+                                    {
+                                        id = c.Id,
+                                        name = c.FullName,
+                                        code = c.Code,
+                                        yob = cv.Dob.Value.Year,
+                                        dob = cv.Dob,
+                                        dobString = Convert.ToDateTime(cv.Dob).ToString("dd/MM/YYYY"),
+                                        phoneNumber = cv.Phone,
+                                        email = cv.Email,
+                                        nation = na.Name,
+                                        province = pr.Name,
+                                        nationID = na.Id,
+                                        provinceID = pr.Id,
+                                        location = na.Name + " - " + pr.Name,
+                                        status = c.RecordStatus.ToString(),
+                                        statusId = c.RecordStatus,
+                                        //positionList = (from lstpo in context.RcCandidateExps.Where(x => x.RcCandidate == r.CandidateId) select new positionObj { name = lstpo.Position }).ToList(),
+                                        //languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == r.CandidateId)
+                                        //                from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
+                                        //                select new languageObj { name = ot.Name }).ToList(),
+                                        lastestPosition= (from lstpo in context.RcCandidateExps.Where(x => x.RcCandidate == r.CandidateId) select new positionObj { name = lstpo.Position }).ToList().LastOrDefault().name,
+                                        language= GetSkill(r.CandidateId??0)
+                                    };
+                        totalItem = query.ToList().Count();
+                        returrnList = query.ToList();
                     }
                 }
                 return returrnList;
