@@ -416,7 +416,6 @@ namespace API.Controllers
                 RcRequest rc = new RcRequest();
                 rc.Id = T.Id;
                 rc.Name = T.Name;
-                rc.EffectDate = T.EffectDate;
                 rc.ExpireDate = T.ExpireDate;
                 rc.Number = T.Number;
                 rc.OrgnizationId = T.OrgnizationId;
