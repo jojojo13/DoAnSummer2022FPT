@@ -205,7 +205,7 @@ namespace Services.CandidateService
                                 status = c.RecordStatus.ToString(),
                                 statusId = c.RecordStatus
                             };
-                totalItems = query.ToList().Count;
+                
                 list = query.ToList();
                 if (!name.Trim().Equals(""))
                 {
@@ -227,6 +227,7 @@ namespace Services.CandidateService
                 {
                     list = list.Where(x => x.location.ToLower().Contains(location.ToLower())).ToList();
                 }
+                totalItems = list.Count;
                 list = list.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
                 foreach (var item in list)
                 {
