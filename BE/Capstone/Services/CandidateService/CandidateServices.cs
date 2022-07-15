@@ -227,7 +227,7 @@ namespace Services.CandidateService
                 {
                     list = list.Where(x => x.location.ToLower().Contains(location.ToLower())).ToList();
                 }
-                list = query.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
+                list = list.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
                 foreach (var item in list)
                 {
                     item.lastestPosition = Position(item.id);
