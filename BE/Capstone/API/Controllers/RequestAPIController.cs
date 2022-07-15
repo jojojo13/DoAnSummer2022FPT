@@ -441,7 +441,6 @@ namespace API.Controllers
                 rc.Comment = T.Comment;
                 rc.UpdateDate = DateTime.Now;
                 rc.UpdateBy = a.Employee?.FullName;
-                rc.HrInchange = T.HrInchange;
                 if (T.OtherSkill != 0)
                 {
                     rc.OtherSkill = T.OtherSkill;
