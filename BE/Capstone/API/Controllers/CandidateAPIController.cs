@@ -126,16 +126,16 @@ namespace API.Controllers
                 cv.LinkedIn = T.LinkedIn;
                 cv.Facebook = T.Facebook;
                 cv.Twiter = T.Twiter;
-                
+
                 cv.NoiO = T.NoiO;
                 if (T.NationLive != null)
                 {
                     cv.NationLive = T.NationLive;
                 }
-                if(T.PorvinceLive != null)
+                if (T.PorvinceLive != null)
                 {
                     cv.PorvinceLive = T.PorvinceLive;
-                } 
+                }
                 //cv.DistrictLive = T.DistrictLive;
                 //cv.WardLive = T.WardLive;
                 check = rc.AddRcCandidateCV(cv);
@@ -145,11 +145,11 @@ namespace API.Controllers
                 edu.Major1 = T.Major;
                 edu.Graduate1 = T.Graduate;
                 edu.School1 = T.School;
-                if(T.Gpa != null)
+                if (T.Gpa != null)
                 {
                     edu.Gpa1 = T.Gpa;
                 }
-               
+
                 edu.Awards1 = T.Awards;
                 check = rc.AddRcCandidateEdu(edu);
                 // rccandidate skill
@@ -157,19 +157,19 @@ namespace API.Controllers
                 {
                     RcCandidateSkill skill = new RcCandidateSkill();
                     skill.RcCandidateId = candidate1.Id;
-                    if(item.TypeSkill != null)
+                    if (item.TypeSkill != null)
                     {
                         skill.TypeSkill = item.TypeSkill;
                     }
-                    if(item.Type!= null)
+                    if (item.Type != null)
                     {
                         skill.Type = item.Type;
                     }
-                   if(item.Level != null)
+                    if (item.Level != null)
                     {
                         skill.Level = item.Level;
                     }
-                    
+
                     skill.Goal = item.Goal;
                     check = rc.AddRcCandidateSkill(skill);
                 }
@@ -178,19 +178,19 @@ namespace API.Controllers
                 {
                     RcCandidateExp exp = new RcCandidateExp();
                     exp.RcCandidate = candidate1.Id;
-                    if(item.TypeID!= 0)
+                    if (item.TypeID != 0)
                     {
                         exp.TypeId = item.TypeID;
                     }
-                    if(item.Positiob!= "")
+                    if (item.Positiob != "")
                     {
                         exp.Position = item.Positiob;
                     }
-                   if(item.Time != "")
+                    if (item.Time != "")
                     {
                         exp.Time = item.Time;
                     }
-                  
+
                     check = rc.AddRcCandidateExp(exp);
                 }
 
@@ -247,8 +247,8 @@ namespace API.Controllers
         public IActionResult GetAllCandidateByFillter([FromBody] CandidateFillter obj)
         {
             int totalItem = 0;
-            List<CandidateResponeServices> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, totalItem);
-           
+            List<CandidateResponeServices> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem);
+
             if (list1.ToList().Count > 0)
             {
                 return Ok(new
@@ -280,11 +280,11 @@ namespace API.Controllers
                                 Phone = cv.Phone,
                                 Email = cv.Email,
                                 Gender = cv.Gender,
-                                Address = cv.NoiO ,
-                                NationLive= rc.GetNation(cv.NationLive)== null ?"" : rc.GetNation(cv.NationLive).Name,
-                                ProvinceLive = rc.GetLocation(cv.PorvinceLive)== null ?"" : rc.GetLocation(cv.PorvinceLive).Name,
-                                DistrictLive= rc.GetDistrict(cv.DistrictLive)== null ?"" : rc.GetDistrict(cv.DistrictLive).Name,
-                                WardLive= rc.GetWard(cv.WardLive)== null ?"": rc.GetWard(cv.WardLive).Name,
+                                Address = cv.NoiO,
+                                NationLive = rc.GetNation(cv.NationLive) == null ? "" : rc.GetNation(cv.NationLive).Name,
+                                ProvinceLive = rc.GetLocation(cv.PorvinceLive) == null ? "" : rc.GetLocation(cv.PorvinceLive).Name,
+                                DistrictLive = rc.GetDistrict(cv.DistrictLive) == null ? "" : rc.GetDistrict(cv.DistrictLive).Name,
+                                WardLive = rc.GetWard(cv.WardLive) == null ? "" : rc.GetWard(cv.WardLive).Name,
                                 School = edu.School1,
                                 Major = edu.Major1,
                                 Score = edu.Gpa1,

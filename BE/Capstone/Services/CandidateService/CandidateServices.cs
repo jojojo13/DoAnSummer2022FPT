@@ -177,7 +177,7 @@ namespace Services.CandidateService
             return list;
         }
 
-        public List<CandidateResponeServices> GetAllCandidateByFillter(int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, int totalItems)
+        public List<CandidateResponeServices> GetAllCandidateByFillter(int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems)
         {
             List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             try

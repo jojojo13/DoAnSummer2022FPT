@@ -62,7 +62,7 @@ namespace Services.CandidateService
         List<CandidateResponeServices> GetAllCandidate(int page, int total,int status);
 
 
-        List<CandidateResponeServices> GetAllCandidateByFillter( int index,  int size,  string name, int yob,  string phone,  string email,  string location,  string position,  string yearExp,  string language, int status, int totalItems);
+        List<CandidateResponeServices> GetAllCandidateByFillter( int index,  int size,  string name, int yob,  string phone,  string email,  string location,  string position,  string yearExp,  string language, int status, ref int totalItems);
 
         /// <summary>
         /// Lay ra tat ca cac candidate co step khac nhau
