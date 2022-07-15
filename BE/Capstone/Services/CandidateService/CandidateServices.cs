@@ -234,6 +234,19 @@ namespace Services.CandidateService
                     item.experience = Exp(item.id);
                     item.language = GetSkill(item.id);
                 }
+                if (!position.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.lastestPosition.ToLower().Contains(position.ToLower())).ToList();
+                }
+                if (!yearExp.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.experience.ToLower().Contains(yearExp.ToLower())).ToList();
+                }
+                if (!language.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.language.ToLower().Contains(language.ToLower())).ToList();
+                }
+
             }
             catch
             {
