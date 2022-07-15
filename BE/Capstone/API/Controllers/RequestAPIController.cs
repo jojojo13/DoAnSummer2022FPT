@@ -424,28 +424,19 @@ namespace API.Controllers
                 rc.Note = T.Note;
                 rc.Number = T.Number;
                 rc.YearExperience = T.YearExperience;
-                if (T.Project != 0)
-                {
-                    rc.Project = T.Project;
-                }
+                rc.Project = T.Project;
                 rc.PositionId = T.PositionID;
                 rc.Type = T.Type;
                 rc.Comment = T.Comment;
                 rc.ParentId = T.ParentID;
-                if (T.Level != 0)
-                {
-                    rc.Level = T.Level;
-                }
+                rc.Level = T.Level;
                 rc.RequestLevel = T.RequestLevel;
                 rc.Budget = T.Budget;
                 rc.Comment = T.Comment;
                 rc.UpdateDate = DateTime.Now;
                 rc.UpdateBy = a.Employee?.FullName;
                 rc.HrInchange = T.HrInchange;
-                if (T.OtherSkill != 0)
-                {
-                    rc.OtherSkill = T.OtherSkill;
-                }
+                rc.OtherSkill = T.OtherSkill;
                 var check = p.ModifyRequest(rc);
                 return Ok(new
                 {

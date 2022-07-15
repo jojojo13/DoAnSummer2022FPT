@@ -32,9 +32,9 @@ namespace Services.CandidateService
         /// <returns></returns>
         bool AddRcCandidateEdu(RcCandidateEdu r);
 
-        bool AddRcCandidateSkill(RcCandidateSkill r);
+        bool AddRcCandidateSkill(List<RcCandidateSkill> r);
 
-        bool AddRcCandidateExp(RcCandidateExp r);
+        bool AddRcCandidateExp(List<RcCandidateExp> r);
         #endregion
 
         #region  de thuc hien 5 man phong van
@@ -96,10 +96,15 @@ namespace Services.CandidateService
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        List<RcCandidateSkill> GetCandidateSkillbyID(int id);
-        List<RcCandidateExp> GetCandidateExpbyID(int id);
+      
 
         List<OtherListType> GetSkillType(int type);
+
+
+        List<RcCandidateSkill> GetCandidateSkillbyID(int id);
+        List<RcCandidateSkill> GetCandidateLanguagebyID(int id);
+        List<RcCandidateExp> GetCandidateExpbyID(int id);
+
 
         Province GetLocation(int? id);
         Nation GetNation(int? id);

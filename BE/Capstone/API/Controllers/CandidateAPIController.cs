@@ -152,46 +152,62 @@ namespace API.Controllers
 
                 edu.Awards1 = T.Awards;
                 check = rc.AddRcCandidateEdu(edu);
+
                 // rccandidate skill
-                foreach (Skill item in T.listSkill)
+                if (T.listSkill != null)
                 {
-                    RcCandidateSkill skill = new RcCandidateSkill();
-                    skill.RcCandidateId = candidate1.Id;
-                    if (item.TypeSkill != null)
+                    List<RcCandidateSkill> list = new List<RcCandidateSkill>();
+                    foreach (Skill item in T.listSkill)
                     {
-                        skill.TypeSkill = item.TypeSkill;
-                    }
-                    if (item.Type != null)
-                    {
-                        skill.Type = item.Type;
-                    }
-                    if (item.Level != null)
-                    {
-                        skill.Level = item.Level;
-                    }
 
-                    skill.Goal = item.Goal;
-                    check = rc.AddRcCandidateSkill(skill);
+                        RcCandidateSkill skill = new RcCandidateSkill();
+                        skill.RcCandidateId = candidate1.Id;
+                        if (item.TypeSkill != null)
+                        {
+                            skill.TypeSkill = item.TypeSkill;
+                        }
+                        if (item.Type != null)
+                        {
+                            skill.Type = item.Type;
+                        }
+                        if (item.Level != null)
+                        {
+                            skill.Level = item.Level;
+                        }
+
+                        skill.Goal = item.Goal;
+                        list.Add(skill);
+                    }
+                    check = rc.AddRcCandidateSkill(list);
                 }
-                //insert experience + domain
-                foreach (Exp item in T.listExp)
-                {
-                    RcCandidateExp exp = new RcCandidateExp();
-                    exp.RcCandidate = candidate1.Id;
-                    if (item.TypeID != 0)
-                    {
-                        exp.TypeId = item.TypeID;
-                    }
-                    if (item.Positiob != "")
-                    {
-                        exp.Position = item.Positiob;
-                    }
-                    if (item.Time != "")
-                    {
-                        exp.Time = item.Time;
-                    }
 
-                    check = rc.AddRcCandidateExp(exp);
+
+                //insert experience + domain
+                if (T.listExp != null)
+                {
+                    List<RcCandidateExp> list1 = new List<RcCandidateExp>();
+                    foreach (Exp item in T.listExp)
+                    {
+                        RcCandidateExp exp = new RcCandidateExp();
+                        exp.RcCandidate = candidate1.Id;
+                        if (item.TypeID != 0)
+                        {
+                            exp.TypeId = item.TypeID;
+                        }
+                        if (item.Positiob != "")
+                        {
+                            exp.Position = item.Positiob;
+                        }
+                        if (item.Time != "")
+                        {
+                            exp.Time = item.Time;
+                        }
+                        exp.CreateDate = DateTime.Now;
+                        exp.CreateBy = a.Id.ToString();
+
+                        list1.Add(exp);
+                    }
+                    check = rc.AddRcCandidateExp(list1);
                 }
 
 
@@ -289,30 +305,51 @@ namespace API.Controllers
                                 Major = edu.Major1,
                                 Score = edu.Gpa1,
                                 Graduate = edu.Graduate1,
-                                listSkill = from a in rc.GetCandidateSkillbyID(b.Id)
-                                            group a by a.TypeSkill into g
-                                            select new
-                                            {
-                                                Id = rc.GetOtherListTypesCandidate((int)g.Key).Id,
-                                                TypeSkill = rc.GetOtherListTypesCandidate((int)g.Key).Name,
-                                                Child = from d in g.ToList()
-                                                        group d by d.Type into i
-                                                        select new
-                                                        {
-                                                            Type = rc.GetOtherListCandidate((int)i.Key).Name,
-                                                            Child = from k in i.ToList()
-                                                                    group k by k.Level into k1
-                                                                    select new
-                                                                    {
-                                                                        Level = rc.GetOtherListCandidate((int)k1.Key).Name,
-                                                                        Goal = k1.ToList().Find(x => x.Level == k1.Key).Goal
+                                Language = from a in rc.GetCandidateLanguagebyID(b.Id)
+                                           group a by a.TypeSkill into g
+                                           select new
+                                           {
+                                               Id = rc.GetOtherListTypesCandidate((int)g.Key).Id,
+                                               TypeSkill = rc.GetOtherListTypesCandidate((int)g.Key).Name,
+                                               Child = from d in g.ToList()
+                                                       group d by d.Type into i
+                                                       select new
+                                                       {
+                                                           Type = rc.GetOtherListCandidate((int)i.Key).Name,
+                                                           Child = from k in i.ToList()
+                                                                   group k by k.Level into k1
+                                                                   select new
+                                                                   {
+                                                                       Level = rc.GetOtherListCandidate((int)k1.Key).Name,
+                                                                       Goal = k1.ToList().Find(x => x.Level == k1.Key).Goal
 
-                                                                    }
-                                                        }
+                                                                   }
+                                                       }
 
-                                            }
+                                           },
 
+                                SkillSheet = from a in rc.GetCandidateSkillbyID(b.Id)
+                                             group a by a.TypeSkill into g
+                                             select new
+                                             {
+                                                 Id = rc.GetOtherListTypesCandidate((int)g.Key).Id,
+                                                 TypeSkill = rc.GetOtherListTypesCandidate((int)g.Key).Name,
+                                                 Child = from d in g.ToList()
+                                                         group d by d.Type into i
+                                                         select new
+                                                         {
+                                                             Type = rc.GetOtherListCandidate((int)i.Key).Name,
+                                                             Child = from k in i.ToList()
+                                                                     group k by k.Level into k1
+                                                                     select new
+                                                                     {
+                                                                         Level = rc.GetOtherListCandidate((int)k1.Key).Name,
+                                                                         Goal = k1.ToList().Find(x => x.Level == k1.Key).Goal
 
+                                                                     }
+                                                         }
+
+                                             },
 
                             };
 

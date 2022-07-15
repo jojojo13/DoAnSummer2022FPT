@@ -117,12 +117,12 @@ namespace Services.CandidateService
 
         }
 
-        public bool AddRcCandidateSkill(RcCandidateSkill r)
+        public bool AddRcCandidateSkill(List<RcCandidateSkill> r)
         {
             try
             {
                 using var context = new CapstoneProject2022Context();
-                context.RcCandidateSkills.Add(r);
+                context.RcCandidateSkills.AddRange(r);
                 context.SaveChanges();
                 return true;
             }
@@ -344,6 +344,7 @@ namespace Services.CandidateService
 
                 using var context = new CapstoneProject2022Context();
                 list = context.RcCandidateSkills.Where(x => x.RcCandidateId == id).ToList();
+                list = list.Where(x => x.TypeSkill == 15 || x.TypeSkill == 16 || x.TypeSkill == 18 || x.TypeSkill == 25 || x.TypeSkill == 26).ToList();
                 return list;
             }
             catch
@@ -414,21 +415,14 @@ namespace Services.CandidateService
             return list;
         }
 
-        public bool AddRcCandidateExp(RcCandidateExp r)
+        public bool AddRcCandidateExp(List<RcCandidateExp> r)
         {
             try
             {
                 using (var context = new CapstoneProject2022Context())
                 {
-                    RcCandidateExp r1 = new RcCandidateExp();
-                    r1.RcCandidate = r.RcCandidate;
-                    r1.TypeId = r.TypeId;
-                    r1.Firm = r.Firm;
-                    r1.Position = r.Position;
-                    r1.Time = r.Time;
-                    r1.CreateBy = r.CreateBy;
-                    r1.CreateDate = DateTime.Now;
-                    context.RcCandidateExps.Add(r1);
+
+                    context.RcCandidateExps.AddRange(r);
                     context.SaveChanges();
                 }
 
@@ -759,6 +753,22 @@ namespace Services.CandidateService
                     p = context.Wards.Where(x => x.Id == id).SingleOrDefault();
                     return p;
                 }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<RcCandidateSkill> GetCandidateLanguagebyID(int id)
+        {
+            List<RcCandidateSkill> list = new List<RcCandidateSkill>();
+            try
+            {
+
+                using var context = new CapstoneProject2022Context();
+                list = context.RcCandidateSkills.Where(x => x.RcCandidateId == id && x.TypeSkill == 14).ToList();
+                return list;
             }
             catch
             {
