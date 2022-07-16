@@ -562,7 +562,7 @@ namespace Services.CandidateService
                 {
                     List<CheckDuplicateCandidateModel> list = new List<CheckDuplicateCandidateModel>();
                     var query = from c in context.RcCandidates
-                                from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
+                                from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id)
                                 select new CheckDuplicateCandidateModel
                                 {
                                     email = cv.Email,
