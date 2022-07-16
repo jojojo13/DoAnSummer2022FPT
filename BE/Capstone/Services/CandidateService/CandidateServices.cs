@@ -592,7 +592,7 @@ namespace Services.CandidateService
                     }
                     if (!obj.linkIn.Trim().Equals(""))
                     {
-                        list = list.Where(x =>!x.linkIn.Equals("") && x.linkIn.Trim().ToLower().Equals(obj.linkIn)).ToList();
+                        list = list.Where(x => !x.linkIn.Equals("") && x.linkIn.Trim().ToLower().Equals(obj.linkIn)).ToList();
                         if (list.Count > 0)
                         {
                             objReturn.mess += " LinkIn information ";
@@ -640,11 +640,13 @@ namespace Services.CandidateService
                     }
                     if (!objReturn.mess.Trim().Equals(""))
                     {
+                        objReturn.check = false;
                         objReturn.mess += " already exists in the candidate's profile";
                     }
-                    if (list.Count > 0)
+                    else
                     {
-                        objReturn.check = false;
+                        objReturn.check = true;
+                        objReturn.mess = "";
                     }
                 }
             }
