@@ -73,6 +73,8 @@ namespace Services.CandidateService
                     r1.Facebook = r.Facebook;
                     r1.Twiter = r.Twiter;
                     r1.NoiO = r.NoiO;
+                    r1.Skype = r.Skype;
+                    r1.Website = r.Website;
                     r1.NationLive = r.NationLive;
                     r1.PorvinceLive = r.PorvinceLive;
                     r1.DistrictLive = r.DistrictLive;
