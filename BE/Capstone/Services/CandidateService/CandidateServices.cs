@@ -582,7 +582,7 @@ namespace Services.CandidateService
                         list = list.Where(x => !x.email.Equals("") && x.email.Trim().ToLower().Equals(obj.email)).ToList();
                         if (list.Count > 0)
                         {
-                            objReturn.mess += " Email information ";
+                            objReturn.mess += " Email information ;";
                         }
                     }
                     if (!obj.faceBook.Trim().Equals(""))
@@ -591,7 +591,7 @@ namespace Services.CandidateService
                         list = list.Where(x => !x.faceBook.Equals("") && x.faceBook.Trim().ToLower().Equals(obj.faceBook)).ToList();
                         if (list.Count > 0)
                         {
-                            objReturn.mess += " Facebook information ";
+                            objReturn.mess += " Facebook information ;";
                         }
                     }
                     if (!obj.linkIn.Trim().Equals(""))
@@ -600,7 +600,7 @@ namespace Services.CandidateService
                         list = list.Where(x => !x.linkIn.Equals("") && x.linkIn.Trim().ToLower().Equals(obj.linkIn)).ToList();
                         if (list.Count > 0)
                         {
-                            objReturn.mess += " LinkIn information ";
+                            objReturn.mess += " LinkIn information ;";
                         }
                     }
                     if (!obj.phone.Trim().Equals(""))
@@ -609,7 +609,7 @@ namespace Services.CandidateService
                         list = list.Where(x => !x.phone.Equals("") && x.phone.Trim().ToLower().Equals(obj.phone)).ToList();
                         if (list.Count > 0)
                         {
-                            objReturn.mess += " Phone Number information ";
+                            objReturn.mess += " Phone Number information ;";
                         }
                     }
                     if (!obj.skype.Trim().Equals(""))
@@ -618,7 +618,7 @@ namespace Services.CandidateService
                         list = list.Where(x => !x.skype.Equals("") && x.skype.Trim().ToLower().Equals(obj.skype)).ToList();
                         if (list.Count > 0)
                         {
-                            objReturn.mess += " Skype information ";
+                            objReturn.mess += " Skype information ;";
                         }
                     }
                     if (!obj.twitter.Trim().Equals(""))
@@ -627,7 +627,7 @@ namespace Services.CandidateService
                         list = list.Where(x => !x.twitter.Equals("") && x.twitter.Trim().ToLower().Equals(obj.twitter)).ToList();
                         if (list.Count > 0)
                         {
-                            objReturn.mess += " Twitter information ";
+                            objReturn.mess += " Twitter information ;";
                         }
                     }
                     if (!obj.website.Trim().Equals(""))
@@ -636,7 +636,7 @@ namespace Services.CandidateService
                         list = list.Where(x => !x.website.Equals("") && x.website.Trim().ToLower().Equals(obj.website)).ToList();
                         if (list.Count > 0)
                         {
-                            objReturn.mess += " Website information ";
+                            objReturn.mess += " Website information ;";
                         }
                     }
                     if (!obj.zalo.Trim().Equals(""))
@@ -645,7 +645,7 @@ namespace Services.CandidateService
                         list = list.Where(x => !x.zalo.Equals("") && x.zalo.Trim().ToLower().Equals(obj.zalo)).ToList();
                         if (list.Count > 0)
                         {
-                            objReturn.mess += " Zalo information ";
+                            objReturn.mess += " Zalo information ;";
                         }
                     }
                     if (!objReturn.mess.Trim().Equals(""))
