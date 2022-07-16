@@ -19,7 +19,6 @@
     <Folder Include="bin\Debug\net5.0\ref\" />
     <Folder Include="obj\Debug\net5.0\ref\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="ResponseModel\OrgnizationModel\" />
   </ItemGroup>
 
   <ItemGroup>

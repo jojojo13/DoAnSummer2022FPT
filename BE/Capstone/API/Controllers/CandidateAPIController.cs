@@ -370,6 +370,17 @@ namespace API.Controllers
 
         }
 
+        [HttpPost("CheckDuplicateCandidate")]
+        public IActionResult CheckDuplicateCandidate([FromBody] CheckDuplicateCandidateModel obj)
+        {
+                return Ok(new
+                {
+                    Data = rc.checkDuplicateCandidate(obj)
+                });
+        }
+
+
+
         #region Matching Candidate
 
         [HttpPost("MatchingCandidate")]

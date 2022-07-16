@@ -116,6 +116,9 @@ namespace Services.CandidateService
         string Exp(int? candidateID);
         OtherListType GetOtherListTypesCandidate(int id);
         OtherList GetOtherListCandidate(int id);
+
+
+        checkResponse checkDuplicateCandidate(CheckDuplicateCandidateModel obj);
         #region "matching request"
         bool MatchingCandidate(int requestID, List<int> lstCandidateID);
         List<CandidateResponeServices> GetCandidateByRequest(int requestID, int totalItem);

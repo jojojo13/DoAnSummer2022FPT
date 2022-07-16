@@ -205,15 +205,15 @@ namespace Services.CandidateService
                                 status = c.RecordStatus.ToString(),
                                 statusId = c.RecordStatus
                             };
-                
+
                 list = query.ToList();
                 if (!name.Trim().Equals(""))
                 {
                     list = list.Where(x => x.name.ToLower().Contains(name.ToLower())).ToList();
                 }
-                if (yob!=0)
+                if (yob != 0)
                 {
-                    list = list.Where(x => x.yob==yob).ToList();
+                    list = list.Where(x => x.yob == yob).ToList();
                 }
                 if (!phone.Trim().Equals(""))
                 {
@@ -547,6 +547,111 @@ namespace Services.CandidateService
                 exp = "";
             }
             return exp;
+        }
+
+
+        public checkResponse checkDuplicateCandidate(CheckDuplicateCandidateModel obj)
+        {
+            checkResponse objReturn = new checkResponse();
+            objReturn.mess = "";
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<CheckDuplicateCandidateModel> list = new List<CheckDuplicateCandidateModel>();
+                    var query = from c in context.RcCandidates
+                                from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
+                                select new CheckDuplicateCandidateModel
+                                {
+                                    email = cv.Email,
+                                    faceBook = cv.Facebook,
+                                    linkIn = cv.LinkedIn,
+                                    phone = cv.Phone,
+                                    skype = cv.Skype,
+                                    twitter = cv.Twiter,
+                                    website = cv.Website,
+                                    zalo = cv.Zalo
+                                };
+                    list = query.ToList();
+
+                    if (!obj.email.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.email.Trim().ToLower().Equals(obj.email)).ToList();
+                        if (list.Count > 0)
+                        {
+                            objReturn.mess += " Email information ";
+                        }
+                    }
+                    if (!obj.faceBook.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.faceBook.Trim().ToLower().Equals(obj.faceBook)).ToList();
+                        if (list.Count > 0)
+                        {
+                            objReturn.mess += " Facebook information ";
+                        }
+                    }
+                    if (!obj.linkIn.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.linkIn.Trim().ToLower().Equals(obj.linkIn)).ToList();
+                        if (list.Count > 0)
+                        {
+                            objReturn.mess += " LinkIn information ";
+                        }
+                    }
+                    if (!obj.phone.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.phone.Trim().ToLower().Equals(obj.phone)).ToList();
+                        if (list.Count > 0)
+                        {
+                            objReturn.mess += " Phone Number information ";
+                        }
+                    }
+                    if (!obj.skype.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.skype.Trim().ToLower().Equals(obj.skype)).ToList();
+                        if (list.Count > 0)
+                        {
+                            objReturn.mess += " Skype information ";
+                        }
+                    }
+                    if (!obj.twitter.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.twitter.Trim().ToLower().Equals(obj.twitter)).ToList();
+                        if (list.Count > 0)
+                        {
+                            objReturn.mess += " Twitter information ";
+                        }
+                    }
+                    if (!obj.website.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.website.Trim().ToLower().Equals(obj.website)).ToList();
+                        if (list.Count > 0)
+                        {
+                            objReturn.mess += " Website information ";
+                        }
+                    }
+                    if (!obj.zalo.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.zalo.Trim().ToLower().Equals(obj.zalo)).ToList();
+                        if (list.Count > 0)
+                        {
+                            objReturn.mess += " Zalo information ";
+                        }
+                    }
+                    if (!objReturn.mess.Trim().Equals(""))
+                    {
+                        objReturn.mess += " already exists in the candidate's profile";
+                    }
+                    if (list.Count > 0)
+                    {
+                        objReturn.check = false;
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return objReturn;
         }
 
 
