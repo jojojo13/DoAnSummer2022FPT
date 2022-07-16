@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v+Nu1ysqUr2Ovjtg2MooJ0kxE2urZvjNb0EYfiH7NcQ9TL1Fo/PVkx5g7fOuO9vuZrAY0H3Gz+Crho/x8q0zeg==",
+  "dgSpecHash": "ZEsuPux8/IW8yP5U83nXAA6hma2zbjX9ZI8YIminlgZlbp3JuRKr6+U3gzSatMFKfjOO1psjt1if5aEIErqH/g==",
   "success": true,
-  "projectFilePath": "D:\\Capstone\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
+  "projectFilePath": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HaNoi\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\HaNoi\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

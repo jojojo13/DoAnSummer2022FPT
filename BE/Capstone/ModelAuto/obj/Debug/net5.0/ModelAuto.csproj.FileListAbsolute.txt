@@ -13,3 +13,19 @@ D:\Capstone\BE\Capstone\ModelAuto\bin\Debug\net5.0\contextJson.json
 D:\Capstone\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.runtimeconfig.json
 D:\Capstone\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.runtimeconfig.dev.json
 D:\Capstone\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.genruntimeconfig.cache
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\bin\Debug\net5.0\contextJson.json
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.deps.json
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.runtimeconfig.json
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.runtimeconfig.dev.json
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.dll
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\bin\Debug\net5.0\ref\ModelAuto.dll
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.pdb
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.AssemblyInfoInputs.cache
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.AssemblyInfo.cs
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.csproj.CoreCompileInputs.cache
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.dll
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ref\ModelAuto.dll
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.pdb
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.genruntimeconfig.cache
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.csprojAssemblyReference.cache

@@ -6176,11 +6176,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Capstone\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
+      "projectUniqueName": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
       "projectName": "ModelAuto",
-      "projectPath": "D:\\Capstone\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
+      "projectPath": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
       "packagesPath": "C:\\Users\\HaNoi\\.nuget\\packages\\",
-      "outputPath": "D:\\Capstone\\BE\\Capstone\\ModelAuto\\obj\\",
+      "outputPath": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\ModelAuto\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HaNoi\\AppData\\Roaming\\NuGet\\NuGet.Config",

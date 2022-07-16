@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Capstone\\BE\\Capstone\\API\\API.csproj": {}
+    "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\API\\API.csproj": {}
   },
   "projects": {
-    "D:\\Capstone\\BE\\Capstone\\API\\API.csproj": {
+    "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Capstone\\BE\\Capstone\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\Capstone\\BE\\Capstone\\API\\API.csproj",
+        "projectPath": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\API\\API.csproj",
         "packagesPath": "C:\\Users\\HaNoi\\.nuget\\packages\\",
-        "outputPath": "D:\\Capstone\\BE\\Capstone\\API\\obj\\",
+        "outputPath": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HaNoi\\AppData\\Roaming\\NuGet\\NuGet.Config",

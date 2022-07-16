@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Capstone\\BE\\Capstone\\Services\\Services.csproj": {}
+    "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\Services\\Services.csproj": {}
   },
   "projects": {
-    "D:\\Capstone\\BE\\Capstone\\Services\\Services.csproj": {
+    "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Capstone\\BE\\Capstone\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "D:\\Capstone\\BE\\Capstone\\Services\\Services.csproj",
+        "projectPath": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\Services\\Services.csproj",
         "packagesPath": "C:\\Users\\HaNoi\\.nuget\\packages\\",
-        "outputPath": "D:\\Capstone\\BE\\Capstone\\Services\\obj\\",
+        "outputPath": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HaNoi\\AppData\\Roaming\\NuGet\\NuGet.Config",
