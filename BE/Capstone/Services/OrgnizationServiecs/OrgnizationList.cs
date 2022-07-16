@@ -1,6 +1,7 @@
 ﻿
 using ModelAuto.Models;
 using Services.CommonServices;
+using Services.ResponseModel.OrgnizationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -253,81 +254,128 @@ namespace Services.OrgnizationServiecs
 
         #region Dia diem
 
-        public List<Nation> GetAllNation(int index, int size)
+        public List<NationResponseServices> GetAllNation(int index, int size, ref int totalItems)
         {
+            List<NationResponseServices> list = new List<NationResponseServices>();
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<Nation> list = context.Nations.Skip(index * size).Take(size).ToList();
+                    var query = from nation in context.Nations
+                                select new NationResponseServices
+                                {
+                                    name = nation.Name,
+                                    code = nation.Code,
+                                    id = nation.Id,
+                                    note = nation.Note
+                                };
+                    totalItems = query.ToList().Count;
+                    list = query.Skip(index * size).Take(size).ToList();
                     return list;
                 }
             }
             catch
             {
-                return new List<Nation>();
+                return list;
             }
         }
-        public List<Province> GetAllProvince(int index, int size)
+
+
+        public List<ProvinceResponseServices> GetAllProvince(int index, int size, ref int totalItems)
         {
+            List<ProvinceResponseServices> list = new List<ProvinceResponseServices>();
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<Province> list = context.Provinces.Skip(index * size).Take(size).ToList();
-                    foreach (var item in list)
-                    {
-                        item.Nation = context.Nations.Where(x => x.Id == item.NationId).FirstOrDefault();
-                    }
+                    var query = from pro in context.Provinces
+                                from na in context.Nations.Where(x=>x.Id== pro.NationId).DefaultIfEmpty()
+                                select new ProvinceResponseServices
+                                {
+                                    name = pro.Name,
+                                    code = pro.Code,
+                                    id = pro.Id,
+                                    note = pro.Note,
+                                    nationID= pro.NationId,
+                                    nationName= na.Name
+                                };
+                    totalItems = query.ToList().Count;
+                    list = query.Skip(index * size).Take(size).ToList();
                     return list;
                 }
             }
             catch
             {
-                return new List<Province>();
+                return list;
             }
         }
-        public List<District> GetAllDistrict(int index, int size)
+
+
+        public List<DistrictResponseServices> GetAllDistrict(int index, int size, ref int totalItems)
         {
+            List<DistrictResponseServices> list = new List<DistrictResponseServices>();
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<District> list = context.Districts.Skip(index * size).Take(size).ToList();
-                    foreach (var item in list)
-                    {
-                        item.Province = context.Provinces.Where(x => x.Id == item.ProvinceId).FirstOrDefault();
-                        item.Province.Nation = context.Nations.Where(x => x.Id == item.Province.NationId).FirstOrDefault();
-                    }
-
-                    var sql = from d in context.Districts
-                              from p in context.Provinces.Where(x => x.Id == d.ProvinceId).DefaultIfEmpty()
-                              select new
-                              {
-
-                              };
-
+                    var query = from di in context.Districts
+                                from pro in context.Provinces.Where(x=>x.Id== di.ProvinceId).DefaultIfEmpty()
+                                from na in context.Nations.Where(x => x.Id == pro.NationId).DefaultIfEmpty()
+                                select new DistrictResponseServices
+                                {
+                                    name = di.Name,
+                                    code = di.Code,
+                                    id = di.Id,
+                                    note = di.Note,
+                                    nationID = na.Id,
+                                    nationName = na.Name,
+                                    provinceID= pro.Id,
+                                    provinceName= pro.Name
+                                };
+                    totalItems = query.ToList().Count;
+                    list = query.Skip(index * size).Take(size).ToList();
                     return list;
                 }
             }
             catch
             {
-                return new List<District>();
+                return list;
             }
         }
-        public List<Ward> GetAllWard(int index, int size)
+
+
+        public List<WardResponseServices> GetAllWard(int index, int size, ref int totalItems)
         {
+            List<WardResponseServices> list = new List<WardResponseServices>();
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    List<Ward> list = context.Wards.Skip(index * size).Take(size).ToList();
+                    var query = from wa in context.Wards
+                                from di in context.Districts.Where(x=>x.Id== wa.DistrictId).DefaultIfEmpty()
+                                from pro in context.Provinces.Where(x => x.Id == di.ProvinceId).DefaultIfEmpty()
+                                from na in context.Nations.Where(x => x.Id == pro.NationId).DefaultIfEmpty()
+                                select new WardResponseServices
+                                {
+                                    name = wa.Name,
+                                    code = wa.Code,
+                                    id = wa.Id,
+                                    note = wa.Note,
+                                    nationID = na.Id,
+                                    nationName = na.Name,
+                                    provinceID = pro.Id,
+                                    provinceName = pro.Name,
+                                    districtID= di.Id,
+                                    districtName= di.Name
+                                };
+                    totalItems = query.ToList().Count;
+                    list = query.Skip(index * size).Take(size).ToList();
                     return list;
                 }
             }
             catch
             {
-                return new List<Ward>();
+                return list;
             }
         }
 

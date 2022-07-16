@@ -1,4 +1,5 @@
 ﻿using ModelAuto.Models;
+using Services.ResponseModel.OrgnizationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,10 @@ namespace Services.OrgnizationServiecs
 
         #region "Địa điểm"
 
-        List<Nation> GetAllNation(int index, int size);
-        List<Province> GetAllProvince(int index, int size);
-        List<District> GetAllDistrict(int index, int size);
-        List<Ward> GetAllWard(int index, int size);
+        List<NationResponseServices> GetAllNation(int index, int size, ref int totalItems);
+        List<ProvinceResponseServices> GetAllProvince(int index, int size, ref int totalItems);
+        List<DistrictResponseServices> GetAllDistrict(int index, int size, ref int totalItems);
+        List<WardResponseServices> GetAllWard(int index, int size, ref int totalItems);
 
         #endregion
 

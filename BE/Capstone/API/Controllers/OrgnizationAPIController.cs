@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Services.CommonServices;
+using Services.ResponseModel.OrgnizationModel;
 
 namespace API.Controllers
 {
@@ -492,21 +493,13 @@ namespace API.Controllers
         [HttpPost("GetNationList")]
         public IActionResult GetNation(int index, int size)
         {
-            List<Nation> list = p.GetAllNation(index, size);
-
-            var listReturn = from l in list
-                             select new
-                             {
-                                 name = l.Name,
-                                 code = l.Code,
-                                 id = l.Id,
-                                 note= l.Note
-                             };
+            int totalItems = 0;
+            List<NationResponseServices> list = p.GetAllNation(index, size,ref totalItems);
             if (list.Count > 0)
                 return Ok(new
                 {
-                    TotalItem = c.getTotalRecord("Nation", false),
-                    Data = listReturn
+                    TotalItem = totalItems,
+                    Data = list
                 });
             else
                 return StatusCode(200, "List is Null");
@@ -515,23 +508,13 @@ namespace API.Controllers
         [HttpPost("GetProvinceList")]
         public IActionResult GetProvinceList(int index, int size)
         {
-            List<Province> list = p.GetAllProvince(index, size);
-
-            var listReturn = from l in list
-                             select new
-                             {
-                                 nation = l.Nation?.Name,
-                                 nationId= l.NationId,
-                                 name = l.Name,
-                                 code = l.Code,
-                                 id = l.Id,
-                                 note = l.Note
-                             };
+            int totalItems = 0;
+            List<ProvinceResponseServices> list = p.GetAllProvince(index, size,ref totalItems);
             if (list.Count > 0)
                 return Ok(new
                 {
-                    TotalItem = c.getTotalRecord("Province", false),
-                    Data = listReturn
+                    TotalItem = totalItems,
+                    Data = list
                 });
             else
                 return StatusCode(200, "List is Null");
@@ -540,25 +523,13 @@ namespace API.Controllers
         [HttpPost("GetDistrictList")]
         public IActionResult GetDistrictList(int index, int size)
         {
-            List<District> list = p.GetAllDistrict(index, size);
-
-            var listReturn = from l in list
-                             select new
-                             {
-                                 name = l.Name,
-                                 code = l.Code,
-                                 id = l.Id,
-                                 note = l.Note,
-                                 nation = l.Province?.Nation?.Name,
-                                 nationId = l.Province.NationId,
-                                 province = l.Province?.Name,
-                                 provinceId = l.ProvinceId,
-                             };
+            int totalItems = 0;
+            List<DistrictResponseServices> list = p.GetAllDistrict(index, size, ref totalItems);
             if (list.Count > 0)
                 return Ok(new
                 {
-                    TotalItem = c.getTotalRecord("District", false),
-                    Data = listReturn
+                    TotalItem = totalItems,
+                    Data = list
                 });
             else
                 return StatusCode(200, "List is Null");
@@ -567,21 +538,13 @@ namespace API.Controllers
         [HttpPost("GetWardList")]
         public IActionResult GetWardList(int index, int size)
         {
-            List<Ward> list = p.GetAllWard(index, size);
-
-            var listReturn = from l in list
-                             select new
-                             {
-                                 name = l.Name,
-                                 code = l.Code,
-                                 id = l.Id,
-                                 note = l.Note
-                             };
+            int totalItems = 0;
+            List<WardResponseServices> list = p.GetAllWard(index, size, ref totalItems);
             if (list.Count > 0)
                 return Ok(new
                 {
-                    TotalItem = c.getTotalRecord("Ward", false),
-                    Data = listReturn
+                    TotalItem = totalItems,
+                    Data = list
                 });
             else
                 return StatusCode(200, "List is Null");
