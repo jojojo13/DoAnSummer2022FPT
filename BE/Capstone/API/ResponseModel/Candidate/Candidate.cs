@@ -15,6 +15,8 @@ namespace API.ResponseModel.Candidate
         public string Email { get; set; }
         public string LinkedIn { get; set; }
         public string Facebook { get; set; }
+        public string Skype { get; set; }
+        public string Website { get; set; }
         public string Twiter { get; set; }
         public string NoiO { get; set; }
         public int? NationLive { get; set; }

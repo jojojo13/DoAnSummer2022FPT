@@ -126,6 +126,9 @@ namespace API.Controllers
                 cv.LinkedIn = T.LinkedIn;
                 cv.Facebook = T.Facebook;
                 cv.Twiter = T.Twiter;
+                cv.Skype = T.Skype;
+                cv.Website = T.Website;
+
 
                 cv.NoiO = T.NoiO;
                 if (T.NationLive != null)
@@ -214,7 +217,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = check
-                }); ;
+                });
 
             }
             catch

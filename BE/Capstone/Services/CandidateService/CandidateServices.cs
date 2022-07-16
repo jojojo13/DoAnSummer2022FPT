@@ -576,7 +576,7 @@ namespace Services.CandidateService
 
                     if (!obj.email.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.email.Trim().ToLower().Equals(obj.email)).ToList();
+                        list = list.Where(x => !x.email.Equals("") && x.email.Trim().ToLower().Equals(obj.email)).ToList();
                         if (list.Count > 0)
                         {
                             objReturn.mess += " Email information ";
@@ -584,7 +584,7 @@ namespace Services.CandidateService
                     }
                     if (!obj.faceBook.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.faceBook.Trim().ToLower().Equals(obj.faceBook)).ToList();
+                        list = list.Where(x => !x.faceBook.Equals("") && x.faceBook.Trim().ToLower().Equals(obj.faceBook)).ToList();
                         if (list.Count > 0)
                         {
                             objReturn.mess += " Facebook information ";
@@ -592,7 +592,7 @@ namespace Services.CandidateService
                     }
                     if (!obj.linkIn.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.linkIn.Trim().ToLower().Equals(obj.linkIn)).ToList();
+                        list = list.Where(x =>!x.linkIn.Equals("") && x.linkIn.Trim().ToLower().Equals(obj.linkIn)).ToList();
                         if (list.Count > 0)
                         {
                             objReturn.mess += " LinkIn information ";
@@ -600,7 +600,7 @@ namespace Services.CandidateService
                     }
                     if (!obj.phone.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.phone.Trim().ToLower().Equals(obj.phone)).ToList();
+                        list = list.Where(x => !x.phone.Equals("") && x.phone.Trim().ToLower().Equals(obj.phone)).ToList();
                         if (list.Count > 0)
                         {
                             objReturn.mess += " Phone Number information ";
@@ -608,7 +608,7 @@ namespace Services.CandidateService
                     }
                     if (!obj.skype.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.skype.Trim().ToLower().Equals(obj.skype)).ToList();
+                        list = list.Where(x => !x.skype.Equals("") && x.skype.Trim().ToLower().Equals(obj.skype)).ToList();
                         if (list.Count > 0)
                         {
                             objReturn.mess += " Skype information ";
@@ -616,7 +616,7 @@ namespace Services.CandidateService
                     }
                     if (!obj.twitter.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.twitter.Trim().ToLower().Equals(obj.twitter)).ToList();
+                        list = list.Where(x => !x.twitter.Equals("") && x.twitter.Trim().ToLower().Equals(obj.twitter)).ToList();
                         if (list.Count > 0)
                         {
                             objReturn.mess += " Twitter information ";
@@ -624,7 +624,7 @@ namespace Services.CandidateService
                     }
                     if (!obj.website.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.website.Trim().ToLower().Equals(obj.website)).ToList();
+                        list = list.Where(x => !x.website.Equals("") && x.website.Trim().ToLower().Equals(obj.website)).ToList();
                         if (list.Count > 0)
                         {
                             objReturn.mess += " Website information ";
@@ -632,7 +632,7 @@ namespace Services.CandidateService
                     }
                     if (!obj.zalo.Trim().Equals(""))
                     {
-                        list = list.Where(x => x.zalo.Trim().ToLower().Equals(obj.zalo)).ToList();
+                        list = list.Where(x => !x.zalo.Equals("") && x.zalo.Trim().ToLower().Equals(obj.zalo)).ToList();
                         if (list.Count > 0)
                         {
                             objReturn.mess += " Zalo information ";
