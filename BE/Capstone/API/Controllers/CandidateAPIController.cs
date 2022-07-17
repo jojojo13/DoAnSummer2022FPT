@@ -364,7 +364,9 @@ namespace API.Controllers
                             Domain = from a in rc.GetDomainOneCandidate(b.Id)
                                      select new
                                      {
-                                         Firm = a.Firm
+                                         Firm = a.Firm,
+                                         Positiob = a.Position,
+                                         Time= a.Time
                                      }
                             };
 
