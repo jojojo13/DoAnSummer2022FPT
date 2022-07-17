@@ -11,6 +11,7 @@ using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Services.ResponseModel.OrgnizationModel;
 
 namespace Services.CommonServices
 {
@@ -79,22 +80,55 @@ namespace Services.CommonServices
 
 
         #region Get by ID
-        public Orgnization getOrgByID(int id)
+        public OrgnizationResponseServices getOrgByID(int id)
         {
+            OrgnizationResponseServices obj = new OrgnizationResponseServices();
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    Orgnization obj = context.Orgnizations.Where(x => x.Id == id).FirstOrDefault();
-                    obj.Manager = context.Employees.Where(x => x.Id == obj.ManagerId).FirstOrDefault();
-                    return obj;
+                    var query = from o in context.Orgnizations.Where(x => x.Id == id)
+                                from na in context.Nations.Where(x => x.Id == o.NationId).DefaultIfEmpty()
+                                from pr in context.Provinces.Where(x => x.Id == o.ProvinceId).DefaultIfEmpty()
+                                from di in context.Provinces.Where(x => x.Id == o.DistrictId).DefaultIfEmpty()
+                                from wa in context.Wards.Where(x => x.Id == o.WardId).DefaultIfEmpty()
+                                from em in context.Employees.Where(x => x.Id == o.ManagerId).DefaultIfEmpty()
+                                from o2 in context.Orgnizations.Where(x => x.Id == o.ParentId).DefaultIfEmpty()
+                                select new OrgnizationResponseServices
+                                {
+                                    id = o.Id,
+                                    name = o.Name,
+                                    code = o.Code,
+                                    address = o.Address,
+                                    nationID = o.NationId,
+                                    nationName = na.Name,
+                                    provinceID = o.ProvinceId,
+                                    provinceName = pr.Name,
+                                    districtID = o.DistrictId,
+                                    districtName = di.Name,
+                                    wardID = o.WardId,
+                                    wardName = wa.Name,
+                                    managerID = o.ManagerId,
+                                    parentID = o.ParentId,
+                                    email = o.Email,
+                                    fax = o.Fax,
+                                    dissolutionDate = o.DissolutionDate,
+                                    effectDate = o.Effectdate,
+                                    numberBusiness = o.NumberBussines,
+                                    phoneNumber = o.Phone,
+                                    parentName= o2.Name,
+                                    managerName= em.FullName,
+                                    Level= o.Level,
+                                    office= o.Address
+                                };
+                    return query.FirstOrDefault();
                 }
             }
             catch
             {
-                return null;
+                
             }
-
+            return obj;
         }
 
         public Title getTitleByID(int id)

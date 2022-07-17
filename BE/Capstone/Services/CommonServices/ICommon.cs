@@ -1,5 +1,6 @@
 ﻿using ModelAuto.Models;
 using Services.CommonModel;
+using Services.ResponseModel.OrgnizationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Services.CommonServices
         #endregion
 
         #region GetByID
-        Orgnization getOrgByID(int id);
+        OrgnizationResponseServices getOrgByID(int id);
         Title getTitleByID(int id);
         Position getPositionByID(int id);
         #endregion
