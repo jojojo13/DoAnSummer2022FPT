@@ -392,6 +392,10 @@ namespace API.Controllers
                 {
                     rc.OtherSkill = T.OtherSkill;
                 }
+                if (T.Project != 0)
+                {
+                    rc.Project = T.Project;
+                }
                 var check = p.InsertRequest(rc);
                 return Ok(new
                 {
