@@ -37,7 +37,7 @@ namespace Services.CandidateService
                 {
                     List<RcCandidate> list = context.RcCandidates.ToList();
                     RcCandidate r1 = new RcCandidate();
-                    r1.Code = c.autoGenCode3character("Rc_Candidate", "UV");
+                    r1.Code = "UV" + (list.Count + 1);
                     r1.FullName = r.FullName;
                     r1.StepCv = 1;
                     r1.CreateDate = DateTime.Now;

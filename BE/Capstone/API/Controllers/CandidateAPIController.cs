@@ -359,12 +359,13 @@ namespace API.Controllers
                                                          }
 
                                              },
-                               
-                            Domain= from a in rc.GetDomainOneCandidate(b.Id)
-                                    select new
-                                    {
-                                        Firm= a.Firm
-                                    }
+
+
+                            Domain = from a in rc.GetDomainOneCandidate(b.Id)
+                                     select new
+                                     {
+                                         Firm = a.Firm
+                                     }
                             };
 
                 return Ok(new
