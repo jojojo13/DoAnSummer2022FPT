@@ -64,6 +64,7 @@ namespace API.ResponseModel.Candidate
     public class Exp
     {
         public int? TypeID { get; set; }
+       
         public string Firm { get; set; }
         public string Positiob { get; set; }
         public string Time { get; set; }
