@@ -103,7 +103,7 @@ namespace API.Controllers
         [HttpPost("InsertRcCandidate")]
         public IActionResult InsertRcCandidate([FromBody] Candidate T)
         {
-
+            string code1 = "";
             try
             {
                 bool check;
@@ -114,6 +114,7 @@ namespace API.Controllers
                 candidate.CreateBy = a.Employee?.FullName;
                 candidate.RecordStatus = T.RecordStatus;
                 string code = rc.AddRcCandidate(candidate);
+                code1 = code;
                 RcCandidate candidate1 = rc.GetCandidateByCode(code);
                 // rccandidateCV
                 RcCandidateCv cv = new RcCandidateCv();
@@ -217,7 +218,8 @@ namespace API.Controllers
 
                 return Ok(new
                 {
-                    Status = check
+                    Status = check,
+                    Code= code1
                 });
 
             }
@@ -304,6 +306,7 @@ namespace API.Controllers
                                 NationLive = rc.GetNation(cv.NationLive) == null ? "" : rc.GetNation(cv.NationLive).Name,
                                 ProvinceLive = rc.GetLocation(cv.PorvinceLive) == null ? "" : rc.GetLocation(cv.PorvinceLive).Name,
                                 Zalo = cv.Zalo,
+                                Facebook= cv.Facebook,
                                 Skype= cv.Skype,
                                 Website= cv.Website,
                                 Awards= edu.Awards1,
