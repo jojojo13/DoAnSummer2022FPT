@@ -39,17 +39,35 @@ namespace API.Controllers
             Account account = p.GetAccount(a);
             if (account != null)
             {
-                var token = Generate(account);
+                if (account.Status == -1)
+                {
+                    var token = Generate(account);
+                    return Ok(new
+                    {
+                        Status = true,
+                        Role = account.Rule,
+                        Fullname = account.Employee?.FullName,
+                        Data = token,
+                        mess = "Login Success",
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        Status = false,
+                        mess = "Your account has been locked",
+                    });
+                }
+            }
+            else
+            {
                 return Ok(new
                 {
-                    Status = true,
-                    Role = account.Rule,
-                    Fullname = account.Employee?.FullName,
-                    Data = token
+                    Status = false,
+                    mess= "Wrong account or password information"
                 });
             }
-
-            return StatusCode(401, "My error message");
         }
 
         [Authorize]
