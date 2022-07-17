@@ -892,6 +892,24 @@ namespace Services.CandidateService
                 return null;
             }
         }
+
+        public List<RcCandidateExp> GetDomainOneCandidate(int id)
+        {
+            List<RcCandidateExp> list = new List<RcCandidateExp>();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    list = context.RcCandidateExps.Where(x => x.RcCandidate == id && x.TypeId == 82).ToList();
+                }
+                return list;
+            }
+            catch
+            {
+                return null;
+            }
+         
+        }
         #endregion
     }
 }

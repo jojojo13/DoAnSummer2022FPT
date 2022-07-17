@@ -193,6 +193,7 @@ namespace API.Controllers
                     {
                         RcCandidateExp exp = new RcCandidateExp();
                         exp.RcCandidate = candidate1.Id;
+                        exp.Firm = item.Firm;
                         if (item.TypeID != 0)
                         {
                             exp.TypeId = item.TypeID;
@@ -302,8 +303,10 @@ namespace API.Controllers
                                 Address = cv.NoiO,
                                 NationLive = rc.GetNation(cv.NationLive) == null ? "" : rc.GetNation(cv.NationLive).Name,
                                 ProvinceLive = rc.GetLocation(cv.PorvinceLive) == null ? "" : rc.GetLocation(cv.PorvinceLive).Name,
-                                DistrictLive = rc.GetDistrict(cv.DistrictLive) == null ? "" : rc.GetDistrict(cv.DistrictLive).Name,
-                                WardLive = rc.GetWard(cv.WardLive) == null ? "" : rc.GetWard(cv.WardLive).Name,
+                                Zalo = cv.Zalo,
+                                Skype= cv.Skype,
+                                Website= cv.Website,
+                                Awards= edu.Awards1,
                                 School = edu.School1,
                                 Major = edu.Major1,
                                 Score = edu.Gpa1,
@@ -353,7 +356,12 @@ namespace API.Controllers
                                                          }
 
                                              },
-
+                               
+                            Domain= from a in rc.GetDomainOneCandidate(b.Id)
+                                    select new
+                                    {
+                                        Firm= a.Firm
+                                    }
                             };
 
                 return Ok(new
