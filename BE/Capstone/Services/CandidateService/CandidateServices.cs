@@ -893,14 +893,14 @@ namespace Services.CandidateService
             }
         }
 
-        public List<RcCandidateExp> GetDomainOneCandidate(int id)
+        public List<RcCandidateExp> GetExpOneCandidate(int id,int type)
         {
             List<RcCandidateExp> list = new List<RcCandidateExp>();
             try
             {
                 using (var context = new CapstoneProject2022Context())
                 {
-                    list = context.RcCandidateExps.Where(x => x.RcCandidate == id && x.TypeId == 82).ToList();
+                    list = context.RcCandidateExps.Where(x => x.RcCandidate == id && x.TypeId == type).ToList();
                 }
                 return list;
             }

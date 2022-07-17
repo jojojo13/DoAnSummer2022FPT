@@ -116,7 +116,7 @@ namespace Services.CandidateService
         string Exp(int? candidateID);
         OtherListType GetOtherListTypesCandidate(int id);
         OtherList GetOtherListCandidate(int id);
-        List<RcCandidateExp> GetDomainOneCandidate(int id);
+        List<RcCandidateExp> GetExpOneCandidate(int id,int type);
 
         checkResponse checkDuplicateCandidate(CheckDuplicateCandidateModel obj);
         #region "matching request"

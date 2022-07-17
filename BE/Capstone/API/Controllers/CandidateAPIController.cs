@@ -361,13 +361,20 @@ namespace API.Controllers
                                              },
 
 
-                            Domain = from a in rc.GetDomainOneCandidate(b.Id)
+                            Domain = from a in rc.GetExpOneCandidate(b.Id,82)
                                      select new
                                      {
                                          Firm = a.Firm,
                                          Positiob = a.Position,
                                          Time= a.Time
-                                     }
+                                     },
+                            OutSource= from a in rc.GetExpOneCandidate(b.Id, 81)
+                                       select new
+                                       {
+                                           Firm = a.Firm,
+                                           Positiob = a.Position,
+                                           Time = a.Time
+                                       }
                             };
 
                 return Ok(new
