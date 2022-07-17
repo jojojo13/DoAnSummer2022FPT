@@ -562,13 +562,25 @@ namespace API.Controllers
         [HttpPost("getOrgByID")]
         public IActionResult getOrgByID(int Id)
         {
-            OrgnizationResponseServices x = c.getOrgByID(Id);
+            GetChildOrgnization g = new GetChildOrgnization();
+            Orgnization x = c.getOrgByID(Id);
+            var returnObj = new
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Code = x.Code,
+                Level = x.Level,
+                ParentID = x.ParentId,
+                managerID = x.ManagerId,
+                managerName = x.Manager?.FullName,
+                office = x.Address
+            };
             if (x != null)
             {
                 return Ok(new
                 {
                     Status = true,
-                    Data = x
+                    Data = returnObj
                 });
             }
             return StatusCode(200, "obj is Null");
@@ -695,7 +707,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "0,1")]
+        [Authorize(Roles = "1")]
         [HttpPost("InsertOrg")]
         public IActionResult InsertOrg([FromBody] OrgResponse1 objresponse)
         {
@@ -764,24 +776,17 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "0,1")]
+        [Authorize(Roles = "1")]
         [HttpPost("ModifyOrg")]
-        public IActionResult ModifyOrg([FromBody] OrgResponse1 objresponse)
+        public IActionResult ModifyOrg([FromBody] OrgResponse objresponse)
         {
             try
             {
-                Account a = GetCurrentUser();
                 Orgnization obj = new Orgnization();
-                obj.Id = objresponse.Id;
-                obj.Name = objresponse.Name;
                 obj.Note = objresponse.Note;
                 obj.Status = -1;
                 obj.CreateDate = objresponse.CreateDate;
-                obj.Effectdate = objresponse.EfectDate;
-                if (!objresponse.DissolutionDate.ToString("yyyy").Equals("1000"))
-                {
-                    obj.DissolutionDate = objresponse.DissolutionDate;
-                }
+                obj.DissolutionDate = objresponse.DissolutionDate;
                 obj.ParentId = objresponse.ParentID;
                 obj.CreateDate = objresponse.CreateDate;
                 obj.DissolutionDate = objresponse.DissolutionDate;
@@ -791,28 +796,11 @@ namespace API.Controllers
                 obj.Phone = objresponse.Mobile;
                 obj.NumberBussines = objresponse.NumberBussines;
                 obj.Address = objresponse.Address;
-                if (objresponse.NationID != 0)
-                {
-                    obj.NationId = objresponse.NationID;
-                }
-                if (objresponse.ProvinceID != 0)
-                {
-                    obj.ProvinceId = objresponse.ProvinceID;
-                }
-                if (objresponse.DistrictID != 0)
-                {
-                    obj.DistrictId = objresponse.DistrictID;
-                }
-                if (objresponse.WardID != 0)
-                {
-                    obj.WardId = objresponse.WardID;
-                }
-                obj.CreateBy = a.Employee?.FullName;
-                if (objresponse.ManagerID != 0 && objresponse.ManagerID != null)
-                {
-                    obj.ManagerId = objresponse.ManagerID;
-                }
-
+                obj.NationId = objresponse.NationID;
+                obj.ProvinceId = objresponse.ProvinceID;
+                obj.DistrictId = objresponse.DistrictID;
+                obj.WardId = objresponse.WardID;
+                obj.ManagerId = objresponse.ManagerID;
                 var check = p.ModifyOrg(obj);
                 if (check)
                     return Ok(new

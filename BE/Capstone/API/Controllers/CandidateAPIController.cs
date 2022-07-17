@@ -147,9 +147,13 @@ namespace API.Controllers
                 RcCandidateEdu edu = new RcCandidateEdu();
                 edu.CandidateId = candidate1.Id;
                 edu.Major1 = T.Major;
-                edu.Graduate1 = T.Graduate;
+                if(T.Graduate.Value.Year != 1000)
+                {
+                    edu.Graduate1 = T.Graduate;
+                }
+                
                 edu.School1 = T.School;
-                if (T.Gpa != null)
+                if (T.Gpa != 0)
                 {
                     edu.Gpa1 = T.Gpa;
                 }
@@ -298,22 +302,22 @@ namespace API.Controllers
                             {
                                 ID = c.Id,
                                 FullName = c.FullName,
-                                Dob = cv.Dob.Value.Year,
-                                Phone = cv.Phone,
-                                Email = cv.Email,
-                                Gender = cv.Gender,
-                                Address = cv.NoiO,
+                                Dob = cv == null ?"": cv.Dob.Value.Year.ToString(),
+                                Phone = cv == null ? "" : cv.Phone,
+                                Email = cv == null ? "" : cv.Email,
+                                Gender = cv == null ? "" : cv.Gender.ToString(),
+                                Address = cv == null ? "" : cv.NoiO,
                                 NationLive = rc.GetNation(cv.NationLive) == null ? "" : rc.GetNation(cv.NationLive).Name,
                                 ProvinceLive = rc.GetLocation(cv.PorvinceLive) == null ? "" : rc.GetLocation(cv.PorvinceLive).Name,
-                                Zalo = cv.Zalo,
-                                Facebook= cv.Facebook,
-                                Skype= cv.Skype,
-                                Website= cv.Website,
-                                Awards= edu.Awards1,
-                                School = edu.School1,
-                                Major = edu.Major1,
-                                Score = edu.Gpa1,
-                                Graduate = edu.Graduate1,
+                                Zalo = cv == null ? "" : cv.Zalo,
+                                Facebook= cv == null ? "" : cv.Facebook,
+                                Skype= cv == null ? "" : cv.Skype,
+                                Website= cv == null ? "" : cv.Website,
+                                Awards= edu== null ?"": edu.Awards1,
+                                School = edu == null ? "" : edu.School1,
+                                Major = edu == null ? "" : edu.Major1,
+                                Score = edu == null ? "" : edu.Gpa1.ToString(),
+                                Graduate = edu == null ? "" : edu.Graduate1.ToString(),
                                 Language = from a in rc.GetCandidateLanguagebyID(b.Id)
                                            group a by a.TypeSkill into g
                                            select new
