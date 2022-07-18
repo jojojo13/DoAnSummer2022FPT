@@ -185,7 +185,7 @@ namespace Services.CandidateService
             try
             {
                 using var context = new CapstoneProject2022Context();
-                var query = from c in context.RcCandidates.Where(x => x.RecordStatus == status)
+                var query = from c in context.RcCandidates
                             from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
                             from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
                             from pr in context.Provinces.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
@@ -211,7 +211,8 @@ namespace Services.CandidateService
                                 languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
                                                 from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
                                                 where ot.TypeId == 14
-                                                select new languageObj { name = ot.Name }).ToList()
+                                                select new languageObj { name = ot.Name }).ToList(),
+                                statusName= c.RecordStatus==1?"Active":"Draft"
                             };
 
                 list = query.ToList();

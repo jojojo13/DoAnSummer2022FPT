@@ -26,6 +26,7 @@ namespace Services.ResponseModel.CandidateModel
         public string lastestPosition { get; set; }
         public string status { get; set; }
         public int? statusId { get; set; }
+        public string statusName { get; set; }
         public string CreateBy { get; set; }
         public string UpdateBy { get; set; }
         public DateTime? CreateDate { get; set; }
