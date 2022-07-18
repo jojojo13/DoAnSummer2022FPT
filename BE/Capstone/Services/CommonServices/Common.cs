@@ -119,7 +119,8 @@ namespace Services.CommonServices
                                     parentName= o2.Name,
                                     managerName= em.FullName,
                                     Level= o.Level,
-                                    office= o.Address
+                                    office= o.Address,
+                                    note= o.Note
                                 };
                     return query.FirstOrDefault();
                 }
@@ -168,7 +169,7 @@ namespace Services.CommonServices
 
 
 
-        #region "Get OtherList type"
+        #region "Get OtherList type"    
 
         public List<OtherListType> GetOtherListType()
         {

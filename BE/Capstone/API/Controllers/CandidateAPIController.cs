@@ -240,6 +240,20 @@ namespace API.Controllers
         public IActionResult GetAllCandidate(int index, int size)
         {
             List<CandidateResponeServices> list1 = rc.GetAllCandidate(index, size, 1);
+            foreach (var item in list1)
+            {
+                if (item.positionList.Count > 0)
+                {
+                    item.lastestPosition = item.positionList.Last().name;
+                    item.experience = item.positionList.Last().time;
+                }
+                string lang = "";
+                foreach (var item2 in item.languageList)
+                {
+                    lang += item2.name + ", ";
+                }
+                item.language = lang;
+            }
 
             if (list1.ToList().Count > 0)
             {
@@ -274,7 +288,20 @@ namespace API.Controllers
         {
             int totalItem = 0;
             List<CandidateResponeServices> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem);
-
+            foreach (var item in list1)
+            {
+                if (item.positionList.Count > 0)
+                {
+                    item.lastestPosition = item.positionList.Last().name;
+                    item.experience = item.positionList.Last().time;
+                }
+                string lang = "";
+                foreach (var item2 in item.languageList)
+                {
+                    lang += item2.name + ", ";
+                }
+                item.language = lang;
+            }
             if (list1.ToList().Count > 0)
             {
                 return Ok(new

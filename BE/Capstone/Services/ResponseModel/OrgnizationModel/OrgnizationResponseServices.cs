@@ -32,6 +32,6 @@ namespace Services.ResponseModel.OrgnizationModel
         public DateTime? dissolutionDate { get; set; }
         public int? Level { get; set; }
         public string office { get; set; }
-
+        public string note { get; set; }
     }
 }

@@ -160,16 +160,16 @@ namespace Services.CandidateService
                                 provinceID = pr.Id,
                                 location = na.Name + " - " + pr.Name,
                                 status = c.RecordStatus.ToString(),
-                                statusId = c.RecordStatus
+                                statusId = c.RecordStatus,
+                                positionList= (from p in context.RcCandidateExps.Where(x=>x.RcCandidate== c.Id)
+                                              select new positionObj { id= p.Id, name= p.Position, time= p.Time}).ToList(),
+                                languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
+                                                from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
+                                                where ot.TypeId== 14
+                                                select new languageObj { name = ot.Name }).ToList()
                             };
 
                 list = query.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
-                foreach (var item in list)
-                {
-                    item.lastestPosition = Position(item.id);
-                    item.experience = Exp(item.id);
-                    item.language = GetSkill(item.id);
-                }
             }
             catch (Exception ex)
             {
@@ -181,7 +181,7 @@ namespace Services.CandidateService
 
         public List<CandidateResponeServices> GetAllCandidateByFillter(int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems)
         {
-            List<CandidateResponeServices> list = new List<CandidateResponeServices>();
+           List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             try
             {
                 using var context = new CapstoneProject2022Context();
@@ -205,7 +205,13 @@ namespace Services.CandidateService
                                 provinceID = pr.Id,
                                 location = na.Name + " - " + pr.Name,
                                 status = c.RecordStatus.ToString(),
-                                statusId = c.RecordStatus
+                                statusId = c.RecordStatus,
+                                positionList = (from p in context.RcCandidateExps.Where(x => x.RcCandidate == c.Id)
+                                                select new positionObj { id = p.Id, name = p.Position, time = p.Time }).ToList(),
+                                languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
+                                                from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
+                                                where ot.TypeId == 14
+                                                select new languageObj { name = ot.Name }).ToList()
                             };
 
                 list = query.ToList();
@@ -229,27 +235,32 @@ namespace Services.CandidateService
                 {
                     list = list.Where(x => x.location.ToLower().Contains(location.ToLower())).ToList();
                 }
-                totalItems = list.Count;
-                list = list.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
-                foreach (var item in list)
-                {
-                    item.lastestPosition = Position(item.id);
-                    item.experience = Exp(item.id);
-                    item.language = GetSkill(item.id);
-                }
                 if (!position.Trim().Equals(""))
                 {
-                    list = list.Where(x => x.lastestPosition.ToLower().Contains(position.ToLower())).ToList();
+                    list = list.Where(x => x.positionList.Count > 0).ToList();
+                    list = list.Where(x => x.positionList.Last().name.ToLower().Contains(position.ToLower())).ToList();
                 }
                 if (!yearExp.Trim().Equals(""))
                 {
-                    list = list.Where(x => x.experience.ToLower().Contains(yearExp.ToLower())).ToList();
+                    list = list.Where(x => x.positionList.Count > 0).ToList();
+                    list = list.Where(x => x.positionList.Last().time.ToLower().Contains(yearExp.ToLower())).ToList();
                 }
                 if (!language.Trim().Equals(""))
                 {
-                    list = list.Where(x => x.language.ToLower().Contains(language.ToLower())).ToList();
+                    list = list.Where(x => x.languageList.Count > 0).ToList();
+                    foreach (var item in list)
+                    {
+                        string lang = "";
+                        foreach (var item2 in item.languageList)
+                        {
+                            lang += item2.name + ", ";
+                        }
+                        item.language = lang;
+                    }
+                    list = list.Where(x => x.language.Trim().ToLower().Contains(language.ToLower())).ToList();
                 }
-
+                totalItems = list.Count;
+                list = list.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
             }
             catch
             {

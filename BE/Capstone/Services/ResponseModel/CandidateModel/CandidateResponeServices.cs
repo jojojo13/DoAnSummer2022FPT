@@ -39,6 +39,7 @@ namespace Services.ResponseModel.CandidateModel
     {
         public int id { get; set; }
         public string name { get; set; }
+        public string time { get; set; }
     }
     public class languageObj
     {
