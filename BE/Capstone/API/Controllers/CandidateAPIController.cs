@@ -296,9 +296,12 @@ namespace API.Controllers
                     item.experience = item.positionList.Last().time;
                 }
                 string lang = "";
-                foreach (var item2 in item.languageList)
+                if (item.languageList.Count > 0)
                 {
-                    lang += item2.name + ", ";
+                    foreach (var item2 in item.languageList)
+                    {
+                        lang += item2.name + "  ";
+                    }
                 }
                 item.language = lang;
             }
