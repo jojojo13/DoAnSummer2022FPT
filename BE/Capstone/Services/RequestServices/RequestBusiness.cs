@@ -32,22 +32,24 @@ namespace Services.RequestServices
                             tobj.Status = status;
                             if (status == 4 || status == 5)
                             {
-                                EmployeeCv em = context.EmployeeCvs.Where(x => x.EmployeeId == tobj.SignId).FirstOrDefault();
                                 ICommon c = new CommonImpl();
-                                if (em.EmailWork != "")
+                                EmployeeCv em = context.EmployeeCvs.Where(x => x.EmployeeId == tobj.SignId).FirstOrDefault();
+                                if (em != null)
                                 {
-                                    MailDTO mailDTO = new MailDTO();
-                                    string statusName = status == 4 ? "Approved" : status == 5 ? "Rejected" : "";
-                                    mailDTO.content = "Your Request '" + tobj.Name + "' has been " + statusName + " by " + actionBy + " If there is feedback, please give feedback to the manager";
-                                    mailDTO.subject = "Notice the status of your recruitment request";
-                                    mailDTO.fromMail = "aisolutionssum22@gmail.com";
-                                    mailDTO.pass = "miztlfnbereqmeko";
-                                    mailDTO.listCC = new List<string>();
-                                    mailDTO.listBC = new List<string>();
-                                    mailDTO.tomail = em?.EmailWork;
-                                    c.sendMail(mailDTO);
+                                    if (em.EmailWork != ""&& em.EmailWork!=null)
+                                    {
+                                        MailDTO mailDTO = new MailDTO();
+                                        string statusName = status == 4 ? "Approved" : status == 5 ? "Rejected" : "";
+                                        mailDTO.content = "Your Request '" + tobj.Name + "' has been " + statusName + " by " + actionBy + " If there is feedback, please give feedback to the manager";
+                                        mailDTO.subject = "Notice the status of your recruitment request";
+                                        mailDTO.fromMail = "aisolutionssum22@gmail.com";
+                                        mailDTO.pass = "miztlfnbereqmeko";
+                                        mailDTO.listCC = new List<string>();
+                                        mailDTO.listBC = new List<string>();
+                                        mailDTO.tomail = em?.EmailWork;
+                                        c.sendMail(mailDTO);
+                                    }
                                 }
-
                             }
                         }
                     }
@@ -105,9 +107,9 @@ namespace Services.RequestServices
                                     positionID = r.PositionId,
                                     quantity = r.Number,
                                     createdOn = r.EffectDate,
-                                    createdOnString= Convert.ToDateTime(r.EffectDate).ToString("dd/M/yyyy"),
+                                    createdOnString = Convert.ToDateTime(r.EffectDate).ToString("dd/M/yyyy"),
                                     Deadline = r.ExpireDate,
-                                    DeadlineString= Convert.ToDateTime(r.ExpireDate).ToString("dd/M/yyyy"),
+                                    DeadlineString = Convert.ToDateTime(r.ExpireDate).ToString("dd/M/yyyy"),
                                     Office = o.Address,
                                     StatusID = r.Status,
                                     Status = r.Status == 1 ? "Draft" : r.Status == 2 ? "Submited" : r.Status == 3 ? "Cancel" : r.Status == 4 ? "Approved" : r.Status == 5 ? "Rejected" : "",
@@ -325,7 +327,7 @@ namespace Services.RequestServices
                                     createdOnString = Convert.ToDateTime(r.EffectDate).ToString("dd/M/yyyy"),
                                     Deadline = r.ExpireDate,
                                     DeadlineString = Convert.ToDateTime(r.ExpireDate).ToString("dd/M/yyyy"),
-                                    Office =Org.Address,
+                                    Office = Org.Address,
                                     StatusID = r.Status,
                                     Status = r.Status == 1 ? "Draft" : r.Status == 2 ? "Submited" : r.Status == 3 ? "Cancel" : r.Status == 4 ? "Approved" : r.Status == 5 ? "Rejected" : "",
                                     parentId = r.ParentId,
@@ -344,10 +346,10 @@ namespace Services.RequestServices
                                     experience = r.YearExperience,
                                     level = r.Level,
                                     levelName = Lev.Name,
-                                    CreateBy= r.CreateBy,
-                                    CreateDate= r.CreateDate,
-                                    UpdateBy= r.UpdateBy,
-                                    UpdateDate= r.UpdateDate,
+                                    CreateBy = r.CreateBy,
+                                    CreateDate = r.CreateDate,
+                                    UpdateBy = r.UpdateBy,
+                                    UpdateDate = r.UpdateDate,
                                     otherSkill = r.OtherSkill,
                                     otherSkillname = skill.Name
                                 };
