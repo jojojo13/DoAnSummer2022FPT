@@ -111,9 +111,9 @@ namespace Services.CandidateService
         District GetDistrict(int? id);
         Ward GetWard(int? id);
         #endregion
-        string GetSkill(int? candidateID);
-        string Position(int? candidateID);
-        string Exp(int? candidateID);
+        //string GetSkill(int? candidateID);
+        //string Position(int? candidateID);
+        //string Exp(int? candidateID);
         OtherListType GetOtherListTypesCandidate(int id);
         OtherList GetOtherListCandidate(int id);
         List<RcCandidateExp> GetExpOneCandidate(int id,int type);

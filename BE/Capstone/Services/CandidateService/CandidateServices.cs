@@ -480,88 +480,88 @@ namespace Services.CandidateService
             }
         }
 
-        public string GetSkill(int? candidateID)
-        {
-            string skill = "";
-            try
-            {
-                using (var context = new CapstoneProject2022Context())
-                {
-                    List<RcCandidateSkill> list = context.RcCandidateSkills.Where(x => x.RcCandidateId == candidateID && x.TypeSkill == 14).ToList();
-                    var group = list.GroupBy(x => x.Type);
-                    foreach (var item in group)
-                    {
-                        OtherList o = context.OtherLists.Where(x => x.Id == item.Key).SingleOrDefault();
-                        if (o != null)
-                        {
-                            skill += o.Name + ",";
-                        }
-                    }
+        //public string GetSkill(int? candidateID)
+        //{
+        //    string skill = "";
+        //    try
+        //    {
+        //        using (var context = new CapstoneProject2022Context())
+        //        {
+        //            List<RcCandidateSkill> list = context.RcCandidateSkills.Where(x => x.RcCandidateId == candidateID && x.TypeSkill == 14).ToList();
+        //            var group = list.GroupBy(x => x.Type);
+        //            foreach (var item in group)
+        //            {
+        //                OtherList o = context.OtherLists.Where(x => x.Id == item.Key).SingleOrDefault();
+        //                if (o != null)
+        //                {
+        //                    skill += o.Name + ",";
+        //                }
+        //            }
 
 
-                }
-                return skill;
+        //        }
+        //        return skill;
 
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
 
-        public string Position(int? candidateID)
-        {
-            string position = "";
-            try
-            {
-                using (var context = new CapstoneProject2022Context())
-                {
-                    List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
-                    if (list.Count == 0)
-                    {
-                        position = "";
-                    }
-                    else
-                    {
-                        position = list.Take(1).FirstOrDefault().Position;
-
-
-                    }
-                }
-            }
-            catch
-            {
-                position = "";
-            }
-            return position;
-        }
-
-        public string Exp(int? candidateID)
-        {
-            string exp = "";
-            try
-            {
-                using (var context = new CapstoneProject2022Context())
-                {
-                    List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
-                    if (list.Count == 0)
-                    {
-                        exp = "";
-                    }
-                    else
-                    {
-                        exp = list.Take(1).FirstOrDefault().Time;
+        //public string Position(int? candidateID)
+        //{
+        //    string position = "";
+        //    try
+        //    {
+        //        using (var context = new CapstoneProject2022Context())
+        //        {
+        //            List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
+        //            if (list.Count == 0)
+        //            {
+        //                position = "";
+        //            }
+        //            else
+        //            {
+        //                position = list.Take(1).FirstOrDefault().Position;
 
 
-                    }
-                }
-            }
-            catch
-            {
-                exp = "";
-            }
-            return exp;
-        }
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        position = "";
+        //    }
+        //    return position;
+        //}
+
+        //public string Exp(int? candidateID)
+        //{
+        //    string exp = "";
+        //    try
+        //    {
+        //        using (var context = new CapstoneProject2022Context())
+        //        {
+        //            List<RcCandidateExp> list = context.RcCandidateExps.Where(x => x.RcCandidate == candidateID).ToList();
+        //            if (list.Count == 0)
+        //            {
+        //                exp = "";
+        //            }
+        //            else
+        //            {
+        //                exp = list.Take(1).FirstOrDefault().Time;
+
+
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        exp = "";
+        //    }
+        //    return exp;
+        //}
 
 
         public checkResponse checkDuplicateCandidate(CheckDuplicateCandidateModel obj)
@@ -735,13 +735,7 @@ namespace Services.CandidateService
                                         provinceID = pr.Id,
                                         location = na.Name + " - " + pr.Name,
                                         status = c.RecordStatus.ToString(),
-                                        statusId = c.RecordStatus,
-                                        //positionList = (from lstpo in context.RcCandidateExps.Where(x => x.RcCandidate == r.CandidateId) select new positionObj { name = lstpo.Position }).ToList(),
-                                        //languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == r.CandidateId)
-                                        //                from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
-                                        //                select new languageObj { name = ot.Name }).ToList(),
-                                        lastestPosition = (from lstpo in context.RcCandidateExps.Where(x => x.RcCandidate == r.CandidateId) select new positionObj { name = lstpo.Position }).ToList().LastOrDefault().name,
-                                        language = GetSkill(r.CandidateId ?? 0)
+                                        statusId = c.RecordStatus
                                     };
                         totalItem = query.ToList().Count();
                         returrnList = query.ToList();
