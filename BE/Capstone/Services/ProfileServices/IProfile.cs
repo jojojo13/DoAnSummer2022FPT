@@ -1,5 +1,6 @@
 ﻿using ModelAuto.Models;
 using Services.CommonModel;
+using Services.ResponseModel.ProfileModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -69,7 +70,7 @@ namespace Services.ProfileServices
         #region "Business"
 
         List<Position> GetListPositionByOrgID(int ID);
-        List<Employee> GetListEmployeeByOrgID(int OrgID, int index, int size);
+        List<EmployeeResponseServices> GetListEmployeeByOrgID(int OrgID, int index, int size);
         Employee GetEmployeeByID(int? ID);
         EmployeeCv GetEmployeeCvByEmpID(int? ID);
         EmployeeEdu GetEmployeeEduByEmpID(int? ID);

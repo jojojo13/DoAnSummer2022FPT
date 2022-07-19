@@ -13,6 +13,7 @@ using System.Data;
 using Newtonsoft.Json;
 using API.ResponseModel.Common;
 using API.ResponseModel.Profile;
+using Services.ResponseModel.ProfileModel;
 
 namespace API.Controllers
 {
@@ -931,26 +932,12 @@ namespace API.Controllers
         [HttpPost("GetListEmployeeByOrgID")]
         public IActionResult GetListEmployeeByOrgID(int id, int index, int size)
         {
-            List<Employee> list = profile.GetListEmployeeByOrgID(id, index, size);
-
-            var listReturn = from l in list
-                             select new
-                             {
-                                 FullName = l.FullName,
-                                 Code = l.Code,
-                                 ID = l.Id,
-                                 OrgnizationName = l.Orgnization.Name,
-                                 PositionName = l.Position.Name,
-                                 OrgId = l.Orgnization.Id,
-                                 PositionId = l.Position.Id,
-                                 StatusName = l.StatusNavigation.Name,
-                                 TitleName = l.Position.Title.Name
-                             };
+            List<EmployeeResponseServices> list = profile.GetListEmployeeByOrgID(id, index, size);
             if (list.Count > 0)
                 return Ok(new
                 {
                     TotalItem = profile.getTotalEmployee(id),
-                    Data = listReturn
+                    Data = list
                 });
             else
                 return StatusCode(200, "Obj is Null");
