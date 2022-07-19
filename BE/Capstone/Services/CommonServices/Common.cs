@@ -112,7 +112,7 @@ namespace Services.CommonServices
                                     parentID = o.ParentId,
                                     email = o.Email,
                                     fax = o.Fax,
-                                    dissolutionDate = o.DissolutionDate,
+                                    dissolutionDate = o.DissolutionDate.Value.Year==1000?null: o.DissolutionDate,
                                     effectDate = o.Effectdate,
                                     numberBusiness = o.NumberBussines,
                                     phoneNumber = o.Phone,
