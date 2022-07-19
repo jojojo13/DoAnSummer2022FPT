@@ -705,48 +705,96 @@ namespace Services.CandidateService
                 return false;
             }
         }
-        public List<CandidateResponeServices> GetCandidateByRequest(int requestID, int totalItem)
+       public List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems)
         {
-            List<CandidateResponeServices> returrnList = new List<CandidateResponeServices>();
+            List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             try
             {
-                using (var context = new CapstoneProject2022Context())
+                using var context = new CapstoneProject2022Context();
+                var query = from a in context.RcRequestCandidates.Where(x=>x.RequestId== requestID)
+                            from c in context.RcCandidates.Where(x=>x.Id== a.CandidateId).DefaultIfEmpty()
+                            from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
+                            from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
+                            from pr in context.Provinces.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
+                            select new CandidateResponeServices
+                            {
+                                id = c.Id,
+                                name = c.FullName,
+                                code = c.Code,
+                                yob = cv.Dob.Value.Year,
+                                dob = cv.Dob,
+                                dobString = Convert.ToDateTime(cv.Dob).ToString("dd/MM/YYYY"),
+                                phoneNumber = cv.Phone,
+                                email = cv.Email,
+                                nation = na.Name,
+                                province = pr.Name,
+                                nationID = na.Id,
+                                provinceID = pr.Id,
+                                location = na.Name + " - " + pr.Name,
+                                status = c.RecordStatus.ToString(),
+                                statusId = c.RecordStatus,
+                                positionList = (from p in context.RcCandidateExps.Where(x => x.RcCandidate == c.Id)
+                                                select new positionObj { id = p.Id, name = p.Position, time = p.Time }).ToList(),
+                                languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
+                                                from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
+                                                where ot.TypeId == 14
+                                                select new languageObj { name = ot.Name }).ToList(),
+                                statusName = c.RecordStatus == 1 ? "Active" : "Draft"
+                            };
+
+                list = query.ToList();
+                if (!name.Trim().Equals(""))
                 {
-                    if (requestID != 0)
-                    {
-                        var query = from r in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
-                                    from c in context.RcCandidates.Where(x => x.Id == r.CandidateId).DefaultIfEmpty()
-                                    from cv in context.RcCandidateCvs.Where(x => x.CandidateId == r.CandidateId).DefaultIfEmpty()
-                                    from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
-                                    from pr in context.Nations.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
-                                    select new CandidateResponeServices
-                                    {
-                                        id = c.Id,
-                                        name = c.FullName,
-                                        code = c.Code,
-                                        yob = cv.Dob.Value.Year,
-                                        dob = cv.Dob,
-                                        dobString = Convert.ToDateTime(cv.Dob).ToString("dd/MM/YYYY"),
-                                        phoneNumber = cv.Phone,
-                                        email = cv.Email,
-                                        nation = na.Name,
-                                        province = pr.Name,
-                                        nationID = na.Id,
-                                        provinceID = pr.Id,
-                                        location = na.Name + " - " + pr.Name,
-                                        status = c.RecordStatus.ToString(),
-                                        statusId = c.RecordStatus
-                                    };
-                        totalItem = query.ToList().Count();
-                        returrnList = query.ToList();
-                    }
+                    list = list.Where(x => x.name.ToLower().Contains(name.ToLower())).ToList();
                 }
-                return returrnList;
+                if (yob != 0)
+                {
+                    list = list.Where(x => x.yob == yob).ToList();
+                }
+                if (!phone.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.phoneNumber.ToLower().Contains(phone.ToLower())).ToList();
+                }
+                if (!email.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.email.ToLower().Contains(email.ToLower())).ToList();
+                }
+                if (!location.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.location.ToLower().Contains(location.ToLower())).ToList();
+                }
+                if (!position.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.positionList.Count > 0).ToList();
+                    list = list.Where(x => x.positionList.Last().name.ToLower().Contains(position.ToLower())).ToList();
+                }
+                if (!yearExp.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.positionList.Count > 0).ToList();
+                    list = list.Where(x => x.positionList.Last().time.ToLower().Contains(yearExp.ToLower())).ToList();
+                }
+                if (!language.Trim().Equals(""))
+                {
+                    list = list.Where(x => x.languageList.Count > 0).ToList();
+                    foreach (var item in list)
+                    {
+                        string lang = "";
+                        foreach (var item2 in item.languageList)
+                        {
+                            lang += item2.name + ", ";
+                        }
+                        item.language = lang;
+                    }
+                    list = list.Where(x => x.language.Trim().ToLower().Contains(language.ToLower())).ToList();
+                }
+                totalItems = list.Count;
+                list = list.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
             }
             catch
             {
-                return returrnList;
+
             }
+            return list;
         }
         public bool CheckQuantity(int requestID, List<int> lstCandidateID)
         {

@@ -499,28 +499,36 @@ namespace API.Controllers
         }
 
         [HttpPost("GetCandidateByRequest")]
-        public IActionResult GetCandidateByRequest(int id)
+        public IActionResult GetCandidateByRequest([FromBody] CandidateFillter obj)
         {
             int totalItem = 0;
-            List<CandidateResponeServices> lst = new List<CandidateResponeServices>();
-            try
+            List<CandidateResponeServices> list1 = rc.GetCandidateByRequest(obj.requestID??0,obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem);
+            foreach (var item in list1)
             {
-
-                lst = rc.GetCandidateByRequest(id, totalItem);
+                if (item.positionList.Count > 0)
+                {
+                    item.lastestPosition = item.positionList.Last().name;
+                    item.experience = item.positionList.Last().time;
+                }
+                string lang = "";
+                if (item.languageList.Count > 0)
+                {
+                    foreach (var item2 in item.languageList)
+                    {
+                        lang += item2.name + "  ";
+                    }
+                }
+                item.language = lang;
+            }
+            if (list1.ToList().Count > 0)
+            {
                 return Ok(new
                 {
                     TotalItem = totalItem,
-                    Data = lst
+                    Data = list1
                 });
             }
-            catch
-            {
-                return Ok(new
-                {
-                    TotalItem = totalItem,
-                    Data = lst
-                });
-            }
+            return StatusCode(200, "List is Null");
         }
 
 

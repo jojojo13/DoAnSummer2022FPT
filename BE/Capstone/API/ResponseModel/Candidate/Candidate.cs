@@ -52,6 +52,7 @@ namespace API.ResponseModel.Candidate
         public int index { get; set; }
         public int size { get; set; }
         public int status { get; set; }
+        public int? requestID { get; set; }
     }
     public class Skill
     {

@@ -121,7 +121,7 @@ namespace Services.CandidateService
         checkResponse checkDuplicateCandidate(CheckDuplicateCandidateModel obj);
         #region "matching request"
         bool MatchingCandidate(int requestID, List<int> lstCandidateID);
-        List<CandidateResponeServices> GetCandidateByRequest(int requestID, int totalItem);
+        List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems);
         bool  CheckQuantity(int requestID, List<int> lstCandidateID);
         bool DeleteCandidateRequest(List<int> listID);
 
