@@ -331,6 +331,7 @@ namespace API.Controllers
                             select new
                             {
                                 ID = c.Id,
+                                Code=c.Code,
                                 FullName = c.FullName,
                                 Dob = cv == null ?"": cv.Dob.Value.Year.ToString(),
                                 Phone = cv == null ? "" : cv.Phone,
