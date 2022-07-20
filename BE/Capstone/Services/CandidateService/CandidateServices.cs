@@ -134,6 +134,109 @@ namespace Services.CandidateService
             }
         }
 
+
+        public bool deleteCandidate(List<int> list)
+        {
+            try
+            {
+                using var context = new CapstoneProject2022Context();
+
+                // xóa exp
+                var listExp = (from l1 in context.RcCandidateExps.Where(x => list.Contains(x.RcCandidate??0))
+                               select new RcCandidateExp
+                               {
+                                   Id = l1.Id
+                               }).ToList();
+                foreach (var item in listExp)
+                {
+                    RcCandidateExp o = context.RcCandidateExps.Where(x => x.Id == item.Id).FirstOrDefault();
+                    context.RcCandidateExps.Remove(o);
+                }
+                // xóa skill
+                var listSkill = (from l1 in context.RcCandidateSkills.Where(x => list.Contains(x.RcCandidateId??0))
+                                 select new RcCandidateSkill
+                                 {
+                                     Id = l1.Id
+                                 }).ToList();
+                foreach (var item in listSkill)
+                {
+                    RcCandidateSkill o = context.RcCandidateSkills.Where(x => x.Id == item.Id).FirstOrDefault();
+                    context.RcCandidateSkills.Remove(o);
+                }
+
+                // xóa edu
+                var listedu = (from l1 in context.RcCandidateEdus.Where(x => list.Contains(x.CandidateId ?? 0))
+                              select new RcCandidateEdu
+                              {
+                                  Id = l1.Id
+                              }).ToList();
+                foreach (var item in listedu)
+                {
+                    RcCandidateEdu o = context.RcCandidateEdus.Where(x => x.Id == item.Id).FirstOrDefault();
+                    context.RcCandidateEdus.Remove(o);
+                }
+
+                // xóa cv
+                var listCV = (from l1 in context.RcCandidateCvs.Where(x=>list.Contains(x.CandidateId??0))
+                              select new RcCandidateCv
+                              {
+                                  Id = l1.Id
+                              }).ToList();
+                foreach (var item in listCV)
+                {
+                    RcCandidateCv o = context.RcCandidateCvs.Where(x => x.Id == item.Id).FirstOrDefault();
+                    context.RcCandidateCvs.Remove(o);
+                }
+
+                foreach (var item in list)
+                {
+                    RcCandidate o = context.RcCandidates.Where(x => x.Id == item).FirstOrDefault();
+                    context.RcCandidates.Remove(o);
+                }
+
+                context.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                string exm = ex.Message.ToString();
+                return false;
+            }
+
+        }
+
+        public bool activeCandidate(List<int> list)
+        {
+            using var context = new CapstoneProject2022Context();
+            foreach (var item in list)
+            {
+                RcCandidate c = context.RcCandidates.Where(x => x.Id == item).FirstOrDefault();
+                c.RecordStatus = 1;
+            }
+            context.SaveChanges();
+            return true;
+        }
+        public bool deactiveCandidate(List<int> list)
+        {
+            try
+            {
+                using var context = new CapstoneProject2022Context();
+                foreach (var item in list)
+                {
+                    RcCandidate c = context.RcCandidates.Where(x => x.Id == item).FirstOrDefault();
+                    c.RecordStatus = 0;
+                }
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+
         public List<CandidateResponeServices> GetAllCandidate(int index, int size, int status)
         {
             List<CandidateResponeServices> list = new List<CandidateResponeServices>();
@@ -161,11 +264,11 @@ namespace Services.CandidateService
                                 location = na.Name + " - " + pr.Name,
                                 status = c.RecordStatus.ToString(),
                                 statusId = c.RecordStatus,
-                                positionList= (from p in context.RcCandidateExps.Where(x=>x.RcCandidate== c.Id)
-                                              select new positionObj { id= p.Id, name= p.Position, time= p.Time}).ToList(),
+                                positionList = (from p in context.RcCandidateExps.Where(x => x.RcCandidate == c.Id)
+                                                select new positionObj { id = p.Id, name = p.Position, time = p.Time }).ToList(),
                                 languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
                                                 from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
-                                                where ot.TypeId== 14
+                                                where ot.TypeId == 14
                                                 select new languageObj { name = ot.Name }).ToList()
                             };
 
@@ -181,7 +284,7 @@ namespace Services.CandidateService
 
         public List<CandidateResponeServices> GetAllCandidateByFillter(int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems)
         {
-           List<CandidateResponeServices> list = new List<CandidateResponeServices>();
+            List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             try
             {
                 using var context = new CapstoneProject2022Context();
@@ -212,7 +315,7 @@ namespace Services.CandidateService
                                                 from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
                                                 where ot.TypeId == 14
                                                 select new languageObj { name = ot.Name }).ToList(),
-                                statusName= c.RecordStatus==1?"Active":"Draft"
+                                statusName = c.RecordStatus == 1 ? "Active" : "Draft"
                             };
 
                 list = query.ToList();
@@ -586,7 +689,7 @@ namespace Services.CandidateService
                                     website = cv.Website,
                                     zalo = cv.Zalo
                                 };
-                    
+
 
                     if (!obj.email.Trim().Equals(""))
                     {
@@ -705,14 +808,14 @@ namespace Services.CandidateService
                 return false;
             }
         }
-       public List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems)
+        public List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems)
         {
             List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             try
             {
                 using var context = new CapstoneProject2022Context();
-                var query = from a in context.RcRequestCandidates.Where(x=>x.RequestId== requestID)
-                            from c in context.RcCandidates.Where(x=>x.Id== a.CandidateId).DefaultIfEmpty()
+                var query = from a in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
+                            from c in context.RcCandidates.Where(x => x.Id == a.CandidateId).DefaultIfEmpty()
                             from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
                             from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
                             from pr in context.Provinces.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
@@ -947,7 +1050,7 @@ namespace Services.CandidateService
             }
         }
 
-        public List<RcCandidateExp> GetExpOneCandidate(int id,int type)
+        public List<RcCandidateExp> GetExpOneCandidate(int id, int type)
         {
             List<RcCandidateExp> list = new List<RcCandidateExp>();
             try
@@ -962,7 +1065,7 @@ namespace Services.CandidateService
             {
                 return null;
             }
-         
+
         }
         #endregion
     }

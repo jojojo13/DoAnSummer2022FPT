@@ -437,6 +437,32 @@ namespace API.Controllers
                 });
         }
 
+        [HttpPost("DeleteCandidate")]
+        public IActionResult DeleteCandidate(List<int> ListID)
+        {
+            return Ok(new
+            {
+                Status = rc.deleteCandidate(ListID)
+            });
+        }
+
+        [HttpPost("ActiveCandidate")]
+        public IActionResult ActiveCandidate(List<int> ListID)
+        {
+            return Ok(new
+            {
+                Status = rc.activeCandidate(ListID)
+            });
+        }
+        [HttpPost("DeActiveCandidate")]
+        public IActionResult DeActiveCandidate(List<int> ListID)
+        {
+            return Ok(new
+            {
+                Status = rc.deactiveCandidate(ListID)
+            });
+        }
+
 
 
         #region Matching Candidate

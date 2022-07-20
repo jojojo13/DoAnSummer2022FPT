@@ -12,29 +12,22 @@ namespace Services.CandidateService
     {
         List<OtherList> GetOtherListByAttribute(int? ID);
 
-        #region add candidate
-        /// <summary>
-        /// add thong tin vao bang rccandidate
-        /// </summary>
-        /// <param name="r"></param>
-        /// <returns></returns>
+        #region thao tác candidate
         string AddRcCandidate(RcCandidate r);
-        /// <summary>
-        /// add thong tin vao bang rccandidate cv
-        /// </summary>
-        /// <param name="r"></param>
-        /// <returns></returns>
         bool AddRcCandidateCV(RcCandidateCv r);
-        /// <summary>
-        /// add thong tin vao bang rccandidateedu
-        /// </summary>
-        /// <param name="r"></param>
-        /// <returns></returns>
+
         bool AddRcCandidateEdu(RcCandidateEdu r);
 
         bool AddRcCandidateSkill(List<RcCandidateSkill> r);
 
         bool AddRcCandidateExp(List<RcCandidateExp> r);
+
+        bool deleteCandidate(List<int>list);
+
+        bool activeCandidate(List<int> list);
+
+        bool deactiveCandidate(List<int> list);
+
         #endregion
 
         #region  de thuc hien 5 man phong van
@@ -54,48 +47,13 @@ namespace Services.CandidateService
         #endregion
 
         #region GetInforofCandiddate
-        /// <summary>
-        /// Lay ra tat ca candidate theo kieu phan trang
-        /// </summary>
-        /// <returns></returns>
-
         List<CandidateResponeServices> GetAllCandidate(int page, int total,int status);
-
-
         List<CandidateResponeServices> GetAllCandidateByFillter( int index,  int size,  string name, int yob,  string phone,  string email,  string location,  string position,  string yearExp,  string language, int status, ref int totalItems);
-
-        /// <summary>
-        /// Lay ra tat ca cac candidate co step khac nhau
-        /// </summary>
-        /// <param name="step"></param>
-        /// <returns></returns>
         List<RcCandidate> GetAllCandidateByStep(int step);
-
-        /// <summary>
-        /// lay ra thong tin cua candidate theo Id cua no
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         RcCandidate GetCandidateByID(int id);
-
         RcCandidate GetCandidateByCode(string code);
-        /// <summary>
-        /// lay ra thong tin 1 cv trong ban rccandidatecv theo candidateID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         RcCandidateCv GetCandidateCVbyID(int? id);
-        /// <summary>
-        /// lay ra thong tin 1 edu trong ban rccandidateedu theo candidateID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         RcCandidateEdu GetCandidateEdubyID(int id);
-        /// <summary>
-        /// lay ra danh sach cac skill cua candidate theo RcCandidateID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
       
 
         List<OtherListType> GetSkillType(int type);
@@ -111,15 +69,19 @@ namespace Services.CandidateService
         District GetDistrict(int? id);
         Ward GetWard(int? id);
         #endregion
+
+
         //string GetSkill(int? candidateID);
         //string Position(int? candidateID);
         //string Exp(int? candidateID);
         OtherListType GetOtherListTypesCandidate(int id);
         OtherList GetOtherListCandidate(int id);
         List<RcCandidateExp> GetExpOneCandidate(int id,int type);
-
         checkResponse checkDuplicateCandidate(CheckDuplicateCandidateModel obj);
+
+
         #region "matching request"
+
         bool MatchingCandidate(int requestID, List<int> lstCandidateID);
         List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems);
         bool  CheckQuantity(int requestID, List<int> lstCandidateID);
