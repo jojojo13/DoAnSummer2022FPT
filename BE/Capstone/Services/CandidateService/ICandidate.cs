@@ -86,7 +86,7 @@ namespace Services.CandidateService
         List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems);
         bool  CheckQuantity(int requestID, List<int> lstCandidateID);
         bool DeleteCandidateRequest(List<int> listID);
-
+        bool CheckDuplicateMatching(int requestID, List<int> candidateID, ref string mess);
         #endregion
     }
 }

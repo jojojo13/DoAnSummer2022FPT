@@ -558,6 +558,17 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
+        [HttpPost("CheckDuplicateMatching")]
+        public IActionResult CheckDuplicateMatching(List<int>lstCandidateID, int requestID)
+        {
+            string mess = "";
+            return Ok(new
+            {
+                Status = rc.CheckDuplicateMatching(requestID, lstCandidateID, ref mess),
+                mess = mess
+            });
+        }
+
 
         #endregion
     }

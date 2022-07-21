@@ -1067,6 +1067,39 @@ namespace Services.CandidateService
             }
 
         }
+
+        public bool CheckDuplicateMatching(int requestID, List<int> candidateID, ref string mess)
+        {
+            mess = "";
+            try
+            {
+                List<checkDuplicateMatching> list = new List<checkDuplicateMatching>();
+                using (var context = new CapstoneProject2022Context())
+                {
+                    list = (from rc in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
+                            from c in context.RcCandidates.Where(x => x.Id == rc.CandidateId).DefaultIfEmpty()
+                            where candidateID.Contains(c.Id)
+                            select new checkDuplicateMatching
+                            {
+                                candidateName= c.FullName
+                            }).ToList();
+                    if (list.Count > 0)
+                    {
+                        foreach(var item in list)
+                        {
+                            mess += item.candidateName + " ";
+                        }
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                mess += "check duplicate Wrong!";
+                return false;
+            }
+        }
         #endregion
     }
 }

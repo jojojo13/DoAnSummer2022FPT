@@ -23,4 +23,9 @@ namespace Services.ResponseModel.CandidateModel
         public bool check { get; set; }
         public string mess { get; set; }
     }
+
+    public class checkDuplicateMatching
+    {
+        public string candidateName { get; set; }
+    }
 }
