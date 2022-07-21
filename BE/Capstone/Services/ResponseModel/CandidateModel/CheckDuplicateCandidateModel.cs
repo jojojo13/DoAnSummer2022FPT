@@ -26,6 +26,7 @@ namespace Services.ResponseModel.CandidateModel
 
     public class checkDuplicateMatching
     {
+        public int candidateId { get; set; }
         public string candidateName { get; set; }
     }
 }

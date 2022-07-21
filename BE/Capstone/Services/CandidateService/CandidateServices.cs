@@ -785,13 +785,23 @@ namespace Services.CandidateService
         #region matching REquesst
         public bool MatchingCandidate(int requestID, List<int> lstCandidateID)
         {
+            List<int> list = new List<int>();
+            
             try
             {
                 using (var context = new CapstoneProject2022Context())
                 {
-                    if (requestID != 0 && lstCandidateID.Count > 0)
+                    var listcheck = (from rc in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
+                                    from c in context.RcCandidates.Where(x => x.Id == rc.CandidateId && lstCandidateID.Contains(x.Id)==false).DefaultIfEmpty()
+                                    select new checkDuplicateMatching
+                                    {
+                                        candidateId = c.Id,
+                                        candidateName = c.FullName
+                                    }).ToList();
+                    list = listcheck.Select(x => x.candidateId).Distinct().ToList();
+                    if (requestID != 0 && list.Count > 0)
                     {
-                        foreach (var id in lstCandidateID)
+                        foreach (var id in list)
                         {
                             RcRequestCandidate obj = new RcRequestCandidate();
                             obj.CandidateId = id;
@@ -808,6 +818,40 @@ namespace Services.CandidateService
                 return false;
             }
         }
+
+        public bool CheckDuplicateMatching(int requestID, List<int> candidateID, ref string mess)
+        {
+            mess = "";
+            try
+            {
+                List<checkDuplicateMatching> list = new List<checkDuplicateMatching>();
+                using (var context = new CapstoneProject2022Context())
+                {
+                    list = (from rc in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
+                            from c in context.RcCandidates.Where(x => x.Id == rc.CandidateId).DefaultIfEmpty()
+                            where candidateID.Contains(c.Id)
+                            select new checkDuplicateMatching
+                            {
+                                candidateName = c.FullName
+                            }).ToList();
+                    if (list.Count > 0)
+                    {
+                        foreach (var item in list)
+                        {
+                            mess += item.candidateName + " ";
+                        }
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                mess += "check duplicate Wrong!";
+                return false;
+            }
+        }
+
         public List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems)
         {
             List<CandidateResponeServices> list = new List<CandidateResponeServices>();
@@ -1068,38 +1112,7 @@ namespace Services.CandidateService
 
         }
 
-        public bool CheckDuplicateMatching(int requestID, List<int> candidateID, ref string mess)
-        {
-            mess = "";
-            try
-            {
-                List<checkDuplicateMatching> list = new List<checkDuplicateMatching>();
-                using (var context = new CapstoneProject2022Context())
-                {
-                    list = (from rc in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
-                            from c in context.RcCandidates.Where(x => x.Id == rc.CandidateId).DefaultIfEmpty()
-                            where candidateID.Contains(c.Id)
-                            select new checkDuplicateMatching
-                            {
-                                candidateName= c.FullName
-                            }).ToList();
-                    if (list.Count > 0)
-                    {
-                        foreach(var item in list)
-                        {
-                            mess += item.candidateName + " ";
-                        }
-                        return false;
-                    }
-                }
-                return true;
-            }
-            catch
-            {
-                mess += "check duplicate Wrong!";
-                return false;
-            }
-        }
+
         #endregion
     }
 }
