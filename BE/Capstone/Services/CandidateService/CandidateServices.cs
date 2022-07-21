@@ -142,7 +142,7 @@ namespace Services.CandidateService
                 using var context = new CapstoneProject2022Context();
 
                 // xóa exp
-                var listExp = (from l1 in context.RcCandidateExps.Where(x => list.Contains(x.RcCandidate??0))
+                var listExp = (from l1 in context.RcCandidateExps.Where(x => list.Contains(x.RcCandidate ?? 0))
                                select new RcCandidateExp
                                {
                                    Id = l1.Id
@@ -153,7 +153,7 @@ namespace Services.CandidateService
                     context.RcCandidateExps.Remove(o);
                 }
                 // xóa skill
-                var listSkill = (from l1 in context.RcCandidateSkills.Where(x => list.Contains(x.RcCandidateId??0))
+                var listSkill = (from l1 in context.RcCandidateSkills.Where(x => list.Contains(x.RcCandidateId ?? 0))
                                  select new RcCandidateSkill
                                  {
                                      Id = l1.Id
@@ -166,10 +166,10 @@ namespace Services.CandidateService
 
                 // xóa edu
                 var listedu = (from l1 in context.RcCandidateEdus.Where(x => list.Contains(x.CandidateId ?? 0))
-                              select new RcCandidateEdu
-                              {
-                                  Id = l1.Id
-                              }).ToList();
+                               select new RcCandidateEdu
+                               {
+                                   Id = l1.Id
+                               }).ToList();
                 foreach (var item in listedu)
                 {
                     RcCandidateEdu o = context.RcCandidateEdus.Where(x => x.Id == item.Id).FirstOrDefault();
@@ -177,7 +177,7 @@ namespace Services.CandidateService
                 }
 
                 // xóa cv
-                var listCV = (from l1 in context.RcCandidateCvs.Where(x=>list.Contains(x.CandidateId??0))
+                var listCV = (from l1 in context.RcCandidateCvs.Where(x => list.Contains(x.CandidateId ?? 0))
                               select new RcCandidateCv
                               {
                                   Id = l1.Id
@@ -197,7 +197,7 @@ namespace Services.CandidateService
                 context.SaveChanges();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string exm = ex.Message.ToString();
                 return false;
@@ -786,22 +786,23 @@ namespace Services.CandidateService
         public bool MatchingCandidate(int requestID, List<int> lstCandidateID)
         {
             List<int> list = new List<int>();
-            
+
             try
             {
                 using (var context = new CapstoneProject2022Context())
                 {
                     var listcheck = (from rc in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
-                                    from c in context.RcCandidates.Where(x => x.Id == rc.CandidateId && lstCandidateID.Contains(x.Id)==false).DefaultIfEmpty()
-                                    select new checkDuplicateMatching
-                                    {
-                                        candidateId = c.Id,
-                                        candidateName = c.FullName
-                                    }).ToList();
+                                     from c in context.RcCandidates.Where(x => x.Id == rc.CandidateId).DefaultIfEmpty()
+                                     select new checkDuplicateMatching
+                                     {
+                                         candidateId = c.Id,
+                                         candidateName = c.FullName
+                                     }).ToList();
                     list = listcheck.Select(x => x.candidateId).Distinct().ToList();
-                    if (requestID != 0 && list.Count > 0)
+                    var lst = lstCandidateID.Except(list);
+                    if (requestID != 0)
                     {
-                        foreach (var id in list)
+                        foreach (var id in lst)
                         {
                             RcRequestCandidate obj = new RcRequestCandidate();
                             obj.CandidateId = id;
@@ -813,8 +814,9 @@ namespace Services.CandidateService
                 }
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                string mess = ex.Message.ToString();
                 return false;
             }
         }
