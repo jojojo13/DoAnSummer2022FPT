@@ -28,6 +28,7 @@ namespace API.ResponseModel.Schedule
         public DateTime CreateDate { get; set; }
         public string UpdateBy { get; set; }
         public DateTime UpdateDate { get; set; }
+        public List<int>listID { get; set; }
     }
     public class ExamResponse
     {
