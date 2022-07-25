@@ -369,7 +369,7 @@ namespace API.Controllers
                     rc.Type = T.Type;
                 }
                 rc.Comment = T.Comment;
-                if (T.Type != 0)
+                if (T.ParentID != 0)
                 {
                     rc.ParentId = T.ParentID;
                 }
