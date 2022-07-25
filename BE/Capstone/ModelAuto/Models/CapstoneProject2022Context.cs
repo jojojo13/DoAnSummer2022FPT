@@ -58,7 +58,7 @@ namespace ModelAuto.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("server=SQL8004.site4now.net;database=db_a8a353_capstone22;user=db_a8a353_capstone22_admin;password=hung1207;TrustServerCertificate=Yes");
+                optionsBuilder.UseSqlServer("server=SQL8004.site4now.net; database=db_a8a353_capstone22;user=db_a8a353_capstone22_admin;password=hung1207");
             }
         }
 
@@ -904,13 +904,13 @@ namespace ModelAuto.Models
                 entity.Property(e => e.EmailWork).HasMaxLength(100);
 
                 entity.Property(e => e.Facebook)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.HoKhau).HasMaxLength(100);
 
                 entity.Property(e => e.LinkedIn)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.NationHk).HasColumnName("NationHK");
@@ -928,11 +928,11 @@ namespace ModelAuto.Models
                 entity.Property(e => e.PorvinceOb).HasColumnName("PorvinceOB");
 
                 entity.Property(e => e.Skype)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Twiter)
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UpdateBy).HasMaxLength(100);
@@ -945,9 +945,7 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.WardOb).HasColumnName("WardOB");
 
-                entity.Property(e => e.Website)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Website).IsUnicode(false);
 
                 entity.Property(e => e.Zalo)
                     .HasMaxLength(50)
@@ -1370,7 +1368,7 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("Rc_Request_Exam");
 
-                entity.HasIndex(e => e.PhaseId, "IX_Rc_Request_Exam_Phase_ID");
+                entity.HasIndex(e => e.RequestId, "IX_Rc_Request_Exam_Phase_ID");
 
                 entity.Property(e => e.Code).HasMaxLength(10);
 
@@ -1378,13 +1376,14 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.Name).HasMaxLength(100);
 
-                entity.Property(e => e.PhaseId).HasColumnName("Phase_ID");
+                entity.Property(e => e.RequestId).HasColumnName("Request_ID");
 
                 entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
-                entity.HasOne(d => d.Phase)
+                entity.HasOne(d => d.Request)
                     .WithMany(p => p.RcRequestExams)
-                    .HasForeignKey(d => d.PhaseId);
+                    .HasForeignKey(d => d.RequestId)
+                    .HasConstraintName("FK_Rc_Request_Exam_Rc_Request");
             });
 
             modelBuilder.Entity<RcRequestExamResult>(entity =>

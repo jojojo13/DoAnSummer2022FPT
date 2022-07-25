@@ -9,7 +9,6 @@ namespace ModelAuto.Models
     {
         public RcPhaseRequest()
         {
-            RcRequestExams = new HashSet<RcRequestExam>();
             RcRequestHistories = new HashSet<RcRequestHistory>();
             RcRequestInterViews = new HashSet<RcRequestInterView>();
         }
@@ -32,7 +31,6 @@ namespace ModelAuto.Models
 
         public virtual Position Position { get; set; }
         public virtual RcRequest Request { get; set; }
-        public virtual ICollection<RcRequestExam> RcRequestExams { get; set; }
         public virtual ICollection<RcRequestHistory> RcRequestHistories { get; set; }
         public virtual ICollection<RcRequestInterView> RcRequestInterViews { get; set; }
     }
