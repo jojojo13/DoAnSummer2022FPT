@@ -71,6 +71,7 @@ namespace Services.ProfileServices
 
         List<Position> GetListPositionByOrgID(int ID);
         List<EmployeeResponseServices> GetListEmployeeByOrgID(int OrgID, int index, int size);
+        List<EmployeeResponseServices> GetListEmployeeByOrgIDByFilter(int OrgID, int index, int size, string code, string name, string orgName, string title, string position, DateTime joindate, string status, ref int totalItem);
         Employee GetEmployeeByID(int? ID);
         EmployeeCv GetEmployeeCvByEmpID(int? ID);
         EmployeeEdu GetEmployeeEduByEmpID(int? ID);

@@ -943,6 +943,21 @@ namespace API.Controllers
                 return StatusCode(200, "Obj is Null");
         }
 
+        [HttpPost("GetListEmployeeByOrgIDByFilter")]
+        public IActionResult GetListEmployeeByOrgIDByFilter([FromBody] EmployeResponse obj)
+        {
+            int totalItem = 0;
+            List<EmployeeResponseServices> list = profile.GetListEmployeeByOrgIDByFilter(obj.orgID, obj.index, obj.size, obj.Code, obj.Name, obj.OrgName, obj.TitleName, obj.PositionName, obj.JoinDate, obj.Status, ref totalItem);
+            if (list.Count > 0)
+                return Ok(new
+                {
+                    TotalItem = totalItem,
+                    Data = list
+                });
+            else
+                return StatusCode(200, "Obj is Null");
+        }
+
 
         [HttpPost("GetAllInforOfEmployee")]
         public IActionResult GetAllInforOfEmployee(int empID)
