@@ -80,7 +80,8 @@ namespace API.Controllers
             {
                 rule = a?.Rule,
                 name = emp?.FullName,
-                orgID= emp?.OrgnizationId
+                orgID= emp?.OrgnizationId,
+                positionName= emp.Position?.Name
             };
 
             return Ok(new

@@ -63,6 +63,7 @@ namespace Services.ProfileServices
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     Employee e = context.Employees.Where(x => x.Id == ID).FirstOrDefault();
+                    e.Position = context.Positions.Where(x => x.Id == e.PositionId).FirstOrDefault();
                     return e;
                 }
             }
