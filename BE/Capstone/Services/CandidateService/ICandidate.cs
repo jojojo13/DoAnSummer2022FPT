@@ -26,7 +26,7 @@ namespace Services.CandidateService
 
         bool activeCandidate(List<int> list);
 
-        bool deactiveCandidate(List<int> list);
+        bool deactiveCandidate(List<int> list, string comment);
 
         #endregion
 

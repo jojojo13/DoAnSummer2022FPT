@@ -216,7 +216,7 @@ namespace Services.CandidateService
             context.SaveChanges();
             return true;
         }
-        public bool deactiveCandidate(List<int> list)
+        public bool deactiveCandidate(List<int> list, string comment)
         {
             try
             {
@@ -224,6 +224,7 @@ namespace Services.CandidateService
                 foreach (var item in list)
                 {
                     RcCandidate c = context.RcCandidates.Where(x => x.Id == item).FirstOrDefault();
+                    c.Note = comment;
                     c.RecordStatus = 0;
                 }
                 context.SaveChanges();

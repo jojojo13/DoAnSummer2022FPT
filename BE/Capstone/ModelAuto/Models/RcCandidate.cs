@@ -34,6 +34,7 @@ namespace ModelAuto.Models
         public int? InterViewId { get; set; }
         public int? RequestId { get; set; }
         public int? RecordStatus { get; set; }
+        public string Note { get; set; }
 
         public virtual Employee InterView { get; set; }
         public virtual RcRequest Request { get; set; }

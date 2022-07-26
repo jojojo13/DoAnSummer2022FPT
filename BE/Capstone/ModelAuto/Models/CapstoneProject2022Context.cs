@@ -824,6 +824,8 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.InterViewId).HasColumnName("InterViewID");
 
+                entity.Property(e => e.Note).HasMaxLength(100);
+
                 entity.Property(e => e.RequestId).HasColumnName("RequestID");
 
                 entity.Property(e => e.ResourceId).HasColumnName("ResourceID");
@@ -1436,21 +1438,20 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("Rc_Request_InterView");
 
-                entity.HasIndex(e => e.PhaseId, "IX_Rc_Request_InterView_Phase_ID");
-
                 entity.Property(e => e.Code).HasMaxLength(10);
 
                 entity.Property(e => e.CreateBy).HasMaxLength(100);
 
                 entity.Property(e => e.Name).HasMaxLength(100);
 
-                entity.Property(e => e.PhaseId).HasColumnName("Phase_ID");
+                entity.Property(e => e.RequestId).HasColumnName("RequestID");
 
                 entity.Property(e => e.UpdateBy).HasMaxLength(100);
 
-                entity.HasOne(d => d.Phase)
+                entity.HasOne(d => d.Request)
                     .WithMany(p => p.RcRequestInterViews)
-                    .HasForeignKey(d => d.PhaseId);
+                    .HasForeignKey(d => d.RequestId)
+                    .HasConstraintName("FK_Rc_Request_InterView_Rc_Request");
             });
 
             modelBuilder.Entity<RcRequestInterViewResult>(entity =>

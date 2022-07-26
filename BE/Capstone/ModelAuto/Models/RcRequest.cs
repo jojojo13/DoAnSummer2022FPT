@@ -13,6 +13,7 @@ namespace ModelAuto.Models
             RcPhaseRequests = new HashSet<RcPhaseRequest>();
             RcRequestCandidates = new HashSet<RcRequestCandidate>();
             RcRequestExams = new HashSet<RcRequestExam>();
+            RcRequestInterViews = new HashSet<RcRequestInterView>();
         }
 
         public int Id { get; set; }
@@ -55,5 +56,6 @@ namespace ModelAuto.Models
         public virtual ICollection<RcPhaseRequest> RcPhaseRequests { get; set; }
         public virtual ICollection<RcRequestCandidate> RcRequestCandidates { get; set; }
         public virtual ICollection<RcRequestExam> RcRequestExams { get; set; }
+        public virtual ICollection<RcRequestInterView> RcRequestInterViews { get; set; }
     }
 }

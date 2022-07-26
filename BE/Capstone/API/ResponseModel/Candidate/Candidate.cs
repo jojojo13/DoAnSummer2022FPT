@@ -78,7 +78,11 @@ namespace API.ResponseModel.Candidate
         public List<int> lstCandidateID { get; set; }
     }
 
-
+    public class deactiveResponse
+    {
+        public string comment { get; set; }
+        public List<int> lstCandidateID { get; set; }
+    }
 
 
 }

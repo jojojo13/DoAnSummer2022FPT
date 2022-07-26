@@ -456,11 +456,11 @@ namespace API.Controllers
             });
         }
         [HttpPost("DeActiveCandidate")]
-        public IActionResult DeActiveCandidate(List<int> ListID)
+        public IActionResult DeActiveCandidate([FromBody] deactiveResponse obj)
         {
             return Ok(new
             {
-                Status = rc.deactiveCandidate(ListID)
+                Status = rc.deactiveCandidate(obj.lstCandidateID, obj.comment)
             });
         }
 
