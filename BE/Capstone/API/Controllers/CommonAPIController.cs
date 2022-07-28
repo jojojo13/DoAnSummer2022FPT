@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.ResponseModel.Common;
+using Services.CandidateService;
 
 namespace API.Controllers
 {
@@ -126,6 +127,38 @@ namespace API.Controllers
                 Data = new List<OtherList>()
             });
         }
+
+
+        [HttpPost("GetOtherListByAttribute")]
+        public IActionResult GetOtherListByAttribute(int id)
+        {
+
+            ICandidate rc = new CandidateImpl();
+            List<OtherList> list = new List<OtherList>();
+            list = rc.GetOtherListByAttribute(id);
+            var listReturn = from l in list
+                             select new
+                             {
+                                 name = l.Name,
+                                 code = l.Code,
+                                 note = l.Note,
+                                 statusName = l.Status == -1 ? "Active" : "Deactive",
+                                 id = l.Id
+                             };
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    Data = listReturn
+                });
+            }
+            return Ok(new
+            {
+                Data = new List<OtherList>()
+            });
+        }
+
+        
 
         [HttpPost("GetAllOtherList")]
         public IActionResult GetAllOtherList(string code, int index, int size)
