@@ -119,7 +119,11 @@ namespace API.Controllers
                 // rccandidateCV
                 RcCandidateCv cv = new RcCandidateCv();
                 cv.CandidateId = candidate1.Id;
-                cv.Dob = T.Dob;
+                if(T.Dob.Value.Year!= 1000)
+                {
+                      cv.Dob = T.Dob;
+                }
+              
                 cv.Gender = T.Gender;
                 cv.Phone = T.Phone;
                 cv.Zalo = T.Zalo;
@@ -246,8 +250,12 @@ namespace API.Controllers
                 {
                     item.lastestPosition = item.positionList.Last().name;
                     item.experience = item.positionList.Last().time;
+                    
                 }
                 string lang = "";
+                item.languageList= item.languageList.GroupBy(p => p.name)
+                    .Select(g => g.FirstOrDefault())
+                    .ToList();
                 foreach (var item2 in item.languageList)
                 {
                     lang += item2.name + ", ";

@@ -265,6 +265,7 @@ namespace Services.CandidateService
                                 location = na.Name + " - " + pr.Name,
                                 status = c.RecordStatus.ToString(),
                                 statusId = c.RecordStatus,
+                                note= c.Note,
                                 positionList = (from p in context.RcCandidateExps.Where(x => x.RcCandidate == c.Id)
                                                 select new positionObj { id = p.Id, name = p.Position, time = p.Time }).ToList(),
                                 languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
