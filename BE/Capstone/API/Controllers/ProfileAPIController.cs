@@ -1016,9 +1016,9 @@ namespace API.Controllers
                 major1 = edu.Major1,
                 major2 = edu.Major2,
                 major3 = edu.Major3,
-                degree1 = edu.DeeGree1Navigation?.Name,
-                degree2 = edu.DeeGree2Navigation?.Name,
-                degree3 = edu.DeeGree3Navigation?.Name,
+                degree1 = edu.DeeGree1,
+                degree2 = edu.DeeGree2,
+                degree3 = edu.DeeGree3,
                 degreeId1 = edu.DeeGree1,
                 degreeId2 = edu.DeeGree2,
                 degreeId3 = edu.DeeGree3,
@@ -1062,6 +1062,17 @@ namespace API.Controllers
         }
 
 
+
+        [HttpPost("GetProfileOfEmployee")]
+        public IActionResult GetProfileOfEmployee(int empID)
+        {
+            EmployeeProfileResponseServices obj = new EmployeeProfileResponseServices();
+            obj = profile.getEmployeeProfile(empID);
+            return Ok(new
+            {
+                Data = obj
+            });
+        }
 
 
         #endregion

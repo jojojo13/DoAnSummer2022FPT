@@ -45,9 +45,9 @@ namespace Services.ProfileServices
                     PositionName = row["PositionName"].ToString(),
                     TitleName = row["TitleName"].ToString(),
                     ContractNo = row["ContractNo"].ToString(),
-                    JoinDate= Convert.ToDateTime(row["JoinDate"].ToString()).ToString("dd/MM/yyyy"),
-                    StatusId= Convert.ToInt32(row["StatusId"].ToString()),
-                    TitleId= Convert.ToInt32(row["TitleId"].ToString()),
+                    JoinDate = Convert.ToDateTime(row["JoinDate"].ToString()).ToString("dd/MM/yyyy"),
+                    StatusId = Convert.ToInt32(row["StatusId"].ToString()),
+                    TitleId = Convert.ToInt32(row["TitleId"].ToString()),
 
                 };
                 list.Add(o);
@@ -105,7 +105,7 @@ namespace Services.ProfileServices
             {
                 list = list.Where(x => x.StatusName.ToLower().Contains(status.Trim().ToLower())).ToList();
             }
-            if (joindate.Year!=1000)
+            if (joindate.Year != 1000)
             {
                 list = list.Where(x => x.JoinDate == joindate.ToString("dd/MM/YYYY")).ToList();
             }
@@ -172,6 +172,74 @@ namespace Services.ProfileServices
             catch
             {
                 return new List<EmployeeContract>();
+            }
+        }
+
+
+        public EmployeeProfileResponseServices getEmployeeProfile(int? ID)
+        {
+            try
+            {
+                EmployeeProfileResponseServices obj = new EmployeeProfileResponseServices();
+
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    var query = (from e in context.Employees.Where(x => x.Id == ID)
+                                 from cv in context.EmployeeCvs.Where(x => x.EmployeeId == e.Id).DefaultIfEmpty()
+                                 from edu in context.EmployeeEdus.Where(x => x.EmployeeId == e.Id).DefaultIfEmpty()
+                                 from p in context.Positions.Where(x => x.Id == e.PositionId).DefaultIfEmpty()
+                                 from o in context.Orgnizations.Where(x => x.Id == e.OrgnizationId).DefaultIfEmpty()
+                                 select new EmployeeProfileResponseServices
+                                 {
+                                     FullName = e.FullName,
+                                     FirstName = e.FirstName,
+                                     LastName = e.LastName,
+                                     Code = e.Code,
+                                     StatusId = e.Status,
+                                     CMND = cv.Cmnd,
+                                     CMND_Place = cv.Cmndplace,
+                                     DanToc = cv.DanToc,
+                                     QuocTich = cv.QuocTich,
+                                     DOB = cv.Dob,
+                                     ID = e.Id,
+                                     Email = cv.Email,
+                                     WorkEmail = cv.EmailWork,
+                                     HoKhau = cv.HoKhau,
+                                     Gender = cv.Gender,
+                                     JoinDate = e.JoinDate,
+                                     OutDate = e.LastDate,
+                                     NoiO = cv.NoiO,
+                                     PositionName = p.Name,
+                                     School = edu.School1,
+                                     Degree = edu.DeeGree1,
+                                     Major = edu.Major1,
+                                     Award = edu.Award1,
+                                     Language1 = edu.Language1,
+                                     Language2 = edu.Language2,
+                                     Score1 = edu.LanScore1,
+                                     Score2 = edu.LanScore2,
+                                     DistrictHK = cv.DistrictHk,
+                                     DistrictNoiO = cv.DistrictLive,
+                                     NationNoiO = cv.NationLive,
+                                     NationHK = cv.NationHk,
+                                     OrgnizationName = o.Name,
+                                     WardHK = cv.WardHk,
+                                     WardNoiO = cv.WardLive,
+                                     ProvinceHK = cv.ProvinceHk,
+                                     ProvinceNoiO = cv.PorvinceLive,
+                                     PhoneNumber = cv.Phone,
+                                     informaticLV = edu.InforMaticsLevel1,
+                                     LearningLV = edu.LearningLevel,
+                                     Skill1 = 1,
+                                     Skill2 = 2
+                                 }).FirstOrDefault();
+                    obj = query;
+                }
+                return obj;
+            }
+            catch
+            {
+                return new EmployeeProfileResponseServices();
             }
         }
 

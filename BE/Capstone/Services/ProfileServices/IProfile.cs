@@ -77,7 +77,7 @@ namespace Services.ProfileServices
         EmployeeEdu GetEmployeeEduByEmpID(int? ID);
         List<EmployeeContract> GetListEmployeeContractByEmpID(int? ID);
         int getTotalEmployee(int OrgID);
-
+        EmployeeProfileResponseServices getEmployeeProfile(int? ID);
         #endregion
 
     }
