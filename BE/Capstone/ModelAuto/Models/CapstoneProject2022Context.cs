@@ -307,6 +307,11 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.WardOb).HasColumnName("WardOB");
 
+                entity.HasOne(d => d.DanTocNavigation)
+                    .WithMany(p => p.EmployeeCvDanTocNavigations)
+                    .HasForeignKey(d => d.DanToc)
+                    .HasConstraintName("FK_EmployeeCV_Other_List");
+
                 entity.HasOne(d => d.DistrictHkNavigation)
                     .WithMany(p => p.EmployeeCvDistrictHkNavigations)
                     .HasForeignKey(d => d.DistrictHk);
@@ -324,7 +329,7 @@ namespace ModelAuto.Models
                     .HasForeignKey(d => d.EmployeeId);
 
                 entity.HasOne(d => d.GenderNavigation)
-                    .WithMany(p => p.EmployeeCvs)
+                    .WithMany(p => p.EmployeeCvGenderNavigations)
                     .HasForeignKey(d => d.Gender);
 
                 entity.HasOne(d => d.NationHkNavigation)
@@ -351,6 +356,11 @@ namespace ModelAuto.Models
                     .WithMany(p => p.EmployeeCvProvinceObNavigations)
                     .HasForeignKey(d => d.ProvinceOb);
 
+                entity.HasOne(d => d.QuocTichNavigation)
+                    .WithMany(p => p.EmployeeCvQuocTichNavigations)
+                    .HasForeignKey(d => d.QuocTich)
+                    .HasConstraintName("FK_EmployeeCV_Nation");
+
                 entity.HasOne(d => d.WardHkNavigation)
                     .WithMany(p => p.EmployeeCvWardHkNavigations)
                     .HasForeignKey(d => d.WardHk);
@@ -368,31 +378,17 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("EmployeeEdu");
 
-                entity.HasIndex(e => e.DeeGree1, "IX_EmployeeEdu_DeeGree1");
-
-                entity.HasIndex(e => e.DeeGree2, "IX_EmployeeEdu_DeeGree2");
-
-                entity.HasIndex(e => e.DeeGree3, "IX_EmployeeEdu_DeeGree3");
-
-                entity.HasIndex(e => e.EmployeeId1, "IX_EmployeeEdu_EmployeeID");
-
-                entity.HasIndex(e => e.InforMaticsLevel1, "IX_EmployeeEdu_InforMatics_Level1");
-
-                entity.HasIndex(e => e.InforMaticsLevel2, "IX_EmployeeEdu_InforMatics_Level2");
-
-                entity.HasIndex(e => e.InforMaticsLevel3, "IX_EmployeeEdu_InforMatics_Level3");
-
-                entity.HasIndex(e => e.Language1, "IX_EmployeeEdu_Language1");
-
-                entity.HasIndex(e => e.Language2, "IX_EmployeeEdu_Language2");
-
-                entity.HasIndex(e => e.Language3, "IX_EmployeeEdu_Language3");
-
-                entity.HasIndex(e => e.LearningLevel, "IX_EmployeeEdu_Learning_Level");
-
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.Award1).HasMaxLength(100);
+
                 entity.Property(e => e.CreateBy).HasMaxLength(100);
+
+                entity.Property(e => e.DeeGree1).HasMaxLength(100);
+
+                entity.Property(e => e.DeeGree2).HasMaxLength(100);
+
+                entity.Property(e => e.DeeGree3).HasMaxLength(100);
 
                 entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
 
@@ -419,18 +415,6 @@ namespace ModelAuto.Models
                 entity.Property(e => e.School3).HasMaxLength(100);
 
                 entity.Property(e => e.UpdateBy).HasMaxLength(100);
-
-                entity.HasOne(d => d.DeeGree1Navigation)
-                    .WithMany(p => p.EmployeeEduDeeGree1Navigations)
-                    .HasForeignKey(d => d.DeeGree1);
-
-                entity.HasOne(d => d.DeeGree2Navigation)
-                    .WithMany(p => p.EmployeeEduDeeGree2Navigations)
-                    .HasForeignKey(d => d.DeeGree2);
-
-                entity.HasOne(d => d.DeeGree3Navigation)
-                    .WithMany(p => p.EmployeeEduDeeGree3Navigations)
-                    .HasForeignKey(d => d.DeeGree3);
 
                 entity.HasOne(d => d.EmployeeId1Navigation)
                     .WithMany(p => p.EmployeeEdus)

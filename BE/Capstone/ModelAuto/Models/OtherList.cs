@@ -9,10 +9,8 @@ namespace ModelAuto.Models
     {
         public OtherList()
         {
-            EmployeeCvs = new HashSet<EmployeeCv>();
-            EmployeeEduDeeGree1Navigations = new HashSet<EmployeeEdu>();
-            EmployeeEduDeeGree2Navigations = new HashSet<EmployeeEdu>();
-            EmployeeEduDeeGree3Navigations = new HashSet<EmployeeEdu>();
+            EmployeeCvDanTocNavigations = new HashSet<EmployeeCv>();
+            EmployeeCvGenderNavigations = new HashSet<EmployeeCv>();
             EmployeeEduInforMaticsLevel1Navigations = new HashSet<EmployeeEdu>();
             EmployeeEduInforMaticsLevel2Navigations = new HashSet<EmployeeEdu>();
             EmployeeEduInforMaticsLevel3Navigations = new HashSet<EmployeeEdu>();
@@ -68,10 +66,8 @@ namespace ModelAuto.Models
         public DateTime? UpdateDate { get; set; }
 
         public virtual OtherListType Type { get; set; }
-        public virtual ICollection<EmployeeCv> EmployeeCvs { get; set; }
-        public virtual ICollection<EmployeeEdu> EmployeeEduDeeGree1Navigations { get; set; }
-        public virtual ICollection<EmployeeEdu> EmployeeEduDeeGree2Navigations { get; set; }
-        public virtual ICollection<EmployeeEdu> EmployeeEduDeeGree3Navigations { get; set; }
+        public virtual ICollection<EmployeeCv> EmployeeCvDanTocNavigations { get; set; }
+        public virtual ICollection<EmployeeCv> EmployeeCvGenderNavigations { get; set; }
         public virtual ICollection<EmployeeEdu> EmployeeEduInforMaticsLevel1Navigations { get; set; }
         public virtual ICollection<EmployeeEdu> EmployeeEduInforMaticsLevel2Navigations { get; set; }
         public virtual ICollection<EmployeeEdu> EmployeeEduInforMaticsLevel3Navigations { get; set; }

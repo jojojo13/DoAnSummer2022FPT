@@ -12,6 +12,7 @@ namespace ModelAuto.Models
             EmployeeCvNationHkNavigations = new HashSet<EmployeeCv>();
             EmployeeCvNationLiveNavigations = new HashSet<EmployeeCv>();
             EmployeeCvNationObNavigations = new HashSet<EmployeeCv>();
+            EmployeeCvQuocTichNavigations = new HashSet<EmployeeCv>();
             EmployeeFamilies = new HashSet<EmployeeFamily>();
             Orgnizations = new HashSet<Orgnization>();
             Provinces = new HashSet<Province>();
@@ -34,6 +35,7 @@ namespace ModelAuto.Models
         public virtual ICollection<EmployeeCv> EmployeeCvNationHkNavigations { get; set; }
         public virtual ICollection<EmployeeCv> EmployeeCvNationLiveNavigations { get; set; }
         public virtual ICollection<EmployeeCv> EmployeeCvNationObNavigations { get; set; }
+        public virtual ICollection<EmployeeCv> EmployeeCvQuocTichNavigations { get; set; }
         public virtual ICollection<EmployeeFamily> EmployeeFamilies { get; set; }
         public virtual ICollection<Orgnization> Orgnizations { get; set; }
         public virtual ICollection<Province> Provinces { get; set; }

@@ -41,7 +41,10 @@ namespace ModelAuto.Models
         public DateTime? CreateDate { get; set; }
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
+        public int? QuocTich { get; set; }
+        public int? DanToc { get; set; }
 
+        public virtual OtherList DanTocNavigation { get; set; }
         public virtual District DistrictHkNavigation { get; set; }
         public virtual District DistrictLiveNavigation { get; set; }
         public virtual District DistrictObNavigation { get; set; }
@@ -53,6 +56,7 @@ namespace ModelAuto.Models
         public virtual Province ProvinceHkNavigation { get; set; }
         public virtual Province ProvinceLiveNavigation { get; set; }
         public virtual Province ProvinceObNavigation { get; set; }
+        public virtual Nation QuocTichNavigation { get; set; }
         public virtual Ward WardHkNavigation { get; set; }
         public virtual Ward WardLiveNavigation { get; set; }
         public virtual Ward WardObNavigation { get; set; }
