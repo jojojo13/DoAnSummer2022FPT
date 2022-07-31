@@ -1,6 +1,7 @@
 ﻿using ModelAuto.Models;
 using Services.CommonServices;
 using Services.ResponseModel.CandidateModel;
+using Services.ResponseModel.RequestModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -265,7 +266,7 @@ namespace Services.CandidateService
                                 location = na.Name + " - " + pr.Name,
                                 status = c.RecordStatus.ToString(),
                                 statusId = c.RecordStatus,
-                                note= c.Note,
+                                note = c.Note,
                                 positionList = (from p in context.RcCandidateExps.Where(x => x.RcCandidate == c.Id)
                                                 select new positionObj { id = p.Id, name = p.Position, time = p.Time }).ToList(),
                                 languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
@@ -1117,6 +1118,60 @@ namespace Services.CandidateService
         }
 
 
+        #endregion
+
+        #region "Step"
+        public List<RequestResponseServices> GetAllRequestByCandidateID(int id)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    var query = from q in context.RcRequestCandidates.Where(x=>x.CandidateId==id)
+                                from r in context.RcRequests.Where(x=>x.Id==q.RequestId).DefaultIfEmpty()
+                                from p in context.Positions.Where(x => x.Id == r.PositionId).DefaultIfEmpty()
+                                from o in context.Orgnizations.Where(x => x.Id == r.OrgnizationId).DefaultIfEmpty()
+                                from e in context.Employees.Where(x => x.Id == r.HrInchange).DefaultIfEmpty()
+                                from skill in context.OtherLists.Where(x => x.Id == r.OtherSkill).DefaultIfEmpty()
+                                from pro in context.OtherLists.Where(x => x.Id == r.Project).DefaultIfEmpty()
+                                select new RequestResponseServices
+                                {
+                                    id = r.Id,
+                                    code = r.Code,
+                                    name = r.Name,
+                                    department = o.Name,
+                                    position = p.Name,
+                                    positionID = r.PositionId,
+                                    quantity = r.Number,
+                                    createdOn = r.EffectDate,
+                                    createdOnString = Convert.ToDateTime(r.EffectDate).ToString("dd/M/yyyy"),
+                                    Deadline = r.ExpireDate,
+                                    DeadlineString = Convert.ToDateTime(r.ExpireDate).ToString("dd/M/yyyy"),
+                                    Office = o.Address,
+                                    StatusID = r.Status,
+                                    Status = r.Status == 1 ? "Draft" : r.Status == 2 ? "Submited" : r.Status == 3 ? "Cancel" : r.Status == 4 ? "Approved" : r.Status == 5 ? "Rejected" : "",
+                                    parentId = r.ParentId,
+                                    rank = r.Rank,
+                                    note = r.Note,
+                                    comment = r.Comment,
+                                    HrInchangeId = r.HrInchange,
+                                    HrInchange = e.FullName,
+                                    signID = r.SignId,
+                                    OrgnizationName = o.Name,
+                                    OrgnizationID = r.OrgnizationId,
+                                    otherSkill = r.OtherSkill,
+                                    otherSkillname = skill.Name,
+                                    projectID = pro.Id,
+                                    projectname = pro.Name
+                                };
+                    return query.ToList();
+                }
+            }
+            catch
+            {
+                return new List<RequestResponseServices>();
+            }
+        }
         #endregion
     }
 }

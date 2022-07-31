@@ -1,10 +1,12 @@
 ﻿using API.ResponseModel.Candidate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelAuto.Models;
 using Services.CandidateService;
 using Services.CommonServices;
 using Services.ResponseModel.CandidateModel;
+using Services.ResponseModel.RequestModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,11 +121,11 @@ namespace API.Controllers
                 // rccandidateCV
                 RcCandidateCv cv = new RcCandidateCv();
                 cv.CandidateId = candidate1.Id;
-                if(T.Dob.Value.Year!= 1000)
+                if (T.Dob.Value.Year != 1000)
                 {
-                      cv.Dob = T.Dob;
+                    cv.Dob = T.Dob;
                 }
-              
+
                 cv.Gender = T.Gender;
                 cv.Phone = T.Phone;
                 cv.Zalo = T.Zalo;
@@ -151,11 +153,11 @@ namespace API.Controllers
                 RcCandidateEdu edu = new RcCandidateEdu();
                 edu.CandidateId = candidate1.Id;
                 edu.Major1 = T.Major;
-                if(T.Graduate.Value.Year != 1000)
+                if (T.Graduate.Value.Year != 1000)
                 {
                     edu.Graduate1 = T.Graduate;
                 }
-                
+
                 edu.School1 = T.School;
                 if (T.Gpa != 0)
                 {
@@ -227,7 +229,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = check,
-                    Code= code1
+                    Code = code1
                 });
 
             }
@@ -250,10 +252,10 @@ namespace API.Controllers
                 {
                     item.lastestPosition = item.positionList.Last().name;
                     item.experience = item.positionList.Last().time;
-                    
+
                 }
                 string lang = "";
-                item.languageList= item.languageList.GroupBy(p => p.name)
+                item.languageList = item.languageList.GroupBy(p => p.name)
                     .Select(g => g.FirstOrDefault())
                     .ToList();
                 foreach (var item2 in item.languageList)
@@ -304,6 +306,9 @@ namespace API.Controllers
                     item.experience = item.positionList.Last().time;
                 }
                 string lang = "";
+                item.languageList = item.languageList.GroupBy(p => p.name)
+                 .Select(g => g.FirstOrDefault())
+                 .ToList();
                 if (item.languageList.Count > 0)
                 {
                     foreach (var item2 in item.languageList)
@@ -339,9 +344,9 @@ namespace API.Controllers
                             select new
                             {
                                 ID = c.Id,
-                                Code=c.Code,
+                                Code = c.Code,
                                 FullName = c.FullName,
-                                Dob = cv == null ?"": cv.Dob.Value.Year.ToString(),
+                                Dob = cv == null ? "" : cv.Dob.Value.Year.ToString(),
                                 Phone = cv == null ? "" : cv.Phone,
                                 Email = cv == null ? "" : cv.Email,
                                 Gender = cv == null ? "" : cv.Gender.ToString(),
@@ -349,10 +354,10 @@ namespace API.Controllers
                                 NationLive = rc.GetNation(cv.NationLive) == null ? "" : rc.GetNation(cv.NationLive).Name,
                                 ProvinceLive = rc.GetLocation(cv.PorvinceLive) == null ? "" : rc.GetLocation(cv.PorvinceLive).Name,
                                 Zalo = cv == null ? "" : cv.Zalo,
-                                Facebook= cv == null ? "" : cv.Facebook,
-                                Skype= cv == null ? "" : cv.Skype,
-                                Website= cv == null ? "" : cv.Website,
-                                Awards= edu== null ?"": edu.Awards1,
+                                Facebook = cv == null ? "" : cv.Facebook,
+                                Skype = cv == null ? "" : cv.Skype,
+                                Website = cv == null ? "" : cv.Website,
+                                Awards = edu == null ? "" : edu.Awards1,
                                 School = edu == null ? "" : edu.School1,
                                 Major = edu == null ? "" : edu.Major1,
                                 Score = edu == null ? "" : edu.Gpa1.ToString(),
@@ -404,20 +409,20 @@ namespace API.Controllers
                                              },
 
 
-                            Domain = from a in rc.GetExpOneCandidate(b.Id,82)
-                                     select new
-                                     {
-                                         Firm = a.Firm,
-                                         Positiob = a.Position,
-                                         Time= a.Time
-                                     },
-                            OutSource= from a in rc.GetExpOneCandidate(b.Id, 81)
-                                       select new
-                                       {
-                                           Firm = a.Firm,
-                                           Positiob = a.Position,
-                                           Time = a.Time
-                                       }
+                                Domain = from a in rc.GetExpOneCandidate(b.Id, 82)
+                                         select new
+                                         {
+                                             Firm = a.Firm,
+                                             Positiob = a.Position,
+                                             Time = a.Time
+                                         },
+                                OutSource = from a in rc.GetExpOneCandidate(b.Id, 81)
+                                            select new
+                                            {
+                                                Firm = a.Firm,
+                                                Positiob = a.Position,
+                                                Time = a.Time
+                                            }
                             };
 
                 return Ok(new
@@ -440,10 +445,10 @@ namespace API.Controllers
         [HttpPost("CheckDuplicateCandidate")]
         public IActionResult CheckDuplicateCandidate([FromBody] CheckDuplicateCandidateModel obj)
         {
-                return Ok(new
-                {
-                    Data = rc.checkDuplicateCandidate(obj)
-                });
+            return Ok(new
+            {
+                Data = rc.checkDuplicateCandidate(obj)
+            });
         }
 
         [HttpPost("DeleteCandidate")]
@@ -537,7 +542,7 @@ namespace API.Controllers
         public IActionResult GetCandidateByRequest([FromBody] CandidateFillter obj)
         {
             int totalItem = 0;
-            List<CandidateResponeServices> list1 = rc.GetCandidateByRequest(obj.requestID??0,obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem);
+            List<CandidateResponeServices> list1 = rc.GetCandidateByRequest(obj.requestID ?? 0, obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem);
             foreach (var item in list1)
             {
                 if (item.positionList.Count > 0)
@@ -567,7 +572,7 @@ namespace API.Controllers
         }
 
         [HttpPost("CheckDuplicateMatching")]
-        public IActionResult CheckDuplicateMatching(List<int>lstCandidateID, int requestID)
+        public IActionResult CheckDuplicateMatching(List<int> lstCandidateID, int requestID)
         {
             string mess = "";
             return Ok(new
@@ -580,6 +585,23 @@ namespace API.Controllers
 
 
 
+        #endregion
+        #region " Step"
+        [Authorize]
+        [HttpPost("GetAllRequestByCandidateID")]
+        public IActionResult GetAllRequestByCandidateID(int id)
+        {
+            Account a = GetCurrentUser();
+            List<RequestResponseServices> list = rc.GetAllRequestByCandidateID(id);
+            if (list.Count > 0)
+            {
+                return Ok(new
+                {
+                    Data = list
+                });
+            }
+            return StatusCode(200, "List is Null");
+        }
         #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ModelAuto.Models;
 using Services.ResponseModel.CandidateModel;
+using Services.ResponseModel.RequestModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,6 +88,12 @@ namespace Services.CandidateService
         bool  CheckQuantity(int requestID, List<int> lstCandidateID);
         bool DeleteCandidateRequest(List<int> listID);
         bool CheckDuplicateMatching(int requestID, List<int> candidateID, ref string mess);
+        #endregion
+
+
+        #region "Step"
+        List<RequestResponseServices> GetAllRequestByCandidateID(int id);
+
         #endregion
     }
 }
