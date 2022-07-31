@@ -304,6 +304,9 @@ namespace API.Controllers
                     item.experience = item.positionList.Last().time;
                 }
                 string lang = "";
+                item.languageList = item.languageList.GroupBy(p => p.name)
+                 .Select(g => g.FirstOrDefault())
+                 .ToList();
                 if (item.languageList.Count > 0)
                 {
                     foreach (var item2 in item.languageList)
