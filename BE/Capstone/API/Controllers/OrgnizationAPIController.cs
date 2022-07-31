@@ -852,29 +852,15 @@ namespace API.Controllers
         [HttpPost("GetAllPositionOrg")]
         public IActionResult GetAllPositionOrg(int index, int size)
         {
-            List<PositionOrg> list = p.GetAllPositionOrg(index, size);
-            var listReturn = from l in list
-                             select new
-                             {
-                                 Id = l.Id,
-                                 orgName = l.Org?.Name,
-                                 orgCode = l.Org?.Code,
-                                 orgId = l.OrgId,
-                                 positionName = l.Position?.Name,
-                                 positionCode = l.Position?.Code,
-                                 positionId = l.PositionId,
-                                 titleName = l.Position?.Title.Name,
-                                 titleCode = l.Position?.Title.Code,
-                                 titleId = l.Position?.TitleId,
-                                 note = l.Note,
-                                 statusName = l.Status == -1 ? "Active" : "Deactive"
-                             };
+            int total = 0;
+            List<PositionInOrgResponse> list = p.GetAllPositionOrg(index, size, ref total);
+           
             if (list.Count > 0)
             {
                 return Ok(new
                 {
-                    TotalItem = c.getTotalRecord("PositionOrg", false),
-                    Data = listReturn
+                    TotalItem = total,
+                    Data = list
                 });
             }
             return StatusCode(200, "List is Null");

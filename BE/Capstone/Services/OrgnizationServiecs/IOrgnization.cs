@@ -50,7 +50,7 @@ namespace Services.OrgnizationServiecs
         #endregion
 
         #region Thiet lap vi tri cv cho phong ban
-        List<PositionOrg> GetAllPositionOrg(int index, int size);
+        List<PositionInOrgResponse> GetAllPositionOrg(int index, int size, ref int total);
         bool InsertPositionOrg(PositionOrg T);
         bool ModifyPositionOrg(PositionOrg T);
         bool DeletePositionOrg(List<int> list);
