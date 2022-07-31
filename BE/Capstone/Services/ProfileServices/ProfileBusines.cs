@@ -230,8 +230,8 @@ namespace Services.ProfileServices
                                      PhoneNumber = cv.Phone,
                                      informaticLV = edu.InforMaticsLevel1,
                                      LearningLV = edu.LearningLevel,
-                                     Skill1 = 1,
-                                     Skill2 = 2
+                                     Skill1 = edu.LanSkill1,
+                                     Skill2 = edu.LanSkill2,
                                  }).FirstOrDefault();
                     obj = query;
                 }

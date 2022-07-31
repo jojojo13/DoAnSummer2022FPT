@@ -38,6 +38,7 @@ namespace ModelAuto.Models
         public virtual DbSet<RcCandidateEdu> RcCandidateEdus { get; set; }
         public virtual DbSet<RcCandidateExp> RcCandidateExps { get; set; }
         public virtual DbSet<RcCandidateFamily> RcCandidateFamilies { get; set; }
+        public virtual DbSet<RcCandidatePv> RcCandidatePvs { get; set; }
         public virtual DbSet<RcCandidateSkill> RcCandidateSkills { get; set; }
         public virtual DbSet<RcPhaseRequest> RcPhaseRequests { get; set; }
         public virtual DbSet<RcRequest> RcRequests { get; set; }
@@ -1198,6 +1199,41 @@ namespace ModelAuto.Models
                 entity.HasOne(d => d.WardNavigation)
                     .WithMany(p => p.RcCandidateFamilies)
                     .HasForeignKey(d => d.Ward);
+            });
+
+            modelBuilder.Entity<RcCandidatePv>(entity =>
+            {
+                entity.ToTable("RcCandidatePV");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CandidateId).HasColumnName("CandidateID");
+
+                entity.Property(e => e.CtyOffer).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.NoteRstep3InterView).HasColumnName("NoteRStep3InterView");
+
+                entity.Property(e => e.NoteRstep3Test).HasColumnName("NoteRStep3Test");
+
+                entity.Property(e => e.NoteUvoffer).HasColumnName("NoteUVOffer");
+
+                entity.Property(e => e.RequestId).HasColumnName("RequestID");
+
+                entity.Property(e => e.ResultStep3Test).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.Uvoffer)
+                    .HasColumnType("decimal(18, 2)")
+                    .HasColumnName("UVOffer");
+
+                entity.HasOne(d => d.Candidate)
+                    .WithMany(p => p.RcCandidatePvs)
+                    .HasForeignKey(d => d.CandidateId)
+                    .HasConstraintName("FK_RcCandidatePV_Rc_Candidate");
+
+                entity.HasOne(d => d.Request)
+                    .WithMany(p => p.RcCandidatePvs)
+                    .HasForeignKey(d => d.RequestId)
+                    .HasConstraintName("FK_RcCandidatePV_Rc_Request");
             });
 
             modelBuilder.Entity<RcCandidateSkill>(entity =>

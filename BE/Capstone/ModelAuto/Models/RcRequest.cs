@@ -9,6 +9,7 @@ namespace ModelAuto.Models
     {
         public RcRequest()
         {
+            RcCandidatePvs = new HashSet<RcCandidatePv>();
             RcCandidates = new HashSet<RcCandidate>();
             RcPhaseRequests = new HashSet<RcPhaseRequest>();
             RcRequestCandidates = new HashSet<RcRequestCandidate>();
@@ -52,6 +53,7 @@ namespace ModelAuto.Models
         public virtual OtherList RequestLevelNavigation { get; set; }
         public virtual Employee Sign { get; set; }
         public virtual OtherList TypeNavigation { get; set; }
+        public virtual ICollection<RcCandidatePv> RcCandidatePvs { get; set; }
         public virtual ICollection<RcCandidate> RcCandidates { get; set; }
         public virtual ICollection<RcPhaseRequest> RcPhaseRequests { get; set; }
         public virtual ICollection<RcRequestCandidate> RcRequestCandidates { get; set; }

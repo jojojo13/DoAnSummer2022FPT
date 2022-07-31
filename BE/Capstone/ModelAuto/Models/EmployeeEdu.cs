@@ -34,6 +34,9 @@ namespace ModelAuto.Models
         public int? LanScore2 { get; set; }
         public int? LanScore3 { get; set; }
         public string Award1 { get; set; }
+        public int? LanSkill1 { get; set; }
+        public int? LanSkill2 { get; set; }
+        public int? LanSkill3 { get; set; }
 
         public virtual Employee EmployeeId1Navigation { get; set; }
         public virtual OtherList InforMaticsLevel1Navigation { get; set; }
