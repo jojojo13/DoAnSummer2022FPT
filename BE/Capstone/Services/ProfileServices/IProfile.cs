@@ -78,6 +78,7 @@ namespace Services.ProfileServices
         List<EmployeeContract> GetListEmployeeContractByEmpID(int? ID);
         int getTotalEmployee(int OrgID);
         EmployeeProfileResponseServices getEmployeeProfile(int? ID);
+        List<ContractEmployeeResponse> GetContractEmployee(int index, int size, ref int totalItem);
         #endregion
 
     }

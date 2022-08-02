@@ -905,6 +905,11 @@ namespace API.Controllers
         #endregion
 
         #endregion
+
+
+
+
+
         #region Business
 
         [HttpPost("GetListPositionByOrgID")]
@@ -1073,6 +1078,21 @@ namespace API.Controllers
                 Data = obj
             });
         }
+
+        [HttpPost("GetContractEmployee")]
+        public IActionResult GetContractEmployee(int index, int size)
+        {
+            List<ContractEmployeeResponse> list = new List<ContractEmployeeResponse>();
+            int total = 0;
+            list = profile.GetContractEmployee(index, size,ref total);
+            return Ok(new
+            {
+                Data = list,
+                TotalItem= total
+            });
+        }
+
+
 
 
         #endregion

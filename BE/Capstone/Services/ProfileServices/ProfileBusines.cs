@@ -243,5 +243,39 @@ namespace Services.ProfileServices
             }
         }
 
+        public List<ContractEmployeeResponse> GetContractEmployee(int index, int size, ref int totalItem)
+        {
+            List<ContractEmployeeResponse> list = new List<ContractEmployeeResponse>();
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    var query = (from c in context.EmployeeContracts
+                                 from e in context.Employees.Where(x => x.Id == c.EmployeeId).DefaultIfEmpty()
+                                 from o in context.Orgnizations.Where(x => x.Id == e.OrgnizationId).DefaultIfEmpty()
+                                 from p in context.Positions.Where(x => x.Id == e.PositionId).DefaultIfEmpty()
+                                 from con in context.ContractTypes.Where(x => x.Id == c.ContractTypeId).DefaultIfEmpty()
+                                 select new ContractEmployeeResponse
+                                 {
+                                     ContractNo = c.ContractNo,
+                                     ContractType = con.Name,
+                                     EffectDate = Convert.ToDateTime(c.EffectDate).ToString("dd/MM/yyyy"),
+                                     ExpireDate = c.ExpireDate==null?"": Convert.ToDateTime(c.ExpireDate).ToString("dd/MM/yyyy"),
+                                     ID = c.Id,
+                                     Note = c.Note,
+                                     OrgnizationName = o.Name,
+                                     Position = p.Name,
+                                     Status = c.Status == -1 ? "Approved" : "Reject"
+                                 }).ToList();
+                    totalItem = query.Count();
+                    list = query.OrderByDescending(x => x.ID).Skip(index * size).Take(size).ToList();
+                }
+            }
+            catch
+            {
+            }
+            return list;
+        }
+
     }
 }
