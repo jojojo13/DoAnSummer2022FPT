@@ -422,7 +422,8 @@ namespace API.Controllers
                                                 Firm = a.Firm,
                                                 Positiob = a.Position,
                                                 Time = a.Time
-                                            }
+                                            },
+                                Note = c.Note
                             };
 
                 return Ok(new
@@ -600,7 +601,10 @@ namespace API.Controllers
                     Data = list
                 });
             }
-            return StatusCode(200, "List is Null");
+            return Ok(new
+            {
+                Data = new List<RequestResponseServices>()
+            });
         }
         #endregion
     }
