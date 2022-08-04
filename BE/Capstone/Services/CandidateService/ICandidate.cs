@@ -32,19 +32,13 @@ namespace Services.CandidateService
         #endregion
 
         #region  de thuc hien 5 man phong van
-        /// <summary>
-        /// PV thanh cong thi chuyen step cua Candidate len
-        /// </summary>
-        /// <param name="CandidateID"></param>
-        /// <returns></returns>
-        bool PromoteCandidate(int CandidateID);
-        /// <summary>
-        /// set status false cua candidate khi phong van that bai
-        /// </summary>
-        /// <param name="CandidateID"></param>
-        /// <returns></returns>
-        bool ViewFailedCandidate(int CandidateID);
+        bool AddStep1(RcCandidatePv pv);
+        bool AddStep2(RcCandidatePv pv);
+        bool AddStep3(RcCandidatePv pv);
+        bool AddStep4(RcCandidatePv pv);
+        bool AddStep5(RcCandidatePv pv);
 
+        
         #endregion
 
         #region GetInforofCandiddate
@@ -82,7 +76,12 @@ namespace Services.CandidateService
 
 
         #region "matching request"
-
+        /// <summary>
+        /// matching request voi candidate xong roi add candidatePV de pv cac buoc
+        /// </summary>
+        /// <param name="requestID"></param>
+        /// <param name="lstCandidateID"></param>
+        /// <returns></returns>
         bool MatchingCandidate(int requestID, List<int> lstCandidateID);
         List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems);
         bool  CheckQuantity(int requestID, List<int> lstCandidateID);

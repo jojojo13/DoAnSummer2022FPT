@@ -59,7 +59,7 @@ namespace ModelAuto.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("server=SQL8004.site4now.net; database=db_a8a353_capstone22;user=db_a8a353_capstone22_admin;password=hung1207");
+                optionsBuilder.UseSqlServer("server=SQL8004.site4now.net;database=db_a8a353_capstone22;user=db_a8a353_capstone22_admin;password=hung1207;TrustServerCertificate=Yes");
             }
         }
 

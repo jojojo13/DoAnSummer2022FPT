@@ -422,7 +422,8 @@ namespace API.Controllers
                                                 Firm = a.Firm,
                                                 Positiob = a.Position,
                                                 Time = a.Time
-                                            }
+                                            },
+                                Note = c.Note
                             };
 
                 return Ok(new

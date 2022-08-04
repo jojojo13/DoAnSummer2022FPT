@@ -474,35 +474,9 @@ namespace Services.CandidateService
 
         }
 
-        public bool PromoteCandidate(int CandidateID)
-        {
-            try
-            {
-                using var context = new CapstoneProject2022Context();
+      
 
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            };
-        }
-
-        public bool UpdateStepCandidate(RcCandidate r)
-        {
-            try
-            {
-                using var context = new CapstoneProject2022Context();
-
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+    
 
         public bool ViewFailedCandidate(int CandidateID)
         {
@@ -803,14 +777,23 @@ namespace Services.CandidateService
                                      }).ToList();
                     list = listcheck.Select(x => x.candidateId).Distinct().ToList();
                     var lst = lstCandidateID.Except(list);
+
                     if (requestID != 0)
                     {
                         foreach (var id in lst)
                         {
+                            // add request 
                             RcRequestCandidate obj = new RcRequestCandidate();
                             obj.CandidateId = id;
                             obj.RequestId = requestID;
                             context.RcRequestCandidates.Add(obj);
+
+                            // dong thoi add luon vao candidatePV
+                            RcCandidatePv pv = new RcCandidatePv();
+                            pv.CandidateId = id;
+                            pv.RequestId= requestID;
+                            pv.StepNow = 1;
+                            context.RcCandidatePvs.Add(pv);
                         }
                         context.SaveChanges();
                     }
@@ -1170,6 +1153,207 @@ namespace Services.CandidateService
             catch
             {
                 return new List<RequestResponseServices>();
+            }
+        }
+
+        public bool AddStep1(RcCandidatePv pv)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
+                    if(candidatePV != null)
+                    {
+                        candidatePV.Step1 = pv.Step1;
+                        candidatePV.NoteStep1= pv.NoteStep1;
+                        if(pv.Step1==1)
+                        {
+                            candidatePV.StepNow +=1;
+                            candidatePV.Result = 1;
+                        }
+                        else
+                        {
+                            candidatePV.Result = 0;
+                        }
+
+                    context.SaveChanges();
+                    return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool AddStep2(RcCandidatePv pv)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
+                    if (candidatePV != null)
+                    {
+                        // dung de bt lich no khi nao test va inter view
+
+                        candidatePV.Step2InterView= pv.Step2InterView;
+                        candidatePV.NoteStep1 = pv.NoteStep1;
+                        candidatePV.Step2Test= pv.Step2Test;
+                        candidatePV.NoteStep2Test = pv.NoteStep2Test;
+
+                        if (pv.Step2Test == 1 && pv.Step2InterView ==1)
+                        {
+                            candidatePV.StepNow += 1;
+                            candidatePV.Result = 1;
+                        }
+                        else
+                        {
+                            candidatePV.Result = 0;
+                        }
+
+                        context.SaveChanges();
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool AddStep3(RcCandidatePv pv)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
+                    if (candidatePV != null)
+                    {
+                        candidatePV.ResultStep3Test = pv.ResultStep3Test;
+                        candidatePV.NoteRstep3Test = pv.NoteRstep3Test;
+                        candidatePV.ResultStep3InterView= pv.ResultStep3InterView;  
+                        candidatePV.NoteRstep3InterView = pv.NoteRstep3InterView;
+
+
+                        if ( pv.ResultStep3InterView == 1)
+                        {
+                            candidatePV.StepNow += 1;
+                            candidatePV.Result = 1;
+                        }
+                        else
+                        {
+                            candidatePV.Result = 0;
+                        }
+
+                        context.SaveChanges();
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool AddStep4(RcCandidatePv pv)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
+                    if (candidatePV != null)
+                    {
+                        candidatePV.CtyOffer = pv.CtyOffer;
+                        candidatePV.NoteCtyOffer = pv.NoteCtyOffer;
+                        candidatePV.Uvoffer = pv.Uvoffer;
+                        candidatePV.NoteUvoffer = pv.NoteUvoffer;
+                        candidatePV.FinalOffer = pv.FinalOffer;
+                        candidatePV.NoteFinalOffer= pv.NoteFinalOffer;
+
+
+                        if (pv.Step4Result == 1)
+                        {
+                            candidatePV.StepNow += 1;
+                            candidatePV.Result = 1;
+                        }
+                        else
+                        {
+                            candidatePV.Result = 0;
+                        }
+
+                        context.SaveChanges();
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool AddStep5(RcCandidatePv pv)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
+                    if (candidatePV != null)
+                    {
+                    
+
+
+                        if (pv.Step5Result == 1)
+                        {
+                            candidatePV.StepNow += 1;
+                            candidatePV.Result = 1;
+                        }
+                        else
+                        {
+                            candidatePV.Result = 0;
+                        }
+
+                        context.SaveChanges();
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
         #endregion

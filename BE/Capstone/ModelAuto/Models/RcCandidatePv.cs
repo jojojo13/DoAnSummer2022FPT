@@ -24,10 +24,12 @@ namespace ModelAuto.Models
         public string NoteCtyOffer { get; set; }
         public decimal? Uvoffer { get; set; }
         public string NoteUvoffer { get; set; }
+        public string NoteFinalOffer { get; set; }
+        public decimal? FinalOffer { get; set; }
         public int? Step4Result { get; set; }
         public int? Step5Result { get; set; }
         public int? StepNow { get; set; }
-
+        public int? Result { get; set; }
         public virtual RcCandidate Candidate { get; set; }
         public virtual RcRequest Request { get; set; }
     }
