@@ -91,7 +91,7 @@ namespace API.Controllers
                 tobj.EndHour = T.EndHour;
                 return Ok(new
                 {
-                    Status = schedule.InsertSchedule(list)
+                    Status = schedule.InsertSchedule(tobj)
                 });
             }
             catch
