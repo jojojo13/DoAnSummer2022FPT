@@ -17,6 +17,34 @@ namespace API.Controllers
     {
         private ISchedule schedule = new ScheduleImpl();
         #region "Schedule"
+
+        [Authorize]
+        [HttpPost("GetSchedule")]
+        public IActionResult GetSchedule(int requestId, int candidateId)
+        {
+            List<EventResponse> list = new List<EventResponse>();
+            try
+            {
+                list = (from r in schedule.getSchedule(requestId, candidateId)
+                        select new EventResponse
+                        {
+                            Id = r.Id,
+                            Title = r.Title,
+                            StartHour = r.StartHour,
+                            EndHour = r.EndHour,
+                            Classname = r.Classname
+                        }).ToList();
+            }
+            catch
+            {
+            }
+            return Ok(new
+            {
+                Data = list
+            });
+        }
+
+
         [Authorize]
         [HttpPost("DeleteSchedule")]
         public IActionResult DeleteSchedule(List<int> listID)
@@ -55,7 +83,7 @@ namespace API.Controllers
             try
             {
                 List<RcEvent> list = new List<RcEvent>();
-                foreach(var item in T.listEvent)
+                foreach (var item in T.listEvent)
                 {
                     RcEvent tobj = new RcEvent();
                     tobj.RequestId = T.requestId;
@@ -69,7 +97,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = schedule.InsertSchedule(list)
-                }) ;
+                });
             }
             catch
             {

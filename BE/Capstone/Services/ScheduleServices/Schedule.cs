@@ -84,6 +84,22 @@ namespace Services.ScheduleServices
                 return false;
             }
         }
+        public List<RcEvent> getSchedule(int requestId, int candidateId)
+        {
+            List<RcEvent> list = new List<RcEvent>();
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    list = context.RcEvents.Where(x => x.RequestId == requestId && x.CandidateId == candidateId).ToList();
+                }
+            }
+            catch
+            {
+
+            }
+            return list;
+        }
 
     }
 }
