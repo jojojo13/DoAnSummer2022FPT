@@ -32,11 +32,11 @@ namespace Services.CandidateService
         #endregion
 
         #region  de thuc hien 5 man phong van
-        bool AddStep1(RcCandidatePv pv);
-        bool AddStep2(RcCandidatePv pv);
-        bool AddStep3(RcCandidatePv pv);
-        bool AddStep4(RcCandidatePv pv);
-        bool AddStep5(RcCandidatePv pv);
+        bool AddStep1(CandidatePV pv);
+        bool AddStep2(CandidatePV pv);
+        bool AddStep3(CandidatePV pv);
+        bool AddStep4(CandidatePV pv);
+        bool AddStep5(CandidatePV pv);
 
         
         #endregion

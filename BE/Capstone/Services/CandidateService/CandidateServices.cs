@@ -1156,7 +1156,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep1(RcCandidatePv pv)
+        public bool AddStep1(CandidatePV pv)
         {
             try
             {
@@ -1193,7 +1193,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep2(RcCandidatePv pv)
+        public bool AddStep2(CandidatePV pv)
         {
             try
             {
@@ -1235,7 +1235,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep3(RcCandidatePv pv)
+        public bool AddStep3(CandidatePV pv)
         {
             try
             {
@@ -1276,7 +1276,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep4(RcCandidatePv pv)
+        public bool AddStep4(CandidatePV pv)
         {
             try
             {
@@ -1319,7 +1319,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep5(RcCandidatePv pv)
+        public bool AddStep5(CandidatePV pv)
         {
             try
             {
