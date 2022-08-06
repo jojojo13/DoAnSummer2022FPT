@@ -77,23 +77,18 @@ namespace API.Controllers
         }
 
         [HttpPost("InsertSchedule")]
-        public IActionResult InsertSchedule([FromBody] ScheduleResponse T)
+        public IActionResult InsertSchedule([FromBody] ModifyEventResponse T)
         {
 
             try
             {
-                List<RcEvent> list = new List<RcEvent>();
-                foreach (var item in T.listEvent)
-                {
-                    RcEvent tobj = new RcEvent();
-                    tobj.RequestId = T.requestId;
-                    tobj.CandidateId = T.candidateId;
-                    tobj.Classname = item.Classname;
-                    tobj.Title = item.Title;
-                    tobj.StartHour = item.StartHour;
-                    tobj.EndHour = item.EndHour;
-                    list.Add(tobj);
-                }
+                RcEvent tobj = new RcEvent();
+                tobj.RequestId = T.requestId;
+                tobj.CandidateId = T.candidateId;
+                tobj.Classname = T.Classname;
+                tobj.Title = T.Title;
+                tobj.StartHour = T.StartHour;
+                tobj.EndHour = T.EndHour;
                 return Ok(new
                 {
                     Status = schedule.InsertSchedule(list)

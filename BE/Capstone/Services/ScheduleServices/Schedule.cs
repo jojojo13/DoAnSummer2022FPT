@@ -35,23 +35,19 @@ namespace Services.ScheduleServices
         }
 
 
-        public bool InsertSchedule(List<RcEvent> list)
+        public bool InsertSchedule(RcEvent T)
         {
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    foreach (var T in list)
-                    {
-                        RcEvent tobj = new RcEvent();
-                        tobj.CandidateId = T.CandidateId;
-                        tobj.Classname = T.Classname;
-                        tobj.Title = T.Title;
-                        tobj.RequestId = T.RequestId;
-                        tobj.StartHour = T.StartHour;
-                        tobj.EndHour = T.EndHour;
-                        context.RcEvents.Add(tobj);
-                    }
+                    RcEvent tobj = new RcEvent();
+                    tobj.Classname = T.Classname;
+                    tobj.Title = T.Title;
+                    tobj.RequestId = T.RequestId;
+                    tobj.StartHour = T.StartHour;
+                    tobj.EndHour = T.EndHour;
+                    context.RcEvents.Add(tobj);
                     context.SaveChanges();
                     return true;
                 }

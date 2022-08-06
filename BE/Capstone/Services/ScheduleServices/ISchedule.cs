@@ -11,7 +11,7 @@ namespace Services.ScheduleServices
     {
         #region Lịch thi , lịch PV
         List<RcEvent> getSchedule(int requestId, int candidateId);
-        bool InsertSchedule(List<RcEvent>list);
+        bool InsertSchedule(RcEvent T);
         bool ModifySchedule(RcEvent T);
         bool DeleteSchedule(List<int> listID);
         #endregion
