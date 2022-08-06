@@ -32,4 +32,18 @@ namespace Services.ResponseModel.CandidateModel
         public int? StepNow { get; set; }
         public int? Result { get; set; }
     }
+
+    public class CandidatePV_infor
+    {
+        public int CandidateId { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public int RequestId { get; set; }
+        public string RequestName { get; set; }
+        public string Project { get; set; }
+        public string Department { get; set; }
+        public int? PositionId { get; set; }
+        public string Position { get; set; }
+    }
 }

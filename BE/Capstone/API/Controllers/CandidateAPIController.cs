@@ -242,6 +242,81 @@ namespace API.Controllers
             }
         }
 
+        [HttpPost("SetStep1CandidatePV")]
+        public IActionResult SetStep1CandidatePV([FromBody] CandidatePV pv)
+        {
+            try
+            {
+                bool check = rc.AddStep1(pv);
+                return Ok(check);
+
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = "Bi faile Step1"
+                });
+            }
+
+        }
+
+        [HttpPost("SetStep3CandidatePV")]
+        public IActionResult SetStep3CandidatePV([FromBody] CandidatePV pv)
+        {
+            try
+            {
+                bool check = rc.AddStep3(pv);
+                return Ok(check);
+
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = "Bi faile Step3"
+                });
+            }
+
+        }
+        [HttpPost("SetStep4CandidatePV")]
+        public IActionResult SetStep4CandidatePV([FromBody] CandidatePV pv)
+        {
+            try
+            {
+                bool check = rc.AddStep4(pv);
+                return Ok(check);
+
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = "Bi faile Step4"
+                });
+            }
+
+        }
+        [HttpPost("SetStep5CandidatePV")]
+        public IActionResult SetStep5CandidatePV([FromBody] CandidatePV pv)
+        {
+            try
+            {
+                bool check = rc.AddStep5(pv);
+                return Ok(check);
+
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = "Bi faile Step 5"
+                });
+            }
+
+        }
+
+
         [HttpPost("GetAllCandidate")]
         public IActionResult GetAllCandidate(int index, int size)
         {
@@ -605,6 +680,20 @@ namespace API.Controllers
             return Ok(new
             {
                 Data = new List<RequestResponseServices>()
+            });
+        }
+
+
+
+
+        [Authorize]
+        [HttpPost("GetCandidateRequestInf")]
+        public IActionResult GetCandidateRequestInf(int requestId, int candidateId)
+        {
+            CandidatePV_infor obj = rc.GetCandidateRequestInf(candidateId, requestId);
+            return Ok(new
+            {
+                Data = obj
             });
         }
         #endregion

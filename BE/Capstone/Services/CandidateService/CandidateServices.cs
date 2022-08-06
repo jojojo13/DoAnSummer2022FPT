@@ -474,9 +474,9 @@ namespace Services.CandidateService
 
         }
 
-      
 
-    
+
+
 
         public bool ViewFailedCandidate(int CandidateID)
         {
@@ -791,7 +791,7 @@ namespace Services.CandidateService
                             // dong thoi add luon vao candidatePV
                             RcCandidatePv pv = new RcCandidatePv();
                             pv.CandidateId = id;
-                            pv.RequestId= requestID;
+                            pv.RequestId = requestID;
                             pv.StepNow = 1;
                             context.RcCandidatePvs.Add(pv);
                         }
@@ -1104,14 +1104,50 @@ namespace Services.CandidateService
         #endregion
 
         #region "Step"
+
+
+        public CandidatePV_infor GetCandidateRequestInf(int candidateId, int requestId)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    var query = from r in context.RcRequestCandidates.Where(x=>x.CandidateId==candidateId&&x.RequestId==requestId)
+                                from c in context.RcCandidates.Where(x =>x.Id==r.CandidateId).DefaultIfEmpty()
+                                from cv in context.RcCandidateCvs.Where(x=>x.CandidateId==c.Id).DefaultIfEmpty()
+                                from rq in context.RcRequests.Where(x=>x.Id==r.RequestId).DefaultIfEmpty()
+                                from o in context.Orgnizations.Where(x=>x.Id==rq.OrgnizationId).DefaultIfEmpty()
+                                from p in context.Positions.Where(x=>x.Id== rq.PositionId).DefaultIfEmpty()
+                                from ot in context.OtherLists.Where(x=>x.Id==rq.Project).DefaultIfEmpty()
+                                select new CandidatePV_infor
+                                {
+                                   Department= o.Address,
+                                   Position= p.Name,
+                                   PositionId=p.Id,
+                                   Email=cv.Email,
+                                   Phone= cv.Phone,
+                                   CandidateId=c.Id,
+                                   Name=c.FullName,
+                                   Project= ot.Name,
+                                   RequestId= rq.Id,
+                                   RequestName= rq.Name
+                                };
+                    return query.FirstOrDefault();
+                }
+            }
+            catch
+            {
+                return new CandidatePV_infor();
+            }
+        }
         public List<RequestResponseServices> GetAllRequestByCandidateID(int id)
         {
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    var query = from q in context.RcRequestCandidates.Where(x=>x.CandidateId==id)
-                                from r in context.RcRequests.Where(x=>x.Id==q.RequestId).DefaultIfEmpty()
+                    var query = from q in context.RcRequestCandidates.Where(x => x.CandidateId == id)
+                                from r in context.RcRequests.Where(x => x.Id == q.RequestId).DefaultIfEmpty()
                                 from p in context.Positions.Where(x => x.Id == r.PositionId).DefaultIfEmpty()
                                 from o in context.Orgnizations.Where(x => x.Id == r.OrgnizationId).DefaultIfEmpty()
                                 from e in context.Employees.Where(x => x.Id == r.HrInchange).DefaultIfEmpty()
@@ -1163,13 +1199,13 @@ namespace Services.CandidateService
                 using (var context = new CapstoneProject2022Context())
                 {
                     RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
-                    if(candidatePV != null)
+                    if (candidatePV != null)
                     {
                         candidatePV.Step1 = pv.Step1;
-                        candidatePV.NoteStep1= pv.NoteStep1;
-                        if(pv.Step1==1)
+                        candidatePV.NoteStep1 = pv.NoteStep1;
+                        if (pv.Step1 == 1)
                         {
-                            candidatePV.StepNow +=1;
+                            candidatePV.StepNow += 1;
                             candidatePV.Result = 1;
                         }
                         else
@@ -1177,8 +1213,8 @@ namespace Services.CandidateService
                             candidatePV.Result = 0;
                         }
 
-                    context.SaveChanges();
-                    return true;
+                        context.SaveChanges();
+                        return true;
 
                     }
                     else
@@ -1204,12 +1240,12 @@ namespace Services.CandidateService
                     {
                         // dung de bt lich no khi nao test va inter view
 
-                        candidatePV.Step2InterView= pv.Step2InterView;
+                        candidatePV.Step2InterView = pv.Step2InterView;
                         candidatePV.NoteStep1 = pv.NoteStep1;
-                        candidatePV.Step2Test= pv.Step2Test;
+                        candidatePV.Step2Test = pv.Step2Test;
                         candidatePV.NoteStep2Test = pv.NoteStep2Test;
 
-                        if (pv.Step2Test == 1 && pv.Step2InterView ==1)
+                        if (pv.Step2Test == 1 && pv.Step2InterView == 1)
                         {
                             candidatePV.StepNow += 1;
                             candidatePV.Result = 1;
@@ -1246,11 +1282,11 @@ namespace Services.CandidateService
                     {
                         candidatePV.ResultStep3Test = pv.ResultStep3Test;
                         candidatePV.NoteRstep3Test = pv.NoteRstep3Test;
-                        candidatePV.ResultStep3InterView= pv.ResultStep3InterView;  
+                        candidatePV.ResultStep3InterView = pv.ResultStep3InterView;
                         candidatePV.NoteRstep3InterView = pv.NoteRstep3InterView;
 
 
-                        if ( pv.ResultStep3InterView == 1)
+                        if (pv.ResultStep3InterView == 1)
                         {
                             candidatePV.StepNow += 1;
                             candidatePV.Result = 1;
@@ -1290,7 +1326,7 @@ namespace Services.CandidateService
                         candidatePV.Uvoffer = pv.Uvoffer;
                         candidatePV.NoteUvoffer = pv.NoteUvoffer;
                         candidatePV.FinalOffer = pv.FinalOffer;
-                        candidatePV.NoteFinalOffer= pv.NoteFinalOffer;
+                        candidatePV.NoteFinalOffer = pv.NoteFinalOffer;
 
 
                         if (pv.Step4Result == 1)
@@ -1328,7 +1364,7 @@ namespace Services.CandidateService
                     RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
                     if (candidatePV != null)
                     {
-                    
+
 
 
                         if (pv.Step5Result == 1)

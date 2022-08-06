@@ -243,7 +243,7 @@ namespace API.Controllers
         }
 
         [HttpPost("SetStep1CandidatePV")]
-        public IActionResult SetStep1CandidatePV([FromBody] CandidatePV pv) 
+        public IActionResult SetStep1CandidatePV([FromBody] CandidatePV pv)
         {
             try
             {
@@ -680,6 +680,20 @@ namespace API.Controllers
             return Ok(new
             {
                 Data = new List<RequestResponseServices>()
+            });
+        }
+
+
+
+
+        [Authorize]
+        [HttpPost("GetCandidateRequestInf")]
+        public IActionResult GetCandidateRequestInf(int requestId, int candidateId)
+        {
+            CandidatePV_infor obj = rc.GetCandidateRequestInf(candidateId, requestId);
+            return Ok(new
+            {
+                Data = obj
             });
         }
         #endregion
