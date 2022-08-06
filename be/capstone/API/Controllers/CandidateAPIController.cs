@@ -696,6 +696,22 @@ namespace API.Controllers
                 Data = obj
             });
         }
+
+
+
+
+        [Authorize]
+        [HttpPost("Onboard")]
+        public IActionResult Onboard(int candidateId, int requestId)
+        {
+            return Ok(new
+            {
+                Status = rc.Onboard(candidateId, requestId)
+            });
+        }
+
+
+
         #endregion
     }
 }

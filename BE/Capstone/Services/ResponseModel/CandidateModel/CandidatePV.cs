@@ -46,5 +46,21 @@ namespace Services.ResponseModel.CandidateModel
         public int? PositionId { get; set; }
         public string Position { get; set; }
         public int? StepNow { get; set; }
+        public int? OrgId { get; set; }
+        public int? Gender { get; set; }
+        public DateTime? Dob { get; set; }
+        public string NoiSinh { get; set; }
+        public int? NationOb { get; set; }
+        public int? ProvinceOb { get; set; }
+        public int? DistrictOb { get; set; }
+        public int? WardOb { get; set; }
+        public string CMND { get; set; }
+        public string CMNDPlace { get; set; }
+
+        public string NoiO { get; set; }
+        public int? NationLive { get; set; }
+        public int? ProvinceLive { get; set; }
+        public int? DistrictLive { get; set; }
+        public int? WardLive { get; set; }
     }
 }

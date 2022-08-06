@@ -1112,27 +1112,27 @@ namespace Services.CandidateService
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    var query = from r in context.RcRequestCandidates.Where(x=>x.CandidateId==candidateId&&x.RequestId==requestId)
-                                from c in context.RcCandidates.Where(x =>x.Id==r.CandidateId).DefaultIfEmpty()
-                                from cv in context.RcCandidateCvs.Where(x=>x.CandidateId==c.Id).DefaultIfEmpty()
-                                from rq in context.RcRequests.Where(x=>x.Id==r.RequestId).DefaultIfEmpty()
-                                from o in context.Orgnizations.Where(x=>x.Id==rq.OrgnizationId).DefaultIfEmpty()
-                                from p in context.Positions.Where(x=>x.Id== rq.PositionId).DefaultIfEmpty()
-                                from ot in context.OtherLists.Where(x=>x.Id==rq.Project).DefaultIfEmpty()
-                                from step in context.RcCandidatePvs.Where(x=>x.CandidateId==candidateId&&x.RequestId==requestId).DefaultIfEmpty()
+                    var query = from r in context.RcRequestCandidates.Where(x => x.CandidateId == candidateId && x.RequestId == requestId)
+                                from c in context.RcCandidates.Where(x => x.Id == r.CandidateId).DefaultIfEmpty()
+                                from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
+                                from rq in context.RcRequests.Where(x => x.Id == r.RequestId).DefaultIfEmpty()
+                                from o in context.Orgnizations.Where(x => x.Id == rq.OrgnizationId).DefaultIfEmpty()
+                                from p in context.Positions.Where(x => x.Id == rq.PositionId).DefaultIfEmpty()
+                                from ot in context.OtherLists.Where(x => x.Id == rq.Project).DefaultIfEmpty()
+                                from step in context.RcCandidatePvs.Where(x => x.CandidateId == candidateId && x.RequestId == requestId).DefaultIfEmpty()
                                 select new CandidatePV_infor
                                 {
-                                   Department= o.Address,
-                                   Position= p.Name,
-                                   PositionId=p.Id,
-                                   Email=cv.Email,
-                                   Phone= cv.Phone,
-                                   CandidateId=c.Id,
-                                   Name=c.FullName,
-                                   Project= ot.Name,
-                                   RequestId= rq.Id,
-                                   RequestName= rq.Name,
-                                   StepNow= step.StepNow
+                                    Department = o.Address,
+                                    Position = p.Name,
+                                    PositionId = p.Id,
+                                    Email = cv.Email,
+                                    Phone = cv.Phone,
+                                    CandidateId = c.Id,
+                                    Name = c.FullName,
+                                    Project = ot.Name,
+                                    RequestId = rq.Id,
+                                    RequestName = rq.Name,
+                                    StepNow = step.StepNow
                                 };
                     return query.FirstOrDefault();
                 }
@@ -1395,5 +1395,99 @@ namespace Services.CandidateService
             }
         }
         #endregion
+
+
+        #region Onboard
+
+        public bool Onboard(int candidateId, int requestId)
+        {
+            ICommon common = new CommonImpl();
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    var query = from r in context.RcRequestCandidates.Where(x => x.CandidateId == candidateId && x.RequestId == requestId)
+                                from c in context.RcCandidates.Where(x => x.Id == r.CandidateId).DefaultIfEmpty()
+                                from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
+                                from rq in context.RcRequests.Where(x => x.Id == r.RequestId).DefaultIfEmpty()
+                                from o in context.Orgnizations.Where(x => x.Id == rq.OrgnizationId).DefaultIfEmpty()
+                                from p in context.Positions.Where(x => x.Id == rq.PositionId).DefaultIfEmpty()
+                                from ot in context.OtherLists.Where(x => x.Id == rq.Project).DefaultIfEmpty()
+                                from step in context.RcCandidatePvs.Where(x => x.CandidateId == candidateId && x.RequestId == requestId).DefaultIfEmpty()
+                                select new CandidatePV_infor
+                                {
+                                    Department = o.Address,
+                                    Position = p.Name,
+                                    PositionId = p.Id,
+                                    Email = cv.Email,
+                                    Phone = cv.Phone,
+                                    CandidateId = c.Id,
+                                    Name = c.FullName,
+                                    Project = ot.Name,
+                                    RequestId = rq.Id,
+                                    RequestName = rq.Name,
+                                    StepNow = step.StepNow,
+                                    OrgId = o.Id,
+                                    Gender = cv.Gender,
+                                    Dob = cv.Dob,
+                                    NoiSinh = cv.NoiSinh,
+                                    NationOb = cv.NationOb,
+                                    DistrictOb = cv.DistrictOb,
+                                    WardOb = cv.WardOb,
+                                    ProvinceOb = cv.PorvinceOb,
+                                    CMND= cv.Cmnd,
+                                    CMNDPlace=cv.Cmndplace
+                                };
+
+                    CandidatePV_infor obj = query.FirstOrDefault();
+                    Employee e = new Employee();
+                    e.Code = common.autoGenCode3character("Employee", "EMP");
+                    e.FirstName = obj.Name;
+                    e.LastName = obj.Name;
+                    e.JoinDate = DateTime.UtcNow;
+                    e.Status = 1;
+                    e.IsFronmRecruit = -1;
+                    e.OrgnizationId = obj.OrgId;
+                    e.PositionId = obj.PositionId;
+                    e.CreateDate = DateTime.UtcNow;
+                    e.CreateBy = "SYSTEM";
+                    context.Employees.Add(e);
+
+
+                    EmployeeCv ecv = new EmployeeCv();
+                    ecv.EmployeeId = e.Id;
+                    ecv.Gender = obj.Gender;
+                    ecv.Dob = obj.Dob;
+                    ecv.NoiSinh = obj.NoiSinh;
+                    ecv.NationOb = obj.NationOb;
+                    ecv.DistrictOb = obj.DistrictOb;
+                    ecv.WardOb = obj.WardOb;
+                    ecv.ProvinceOb = obj.ProvinceOb;
+                    ecv.Cmnd = obj.CMND;
+                    ecv.Cmndplace = obj.CMNDPlace;
+                    ecv.NoiO = obj.NoiO;
+                    ecv.NationLive = obj.NationLive;
+                    ecv.DistrictLive = obj.DistrictLive;
+                    ecv.WardLive = obj.WardLive;
+                    ecv.ProvinceLive = obj.ProvinceLive;
+                    context.EmployeeCvs.Add(ecv);
+
+
+
+                    EmployeeEdu edu = new EmployeeEdu();
+
+
+
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
     }
 }

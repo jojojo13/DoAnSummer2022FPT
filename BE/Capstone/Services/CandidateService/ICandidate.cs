@@ -93,6 +93,8 @@ namespace Services.CandidateService
         #region "Step"
         List<RequestResponseServices> GetAllRequestByCandidateID(int id);
         CandidatePV_infor GetCandidateRequestInf(int candidateId, int requestId);
+
+        bool Onboard(int candidateId, int requestId);
         #endregion
     }
 }
