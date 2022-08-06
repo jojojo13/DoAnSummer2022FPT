@@ -110,12 +110,20 @@ namespace API.Controllers
 
 
         [HttpPost("ModifySchedule")]
-        public IActionResult ModifySchedule([FromBody] RcEvent T)
+        public IActionResult ModifySchedule([FromBody] ModifyEventResponse T)
         {
 
             try
             {
-                var check = schedule.ModifySchedule(T);
+                RcEvent obj = new RcEvent();
+                obj.Id = T.Id;
+                obj.RequestId = T.requestId;
+                obj.CandidateId = T.candidateId;
+                obj.Title = T.Title;
+                obj.Classname = T.Classname;
+                obj.EndHour = T.EndHour;
+                obj.StartHour = T.StartHour;
+                var check = schedule.ModifySchedule(obj);
                 return Ok(new
                 {
                     Status = check

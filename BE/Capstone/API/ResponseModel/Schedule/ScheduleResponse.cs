@@ -19,4 +19,17 @@ namespace API.ResponseModel.Schedule
         public string EndHour { get; set; }
         public string Classname { get; set; }
     }
+
+
+
+    public class ModifyEventResponse
+    {
+        public int Id { get; set; }
+        public int requestId { get; set; }
+        public int candidateId { get; set; }
+        public string Title { get; set; }
+        public string StartHour { get; set; }
+        public string EndHour { get; set; }
+        public string Classname { get; set; }
+    }
 }
