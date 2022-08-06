@@ -16,6 +16,6 @@ namespace ModelAuto.Models
         public string Classname { get; set; }
 
         public virtual RcCandidate Candidate { get; set; }
-        public virtual RcRequest IdNavigation { get; set; }
+        public virtual RcRequest Request { get; set; }
     }
 }

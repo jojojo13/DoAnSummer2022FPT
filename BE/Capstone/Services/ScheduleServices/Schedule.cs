@@ -53,8 +53,9 @@ namespace Services.ScheduleServices
                     return true;
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                string mess = ex.Message;
                 return false;
             }
         }

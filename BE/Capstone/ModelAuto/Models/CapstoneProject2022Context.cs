@@ -1274,8 +1274,6 @@ namespace ModelAuto.Models
             {
                 entity.ToTable("Rc_Event");
 
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Classname)
                     .HasMaxLength(255)
                     .HasColumnName("classname");
@@ -1291,10 +1289,9 @@ namespace ModelAuto.Models
                     .HasForeignKey(d => d.CandidateId)
                     .HasConstraintName("FK_Rc_Event_Rc_Candidate");
 
-                entity.HasOne(d => d.IdNavigation)
-                    .WithOne(p => p.RcEvent)
-                    .HasForeignKey<RcEvent>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                entity.HasOne(d => d.Request)
+                    .WithMany(p => p.RcEvents)
+                    .HasForeignKey(d => d.RequestId)
                     .HasConstraintName("FK_Rc_Event_Rc_Request");
             });
 
