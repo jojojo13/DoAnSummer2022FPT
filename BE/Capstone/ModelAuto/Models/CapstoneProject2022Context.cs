@@ -1280,9 +1280,9 @@ namespace ModelAuto.Models
                     .HasMaxLength(255)
                     .HasColumnName("classname");
 
-                entity.Property(e => e.EndHour).HasColumnType("datetime");
+                entity.Property(e => e.EndHour).HasMaxLength(255);
 
-                entity.Property(e => e.StartHour).HasColumnType("datetime");
+                entity.Property(e => e.StartHour).HasMaxLength(255);
 
                 entity.Property(e => e.Title).HasMaxLength(255);
 

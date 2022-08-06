@@ -11,8 +11,8 @@ namespace ModelAuto.Models
         public int? CandidateId { get; set; }
         public int? RequestId { get; set; }
         public string Title { get; set; }
-        public DateTime? StartHour { get; set; }
-        public DateTime? EndHour { get; set; }
+        public string StartHour { get; set; }
+        public string EndHour { get; set; }
         public string Classname { get; set; }
 
         public virtual RcCandidate Candidate { get; set; }
