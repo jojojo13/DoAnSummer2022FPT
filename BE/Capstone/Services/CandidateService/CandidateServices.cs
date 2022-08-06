@@ -1194,7 +1194,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep1(CandidatePV pv)
+        public bool AddStep1(SetStep1 pv)
         {
             try
             {
@@ -1231,7 +1231,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep2(CandidatePV pv)
+        public bool AddStep2(SetStep2 pv)
         {
             try
             {
@@ -1243,7 +1243,7 @@ namespace Services.CandidateService
                         // dung de bt lich no khi nao test va inter view
 
                         candidatePV.Step2InterView = pv.Step2InterView;
-                        candidatePV.NoteStep1 = pv.NoteStep1;
+                        candidatePV.NoteStepInterView2 = pv.NoteStepInterView2;
                         candidatePV.Step2Test = pv.Step2Test;
                         candidatePV.NoteStep2Test = pv.NoteStep2Test;
 
@@ -1273,7 +1273,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep3(CandidatePV pv)
+        public bool AddStep3(SetStep3 pv)
         {
             try
             {
@@ -1314,7 +1314,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep4(CandidatePV pv)
+        public bool AddStep4(SetStep4 pv)
         {
             try
             {
@@ -1357,7 +1357,7 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep5(CandidatePV pv)
+        public bool AddStep5(SetStep5 pv)
         {
             try
             {
