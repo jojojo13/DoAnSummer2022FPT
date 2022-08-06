@@ -1119,6 +1119,7 @@ namespace Services.CandidateService
                                 from o in context.Orgnizations.Where(x=>x.Id==rq.OrgnizationId).DefaultIfEmpty()
                                 from p in context.Positions.Where(x=>x.Id== rq.PositionId).DefaultIfEmpty()
                                 from ot in context.OtherLists.Where(x=>x.Id==rq.Project).DefaultIfEmpty()
+                                from step in context.RcCandidatePvs.Where(x=>x.CandidateId==candidateId&&x.RequestId==requestId).DefaultIfEmpty()
                                 select new CandidatePV_infor
                                 {
                                    Department= o.Address,
@@ -1130,7 +1131,8 @@ namespace Services.CandidateService
                                    Name=c.FullName,
                                    Project= ot.Name,
                                    RequestId= rq.Id,
-                                   RequestName= rq.Name
+                                   RequestName= rq.Name,
+                                   StepNow= step.StepNow
                                 };
                     return query.FirstOrDefault();
                 }

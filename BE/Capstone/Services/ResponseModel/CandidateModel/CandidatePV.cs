@@ -45,5 +45,6 @@ namespace Services.ResponseModel.CandidateModel
         public string Department { get; set; }
         public int? PositionId { get; set; }
         public string Position { get; set; }
+        public int? StepNow { get; set; }
     }
 }
