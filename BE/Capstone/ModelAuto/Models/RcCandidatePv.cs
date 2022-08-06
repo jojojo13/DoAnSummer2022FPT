@@ -30,6 +30,7 @@ namespace ModelAuto.Models
         public int? Step5Result { get; set; }
         public int? StepNow { get; set; }
         public int? Result { get; set; }
+
         public virtual RcCandidate Candidate { get; set; }
         public virtual RcRequest Request { get; set; }
     }

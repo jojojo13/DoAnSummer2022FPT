@@ -40,6 +40,7 @@ namespace ModelAuto.Models
         public virtual DbSet<RcCandidateFamily> RcCandidateFamilies { get; set; }
         public virtual DbSet<RcCandidatePv> RcCandidatePvs { get; set; }
         public virtual DbSet<RcCandidateSkill> RcCandidateSkills { get; set; }
+        public virtual DbSet<RcEvent> RcEvents { get; set; }
         public virtual DbSet<RcPhaseRequest> RcPhaseRequests { get; set; }
         public virtual DbSet<RcRequest> RcRequests { get; set; }
         public virtual DbSet<RcRequestCandidate> RcRequestCandidates { get; set; }
@@ -59,7 +60,7 @@ namespace ModelAuto.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("server=SQL8004.site4now.net;database=db_a8a353_capstone22;user=db_a8a353_capstone22_admin;password=hung1207;TrustServerCertificate=Yes");
+                optionsBuilder.UseSqlServer("server=SQL8004.site4now.net; database=db_a8a353_capstone22;user=db_a8a353_capstone22_admin;password=hung1207");
             }
         }
 
@@ -1211,6 +1212,8 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.CtyOffer).HasColumnType("decimal(18, 2)");
 
+                entity.Property(e => e.FinalOffer).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.NoteRstep3InterView).HasColumnName("NoteRStep3InterView");
 
                 entity.Property(e => e.NoteRstep3Test).HasColumnName("NoteRStep3Test");
@@ -1265,6 +1268,34 @@ namespace ModelAuto.Models
                     .WithMany(p => p.RcCandidateSkills)
                     .HasForeignKey(d => d.TypeSkill)
                     .HasConstraintName("FK_RcCandidateSkill_Other_List");
+            });
+
+            modelBuilder.Entity<RcEvent>(entity =>
+            {
+                entity.ToTable("Rc_Event");
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Classname)
+                    .HasMaxLength(255)
+                    .HasColumnName("classname");
+
+                entity.Property(e => e.EndHour).HasColumnType("datetime");
+
+                entity.Property(e => e.StartHour).HasColumnType("datetime");
+
+                entity.Property(e => e.Title).HasMaxLength(255);
+
+                entity.HasOne(d => d.Candidate)
+                    .WithMany(p => p.RcEvents)
+                    .HasForeignKey(d => d.CandidateId)
+                    .HasConstraintName("FK_Rc_Event_Rc_Candidate");
+
+                entity.HasOne(d => d.IdNavigation)
+                    .WithOne(p => p.RcEvent)
+                    .HasForeignKey<RcEvent>(d => d.Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Rc_Event_Rc_Request");
             });
 
             modelBuilder.Entity<RcPhaseRequest>(entity =>

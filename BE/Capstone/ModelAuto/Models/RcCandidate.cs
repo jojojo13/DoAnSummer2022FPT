@@ -15,6 +15,7 @@ namespace ModelAuto.Models
             RcCandidateFamilies = new HashSet<RcCandidateFamily>();
             RcCandidatePvs = new HashSet<RcCandidatePv>();
             RcCandidateSkills = new HashSet<RcCandidateSkill>();
+            RcEvents = new HashSet<RcEvent>();
             RcRequestCandidates = new HashSet<RcRequestCandidate>();
             RcRequestExamResults = new HashSet<RcRequestExamResult>();
             RcRequestInterViewResults = new HashSet<RcRequestInterViewResult>();
@@ -46,6 +47,7 @@ namespace ModelAuto.Models
         public virtual ICollection<RcCandidateFamily> RcCandidateFamilies { get; set; }
         public virtual ICollection<RcCandidatePv> RcCandidatePvs { get; set; }
         public virtual ICollection<RcCandidateSkill> RcCandidateSkills { get; set; }
+        public virtual ICollection<RcEvent> RcEvents { get; set; }
         public virtual ICollection<RcRequestCandidate> RcRequestCandidates { get; set; }
         public virtual ICollection<RcRequestExamResult> RcRequestExamResults { get; set; }
         public virtual ICollection<RcRequestInterViewResult> RcRequestInterViewResults { get; set; }

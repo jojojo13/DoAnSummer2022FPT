@@ -243,7 +243,7 @@ namespace API.Controllers
         }
 
         [HttpPost("SetStep1CandidatePV")]
-        public IActionResult SetStep1CandidatePV([FromBody] CandidatePV pv)
+        public IActionResult SetStep1CandidatePV([FromBody] SetStep1 pv)
         {
             try
             {
@@ -262,7 +262,7 @@ namespace API.Controllers
         }
 
         [HttpPost("SetStep3CandidatePV")]
-        public IActionResult SetStep3CandidatePV([FromBody] CandidatePV pv)
+        public IActionResult SetStep3CandidatePV([FromBody] SetStep3 pv)
         {
             try
             {
@@ -280,7 +280,7 @@ namespace API.Controllers
 
         }
         [HttpPost("SetStep4CandidatePV")]
-        public IActionResult SetStep4CandidatePV([FromBody] CandidatePV pv)
+        public IActionResult SetStep4CandidatePV([FromBody] SetStep4 pv)
         {
             try
             {
@@ -298,7 +298,7 @@ namespace API.Controllers
 
         }
         [HttpPost("SetStep5CandidatePV")]
-        public IActionResult SetStep5CandidatePV([FromBody] CandidatePV pv)
+        public IActionResult SetStep5CandidatePV([FromBody] SetStep5 pv)
         {
             try
             {

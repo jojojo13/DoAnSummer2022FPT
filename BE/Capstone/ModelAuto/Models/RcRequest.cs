@@ -53,6 +53,7 @@ namespace ModelAuto.Models
         public virtual OtherList RequestLevelNavigation { get; set; }
         public virtual Employee Sign { get; set; }
         public virtual OtherList TypeNavigation { get; set; }
+        public virtual RcEvent RcEvent { get; set; }
         public virtual ICollection<RcCandidatePv> RcCandidatePvs { get; set; }
         public virtual ICollection<RcCandidate> RcCandidates { get; set; }
         public virtual ICollection<RcPhaseRequest> RcPhaseRequests { get; set; }
