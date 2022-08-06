@@ -10,7 +10,7 @@ namespace Services.ScheduleServices
     public interface ISchedule
     {
         #region Lịch thi , lịch PV
-        bool InsertSchedule(RcEvent T);
+        bool InsertSchedule(List<RcEvent>list);
         bool ModifySchedule(RcEvent T);
         bool DeleteSchedule(List<int> listID);
         #endregion

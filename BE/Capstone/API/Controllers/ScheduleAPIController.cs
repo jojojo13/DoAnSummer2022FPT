@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using API.ResponseModel.Schedule;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelAuto.Models;
@@ -48,16 +49,27 @@ namespace API.Controllers
         }
 
         [HttpPost("InsertSchedule")]
-        public IActionResult InsertSchedule([FromBody] RcEvent T)
+        public IActionResult InsertSchedule([FromBody] ScheduleResponse T)
         {
 
             try
             {
-                var check = schedule.InsertSchedule(T);
+                List<RcEvent> list = new List<RcEvent>();
+                foreach(var item in T.listEvent)
+                {
+                    RcEvent tobj = new RcEvent();
+                    tobj.RequestId = T.requestId;
+                    tobj.CandidateId = T.candidateId;
+                    tobj.Classname = item.Classname;
+                    tobj.Title = item.Title;
+                    tobj.StartHour = item.StartHour;
+                    tobj.EndHour = item.EndHour;
+                    list.Add(tobj);
+                }
                 return Ok(new
                 {
-                    Status = check
-                });
+                    Status = schedule.InsertSchedule(list)
+                }) ;
             }
             catch
             {
