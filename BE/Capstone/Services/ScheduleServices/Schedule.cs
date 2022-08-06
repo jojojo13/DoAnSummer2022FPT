@@ -45,6 +45,7 @@ namespace Services.ScheduleServices
                     tobj.Classname = T.Classname;
                     tobj.Title = T.Title;
                     tobj.RequestId = T.RequestId;
+                    tobj.CandidateId = T.CandidateId;
                     tobj.StartHour = T.StartHour;
                     tobj.EndHour = T.EndHour;
                     context.RcEvents.Add(tobj);
@@ -69,6 +70,7 @@ namespace Services.ScheduleServices
                     tobj.Classname = T.Classname;
                     tobj.Title = T.Title;
                     tobj.RequestId = T.RequestId;
+                    tobj.CandidateId = T.CandidateId;
                     tobj.StartHour = T.StartHour;
                     tobj.EndHour = T.EndHour;
                     context.SaveChanges();
