@@ -248,14 +248,19 @@ namespace API.Controllers
             try
             {
                 bool check = rc.AddStep1(pv);
-                return Ok(check);
+                return Ok(new
+                {
+                    Status= check,
+                    Thongbao= check== true? "successful Step1":"fail Step1"
+                });
 
             }
             catch
             {
                 return Ok(new
                 {
-                    Status = "Bi faile Step1"
+                    Status = false,
+                    Thongbao = "Nhay vao catch"
                 });
             }
 
@@ -267,14 +272,19 @@ namespace API.Controllers
             try
             {
                 bool check = rc.AddStep3(pv);
-                return Ok(check);
+                return Ok(new
+                {
+                    Status = check,
+                    Thongbao = check == true ? "successful Step3" : "fail Step3"
+                });
 
             }
             catch
             {
                 return Ok(new
                 {
-                    Status = "Bi faile Step3"
+                    Status = false,
+                    Thongbao = "Nhay vao catch"
                 });
             }
 
@@ -285,14 +295,19 @@ namespace API.Controllers
             try
             {
                 bool check = rc.AddStep4(pv);
-                return Ok(check);
+                return Ok(new
+                {
+                    Status = check,
+                    Thongbao = check == true ? "successful Step4"  : "fail Step4"
+                });
 
             }
             catch
             {
                 return Ok(new
                 {
-                    Status = "Bi faile Step4"
+                    Status = false,
+                    Thongbao = "Nhay vao catch"
                 });
             }
 
@@ -303,14 +318,19 @@ namespace API.Controllers
             try
             {
                 bool check = rc.AddStep5(pv);
-                return Ok(check);
+                return Ok(new
+                {
+                    Status = check,
+                    Thongbao = check == true ? "successful Step5" : "fail Step5"
+                });
 
             }
             catch
             {
                 return Ok(new
                 {
-                    Status = "Bi faile Step 5"
+                    Status = false,
+                    Thongbao="Nhay vao catch"
                 });
             }
 
@@ -709,8 +729,103 @@ namespace API.Controllers
                 Status = rc.Onboard(candidateId, requestId)
             });
         }
+        [HttpPost("CheckInforCandidateEdit")]
+        public IActionResult CheckInforCandidateEdit([FromBody ] InforCandidateEdit e)
+        {
+            string check = rc.CheckInforCandidateEdit(e);
+            if (check == "")
+            {
+                return Ok(new
+                {
+                    Status = true,
+                    Thongbao = "Khong bi trung thong tin"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    Status = false,
+                    Thongbao = check + " already existed"
+                }) ;
+            }
+        }
 
+        [HttpPost("EditInforCandidate")]
+        public IActionResult EditInforCandidate([FromBody] InforCandidateEdit e)
+        {
+            try
+            {
+                bool check = rc.EditCandidateInfor(e);
+                return Ok(new
+                {
+                    Thongbao = check == true ?"Successfull ": "Fail",
+                    Status = check
+                });
+            }
+            catch
+            {
+                return Ok(
+                    new
+                    {
+                        Thongbao = "Dang nhay vao catch",
+                        Status = false
+                    }
+                    );
+            }
+        }
+        [HttpPost("GetOneInforCandidateToEdit")]
+        public IActionResult GetOneInforCandidateToEdit(int id)
+        {
+            RcCandidate c = rc.GetCandidateByID(id);
+            if (c != null)
+            {
+                List<RcCandidate> list = new List<RcCandidate>();
+                list.Add(c);
+                var list1 = from b in list
+                            let cv = rc.GetCandidateCVbyID(b.Id)
+                            let edu = rc.GetCandidateEdubyID(b.Id)
+                            select new
+                            {
+                                ID = c.Id,
+                                Code = c.Code,
+                                FullName = c.FullName,
+                                Dob = cv == null ? "" : cv.Dob.Value.ToString("dd-MM-yyyy"),
+                                Phone = cv == null ? "" : cv.Phone,
+                                Email = cv == null ? "" : cv.Email,
+                                Gender = cv == null ? "" : cv.Gender.ToString(),
+                                Address = cv == null ? "" : cv.NoiO,
+                                NationLive = cv == null? "": cv.NationLive.ToString(),
+                                ProvinceLive = cv== null?"":cv.PorvinceLive.ToString(),
+                                Zalo = cv == null ? "" : cv.Zalo,
+                                Facebook = cv == null ? "" : cv.Facebook,
+                                Skype = cv == null ? "" : cv.Skype,
+                                Website = cv == null ? "" : cv.Website,
+                                Awards = edu == null ? "" : edu.Awards1,
+                                School = edu == null ? "" : edu.School1,
+                                Major = edu == null ? "" : edu.Major1,
+                                Score = edu == null ? "" : edu.Gpa1.ToString(),
+                                Graduate = edu == null ? "" : edu.Graduate1.Value.ToString("dd-MM-yyyy"),
+                                Note = c.Note
 
+                            };
+
+                return Ok(new
+                {
+                    Status = true,
+                    Data = list1
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    Status = false,
+                    Data = "Dont find"
+                });
+            }
+
+        }
 
         #endregion
     }
