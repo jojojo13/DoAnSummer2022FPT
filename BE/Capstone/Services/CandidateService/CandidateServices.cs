@@ -1132,7 +1132,8 @@ namespace Services.CandidateService
                                     Project = ot.Name,
                                     RequestId = rq.Id,
                                     RequestName = rq.Name,
-                                    StepNow = step.StepNow
+                                    StepNow = step.StepNow,
+                                    Result= step.Result
                                 };
                     return query.FirstOrDefault();
                 }
