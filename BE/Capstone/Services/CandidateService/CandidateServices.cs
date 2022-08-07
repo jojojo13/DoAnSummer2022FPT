@@ -1526,6 +1526,7 @@ namespace Services.CandidateService
                         RcCandidateEdu edu = context.RcCandidateEdus.Where(x => x.CandidateId == e.ID).SingleOrDefault();
                         if (c != null && r1 != null)
                         {
+
                             c.FullName = e.FullName;
                             context.RcCandidates.Update(c);
                             // cv
@@ -1544,11 +1545,26 @@ namespace Services.CandidateService
                             r1.PorvinceLive = e.PorvinceLive;
                             context.RcCandidateCvs.Update(r1);
                             // edu
-                            edu.Major1 = e.Major;
-                            edu.Graduate1 = e.Graduate;
-                            edu.School1 = e.School;
+                            if(e.Major!= null)
+                            {
+                                edu.Major1 = e.Major;
+                            }
+                          
+                            if(e.Graduate != null)
+                            {
+                                edu.Graduate1 = e.Graduate;
+                            }
+                            if(e.School!= null)
+                            {
+                                edu.School1 = e.School;
+                            }
+                          
                             edu.Gpa1 = e.Gpa;
-                            edu.Awards1 = e.Awards;
+                            if(e.Awards != null)
+                            {
+                                edu.Awards1 = e.Awards;
+                            }
+                           
                             context.RcCandidateEdus.Update(edu);
                             context.SaveChanges();
                             return true;

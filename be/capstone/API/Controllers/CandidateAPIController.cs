@@ -187,7 +187,7 @@ namespace API.Controllers
                         {
                             skill.Level = item.Level;
                         }
-                        if (item.Goal != "")
+                        if (item.Goal != "" && item.Goal !="0")
                             skill.Goal = item.Goal;
                         list.Add(skill);
                     }
@@ -489,12 +489,12 @@ namespace API.Controllers
                                                          group d by d.Type into i
                                                          select new
                                                          {
-                                                             Type = rc.GetOtherListCandidate((int)i.Key).Name,
+                                                             Type =i.Key==null?"": rc.GetOtherListCandidate((int)i.Key).Name,
                                                              Child = from k in i.ToList()
                                                                      group k by k.Level into k1
                                                                      select new
                                                                      {
-                                                                         Level = rc.GetOtherListCandidate((int)k1.Key).Name,
+                                                                         Level =k1.Key== null?"": rc.GetOtherListCandidate((int)k1.Key).Name,
                                                                          Goal = k1.ToList().Find(x => x.Level == k1.Key).Goal
 
                                                                      }
