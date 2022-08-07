@@ -146,9 +146,9 @@ namespace API.Controllers
                 {
                     cv.PorvinceLive = T.PorvinceLive;
                 }
-              
+
                 check = rc.AddRcCandidateCV(cv);
-               // rccandidate Edu
+                // rccandidate Edu
                 RcCandidateEdu edu = new RcCandidateEdu();
                 edu.CandidateId = candidate1.Id;
                 edu.Major1 = T.Major;
@@ -183,12 +183,12 @@ namespace API.Controllers
                         {
                             skill.Type = item.Type;
                         }
-                        if (item.Level != null && item.Level !=0)
+                        if (item.Level != null && item.Level != 0)
                         {
                             skill.Level = item.Level;
                         }
-                        if(item.Goal != "")
-                        skill.Goal = item.Goal;
+                        if (item.Goal != "")
+                            skill.Goal = item.Goal;
                         list.Add(skill);
                     }
                     check = rc.AddRcCandidateSkill(list);
@@ -729,7 +729,7 @@ namespace API.Controllers
             });
         }
         [HttpPost("CheckInforCandidateEdit")]
-        public IActionResult CheckInforCandidateEdit([FromBody ] InforCandidateEdit e)
+        public IActionResult CheckInforCandidateEdit([FromBody ] CandidateEdit e)
         {
             string check = rc.CheckInforCandidateEdit(e);
             if (check == "")
