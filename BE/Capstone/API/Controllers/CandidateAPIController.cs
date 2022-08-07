@@ -248,14 +248,19 @@ namespace API.Controllers
             try
             {
                 bool check = rc.AddStep1(pv);
-                return Ok(check);
+                return Ok(new
+                {
+                    Status= check,
+                    Thongbao= check== true? "successful Step1":"fail Step1"
+                });
 
             }
             catch
             {
                 return Ok(new
                 {
-                    Status = "Bi faile Step1"
+                    Status = false,
+                    Thongbao = "Nhay vao catch"
                 });
             }
 
@@ -267,14 +272,19 @@ namespace API.Controllers
             try
             {
                 bool check = rc.AddStep3(pv);
-                return Ok(check);
+                return Ok(new
+                {
+                    Status = check,
+                    Thongbao = check == true ? "successful Step3" : "fail Step3"
+                });
 
             }
             catch
             {
                 return Ok(new
                 {
-                    Status = "Bi faile Step3"
+                    Status = false,
+                    Thongbao = "Nhay vao catch"
                 });
             }
 
@@ -285,14 +295,19 @@ namespace API.Controllers
             try
             {
                 bool check = rc.AddStep4(pv);
-                return Ok(check);
+                return Ok(new
+                {
+                    Status = check,
+                    Thongbao = check == true ? "successful Step4"  : "fail Step4"
+                });
 
             }
             catch
             {
                 return Ok(new
                 {
-                    Status = "Bi faile Step4"
+                    Status = false,
+                    Thongbao = "Nhay vao catch"
                 });
             }
 
@@ -303,14 +318,19 @@ namespace API.Controllers
             try
             {
                 bool check = rc.AddStep5(pv);
-                return Ok(check);
+                return Ok(new
+                {
+                    Status = check,
+                    Thongbao = check == true ? "successful Step5" : "fail Step5"
+                });
 
             }
             catch
             {
                 return Ok(new
                 {
-                    Status = "Bi faile Step 5"
+                    Status = false,
+                    Thongbao="Nhay vao catch"
                 });
             }
 
@@ -726,8 +746,8 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = false,
-                    Thongbao = check
-                });
+                    Thongbao = check + " already existed"
+                }) ;
             }
         }
 
@@ -739,7 +759,7 @@ namespace API.Controllers
                 bool check = rc.EditCandidateInfor(e);
                 return Ok(new
                 {
-                    Thongbao = "Dang o trong try",
+                    Thongbao = check == true ?"Successfull ": "Fail",
                     Status = check
                 });
             }
