@@ -146,10 +146,9 @@ namespace API.Controllers
                 {
                     cv.PorvinceLive = T.PorvinceLive;
                 }
-                //cv.DistrictLive = T.DistrictLive;
-                //cv.WardLive = T.WardLive;
+              
                 check = rc.AddRcCandidateCV(cv);
-                // rccandidate Edu
+               // rccandidate Edu
                 RcCandidateEdu edu = new RcCandidateEdu();
                 edu.CandidateId = candidate1.Id;
                 edu.Major1 = T.Major;
@@ -180,15 +179,15 @@ namespace API.Controllers
                         {
                             skill.TypeSkill = item.TypeSkill;
                         }
-                        if (item.Type != null)
+                        if (item.Type != null && item.Type != 0)
                         {
                             skill.Type = item.Type;
                         }
-                        if (item.Level != null)
+                        if (item.Level != null && item.Level !=0)
                         {
                             skill.Level = item.Level;
                         }
-
+                        if(item.Goal != "")
                         skill.Goal = item.Goal;
                         list.Add(skill);
                     }
@@ -441,22 +440,22 @@ namespace API.Controllers
                                 ID = c.Id,
                                 Code = c.Code,
                                 FullName = c.FullName,
-                                Dob = cv == null ? "" : cv.Dob.Value.Year.ToString(),
-                                Phone = cv == null ? "" : cv.Phone,
-                                Email = cv == null ? "" : cv.Email,
-                                Gender = cv == null ? "" : cv.Gender.ToString(),
-                                Address = cv == null ? "" : cv.NoiO,
+                                Dob = cv.Dob == null ? "" : cv.Dob.Value.Year.ToString(),
+                                Phone = cv.Phone == null ? "" : cv.Phone,
+                                Email = cv.Email == null ? "" : cv.Email,
+                                Gender = cv.Gender == null ? "" : cv.Gender.ToString(),
+                                Address = cv.NoiO == null ? "" : cv.NoiO,
                                 NationLive = rc.GetNation(cv.NationLive) == null ? "" : rc.GetNation(cv.NationLive).Name,
                                 ProvinceLive = rc.GetLocation(cv.PorvinceLive) == null ? "" : rc.GetLocation(cv.PorvinceLive).Name,
-                                Zalo = cv == null ? "" : cv.Zalo,
-                                Facebook = cv == null ? "" : cv.Facebook,
-                                Skype = cv == null ? "" : cv.Skype,
-                                Website = cv == null ? "" : cv.Website,
-                                Awards = edu == null ? "" : edu.Awards1,
-                                School = edu == null ? "" : edu.School1,
-                                Major = edu == null ? "" : edu.Major1,
-                                Score = edu == null ? "" : edu.Gpa1.ToString(),
-                                Graduate = edu == null ? "" : edu.Graduate1.ToString(),
+                                Zalo = cv.Zalo == null ? "" : cv.Zalo,
+                                Facebook = cv.Facebook == null ? "" : cv.Facebook,
+                                Skype = cv.Skype == null ? "" : cv.Skype,
+                                Website = cv.Website == null ? "" : cv.Website,
+                                Awards = edu.Awards1 == null ? "" : edu.Awards1,
+                                School = edu.School1 == null ? "" : edu.School1,
+                                Major = edu.Major1 == null ? "" : edu.Major1,
+                                Score = edu.Gpa1 == null ? "" : edu.Gpa1.ToString(),
+                                Graduate = edu.Graduate1 == null ? "" : edu.Graduate1.ToString(),
                                 Language = from a in rc.GetCandidateLanguagebyID(b.Id)
                                            group a by a.TypeSkill into g
                                            select new
@@ -790,7 +789,7 @@ namespace API.Controllers
                                 ID = c.Id,
                                 Code = c.Code,
                                 FullName = c.FullName,
-                                Dob = cv == null ? "" : cv.Dob.Value.ToString("dd-MM-yyyy"),
+                                Dob = cv.Dob == null ? "" : cv.Dob.Value.ToString("dd-MM-yyyy"),
                                 Phone = cv == null ? "" : cv.Phone,
                                 Email = cv == null ? "" : cv.Email,
                                 Gender = cv == null ? "" : cv.Gender.ToString(),
@@ -805,7 +804,7 @@ namespace API.Controllers
                                 School = edu == null ? "" : edu.School1,
                                 Major = edu == null ? "" : edu.Major1,
                                 Score = edu == null ? "" : edu.Gpa1.ToString(),
-                                Graduate = edu == null ? "" : edu.Graduate1.Value.ToString("dd-MM-yyyy"),
+                                Graduate = edu.Graduate1 == null ? "" : edu.Graduate1.Value.ToString("dd-MM-yyyy"),
                                 Note = c.Note
 
                             };
