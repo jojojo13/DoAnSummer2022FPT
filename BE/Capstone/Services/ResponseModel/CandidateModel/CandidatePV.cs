@@ -107,4 +107,35 @@ namespace Services.ResponseModel.CandidateModel
         public int? RequestId { get; set; }
         public int? Step5Result { get; set; }
     }
+    public class InforCandidateEdit
+    {
+        // trong ban rccandidate
+        public int ID { get; set; }
+        public string FullName { get; set; }
+        // trong bang rccandidatecv
+        public DateTime? Dob { get; set; }
+        public int? Gender { get; set; }
+        public string Phone { get; set; }
+        public string Zalo { get; set; }
+        public string Email { get; set; }
+        public string LinkedIn { get; set; }
+        public string Facebook { get; set; }
+        public string Skype { get; set; }
+        public string Website { get; set; }
+        public string Twiter { get; set; }
+        public string NoiO { get; set; }
+        public int? NationLive { get; set; }
+        public int? PorvinceLive { get; set; }
+
+
+        // trong bang rccandidate Edu
+        public string Major { get; set; }
+        public DateTime? Graduate { get; set; }
+        public string School { get; set; }
+        public Decimal? Gpa { get; set; }
+        public string Awards { get; set; }
+
+
+    }
+
 }

@@ -709,8 +709,51 @@ namespace API.Controllers
                 Status = rc.Onboard(candidateId, requestId)
             });
         }
+        [HttpPost("CheckInforCandidateEdit")]
+        public IActionResult CheckInforCandidateEdit([FromBody ] InforCandidateEdit e)
+        {
+            string check = rc.CheckInforCandidateEdit(e);
+            if (check == "")
+            {
+                return Ok(new
+                {
+                    Status = true,
+                    Thongbao = "Khong bi trung thong tin"
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    Status = false,
+                    Thongbao = check
+                });
+            }
+        }
 
-
+        [HttpPost("EditInforCandidate")]
+        public IActionResult EditInforCandidate([FromBody] InforCandidateEdit e)
+        {
+            try
+            {
+                bool check = rc.EditCandidateInfor(e);
+                return Ok(new
+                {
+                    Thongbao = "Dang o trong try",
+                    Status = check
+                });
+            }
+            catch
+            {
+                return Ok(
+                    new
+                    {
+                        Thongbao = "Dang nhay vao catch",
+                        Status = false
+                    }
+                    );
+            }
+        }
 
         #endregion
     }

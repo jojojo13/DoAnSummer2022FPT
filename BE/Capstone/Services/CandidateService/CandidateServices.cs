@@ -1488,6 +1488,156 @@ namespace Services.CandidateService
         }
 
         #endregion
+        public bool EditCandidateInfor(InforCandidateEdit e)
+        {
+            using (var context = new CapstoneProject2022Context())
+            {
 
+                try
+                {
+                    bool check = false;
+                    List<RcCandidateCv> list = context.RcCandidateCvs.Where(x => x.CandidateId != e.ID).ToList();
+                    foreach (RcCandidateCv item in list)
+                    {
+                        if (item.Phone == e.Phone || item.Zalo == e.Zalo || item.Email == e.Email)
+                        {
+                            check = true;
+                            break;
+                        }
+                    }
+                    if (check == false)
+                    {
+
+
+                        RcCandidate c = context.RcCandidates.Where(x => x.Id == e.ID).SingleOrDefault();
+                        RcCandidateCv r1 = context.RcCandidateCvs.Where(x => x.CandidateId == e.ID).SingleOrDefault();
+                        RcCandidateEdu edu = context.RcCandidateEdus.Where(x => x.CandidateId == e.ID).SingleOrDefault();
+                        if (c != null && r1 != null)
+                        {
+                            c.FullName = e.FullName;
+                            context.RcCandidates.Update(c);
+                            // cv
+                            r1.Dob = e.Dob;
+                            r1.Gender = e.Gender;
+                            r1.Phone = e.Phone;
+                            r1.Zalo = e.Zalo;
+                            r1.Email = e.Email;
+                            r1.LinkedIn = e.LinkedIn;
+                            r1.Facebook = e.Facebook;
+                            r1.Twiter = e.Twiter;
+                            r1.NoiO = e.NoiO;
+                            r1.Skype = e.Skype;
+                            r1.Website = e.Website;
+                            r1.NationLive = e.NationLive;
+                            r1.PorvinceLive = e.PorvinceLive;
+                            context.RcCandidateCvs.Update(r1);
+                            // edu
+                            edu.Major1 = e.Major;
+                            edu.Graduate1 = e.Graduate;
+                            edu.School1 = e.School;
+                            edu.Gpa1 = e.Gpa;
+                            edu.Awards1 = e.Awards;
+                            context.RcCandidateEdus.Update(edu);
+                            context.SaveChanges();
+                            return true;
+
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public string CheckInforCandidateEdit(InforCandidateEdit e)
+        {
+            string check = "";
+            using (var context = new CapstoneProject2022Context())
+            {
+                List<RcCandidateCv> list = context.RcCandidateCvs.Where(x => x.CandidateId != e.ID).ToList();
+                if (!e.Email.Trim().Equals(""))
+                {
+                    List<RcCandidateCv> list1 = list.Where(x => x.Email == e.Email).ToList();
+                    if (list1.Count > 0)
+                    {
+                        check += " Email information ;";
+                    }
+                }
+                if (!e.Facebook.Trim().Equals(""))
+                {
+
+                    List<RcCandidateCv> list1 = list.Where(x =>  x.Facebook.Trim().ToLower().Equals(e.Facebook)).ToList();
+                    if (list1.Count > 0)
+                    {
+                        check += " Facebook information ;";
+                    }
+                }
+                if (!e.LinkedIn.Trim().Equals(""))
+                {
+
+                    List<RcCandidateCv> list1 = list.Where(x=> x.LinkedIn.Trim().ToLower().Equals(e.LinkedIn)).ToList();
+                    if (list1.Count > 0)
+                    {
+                        check += " LinkIn information ;";
+                    }
+                }
+                if (!e.Phone.Trim().Equals(""))
+                {
+                    List<RcCandidateCv> list1 = list.Where(x => !x.Phone.Equals("") && x.Phone.Trim().ToLower().Equals(e.Phone)).ToList();
+                    if (list1.Count > 0)
+                    {
+                        check += " Phone Number information ;";
+                    }
+                }
+                if (!e.Skype.Trim().Equals(""))
+                {
+
+                    List<RcCandidateCv> list1 = list.Where(x => !x.Skype.Equals("") && x.Skype.Trim().ToLower().Equals(e.Skype)).ToList();
+                    if (list1.Count > 0)
+                    {
+                     check += " Skype information ;";
+                    }
+                }
+                if (!e.Twiter.Trim().Equals(""))
+                {
+
+                    List<RcCandidateCv> list1 = list.Where(x => !x.Twiter.Equals("") && x.Twiter.Trim().ToLower().Equals(e.Twiter)).ToList();
+                    if (list1.Count > 0)
+                    {
+                        check += " Twitter information ;";
+                    }
+                }
+                if (!e.Website.Trim().Equals(""))
+                {
+
+                    List<RcCandidateCv> list1 = list.Where(x => !x.Website.Equals("") && x.Website.Trim().ToLower().Equals(e.Website)).ToList();
+                    if (list1.Count > 0)
+                    {
+                        check += " Website information ;";
+                    }
+                }
+                if (!e.Zalo.Trim().Equals(""))
+                {
+
+                    List<RcCandidateCv> list1 = list.Where(x => !x.Zalo.Equals("") && x.Zalo.Trim().ToLower().Equals(e.Zalo)).ToList();
+                    if (list.Count > 0)
+                    {
+                        check += " Zalo information ;";
+                    }
+                }
+            }
+            return check;
+        }
     }
 }
