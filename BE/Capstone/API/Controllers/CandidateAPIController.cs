@@ -146,8 +146,7 @@ namespace API.Controllers
                 {
                     cv.PorvinceLive = T.PorvinceLive;
                 }
-                //cv.DistrictLive = T.DistrictLive;
-                //cv.WardLive = T.WardLive;
+
                 check = rc.AddRcCandidateCV(cv);
                 // rccandidate Edu
                 RcCandidateEdu edu = new RcCandidateEdu();
@@ -180,16 +179,16 @@ namespace API.Controllers
                         {
                             skill.TypeSkill = item.TypeSkill;
                         }
-                        if (item.Type != null)
+                        if (item.Type != null && item.Type != 0)
                         {
                             skill.Type = item.Type;
                         }
-                        if (item.Level != null)
+                        if (item.Level != null && item.Level != 0)
                         {
                             skill.Level = item.Level;
                         }
-
-                        skill.Goal = item.Goal;
+                        if (item.Goal != "" && item.Goal != "0")
+                            skill.Goal = item.Goal;
                         list.Add(skill);
                     }
                     check = rc.AddRcCandidateSkill(list);
@@ -250,8 +249,8 @@ namespace API.Controllers
                 bool check = rc.AddStep1(pv);
                 return Ok(new
                 {
-                    Status= check,
-                    Thongbao= check== true? "successful Step1":"fail Step1"
+                    Status = check,
+                    Thongbao = check == true ? "successful Step1" : "fail Step1"
                 });
 
             }
@@ -298,7 +297,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = check,
-                    Thongbao = check == true ? "successful Step4"  : "fail Step4"
+                    Thongbao = check == true ? "successful Step4" : "fail Step4"
                 });
 
             }
@@ -330,7 +329,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = false,
-                    Thongbao="Nhay vao catch"
+                    Thongbao = "Nhay vao catch"
                 });
             }
 
@@ -441,22 +440,22 @@ namespace API.Controllers
                                 ID = c.Id,
                                 Code = c.Code,
                                 FullName = c.FullName,
-                                Dob = cv == null ? "" : cv.Dob.Value.Year.ToString(),
-                                Phone = cv == null ? "" : cv.Phone,
-                                Email = cv == null ? "" : cv.Email,
-                                Gender = cv == null ? "" : cv.Gender.ToString(),
-                                Address = cv == null ? "" : cv.NoiO,
+                                Dob = cv.Dob == null ? "" : cv.Dob.Value.Year.ToString(),
+                                Phone = cv.Phone == null ? "" : cv.Phone,
+                                Email = cv.Email == null ? "" : cv.Email,
+                                Gender = cv.Gender == null ? "" : cv.Gender.ToString(),
+                                Address = cv.NoiO == null ? "" : cv.NoiO,
                                 NationLive = rc.GetNation(cv.NationLive) == null ? "" : rc.GetNation(cv.NationLive).Name,
                                 ProvinceLive = rc.GetLocation(cv.PorvinceLive) == null ? "" : rc.GetLocation(cv.PorvinceLive).Name,
-                                Zalo = cv == null ? "" : cv.Zalo,
-                                Facebook = cv == null ? "" : cv.Facebook,
-                                Skype = cv == null ? "" : cv.Skype,
-                                Website = cv == null ? "" : cv.Website,
-                                Awards = edu == null ? "" : edu.Awards1,
-                                School = edu == null ? "" : edu.School1,
-                                Major = edu == null ? "" : edu.Major1,
-                                Score = edu == null ? "" : edu.Gpa1.ToString(),
-                                Graduate = edu == null ? "" : edu.Graduate1.ToString(),
+                                Zalo = cv.Zalo == null ? "" : cv.Zalo,
+                                Facebook = cv.Facebook == null ? "" : cv.Facebook,
+                                Skype = cv.Skype == null ? "" : cv.Skype,
+                                Website = cv.Website == null ? "" : cv.Website,
+                                Awards = edu.Awards1 == null ? "" : edu.Awards1,
+                                School = edu.School1 == null ? "" : edu.School1,
+                                Major = edu.Major1 == null ? "" : edu.Major1,
+                                Score = edu.Gpa1 == null ? "" : edu.Gpa1.ToString(),
+                                Graduate = edu.Graduate1 == null ? "" : edu.Graduate1.ToString(),
                                 Language = from a in rc.GetCandidateLanguagebyID(b.Id)
                                            group a by a.TypeSkill into g
                                            select new
@@ -490,12 +489,12 @@ namespace API.Controllers
                                                          group d by d.Type into i
                                                          select new
                                                          {
-                                                             Type = rc.GetOtherListCandidate((int)i.Key).Name,
+                                                             Type = i.Key == null ? "" : rc.GetOtherListCandidate((int)i.Key).Name,
                                                              Child = from k in i.ToList()
                                                                      group k by k.Level into k1
                                                                      select new
                                                                      {
-                                                                         Level = rc.GetOtherListCandidate((int)k1.Key).Name,
+                                                                         Level = k1.Key == null ? "" : rc.GetOtherListCandidate((int)k1.Key).Name,
                                                                          Goal = k1.ToList().Find(x => x.Level == k1.Key).Goal
 
                                                                      }
@@ -733,7 +732,7 @@ namespace API.Controllers
 
 
         [HttpPost("CheckInforCandidateEdit")]
-        public IActionResult CheckInforCandidateEdit([FromBody ] InforCandidateEdit e)
+        public IActionResult CheckInforCandidateEdit([FromBody] CandidateEdit e)
         {
             string check = rc.CheckInforCandidateEdit(e);
             if (check == "")
@@ -750,7 +749,7 @@ namespace API.Controllers
                 {
                     Status = false,
                     Thongbao = check + " already existed"
-                }) ;
+                });
             }
         }
 
@@ -762,7 +761,7 @@ namespace API.Controllers
                 bool check = rc.EditCandidateInfor(e);
                 return Ok(new
                 {
-                    Thongbao = check == true ?"Successfull ": "Fail",
+                    Thongbao = check == true ? "Successfull " : "Fail",
                     Status = check
                 });
             }
@@ -777,6 +776,60 @@ namespace API.Controllers
                     );
             }
         }
+
+        [HttpPost("GetOneInforCandidateToEdit")]
+        public IActionResult GetOneInforCandidateToEdit(int id)
+        {
+            RcCandidate c = rc.GetCandidateByID(id);
+            if (c != null)
+            {
+                List<RcCandidate> list = new List<RcCandidate>();
+                list.Add(c);
+                var list1 = from b in list
+                            let cv = rc.GetCandidateCVbyID(b.Id)
+                            let edu = rc.GetCandidateEdubyID(b.Id)
+                            select new
+                            {
+                                ID = c.Id,
+                                Code = c.Code,
+                                FullName = c.FullName,
+                                Dob = cv.Dob == null ? "" : cv.Dob.Value.ToString("dd-MM-yyyy"),
+                                Phone = cv == null ? "" : cv.Phone,
+                                Email = cv == null ? "" : cv.Email,
+                                Gender = cv == null ? "" : cv.Gender.ToString(),
+                                Address = cv == null ? "" : cv.NoiO,
+                                NationLive = cv == null ? "" : cv.NationLive.ToString(),
+                                ProvinceLive = cv == null ? "" : cv.PorvinceLive.ToString(),
+                                Zalo = cv == null ? "" : cv.Zalo,
+                                Facebook = cv == null ? "" : cv.Facebook,
+                                Skype = cv == null ? "" : cv.Skype,
+                                Website = cv == null ? "" : cv.Website,
+                                Awards = edu == null ? "" : edu.Awards1,
+                                School = edu == null ? "" : edu.School1,
+                                Major = edu == null ? "" : edu.Major1,
+                                Score = edu == null ? "" : edu.Gpa1.ToString(),
+                                Graduate = edu.Graduate1 == null ? "" : edu.Graduate1.Value.ToString("dd-MM-yyyy"),
+                                Note = c.Note
+
+                            };
+
+                return Ok(new
+                {
+                    Status = true,
+                    Data = list1
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    Status = false,
+                    Data = "Dont find"
+                });
+            }
+
+        }
+
 
         #endregion
     }

@@ -139,6 +139,31 @@ namespace API.Controllers
            
         }
 
+        [AllowAnonymous]
+        [HttpPost("ChangePass")]
+        public IActionResult ChangePass([FromBody] AccountResponse acc)
+        {
+            try
+            {
+                Account a = new Account();
+                a.UserName = acc.username;
+                a.Pass = acc.password;
+
+                return Ok(new
+                {
+                    Status = p.ChangePass(a)
+                });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+
+        }
+
     }
 
 }
