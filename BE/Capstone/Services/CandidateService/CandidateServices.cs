@@ -224,6 +224,7 @@ namespace Services.CandidateService
             {
                 RcCandidate c = context.RcCandidates.Where(x => x.Id == item).FirstOrDefault();
                 c.RecordStatus = 1;
+                c.Note = "";
             }
             context.SaveChanges();
             return true;

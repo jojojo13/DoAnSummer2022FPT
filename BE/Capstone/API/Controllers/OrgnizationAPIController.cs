@@ -76,7 +76,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("ActiveTitle")]
         public IActionResult ActiveTitle(List<int> listID)
         {
@@ -107,7 +107,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("DeActiveTitle")]
         public IActionResult DeActiveTitle(List<int> ListID)
         {
@@ -138,7 +138,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("DeleteTitle")]
         public IActionResult DeleteTitle(List<int> ListID)
         {
@@ -169,7 +169,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("InsertTitle")]
         public IActionResult InsertTitle([FromBody] TitleResponse objresponse)
         {
@@ -205,7 +205,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("ModifyTitle")]
         public IActionResult ModifyTitle([FromBody] TitleResponse objresponse)
         {
@@ -303,7 +303,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("ActivePosition")]
         public IActionResult ActivePosition(List<int> ListID)
         {
@@ -335,7 +335,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("DeActivePosition")]
         public IActionResult DeActivePosition(List<int> ListID)
         {
@@ -367,7 +367,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("DeletePosition")]
         public IActionResult DeletePosition(List<int> ListID)
         {
@@ -398,7 +398,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("InsertPosition")]
         public IActionResult InsertPosition([FromBody] PositionResponse objresponse)
         {
@@ -442,7 +442,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("ModifyPosition")]
         public IActionResult ModifyPosition([FromBody] PositionResponse objresponse)
         {
@@ -601,7 +601,7 @@ namespace API.Controllers
         }
 
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("ActiveOrg")]
         public IActionResult ActiveOrg([FromBody] int ID)
         {
@@ -632,7 +632,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("DeActiveOrg")]
         public IActionResult DeActiveOrg([FromBody] int ID)
         {
@@ -663,7 +663,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("DeleteOrg")]
         public IActionResult DeleteOrg([FromBody] int ID)
         {
@@ -866,7 +866,7 @@ namespace API.Controllers
             return StatusCode(200, "List is Null");
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("ActivePositionOrg")]
         public IActionResult ActivePositionOrg([FromBody] string ListID)
         {
@@ -906,7 +906,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("DeActivePositionOrg")]
         public IActionResult DeActivePositionOrg([FromBody] string ListID)
         {
@@ -946,7 +946,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("DeletePositionOrg")]
         public IActionResult DeletePositionOrg(List<int> lst)
         {
@@ -977,7 +977,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("InsertPositionOrg")]
         public IActionResult InsertPositionOrg([FromBody] PositionOrgResponse objresponse)
         {
@@ -1014,7 +1014,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "0,1")]
         [HttpPost("ModifyPositionOrg")]
         public IActionResult ModifyPositionOrg([FromBody] PositionOrgResponse objresponse)
         {
