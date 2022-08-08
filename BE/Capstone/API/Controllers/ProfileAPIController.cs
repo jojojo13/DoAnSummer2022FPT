@@ -28,7 +28,7 @@ namespace API.Controllers
 
 
         #region DM loai HOP DONG
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "1,0")]
         [HttpPost("GetContractType")]
         public IActionResult GetContractType(int index, int size)
         {
@@ -52,7 +52,7 @@ namespace API.Controllers
                 return StatusCode(200, "List is Null");
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "1,0")]
         [HttpPost("GetAllContractType")]
         public IActionResult GetAllContractType(int index, int size)
         {
@@ -77,7 +77,7 @@ namespace API.Controllers
                 return StatusCode(200, "List is Null");
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "1,0")]
         [HttpPost("InsertContractType")]
         public IActionResult InsertContractType([FromBody] ContractTypeResponse objresponse)
         {
@@ -110,7 +110,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "1,0")]
         [HttpPost("DeleteContractType")]
         public IActionResult DeleteContractType(List<int> ListID)
         {
@@ -194,7 +194,7 @@ namespace API.Controllers
 
 
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "1,0")]
         [HttpPost("ModifyContractType")]
         public IActionResult ModifyContractType([FromBody] ContractTypeResponse objresponse)
         {
