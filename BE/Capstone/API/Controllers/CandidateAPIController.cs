@@ -849,6 +849,25 @@ namespace API.Controllers
                 });
             }
         }
+        [HttpPost("PassStep3to4")]
+        public IActionResult PassStep3to4([FromBody] PassStep3 e)
+        {
+            try
+            {
+                bool check = rc.PassStep3_4(e);
+                return Ok(new
+                {
+                    Status = check
+                });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
 
         #endregion
     }
