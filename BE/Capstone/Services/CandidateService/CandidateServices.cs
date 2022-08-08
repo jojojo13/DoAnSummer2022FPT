@@ -1646,7 +1646,7 @@ namespace Services.CandidateService
                                                Score= c.ResultStep3Test,
                                                Note= c.NoteRstep3Test
                                              };
-                    return list.ToList();
+                    return list.OrderByDescending(x=>x.Score).ToList();
                 }
             }
             catch
