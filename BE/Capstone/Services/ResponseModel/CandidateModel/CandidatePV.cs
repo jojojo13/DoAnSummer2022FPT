@@ -155,5 +155,11 @@ namespace Services.ResponseModel.CandidateModel
         public decimal? Score { get; set; }
         public string Note { get; set; }
     }
+    public class PassStep3
+    {
+        public int? CandidateID { get; set; }
+        public int? RequestID { get; set; }
+        public int? Result { get; set; }
+    }
 
 }

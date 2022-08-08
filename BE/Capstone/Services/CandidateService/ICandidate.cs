@@ -39,7 +39,8 @@ namespace Services.CandidateService
         bool AddStep3(SetStep3 pv);
         bool AddStep4(SetStep4 pv);
         bool AddStep5(SetStep5 pv);
-       List< ResultStep3> GetAllResultStep3(int requestID);
+        List< ResultStep3> GetAllResultStep3(int requestID);
+        bool PassStep3_4(PassStep3 e);
 
 
         #endregion

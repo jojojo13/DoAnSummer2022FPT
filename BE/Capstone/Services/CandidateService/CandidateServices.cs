@@ -1647,5 +1647,24 @@ namespace Services.CandidateService
                 return new List<ResultStep3>();
             }
         }
+
+        public bool PassStep3_4(PassStep3 e)
+        {
+            try {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    RcCandidatePv pv = context.RcCandidatePvs.Where(x => x.CandidateId == e.CandidateID && x.RequestId == e.RequestID).SingleOrDefault();
+                    if (pv != null)
+                    {
+                        pv.StepNow = 4;
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            } catch
+            {
+                return false;
+            }
+        }
     }
 }
