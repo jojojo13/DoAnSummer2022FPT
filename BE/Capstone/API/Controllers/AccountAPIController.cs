@@ -112,7 +112,6 @@ namespace API.Controllers
         }
 
 
-        [AllowAnonymous]
         [HttpPost("ResetpassWord")]
         public IActionResult ResetpassWord([FromBody] AccountResponse acc)
         {
@@ -139,7 +138,7 @@ namespace API.Controllers
            
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("ChangePass")]
         public IActionResult ChangePass([FromBody] AccountResponse acc)
         {
