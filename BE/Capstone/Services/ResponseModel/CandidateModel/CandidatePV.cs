@@ -63,6 +63,10 @@ namespace Services.ResponseModel.CandidateModel
         public int? ProvinceLive { get; set; }
         public int? DistrictLive { get; set; }
         public int? WardLive { get; set; }
+        public decimal? Step3Test { get; set; }
+        public decimal? Step3Score { get; set; }
+        public string Step3TestNote { get; set; }
+        public string Step3InterNote { get; set; }
     }
     public class SetStep1
     {
@@ -72,6 +76,7 @@ namespace Services.ResponseModel.CandidateModel
         public string NoteStep1 { get; set; }
         // 
     }
+  
     public class SetStep2
     {
         public int? CandidateId { get; set; }

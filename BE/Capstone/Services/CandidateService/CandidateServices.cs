@@ -1145,7 +1145,12 @@ namespace Services.CandidateService
                                     RequestId = rq.Id,
                                     RequestName = rq.Name,
                                     StepNow = step.StepNow,
-                                    Result = step.Result
+                                    Result = step.Result,
+                                    Step3Score = step.ResultStep3Test == null ? null : step.ResultStep3Test,
+                                    Step3Test = step.ResultStep3InterView == null ? null : step.ResultStep3InterView,
+                                    Step3InterNote = step.NoteRstep3InterView,
+                                    Step3TestNote = step.NoteRstep3Test
+
                                 };
                     return query.FirstOrDefault();
                 }
@@ -1155,6 +1160,7 @@ namespace Services.CandidateService
                 return new CandidatePV_infor();
             }
         }
+
         public List<RequestResponseServices> GetAllRequestByCandidateID(int id)
         {
             try
