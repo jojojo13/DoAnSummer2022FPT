@@ -16,7 +16,7 @@ namespace Services.ProfileServices
         #region "Account"
         Account GetAccount(Account a);
         bool ChangePass(Account a);
-        bool ResetPass(string userName, string emailCheck, MailDTO mailobj)
+        bool ResetPass(string userName, string emailCheck, MailDTO mailobj);
 
         #endregion
 
