@@ -38,7 +38,18 @@ namespace Services.CandidateService
                 {
                     List<RcCandidate> list = context.RcCandidates.ToList();
                     RcCandidate r1 = new RcCandidate();
-                    r1.Code = "UV" + (list.Count + 1);
+                    if (list.Count == 0)
+                    {
+                        r1.Code = "UV1";
+                    }
+                    else
+                    {
+
+
+                        RcCandidate r2 = list.Last();
+                        string index = r2.Code.Substring(2);
+                        r1.Code = "UV" + (int.Parse(index) + 1);
+                    }
                     r1.FullName = r.FullName;
                     r1.StepCv = 1;
                     r1.CreateDate = DateTime.Now;
@@ -1515,6 +1526,7 @@ namespace Services.CandidateService
                         RcCandidateEdu edu = context.RcCandidateEdus.Where(x => x.CandidateId == e.ID).SingleOrDefault();
                         if (c != null && r1 != null)
                         {
+
                             c.FullName = e.FullName;
                             context.RcCandidates.Update(c);
                             // cv
@@ -1533,11 +1545,26 @@ namespace Services.CandidateService
                             r1.PorvinceLive = e.PorvinceLive;
                             context.RcCandidateCvs.Update(r1);
                             // edu
-                            edu.Major1 = e.Major;
-                            edu.Graduate1 = e.Graduate;
-                            edu.School1 = e.School;
+                            if(e.Major!= null)
+                            {
+                                edu.Major1 = e.Major;
+                            }
+                          
+                            if(e.Graduate != null)
+                            {
+                                edu.Graduate1 = e.Graduate;
+                            }
+                            if(e.School!= null)
+                            {
+                                edu.School1 = e.School;
+                            }
+                          
                             edu.Gpa1 = e.Gpa;
-                            edu.Awards1 = e.Awards;
+                            if(e.Awards != null)
+                            {
+                                edu.Awards1 = e.Awards;
+                            }
+                           
                             context.RcCandidateEdus.Update(edu);
                             context.SaveChanges();
                             return true;
@@ -1561,9 +1588,10 @@ namespace Services.CandidateService
             }
         }
 
-        public string CheckInforCandidateEdit(InforCandidateEdit e)
+        public string CheckInforCandidateEdit(CandidateEdit e)
         {
             string check = "";
+            int count = 0;
             using (var context = new CapstoneProject2022Context())
             {
                 List<RcCandidateCv> list = context.RcCandidateCvs.Where(x => x.CandidateId != e.ID).ToList();
@@ -1572,71 +1600,26 @@ namespace Services.CandidateService
                     List<RcCandidateCv> list1 = list.Where(x => x.Email == e.Email).ToList();
                     if (list1.Count > 0)
                     {
-                        check += " Email information ;";
+                        check += " Email";
+                        count++;
                     }
                 }
-                if (!e.Facebook.Trim().Equals(""))
-                {
-
-                    List<RcCandidateCv> list1 = list.Where(x =>  x.Facebook.Trim().ToLower().Equals(e.Facebook)).ToList();
-                    if (list1.Count > 0)
-                    {
-                        check += " Facebook information ;";
-                    }
-                }
-                if (!e.LinkedIn.Trim().Equals(""))
-                {
-
-                    List<RcCandidateCv> list1 = list.Where(x=> x.LinkedIn.Trim().ToLower().Equals(e.LinkedIn)).ToList();
-                    if (list1.Count > 0)
-                    {
-                        check += " LinkIn information ;";
-                    }
-                }
+            
                 if (!e.Phone.Trim().Equals(""))
                 {
-                    List<RcCandidateCv> list1 = list.Where(x => !x.Phone.Equals("") && x.Phone.Trim().ToLower().Equals(e.Phone)).ToList();
+                    List<RcCandidateCv> list1 = list.Where(x => x.Phone== e.Phone).ToList();
                     if (list1.Count > 0)
                     {
-                        check += " Phone Number information ;";
+                        if (count > 0)
+                        {
+                            check += ";";
+                        }
+                        check += " Phone Number ";
                     }
                 }
-                if (!e.Skype.Trim().Equals(""))
-                {
-
-                    List<RcCandidateCv> list1 = list.Where(x => !x.Skype.Equals("") && x.Skype.Trim().ToLower().Equals(e.Skype)).ToList();
-                    if (list1.Count > 0)
-                    {
-                     check += " Skype information ;";
-                    }
-                }
-                if (!e.Twiter.Trim().Equals(""))
-                {
-
-                    List<RcCandidateCv> list1 = list.Where(x => !x.Twiter.Equals("") && x.Twiter.Trim().ToLower().Equals(e.Twiter)).ToList();
-                    if (list1.Count > 0)
-                    {
-                        check += " Twitter information ;";
-                    }
-                }
-                if (!e.Website.Trim().Equals(""))
-                {
-
-                    List<RcCandidateCv> list1 = list.Where(x => !x.Website.Equals("") && x.Website.Trim().ToLower().Equals(e.Website)).ToList();
-                    if (list1.Count > 0)
-                    {
-                        check += " Website information ;";
-                    }
-                }
-                if (!e.Zalo.Trim().Equals(""))
-                {
-
-                    List<RcCandidateCv> list1 = list.Where(x => !x.Zalo.Equals("") && x.Zalo.Trim().ToLower().Equals(e.Zalo)).ToList();
-                    if (list.Count > 0)
-                    {
-                        check += " Zalo information ;";
-                    }
-                }
+               
+                
+           
             }
             return check;
         }
