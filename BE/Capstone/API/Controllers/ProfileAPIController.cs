@@ -1105,6 +1105,133 @@ namespace API.Controllers
             });
         }
 
+        [Authorize(Roles = "1,0")]
+        [HttpPost("InsertContractEmployee")]
+        public IActionResult InsertContractEmployee([FromBody] ContractEmpResponse T)
+        {
+            try
+            {
+                Account a = GetCurrentUser();
+                ContractEmployeeResponse obj = new ContractEmployeeResponse();
+                obj.ContractNo = T.ContractNo;
+                obj.ContractTypeId = T.ContractTypeId;
+                obj.Effect = T.EffectDate;
+                obj.Expire = T.ExpireDate;
+                obj.OrgnizationId = T.OrgnizationId;
+                obj.PositionId = T.PositionId;
+                obj.EmployeeId = T.EmployeeId;
+                var check = profile.InsertContractEmployee(obj);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1,0")]
+        [HttpPost("ModifyContractEmployee")]
+        public IActionResult ModifyContractEmployee([FromBody] ContractEmpResponse T)
+        {
+            try
+            {
+                Account a = GetCurrentUser();
+                ContractEmployeeResponse obj = new ContractEmployeeResponse();
+                obj.ID = T.Id;
+                obj.ContractNo = T.ContractNo;
+                obj.ContractTypeId = T.ContractTypeId;
+                obj.Effect = T.EffectDate;
+                obj.Expire = T.ExpireDate;
+                obj.OrgnizationId = T.OrgnizationId;
+                obj.PositionId = T.PositionId;
+                obj.EmployeeId = T.EmployeeId;
+                var check = profile.ModifyContractEmployee(obj);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("ActiveContractEmployee")]
+        public IActionResult ActiveContractEmployee(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveEmployeeContract(ListID, -1);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPost("DeActiveContractEmployee")]
+        public IActionResult DeActiveContractEmployee(List<int> ListID)
+        {
+            try
+            {
+                var check = profile.ActiveOrDeActiveEmployeeContract(ListID, 0);
+                if (check)
+                    return Ok(new
+                    {
+                        Status = true
+                    });
+                else
+                    return Ok(new
+                    {
+                        Status = false
+                    });
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
+
 
 
 
