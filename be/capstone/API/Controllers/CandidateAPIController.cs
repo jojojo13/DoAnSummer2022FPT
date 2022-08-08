@@ -729,6 +729,9 @@ namespace API.Controllers
                 Status = rc.Onboard(candidateId, requestId)
             });
         }
+
+
+
         [HttpPost("CheckInforCandidateEdit")]
         public IActionResult CheckInforCandidateEdit([FromBody ] InforCandidateEdit e)
         {
@@ -773,58 +776,6 @@ namespace API.Controllers
                     }
                     );
             }
-        }
-        [HttpPost("GetOneInforCandidateToEdit")]
-        public IActionResult GetOneInforCandidateToEdit(int id)
-        {
-            RcCandidate c = rc.GetCandidateByID(id);
-            if (c != null)
-            {
-                List<RcCandidate> list = new List<RcCandidate>();
-                list.Add(c);
-                var list1 = from b in list
-                            let cv = rc.GetCandidateCVbyID(b.Id)
-                            let edu = rc.GetCandidateEdubyID(b.Id)
-                            select new
-                            {
-                                ID = c.Id,
-                                Code = c.Code,
-                                FullName = c.FullName,
-                                Dob = cv == null ? "" : cv.Dob.Value.ToString("dd-MM-yyyy"),
-                                Phone = cv == null ? "" : cv.Phone,
-                                Email = cv == null ? "" : cv.Email,
-                                Gender = cv == null ? "" : cv.Gender.ToString(),
-                                Address = cv == null ? "" : cv.NoiO,
-                                NationLive = cv == null? "": cv.NationLive.ToString(),
-                                ProvinceLive = cv== null?"":cv.PorvinceLive.ToString(),
-                                Zalo = cv == null ? "" : cv.Zalo,
-                                Facebook = cv == null ? "" : cv.Facebook,
-                                Skype = cv == null ? "" : cv.Skype,
-                                Website = cv == null ? "" : cv.Website,
-                                Awards = edu == null ? "" : edu.Awards1,
-                                School = edu == null ? "" : edu.School1,
-                                Major = edu == null ? "" : edu.Major1,
-                                Score = edu == null ? "" : edu.Gpa1.ToString(),
-                                Graduate = edu == null ? "" : edu.Graduate1.Value.ToString("dd-MM-yyyy"),
-                                Note = c.Note
-
-                            };
-
-                return Ok(new
-                {
-                    Status = true,
-                    Data = list1
-                });
-            }
-            else
-            {
-                return Ok(new
-                {
-                    Status = false,
-                    Data = "Dont find"
-                });
-            }
-
         }
 
         #endregion

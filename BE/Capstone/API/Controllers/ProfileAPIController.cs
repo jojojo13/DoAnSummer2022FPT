@@ -1092,6 +1092,19 @@ namespace API.Controllers
             });
         }
 
+        [HttpPost("GetContractEmployeeByFilter")]
+        public IActionResult GetContractEmployeeByFilter([FromBody] ContractEmpResponse obj )
+        {
+            List<ContractEmployeeResponse> list = new List<ContractEmployeeResponse>();
+            int total = 0;
+            list = profile.GetContractEmployeeByFilter(obj.index, obj.size, ref total,obj.Name, obj.Code, obj.OrgnizationName, obj.ContractNo,obj.ContractType,obj.Position,obj.EffectDate, obj.ExpireDate,obj.Status);
+            return Ok(new
+            {
+                Data = list,
+                TotalItem = total
+            });
+        }
+
 
 
 

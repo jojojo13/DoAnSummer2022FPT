@@ -72,7 +72,7 @@ namespace Services.ProfileServices
                 return null;
             }
         }
-        public bool ResetPass(string userName, MailDTO mailobj)
+        public bool ResetPass(string userName,string emailCheck, MailDTO mailobj)
         {
             try
             {
@@ -80,19 +80,24 @@ namespace Services.ProfileServices
                 {
                     ICommon c = new CommonImpl();
                     Account tobj = context.Accounts.Where(x => x.UserName.Equals(userName)).FirstOrDefault();
-                    string newpass = Guid.NewGuid().ToString("d").Substring(1, 8);
-                    string newHashPass = c.sha256_hash(newpass);
-                    tobj.Pass = newHashPass;
-                    context.SaveChanges();
                     EmployeeCv em = context.EmployeeCvs.Where(x => x.EmployeeId == tobj.EmployeeId).FirstOrDefault();
                     string email = em.EmailWork;
-                    mailobj.tomail = email;
-                    mailobj.content = "Mật khẩu mới của bạn là : " + newpass  + "</br>   Vui lòng thay đổi mật khẩu mới sau khi đăng nhập";
-                    ICommon common = new CommonImpl();
-                    if (common.sendMail(mailobj))
+                    if (emailCheck.Trim().ToLower().Equals(email.Trim().ToLower()))
                     {
-                        return true;
+                        string newpass = Guid.NewGuid().ToString("d").Substring(1, 8);
+                        string newHashPass = c.sha256_hash(newpass);
+                        tobj.Pass = newHashPass;
+                        context.SaveChanges();
+
+                        mailobj.tomail = email;
+                        mailobj.content = "Mật khẩu mới của bạn là : " + newpass + "</br>   Vui lòng thay đổi mật khẩu mới sau khi đăng nhập";
+                        ICommon common = new CommonImpl();
+                        if (common.sendMail(mailobj))
+                        {
+                            return true;
+                        }
                     }
+
                     return false;
                 }
             }

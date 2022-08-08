@@ -126,7 +126,7 @@ namespace API.Controllers
                 obj.subject = "Thông báo thay đổi mật khẩu";
                 return Ok(new
                 {
-                    Status = p.ResetPass(acc.username, obj)
+                    Status = p.ResetPass(acc.username,acc.email, obj)
                 });
             }
             catch

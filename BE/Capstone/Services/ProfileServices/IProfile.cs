@@ -16,7 +16,7 @@ namespace Services.ProfileServices
         #region "Account"
         Account GetAccount(Account a);
         bool ChangePass(Account a);
-        bool ResetPass(string userName, MailDTO mailobj);
+        bool ResetPass(string userName, string emailCheck, MailDTO mailobj)
 
         #endregion
 
@@ -79,6 +79,11 @@ namespace Services.ProfileServices
         int getTotalEmployee(int OrgID);
         EmployeeProfileResponseServices getEmployeeProfile(int? ID);
         List<ContractEmployeeResponse> GetContractEmployee(int index, int size, ref int totalItem);
+        List<ContractEmployeeResponse> GetContractEmployeeByFilter(int index, int size, ref int totalItem,string name, string code, string orgName, string contractNo, string contractType, string position, DateTime effectDate, DateTime exDate, string status );
+        bool InsertContractEmployee(ContractEmployeeResponse obj);
+        bool ModifyContractEmployee(ContractEmployeeResponse obj);
+        bool DeleteContractEmployee(List<int> list);
+        bool ActiveOrDeActiveEmployeeContract(List<int> list, int status);
         #endregion
 
     }

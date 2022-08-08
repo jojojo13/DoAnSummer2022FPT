@@ -729,6 +729,9 @@ namespace API.Controllers
                 Status = rc.Onboard(candidateId, requestId)
             });
         }
+
+
+
         [HttpPost("CheckInforCandidateEdit")]
         public IActionResult CheckInforCandidateEdit([FromBody ] InforCandidateEdit e)
         {

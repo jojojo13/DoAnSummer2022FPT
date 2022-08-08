@@ -260,7 +260,7 @@ namespace Services.ProfileServices
                                      ContractNo = c.ContractNo,
                                      ContractType = con.Name,
                                      EffectDate = Convert.ToDateTime(c.EffectDate).ToString("dd/MM/yyyy"),
-                                     ExpireDate = c.ExpireDate==null?"": Convert.ToDateTime(c.ExpireDate).ToString("dd/MM/yyyy"),
+                                     ExpireDate = c.ExpireDate == null ? "" : Convert.ToDateTime(c.ExpireDate).ToString("dd/MM/yyyy"),
                                      ID = c.Id,
                                      Note = c.Note,
                                      OrgnizationName = o.Name,
@@ -276,6 +276,175 @@ namespace Services.ProfileServices
             }
             return list;
         }
+
+
+        public List<ContractEmployeeResponse> GetContractEmployeeByFilter(int index, int size, ref int totalItem, string name, string code, string orgName, string contractNo, string contractType, string position, DateTime effectDate, DateTime exDate, string status)
+        {
+            List<ContractEmployeeResponse> list = new List<ContractEmployeeResponse>();
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    var query = (from c in context.EmployeeContracts
+                                 from e in context.Employees.Where(x => x.Id == c.EmployeeId).DefaultIfEmpty()
+                                 from o in context.Orgnizations.Where(x => x.Id == e.OrgnizationId).DefaultIfEmpty()
+                                 from p in context.Positions.Where(x => x.Id == e.PositionId).DefaultIfEmpty()
+                                 from con in context.ContractTypes.Where(x => x.Id == c.ContractTypeId).DefaultIfEmpty()
+                                 select new ContractEmployeeResponse
+                                 {
+                                     Name = e.FullName,
+                                     Code = e.Code,
+                                     ContractNo = c.ContractNo,
+                                     ContractType = con.Name,
+                                     EffectDate = Convert.ToDateTime(c.EffectDate).ToString("dd/MM/yyyy"),
+                                     ExpireDate = c.ExpireDate == null ? "" : Convert.ToDateTime(c.ExpireDate).ToString("dd/MM/yyyy"),
+                                     ID = c.Id,
+                                     Note = c.Note,
+                                     OrgnizationName = o.Name,
+                                     Position = p.Name,
+                                     Status = c.Status == -1 ? "Approved" : "Reject"
+                                 }).ToList();
+                    totalItem = query.Count();
+
+                    if (!name.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.Name.ToLower().Contains(name.Trim().ToLower())).ToList();
+                    }
+                    if (!code.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.Code.ToLower().Contains(code.Trim().ToLower())).ToList();
+                    }
+                    if (!orgName.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.OrgnizationName.ToLower().Contains(orgName.Trim().ToLower())).ToList();
+                    }
+                    if (!contractNo.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.ContractNo.ToLower().Contains(contractNo.Trim().ToLower())).ToList();
+                    }
+                    if (!contractType.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.ContractType.ToLower().Contains(contractType.Trim().ToLower())).ToList();
+                    }
+                    if (!position.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.Position.ToLower().Contains(position.Trim().ToLower())).ToList();
+                    }
+                    if (effectDate.Year != 1000)
+                    {
+                        list = list.Where(x => x.EffectDate == effectDate.ToString("dd/MM/YYYY")).ToList();
+                    }
+                    if (exDate.Year != 1000)
+                    {
+                        list = list.Where(x => x.ExpireDate == exDate.ToString("dd/MM/YYYY")).ToList();
+                    }
+                    if (!status.Trim().Equals(""))
+                    {
+                        list = list.Where(x => x.Status.ToLower().Contains(status.Trim().ToLower())).ToList();
+                    }
+                    list = query.OrderByDescending(x => x.ID).Skip(index * size).Take(size).ToList();
+                }
+            }
+            catch
+            {
+            }
+            return list;
+        }
+
+        public bool InsertContractEmployee(ContractEmployeeResponse T)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    EmployeeContract obj = new EmployeeContract();
+                    obj.ContractNo = T.ContractNo;
+                    obj.ContractTypeId = T.ContractTypeId;
+                    obj.EffectDate = T.Effect;
+                    obj.ExpireDate = T.Expire;
+                    obj.OrgnizationId = T.OrgnizationId;
+                    obj.PositionId = T.PositionId;
+                    obj.EmployeeId = T.EmployeeId;
+                    context.EmployeeContracts.Add(obj);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+            }
+            return false;
+        }
+
+        public bool ModifyContractEmployee(ContractEmployeeResponse T)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    EmployeeContract obj = context.EmployeeContracts.Where(x => x.Id == T.ID).FirstOrDefault();
+                    obj.ContractNo = T.ContractNo;
+                    obj.ContractTypeId = T.ContractTypeId;
+                    obj.EffectDate = T.Effect;
+                    obj.ExpireDate = T.Expire;
+                    obj.OrgnizationId = T.OrgnizationId;
+                    obj.PositionId = T.PositionId;
+                    obj.EmployeeId = T.EmployeeId;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+            }
+            return false;
+        }
+
+        public bool DeleteContractEmployee(List<int> list)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    foreach (var item in list)
+                    {
+                        EmployeeContract tobj = new EmployeeContract();
+                        tobj = context.EmployeeContracts.Where(x => x.Id == item).FirstOrDefault();
+                        context.EmployeeContracts.Remove(tobj);
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ActiveOrDeActiveEmployeeContract(List<int> list, int status)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    foreach (var item in list)
+                    {
+                        EmployeeContract tobj = new EmployeeContract();
+                        tobj = context.EmployeeContracts.Where(x => x.Id == item).FirstOrDefault();
+                        tobj.Status = status;
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
 
     }
 }
