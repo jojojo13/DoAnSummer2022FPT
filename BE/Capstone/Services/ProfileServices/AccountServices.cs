@@ -81,20 +81,25 @@ namespace Services.ProfileServices
                     ICommon c = new CommonImpl();
                     Account tobj = context.Accounts.Where(x => x.UserName.Equals(userName)).FirstOrDefault();
                     EmployeeCv em = context.EmployeeCvs.Where(x => x.EmployeeId == tobj.EmployeeId).FirstOrDefault();
-                    string email = em.EmailWork;
-                    if (emailCheck.Trim().ToLower().Equals(email.Trim().ToLower()))
+                    if (em != null)
                     {
-                        string newpass = Guid.NewGuid().ToString("d").Substring(1, 8);
-                        string newHashPass = c.sha256_hash(newpass);
-                        tobj.Pass = newHashPass;
-                        context.SaveChanges();
+                        if (em.EmailWork != null && em.EmailWork != ""){
+                            string email = em.EmailWork;
+                            if (emailCheck.Trim().ToLower().Equals(email.Trim().ToLower()))
+                            {
+                                string newpass = Guid.NewGuid().ToString("d").Substring(1, 8);
+                                string newHashPass = c.sha256_hash(newpass);
+                                tobj.Pass = newHashPass;
+                                context.SaveChanges();
 
-                        mailobj.tomail = email;
-                        mailobj.content = "Mật khẩu mới của bạn là : " + newpass + "</br>   Vui lòng thay đổi mật khẩu mới sau khi đăng nhập";
-                        ICommon common = new CommonImpl();
-                        if (common.sendMail(mailobj))
-                        {
-                            return true;
+                                mailobj.tomail = email;
+                                mailobj.content = "Your new password is : " + newpass + "</br>   Please change the new password after logging in";
+                                ICommon common = new CommonImpl();
+                                if (common.sendMail(mailobj))
+                                {
+                                    return true;
+                                }
+                            }
                         }
                     }
 
