@@ -1145,7 +1145,12 @@ namespace Services.CandidateService
                                     RequestId = rq.Id,
                                     RequestName = rq.Name,
                                     StepNow = step.StepNow,
-                                    Result = step.Result
+                                    Result = step.Result,
+                                    Step3Score = step.ResultStep3Test == null ? null : step.ResultStep3Test,
+                                    Step3Test = step.ResultStep3InterView == null ? null : step.ResultStep3InterView,
+                                    Step3InterNote = step.NoteRstep3InterView,
+                                    Step3TestNote = step.NoteRstep3Test
+
                                 };
                     return query.FirstOrDefault();
                 }
@@ -1155,6 +1160,7 @@ namespace Services.CandidateService
                 return new CandidatePV_infor();
             }
         }
+
         public List<RequestResponseServices> GetAllRequestByCandidateID(int id)
         {
             try
@@ -1640,7 +1646,7 @@ namespace Services.CandidateService
                                                Score= c.ResultStep3Test,
                                                Note= c.NoteRstep3Test
                                              };
-                    return list.ToList();
+                    return list.OrderByDescending(x=>x.Score).ToList();
                 }
             }
             catch
@@ -1657,7 +1663,15 @@ namespace Services.CandidateService
                     RcCandidatePv pv = context.RcCandidatePvs.Where(x => x.CandidateId == e.CandidateID && x.RequestId == e.RequestID).SingleOrDefault();
                     if (pv != null)
                     {
-                        pv.StepNow = 4;
+                        if (e.Result == 1)
+                        {
+                            pv.StepNow = 4;
+                            pv.Result = 1;
+                        }
+                        else
+                        {
+                            pv.Result = 0;
+                        }
                     }
                     context.SaveChanges();
                     return true;
