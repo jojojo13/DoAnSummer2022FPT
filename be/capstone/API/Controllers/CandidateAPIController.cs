@@ -187,7 +187,7 @@ namespace API.Controllers
                         {
                             skill.Level = item.Level;
                         }
-                        if (item.Goal != "" && item.Goal !="0")
+                        if (item.Goal != "" && item.Goal != "0")
                             skill.Goal = item.Goal;
                         list.Add(skill);
                     }
@@ -249,8 +249,8 @@ namespace API.Controllers
                 bool check = rc.AddStep1(pv);
                 return Ok(new
                 {
-                    Status= check,
-                    Thongbao= check== true? "successful Step1":"fail Step1"
+                    Status = check,
+                    Thongbao = check == true ? "successful Step1" : "fail Step1"
                 });
 
             }
@@ -297,7 +297,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = check,
-                    Thongbao = check == true ? "successful Step4"  : "fail Step4"
+                    Thongbao = check == true ? "successful Step4" : "fail Step4"
                 });
 
             }
@@ -329,7 +329,7 @@ namespace API.Controllers
                 return Ok(new
                 {
                     Status = false,
-                    Thongbao="Nhay vao catch"
+                    Thongbao = "Nhay vao catch"
                 });
             }
 
@@ -489,12 +489,12 @@ namespace API.Controllers
                                                          group d by d.Type into i
                                                          select new
                                                          {
-                                                             Type =i.Key==null?"": rc.GetOtherListCandidate((int)i.Key).Name,
+                                                             Type = i.Key == null ? "" : rc.GetOtherListCandidate((int)i.Key).Name,
                                                              Child = from k in i.ToList()
                                                                      group k by k.Level into k1
                                                                      select new
                                                                      {
-                                                                         Level =k1.Key== null?"": rc.GetOtherListCandidate((int)k1.Key).Name,
+                                                                         Level = k1.Key == null ? "" : rc.GetOtherListCandidate((int)k1.Key).Name,
                                                                          Goal = k1.ToList().Find(x => x.Level == k1.Key).Goal
 
                                                                      }
@@ -732,7 +732,7 @@ namespace API.Controllers
 
 
         [HttpPost("CheckInforCandidateEdit")]
-        public IActionResult CheckInforCandidateEdit([FromBody ] CandidateEdit e)
+        public IActionResult CheckInforCandidateEdit([FromBody] CandidateEdit e)
         {
             string check = rc.CheckInforCandidateEdit(e);
             if (check == "")
@@ -749,7 +749,7 @@ namespace API.Controllers
                 {
                     Status = false,
                     Thongbao = check + " already existed"
-                }) ;
+                });
             }
         }
 
@@ -761,7 +761,7 @@ namespace API.Controllers
                 bool check = rc.EditCandidateInfor(e);
                 return Ok(new
                 {
-                    Thongbao = check == true ?"Successfull ": "Fail",
+                    Thongbao = check == true ? "Successfull " : "Fail",
                     Status = check
                 });
             }
@@ -776,8 +776,7 @@ namespace API.Controllers
                     );
             }
         }
-<<<<<<< HEAD
-=======
+
         [HttpPost("GetOneInforCandidateToEdit")]
         public IActionResult GetOneInforCandidateToEdit(int id)
         {
@@ -799,8 +798,8 @@ namespace API.Controllers
                                 Email = cv == null ? "" : cv.Email,
                                 Gender = cv == null ? "" : cv.Gender.ToString(),
                                 Address = cv == null ? "" : cv.NoiO,
-                                NationLive = cv == null? "": cv.NationLive.ToString(),
-                                ProvinceLive = cv== null?"":cv.PorvinceLive.ToString(),
+                                NationLive = cv == null ? "" : cv.NationLive.ToString(),
+                                ProvinceLive = cv == null ? "" : cv.PorvinceLive.ToString(),
                                 Zalo = cv == null ? "" : cv.Zalo,
                                 Facebook = cv == null ? "" : cv.Facebook,
                                 Skype = cv == null ? "" : cv.Skype,
@@ -830,7 +829,7 @@ namespace API.Controllers
             }
 
         }
->>>>>>> 449c48f31ba7d06e148ff412e07a8ec264657476
+
 
         #endregion
     }

@@ -1,5 +1,7 @@
 ﻿using ModelAuto.Models;
+using Services.CandidateService;
 using Services.CommonServices;
+using Services.ResponseModel.CandidateModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,7 @@ namespace Services.ScheduleServices
     public class ScheduleImpl : ISchedule
     {
 
+        ICandidate c = new CandidateImpl();
 
         public bool DeleteSchedule(List<int> listID)
         {
@@ -50,10 +53,25 @@ namespace Services.ScheduleServices
                     tobj.EndHour = T.EndHour;
                     context.RcEvents.Add(tobj);
                     context.SaveChanges();
+                    // add vào bước 2
+                    List<RcEvent> listintestview = context.RcEvents.Where(x => x.CandidateId == T.CandidateId && x.RequestId == T.RequestId && x.Classname == "interview").ToList();
+                    List<RcEvent> listtest = context.RcEvents.Where(x => x.CandidateId == T.CandidateId && x.RequestId == T.RequestId && x.Classname == "test").ToList();
+                    SetStep2 step2 = new SetStep2();
+                    step2.CandidateId = T.CandidateId;
+                    step2.RequestId = T.RequestId;
+                    if (listintestview.Count > 0)
+                    {
+                        step2.Step2InterView = 1;
+                    }
+                    if (listtest.Count > 0)
+                    {
+                        step2.Step2Test = 1;
+                    }
+                    bool check = c.AddStep2(step2);
                     return true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string mess = ex.Message;
                 return false;

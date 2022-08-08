@@ -1144,7 +1144,7 @@ namespace Services.CandidateService
                                     RequestId = rq.Id,
                                     RequestName = rq.Name,
                                     StepNow = step.StepNow,
-                                    Result= step.Result
+                                    Result = step.Result
                                 };
                     return query.FirstOrDefault();
                 }
@@ -1219,7 +1219,7 @@ namespace Services.CandidateService
                         candidatePV.NoteStep1 = pv.NoteStep1;
                         if (pv.Step1 == 1)
                         {
-                            candidatePV.StepNow += 1;
+                            candidatePV.StepNow = 2;
                             candidatePV.Result = 1;
                         }
                         else
@@ -1259,9 +1259,9 @@ namespace Services.CandidateService
                         candidatePV.Step2Test = pv.Step2Test;
                         candidatePV.NoteStep2Test = pv.NoteStep2Test;
 
-                        if (pv.Step2Test == 1 && pv.Step2InterView == 1)
+                        if (pv.Step2Test == 1 || pv.Step2InterView == 1)
                         {
-                            candidatePV.StepNow += 1;
+                            candidatePV.StepNow = 3;
                             candidatePV.Result = 1;
                         }
                         else
@@ -1302,7 +1302,7 @@ namespace Services.CandidateService
 
                         if (pv.ResultStep3InterView == 1)
                         {
-                            candidatePV.StepNow += 1;
+                            candidatePV.StepNow = 4;
                             candidatePV.Result = 1;
                         }
                         else
@@ -1345,7 +1345,7 @@ namespace Services.CandidateService
 
                         if (pv.Step4Result == 1)
                         {
-                            candidatePV.StepNow += 1;
+                            candidatePV.StepNow = 5;
                             candidatePV.Result = 1;
                         }
                         else
@@ -1383,7 +1383,7 @@ namespace Services.CandidateService
 
                         if (pv.Step5Result == 1)
                         {
-                            candidatePV.StepNow += 1;
+                            candidatePV.StepNow = 6;
                             candidatePV.Result = 1;
                         }
                         else
@@ -1447,8 +1447,8 @@ namespace Services.CandidateService
                                     DistrictOb = cv.DistrictOb,
                                     WardOb = cv.WardOb,
                                     ProvinceOb = cv.PorvinceOb,
-                                    CMND= cv.Cmnd,
-                                    CMNDPlace=cv.Cmndplace
+                                    CMND = cv.Cmnd,
+                                    CMNDPlace = cv.Cmndplace
                                 };
 
                     CandidatePV_infor obj = query.FirstOrDefault();
@@ -1545,26 +1545,26 @@ namespace Services.CandidateService
                             r1.PorvinceLive = e.PorvinceLive;
                             context.RcCandidateCvs.Update(r1);
                             // edu
-                            if(e.Major!= null)
+                            if (e.Major != null)
                             {
                                 edu.Major1 = e.Major;
                             }
-                          
-                            if(e.Graduate != null)
+
+                            if (e.Graduate != null)
                             {
                                 edu.Graduate1 = e.Graduate;
                             }
-                            if(e.School!= null)
+                            if (e.School != null)
                             {
                                 edu.School1 = e.School;
                             }
-                          
+
                             edu.Gpa1 = e.Gpa;
-                            if(e.Awards != null)
+                            if (e.Awards != null)
                             {
                                 edu.Awards1 = e.Awards;
                             }
-                           
+
                             context.RcCandidateEdus.Update(edu);
                             context.SaveChanges();
                             return true;
@@ -1604,10 +1604,10 @@ namespace Services.CandidateService
                         count++;
                     }
                 }
-            
+
                 if (!e.Phone.Trim().Equals(""))
                 {
-                    List<RcCandidateCv> list1 = list.Where(x => x.Phone== e.Phone).ToList();
+                    List<RcCandidateCv> list1 = list.Where(x => x.Phone == e.Phone).ToList();
                     if (list1.Count > 0)
                     {
                         if (count > 0)
@@ -1617,9 +1617,9 @@ namespace Services.CandidateService
                         check += " Phone Number ";
                     }
                 }
-               
-                
-           
+
+
+
             }
             return check;
         }
