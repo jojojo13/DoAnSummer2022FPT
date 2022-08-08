@@ -1663,7 +1663,15 @@ namespace Services.CandidateService
                     RcCandidatePv pv = context.RcCandidatePvs.Where(x => x.CandidateId == e.CandidateID && x.RequestId == e.RequestID).SingleOrDefault();
                     if (pv != null)
                     {
-                        pv.StepNow = 4;
+                        if (e.Result == 1)
+                        {
+                            pv.StepNow = 4;
+                            pv.Result = 1;
+                        }
+                        else
+                        {
+                            pv.Result = 0;
+                        }
                     }
                     context.SaveChanges();
                     return true;
