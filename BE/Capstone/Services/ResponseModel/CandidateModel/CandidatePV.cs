@@ -70,6 +70,7 @@ namespace Services.ResponseModel.CandidateModel
         public int? RequestId { get; set; }
         public int? Step1 { get; set; }
         public string NoteStep1 { get; set; }
+        // 
     }
     public class SetStep2
     {
@@ -144,6 +145,15 @@ namespace Services.ResponseModel.CandidateModel
         public string Phone { get; set; }
  
         public string Email { get; set; }
+    }
+    public class ResultStep3
+    {
+        public int CandidateID { get; set; }
+        public int? RequestID { get; set; }
+
+        public string Name { get; set; }
+        public decimal? Score { get; set; }
+        public string Note { get; set; }
     }
 
 }

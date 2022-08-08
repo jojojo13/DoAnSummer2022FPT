@@ -829,7 +829,26 @@ namespace API.Controllers
             }
 
         }
+        [HttpPost("GetAllResultStep3")]
+        public IActionResult GetAllResultStep3([FromBody] int requestID)
+        {
+            try {
+                List<ResultStep3> list = rc.GetAllResultStep3(requestID);
+                return Ok(new
+                {
+                    Status = true,
+                    List = list
+                });
 
+            } catch
+            {
+                return Ok(new
+                {
+                    Status= false
+
+                });
+            }
+        }
 
         #endregion
     }

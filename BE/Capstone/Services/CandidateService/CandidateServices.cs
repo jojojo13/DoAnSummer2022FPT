@@ -1302,7 +1302,6 @@ namespace Services.CandidateService
 
                         if (pv.ResultStep3InterView == 1)
                         {
-                            candidatePV.StepNow = 4;
                             candidatePV.Result = 1;
                         }
                         else
@@ -1622,6 +1621,31 @@ namespace Services.CandidateService
 
             }
             return check;
+        }
+
+        public List<ResultStep3> GetAllResultStep3(int requestID)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    var list = from c in context.RcCandidatePvs.Where(x=>x.RequestId== requestID && x.StepNow==3).ToList()
+                                             let candidate = context.RcCandidates.Where(x=>x.Id== c.CandidateId).SingleOrDefault()
+                                             select new ResultStep3
+                                             { 
+                                               CandidateID=candidate.Id,
+                                               RequestID= c.RequestId,
+                                               Name= candidate.FullName,
+                                               Score= c.ResultStep3Test,
+                                               Note= c.NoteRstep3Test
+                                             };
+                    return list.ToList();
+                }
+            }
+            catch
+            {
+                return new List<ResultStep3>();
+            }
         }
     }
 }
