@@ -130,18 +130,25 @@ namespace Services.ScheduleServices
                     DateTime endHour = Convert.ToDateTime(T.EndHour);
                     List<RcEvent> list = new List<RcEvent>();
                     list = context.RcEvents.Where(x => x.RequestId == T.RequestId && x.CandidateId == T.CandidateId).ToList();
-                    foreach(var item in list)
+                    if (list.Count > 0)
                     {
-                        DateTime from = Convert.ToDateTime(item.StartHour);
-                        DateTime to = Convert.ToDateTime(item.EndHour);
-                        if (startHour< from&& endHour<=from|| startHour>=to&& endHour>to)
+                        check = true;
+                    }
+                    else
+                    {
+                        foreach (var item in list)
                         {
-                            check = true;
-                        }
-                        else
-                        {
-                            check = false;
-                            break;
+                            DateTime from = Convert.ToDateTime(item.StartHour);
+                            DateTime to = Convert.ToDateTime(item.EndHour);
+                            if (startHour < from && endHour <= from || startHour >= to && endHour > to)
+                            {
+                                check = true;
+                            }
+                            else
+                            {
+                                check = false;
+                                break;
+                            }
                         }
                     }
                 }
