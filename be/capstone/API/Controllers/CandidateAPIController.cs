@@ -440,22 +440,23 @@ namespace API.Controllers
                                 ID = c.Id,
                                 Code = c.Code,
                                 FullName = c.FullName,
-                                Dob = cv.Dob == null ? "" : cv.Dob.Value.Year.ToString(),
-                                Phone = cv.Phone == null ? "" : cv.Phone,
-                                Email = cv.Email == null ? "" : cv.Email,
-                                Gender = cv.Gender == null ? "" : cv.Gender.ToString(),
-                                Address = cv.NoiO == null ? "" : cv.NoiO,
+                                Dob = cv == null ? "" : (cv.Dob == null ? "" : cv.Dob.Value.Year.ToString()),
+                                Phone = cv == null ? "" : (cv.Phone == null ? "" : cv.Phone),
+                                Email = cv == null ? "" : (cv.Email == null ? "" : cv.Email),
+                                Gender = cv == null ? "" : (cv.Gender == null ? "" : cv.Gender.ToString()),
+                                Address = cv == null ? "" : (cv.NoiO == null ? "" : cv.NoiO),
                                 NationLive = rc.GetNation(cv.NationLive) == null ? "" : rc.GetNation(cv.NationLive).Name,
                                 ProvinceLive = rc.GetLocation(cv.PorvinceLive) == null ? "" : rc.GetLocation(cv.PorvinceLive).Name,
-                                Zalo = cv.Zalo == null ? "" : cv.Zalo,
-                                Facebook = cv.Facebook == null ? "" : cv.Facebook,
-                                Skype = cv.Skype == null ? "" : cv.Skype,
-                                Website = cv.Website == null ? "" : cv.Website,
-                                Awards = edu.Awards1 == null ? "" : edu.Awards1,
-                                School = edu.School1 == null ? "" : edu.School1,
-                                Major = edu.Major1 == null ? "" : edu.Major1,
-                                Score = edu.Gpa1 == null ? "" : edu.Gpa1.ToString(),
-                                Graduate = edu.Graduate1 == null ? "" : edu.Graduate1.ToString(),
+                                Zalo = cv == null ? "" : (cv.Zalo == null ? "" : cv.Zalo),
+                                Facebook = cv == null ? "" : (cv.Facebook == null ? "" : cv.Facebook),
+                                Skype = cv == null ? "" : (cv.Skype == null ? "" : cv.Skype),
+                                Website = cv == null ? "" : (cv.Website == null ? "" : cv.Website),
+
+                                Awards = edu == null ? "" : (edu.Awards1 == null ? "" : edu.Awards1),
+                                School = edu == null ? "" : (edu.School1 == null ? "" : edu.School1),
+                                Major = edu == null ? "" : (edu.Major1 == null ? "" : edu.Major1),
+                                Score = edu == null ? "" : (edu.Gpa1 == null ? "" : edu.Gpa1.ToString()),
+                                Graduate = edu == null ? "" : (edu.Graduate1 == null ? "" : edu.Graduate1.Value.ToString("dd-MM-yyyy")),
                                 Language = from a in rc.GetCandidateLanguagebyID(b.Id)
                                            group a by a.TypeSkill into g
                                            select new
@@ -793,22 +794,22 @@ namespace API.Controllers
                                 ID = c.Id,
                                 Code = c.Code,
                                 FullName = c.FullName,
-                                Dob = cv.Dob == null ? "" : cv.Dob.Value.ToString("dd-MM-yyyy"),
-                                Phone = cv == null ? "" : cv.Phone,
-                                Email = cv == null ? "" : cv.Email,
-                                Gender = cv == null ? "" : cv.Gender.ToString(),
-                                Address = cv == null ? "" : cv.NoiO,
-                                NationLive = cv == null ? "" : cv.NationLive.ToString(),
-                                ProvinceLive = cv == null ? "" : cv.PorvinceLive.ToString(),
-                                Zalo = cv == null ? "" : cv.Zalo,
-                                Facebook = cv == null ? "" : cv.Facebook,
-                                Skype = cv == null ? "" : cv.Skype,
-                                Website = cv == null ? "" : cv.Website,
-                                Awards = edu == null ? "" : edu.Awards1,
-                                School = edu == null ? "" : edu.School1,
-                                Major = edu == null ? "" : edu.Major1,
+                                Dob = cv == null ? "" : (cv.Dob == null ? "" : cv.Dob.Value.ToString("dd-MM-yyyy")),
+                                Phone = cv == null ? "" : (cv.Phone == null ? "" : cv.Phone),
+                                Email = cv == null ? "" : (cv.Email == null ? "" : cv.Email),
+                                Gender = cv == null ? "" : (cv.Gender == null ? "" : cv.Gender.ToString()),
+                                Address = cv == null ? "" : (cv.NoiO == null ? "" : cv.NoiO),
+                                NationLive = cv == null ? "" : (cv.NationLive == null ? "" : cv.NationLive.ToString()),
+                                ProvinceLive = cv == null ? "" : (cv.PorvinceLive == null ? "" : cv.PorvinceLive.ToString()),
+                                Zalo = cv == null ? "" : (cv.Zalo == null ? "" : cv.Zalo),
+                                Facebook = cv == null ? "" : (cv.Facebook == null ? "" : cv.Facebook),
+                                Skype = cv == null ? "" : (cv.Skype == null ? "" : cv.Skype),
+                                Website = cv == null ? "" : (cv.Website == null ? "" : cv.Website),
+                                Awards = edu == null ? "" : (edu.Awards1 == null ? "" : edu.Awards1),
+                                School = edu == null ? "" : (edu.School1 == null ? "" : edu.School1),
+                                Major = edu == null ? "" : (edu.Major1 == null ? "" : edu.Major1),
                                 Score = edu == null ? "" : edu.Gpa1.ToString(),
-                                Graduate = edu.Graduate1 == null ? "" : edu.Graduate1.Value.ToString("dd-MM-yyyy"),
+                                Graduate = edu == null ? "" : (edu.Graduate1 == null ? "" : edu.Graduate1.Value.ToString("dd-MM-yyyy")),
                                 Note = c.Note
 
                             };
@@ -830,9 +831,10 @@ namespace API.Controllers
 
         }
         [HttpPost("GetAllResultStep3")]
-        public IActionResult GetAllResultStep3( int requestID)
+        public IActionResult GetAllResultStep3(int requestID)
         {
-            try {
+            try
+            {
                 List<ResultStep3> list = rc.GetAllResultStep3(requestID);
                 return Ok(new
                 {
@@ -840,11 +842,12 @@ namespace API.Controllers
                     List = list
                 });
 
-            } catch
+            }
+            catch
             {
                 return Ok(new
                 {
-                    Status= false
+                    Status = false
 
                 });
             }
