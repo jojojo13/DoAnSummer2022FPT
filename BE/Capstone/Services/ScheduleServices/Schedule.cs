@@ -120,6 +120,7 @@ namespace Services.ScheduleServices
 
         public bool CheckTime(RcEvent T)
         {
+            bool check = false;
             try
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
@@ -134,7 +135,12 @@ namespace Services.ScheduleServices
                         DateTime to = Convert.ToDateTime(item.EndHour);
                         if (startHour< from&& endHour<=from|| startHour>=to&& endHour>to)
                         {
-                            return true;
+                            check = true;
+                        }
+                        else
+                        {
+                            check = false;
+                            break;
                         }
                     }
                 }
@@ -142,7 +148,7 @@ namespace Services.ScheduleServices
             catch
             {
             }
-            return false;
+            return check;
         }
 
     }
