@@ -118,5 +118,32 @@ namespace Services.ScheduleServices
             return list;
         }
 
+        public bool CheckTime(RcEvent T)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    DateTime startHour = Convert.ToDateTime(T.StartHour);
+                    DateTime endHour = Convert.ToDateTime(T.EndHour);
+                    List<RcEvent> list = new List<RcEvent>();
+                    list = context.RcEvents.Where(x => x.RequestId == T.RequestId && x.CandidateId == T.CandidateId).ToList();
+                    foreach(var item in list)
+                    {
+                        DateTime from = Convert.ToDateTime(item.StartHour);
+                        DateTime to = Convert.ToDateTime(item.EndHour);
+                        if (startHour< from&& endHour<=from|| startHour>=to&& endHour>to)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return false;
+        }
+
     }
 }

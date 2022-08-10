@@ -14,6 +14,8 @@ namespace Services.ScheduleServices
         bool InsertSchedule(RcEvent T);
         bool ModifySchedule(RcEvent T);
         bool DeleteSchedule(List<int> listID);
+
+        bool CheckTime(RcEvent T);
         #endregion
     }
 }

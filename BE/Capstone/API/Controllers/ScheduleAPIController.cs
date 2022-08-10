@@ -79,7 +79,6 @@ namespace API.Controllers
         [HttpPost("InsertSchedule")]
         public IActionResult InsertSchedule([FromBody] ModifyEventResponse T)
         {
-
             try
             {
                 RcEvent tobj = new RcEvent();
@@ -89,10 +88,34 @@ namespace API.Controllers
                 tobj.Title = T.Title;
                 tobj.StartHour = T.StartHour;
                 tobj.EndHour = T.EndHour;
-                return Ok(new
+                if (!schedule.CheckTime(tobj))
                 {
-                    Status = schedule.InsertSchedule(tobj)
-                });
+                    return Ok(new
+                    {
+                        Mess = "Can't add event because of the same time!",
+                        Status = false
+                    });
+                }
+                else
+                {
+                    var check = schedule.InsertSchedule(tobj);
+                    if (check)
+                    {
+                        return Ok(new
+                        {
+                            Mess = "Insert Event success!",
+                            Status = true
+                        });
+                    }
+                    else
+                    {
+                        return Ok(new
+                        {
+                            Mess = "Something is wrong!",
+                            Status = false
+                        });
+                    }
+                }
             }
             catch
             {
@@ -132,6 +155,8 @@ namespace API.Controllers
                 });
             }
         }
+
+
 
         #endregion
     }
