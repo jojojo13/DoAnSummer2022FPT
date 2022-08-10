@@ -14,7 +14,8 @@ namespace ModelAuto.Models
         public string StartHour { get; set; }
         public string EndHour { get; set; }
         public string Classname { get; set; }
-
+        public string Score { get; set; }
+        public string Note { get; set; }
         public virtual RcCandidate Candidate { get; set; }
         public virtual RcRequest Request { get; set; }
     }

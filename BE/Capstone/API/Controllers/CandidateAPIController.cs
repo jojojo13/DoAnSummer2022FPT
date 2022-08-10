@@ -7,6 +7,8 @@ using Services.CandidateService;
 using Services.CommonServices;
 using Services.ResponseModel.CandidateModel;
 using Services.ResponseModel.RequestModel;
+using Services.ResponseModel.Schedule;
+using Services.ScheduleServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,7 @@ namespace API.Controllers
     {
         private ICandidate rc = new CandidateImpl();
         private ICommon c = new CommonImpl();
+        private ISchedule s = new ScheduleImpl();
         [HttpPost("GetSkillSheet")]
         public IActionResult GetSkillSheet(string code1)
         {
@@ -871,7 +874,29 @@ namespace API.Controllers
                 });
             }
         }
+        [HttpPost("ViewStep3RcEvent")]
+        public IActionResult ViewStep3RcEvent(int candidate, int request)
+        {
+            try
+            {
+                ListSchedule l = new ListSchedule { Interview = s.GettoAddStep3Interview(candidate, request), Test = s.GettoAddStep3Test(candidate, request) };
 
+
+                return Ok(new
+                {
+                    Status = true,
+                    Data = l
+                });
+
+            }
+            catch
+            {
+                return Ok(new
+                {
+                    Status = false
+                });
+            }
+        }
         #endregion
     }
 }

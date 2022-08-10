@@ -1,4 +1,5 @@
 ﻿using ModelAuto.Models;
+using Services.ResponseModel.Schedule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,8 @@ namespace Services.ScheduleServices
 
         bool CheckTime(RcEvent T);
         #endregion
+
+        List<ScheduleRes> GettoAddStep3Interview(int candidate, int request);
+        List<ScheduleRes> GettoAddStep3Test(int candidate, int request);
     }
 }
