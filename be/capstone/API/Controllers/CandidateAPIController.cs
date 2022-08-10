@@ -838,12 +838,25 @@ namespace API.Controllers
         {
             try
             {
-                List<ResultStep3> list = rc.GetAllResultStep3(requestID);
-                return Ok(new
+                using (var context = new CapstoneProject2022Context())
                 {
-                    Status = true,
-                    List = list
-                });
+                    var list = from c1 in context.RcCandidatePvs.Where(x => x.RequestId == requestID && x.StepNow == 3).ToList()
+                               let candidate = rc.GetCandidateByID((int)c1.CandidateId)
+                               select new ResultStep3
+                               {
+                                   CandidateID = candidate.Id,
+                                   RequestID = c1.RequestId,
+                                   Name = candidate.FullName,
+                                   InterView = s.GettoAddStep3Interview(candidate.Id, (int)c1.RequestId),
+                                   Test = s.GettoAddStep3Test(candidate.Id, (int)c1.RequestId)
+                               };
+                    return Ok(new
+                    {
+                        Status = true,
+                        List = list
+                    });
+                }
+
 
             }
             catch
@@ -854,6 +867,7 @@ namespace API.Controllers
 
                 });
             }
+
         }
         [HttpPost("PassStep3to4")]
         public IActionResult PassStep3to4([FromBody] PassStep3 e)

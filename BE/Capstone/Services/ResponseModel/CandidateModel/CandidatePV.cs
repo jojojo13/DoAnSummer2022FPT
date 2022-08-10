@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.ResponseModel.Schedule;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -153,12 +154,12 @@ namespace Services.ResponseModel.CandidateModel
     }
     public class ResultStep3
     {
-        public int CandidateID { get; set; }
+        public int? CandidateID { get; set; }
         public int? RequestID { get; set; }
-
         public string Name { get; set; }
-        public decimal? Score { get; set; }
-        public string Note { get; set; }
+        public List<ScheduleRes> InterView { get; set; }
+        public List<ScheduleRes> Test { get; set; }
+
     }
     public class PassStep3
     {

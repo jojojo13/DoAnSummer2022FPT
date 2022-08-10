@@ -3,6 +3,7 @@ using Services.CommonServices;
 using Services.ResponseModel.CandidateModel;
 using Services.ResponseModel.RequestModel;
 using Services.ResponseModel.Schedule;
+using Services.ScheduleServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Services.CandidateService
 {
     public class CandidateImpl : ICandidate
     {
+       
         public List<OtherList> GetOtherListByAttribute(int? ID)
         {
             try
@@ -1630,10 +1632,9 @@ namespace Services.CandidateService
                                    CandidateID = candidate.Id,
                                    RequestID = c.RequestId,
                                    Name = candidate.FullName,
-                                   Score = c.ResultStep3Test,
-                                   Note = c.NoteRstep3Test
+                                
                                };
-                    return list.OrderByDescending(x => x.Score).ToList();
+                    return list.ToList();
                 }
             }
             catch
