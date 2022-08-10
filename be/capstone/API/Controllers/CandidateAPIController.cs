@@ -269,7 +269,7 @@ namespace API.Controllers
         }
 
         [HttpPost("SetStep3CandidatePV")]
-        public IActionResult SetStep3CandidatePV([FromBody] SetStep3 pv)
+        public IActionResult SetStep3CandidatePV([FromBody] List<ScheduleRes> pv)
         {
             try
             {

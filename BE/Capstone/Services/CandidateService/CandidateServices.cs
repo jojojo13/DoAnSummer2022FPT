@@ -2,6 +2,7 @@
 using Services.CommonServices;
 using Services.ResponseModel.CandidateModel;
 using Services.ResponseModel.RequestModel;
+using Services.ResponseModel.Schedule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1292,38 +1293,24 @@ namespace Services.CandidateService
             }
         }
 
-        public bool AddStep3(SetStep3 pv)
+        public bool AddStep3(List<ScheduleRes> pv)
         {
             try
             {
                 using (var context = new CapstoneProject2022Context())
                 {
-                    RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
-                    if (candidatePV != null)
+                    foreach (ScheduleRes item in pv)
                     {
-                        candidatePV.ResultStep3Test = pv.ResultStep3Test;
-                        candidatePV.NoteRstep3Test = pv.NoteRstep3Test;
-                        candidatePV.ResultStep3InterView = pv.ResultStep3InterView;
-                        candidatePV.NoteRstep3InterView = pv.NoteRstep3InterView;
-
-
-                        if (pv.ResultStep3InterView == 1)
+                        RcEvent e = context.RcEvents.Where(x => x.Id == item.Id).SingleOrDefault();
+                        if (e != null)
                         {
-                            candidatePV.Result = 1;
+                            e.Score = item.Score;
+                            e.Note = item.Note;
+                            context.SaveChanges();
                         }
-                        else
-                        {
-                            candidatePV.Result = 0;
-                        }
-
-                        context.SaveChanges();
-                        return true;
-
                     }
-                    else
-                    {
-                        return false;
-                    }
+
+                    return true;
                 }
             }
             catch
@@ -1636,17 +1623,17 @@ namespace Services.CandidateService
             {
                 using (var context = new CapstoneProject2022Context())
                 {
-                    var list = from c in context.RcCandidatePvs.Where(x=>x.RequestId== requestID && x.StepNow==3).ToList()
-                                             let candidate = context.RcCandidates.Where(x=>x.Id== c.CandidateId).SingleOrDefault()
-                                             select new ResultStep3
-                                             { 
-                                               CandidateID=candidate.Id,
-                                               RequestID= c.RequestId,
-                                               Name= candidate.FullName,
-                                               Score= c.ResultStep3Test,
-                                               Note= c.NoteRstep3Test
-                                             };
-                    return list.OrderByDescending(x=>x.Score).ToList();
+                    var list = from c in context.RcCandidatePvs.Where(x => x.RequestId == requestID && x.StepNow == 3).ToList()
+                               let candidate = context.RcCandidates.Where(x => x.Id == c.CandidateId).SingleOrDefault()
+                               select new ResultStep3
+                               {
+                                   CandidateID = candidate.Id,
+                                   RequestID = c.RequestId,
+                                   Name = candidate.FullName,
+                                   Score = c.ResultStep3Test,
+                                   Note = c.NoteRstep3Test
+                               };
+                    return list.OrderByDescending(x => x.Score).ToList();
                 }
             }
             catch
@@ -1657,7 +1644,8 @@ namespace Services.CandidateService
 
         public bool PassStep3_4(PassStep3 e)
         {
-            try {
+            try
+            {
                 using (var context = new CapstoneProject2022Context())
                 {
                     RcCandidatePv pv = context.RcCandidatePvs.Where(x => x.CandidateId == e.CandidateID && x.RequestId == e.RequestID).SingleOrDefault();
@@ -1676,7 +1664,8 @@ namespace Services.CandidateService
                     context.SaveChanges();
                     return true;
                 }
-            } catch
+            }
+            catch
             {
                 return false;
             }
