@@ -80,10 +80,15 @@ namespace Services.ProfileServices
         EmployeeProfileResponseServices getEmployeeProfile(int? ID);
         List<ContractEmployeeResponse> GetContractEmployee(int index, int size, ref int totalItem);
         List<ContractEmployeeResponse> GetContractEmployeeByFilter(int index, int size, ref int totalItem,string name, string code, string orgName, string contractNo, string contractType, string position, DateTime effectDate, DateTime exDate, string status );
+       
+        
+        
         bool InsertContractEmployee(ContractEmployeeResponse obj);
         bool ModifyContractEmployee(ContractEmployeeResponse obj);
         bool DeleteContractEmployee(List<int> list);
         bool ActiveOrDeActiveEmployeeContract(List<int> list, int status);
+        ContractEmployeeResponse getContractEmployeeById(int id);
+
         #endregion
 
     }

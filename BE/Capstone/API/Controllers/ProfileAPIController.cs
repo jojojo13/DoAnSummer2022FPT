@@ -1233,12 +1233,19 @@ namespace API.Controllers
         }
 
 
+        [HttpPost("getContractEmployeeById")]
+        public IActionResult getContractEmployeeById(int id)
+        {
+            return Ok(new
+            {
+                Data = profile.getContractEmployeeById(id)
+            });
+        }
+
+            #endregion
 
 
-        #endregion
 
 
-
-
+        }
     }
-}

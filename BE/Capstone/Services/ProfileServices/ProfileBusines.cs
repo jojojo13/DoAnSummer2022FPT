@@ -370,6 +370,7 @@ namespace Services.ProfileServices
                     obj.PositionId = T.PositionId;
                     obj.EmployeeId = T.EmployeeId;
                     obj.Status = -1;
+                    obj.Note = T.Note;
                     context.EmployeeContracts.Add(obj);
                     context.SaveChanges();
                     return true;
@@ -395,6 +396,7 @@ namespace Services.ProfileServices
                     obj.OrgnizationId = T.OrgnizationId;
                     obj.PositionId = T.PositionId;
                     obj.EmployeeId = T.EmployeeId;
+                    obj.Note = T.Note;
                     context.SaveChanges();
                     return true;
                 }
@@ -446,6 +448,40 @@ namespace Services.ProfileServices
             catch
             {
                 return false;
+            }
+        }
+
+        public ContractEmployeeResponse getContractEmployeeById(int id)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    var query = from c in context.EmployeeContracts.Where(x => x.Id == id)
+                                from e in context.Employees.Where(x => x.Id == c.EmployeeId).DefaultIfEmpty()
+                                from o in context.Orgnizations.Where(x => x.Id == e.OrgnizationId).DefaultIfEmpty()
+                                from p in context.Positions.Where(x => x.Id == e.PositionId).DefaultIfEmpty()
+                                from con in context.ContractTypes.Where(x => x.Id == c.ContractTypeId).DefaultIfEmpty()
+                                select new ContractEmployeeResponse
+                                {
+                                    Name = e.FullName,
+                                    ContractNo = c.ContractNo,
+                                    ContractTypeId = c.ContractTypeId,
+                                    OrgnizationName = o.Name,
+                                    OrgnizationId = c.OrgnizationId,
+                                    PositionId = c.PositionId,
+                                    Position = p.Name,
+                                    EffectDate = Convert.ToDateTime(c.EffectDate).ToString("yyyy-MM-dd"),
+                                    ExpireDate = c.ExpireDate == null ? "" : Convert.ToDateTime(c.ExpireDate).ToString("yyyy-MM-dd"),
+                                    Note = c.Note
+                                };
+
+                    return query.FirstOrDefault();
+                }
+            }
+            catch
+            {
+                return new ContractEmployeeResponse();
             }
         }
 
