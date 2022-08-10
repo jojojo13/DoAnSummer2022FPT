@@ -305,6 +305,7 @@ namespace Services.ProfileServices
                                      Status = c.Status == -1 ? "Approved" : "Reject"
                                  }).ToList();
                     totalItem = query.Count();
+                    list = query.ToList();
 
                     if (!name.Trim().Equals(""))
                     {
@@ -342,7 +343,7 @@ namespace Services.ProfileServices
                     {
                         list = list.Where(x => x.Status.ToLower().Contains(status.Trim().ToLower())).ToList();
                     }
-                    list = query.OrderByDescending(x => x.ID).Skip(index * size).Take(size).ToList();
+                    list = list.OrderByDescending(x => x.ID).Skip(index * size).Take(size).ToList();
                 }
             }
             catch
@@ -361,10 +362,14 @@ namespace Services.ProfileServices
                     obj.ContractNo = T.ContractNo;
                     obj.ContractTypeId = T.ContractTypeId;
                     obj.EffectDate = T.Effect;
-                    obj.ExpireDate = T.Expire;
+                    if (T.Expire.Value.Year != 1000)
+                    {
+                        obj.ExpireDate = T.Expire;
+                    }
                     obj.OrgnizationId = T.OrgnizationId;
                     obj.PositionId = T.PositionId;
                     obj.EmployeeId = T.EmployeeId;
+                    obj.Status = -1;
                     context.EmployeeContracts.Add(obj);
                     context.SaveChanges();
                     return true;
