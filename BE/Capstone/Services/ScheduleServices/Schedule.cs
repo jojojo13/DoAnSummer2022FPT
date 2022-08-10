@@ -2,6 +2,7 @@
 using Services.CandidateService;
 using Services.CommonServices;
 using Services.ResponseModel.CandidateModel;
+using Services.ResponseModel.Schedule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -150,6 +151,41 @@ namespace Services.ScheduleServices
             }
             return check;
         }
+        public List<ScheduleRes> GettoAddStep3Interview(int candidate, int request)
+        {
+
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    var list = from c in context.RcEvents.Where(x => x.RequestId == request && x.CandidateId == candidate && x.Classname == "interview").ToList()
+                               select new ScheduleRes { Id = c.Id, Title = c.Title, Score = c.Score, Note = c.Note };
+                    return list.OrderBy(x => x.Id).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<ScheduleRes> GettoAddStep3Test(int candidate, int request)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    var list = from c in context.RcEvents.Where(x => x.RequestId == request && x.CandidateId == candidate && x.Classname == "test").ToList()
+                               select new ScheduleRes { Id = c.Id, Title = c.Title, Score = c.Score, Note = c.Note };
+                    return list.OrderBy(x => x.Id).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
 
     }
 }
