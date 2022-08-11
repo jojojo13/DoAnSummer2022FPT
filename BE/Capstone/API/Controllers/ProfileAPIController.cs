@@ -1120,6 +1120,7 @@ namespace API.Controllers
                 obj.OrgnizationId = T.OrgnizationId;
                 obj.PositionId = T.PositionId;
                 obj.EmployeeId = T.EmployeeId;
+                obj.Note = T.Note;
                 var check = profile.InsertContractEmployee(obj);
                 if (check)
                     return Ok(new
@@ -1157,6 +1158,7 @@ namespace API.Controllers
                 obj.OrgnizationId = T.OrgnizationId;
                 obj.PositionId = T.PositionId;
                 obj.EmployeeId = T.EmployeeId;
+                obj.Note = T.Note;
                 var check = profile.ModifyContractEmployee(obj);
                 if (check)
                     return Ok(new

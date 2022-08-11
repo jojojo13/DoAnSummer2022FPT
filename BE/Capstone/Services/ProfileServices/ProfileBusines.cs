@@ -473,7 +473,8 @@ namespace Services.ProfileServices
                                     Position = p.Name,
                                     EffectDate = Convert.ToDateTime(c.EffectDate).ToString("yyyy-MM-dd"),
                                     ExpireDate = c.ExpireDate == null ? "" : Convert.ToDateTime(c.ExpireDate).ToString("yyyy-MM-dd"),
-                                    Note = c.Note
+                                    Note = c.Note,
+                                    EmployeeId=e.Id
                                 };
 
                     return query.FirstOrDefault();
