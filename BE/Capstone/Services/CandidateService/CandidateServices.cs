@@ -1330,10 +1330,7 @@ namespace Services.CandidateService
                     RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
                     if (candidatePV != null)
                     {
-                        candidatePV.CtyOffer = pv.CtyOffer;
-                        candidatePV.NoteCtyOffer = pv.NoteCtyOffer;
-                        candidatePV.Uvoffer = pv.Uvoffer;
-                        candidatePV.NoteUvoffer = pv.NoteUvoffer;
+                   
                         candidatePV.FinalOffer = pv.FinalOffer;
                         candidatePV.NoteFinalOffer = pv.NoteFinalOffer;
 

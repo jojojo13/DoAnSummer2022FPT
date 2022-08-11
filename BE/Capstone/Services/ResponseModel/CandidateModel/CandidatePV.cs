@@ -100,10 +100,7 @@ namespace Services.ResponseModel.CandidateModel
     {
         public int? CandidateId { get; set; }
         public int? RequestId { get; set; }
-        public decimal? CtyOffer { get; set; }
-        public string NoteCtyOffer { get; set; }
-        public decimal? Uvoffer { get; set; }
-        public string NoteUvoffer { get; set; }
+   
         public string NoteFinalOffer { get; set; }
         public decimal? FinalOffer { get; set; }
         public int? Step4Result { get; set; }
