@@ -51,12 +51,13 @@ namespace API
                 options.IdleTimeout = TimeSpan.FromSeconds(1000);
                 options.Cookie.IsEssential = true;
             });
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
+            //services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            //{
+            //    builder.AllowAnyOrigin()
+            //           .AllowAnyMethod()
+            //           .AllowAnyHeader();
+            //}));
+            services.AddCors();
 
             services.AddSwaggerGen(c =>
             {
@@ -87,6 +88,13 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
         }
     }
 }

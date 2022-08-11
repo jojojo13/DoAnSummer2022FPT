@@ -136,7 +136,6 @@ D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\ModelAuto.dll
 D:\Capstone\BE\Capstone\API\bin\Debug\net5.0\ModelAuto.pdb
 D:\Capstone\BE\Capstone\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\bin\Debug\net5.0\appsettings.Development.json
-C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\bin\Debug\net5.0\appsettings.json
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\bin\Debug\net5.0\API.exe
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\bin\Debug\net5.0\API.deps.json
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\bin\Debug\net5.0\API.runtimeconfig.json
