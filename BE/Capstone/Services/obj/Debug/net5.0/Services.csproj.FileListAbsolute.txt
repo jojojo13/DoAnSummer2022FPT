@@ -27,3 +27,4 @@ C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\Services\obj\Debug\n
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\Services\obj\Debug\net5.0\Services.dll
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\Services\obj\Debug\net5.0\ref\Services.dll
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\Services\obj\Debug\net5.0\Services.pdb
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\Services\obj\Debug\net5.0\Services.csprojAssemblyReference.cache
