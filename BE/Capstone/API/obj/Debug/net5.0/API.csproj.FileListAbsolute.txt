@@ -207,3 +207,4 @@ C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\obj\Debug\net5.0
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\obj\Debug\net5.0\ref\API.dll
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\obj\Debug\net5.0\API.pdb
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
