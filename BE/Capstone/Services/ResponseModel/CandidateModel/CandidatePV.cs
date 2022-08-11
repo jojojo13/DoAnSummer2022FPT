@@ -68,6 +68,8 @@ namespace Services.ResponseModel.CandidateModel
         public decimal? Step3Score { get; set; }
         public string Step3TestNote { get; set; }
         public string Step3InterNote { get; set; }
+        public string Offer { get; set; }
+        public string NoteOffer { get; set; }
     }
     public class SetStep1
     {

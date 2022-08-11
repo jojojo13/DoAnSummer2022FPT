@@ -1152,7 +1152,9 @@ namespace Services.CandidateService
                                     Step3Score = step.ResultStep3Test == null ? null : step.ResultStep3Test,
                                     Step3Test = step.ResultStep3InterView == null ? null : step.ResultStep3InterView,
                                     Step3InterNote = step.NoteRstep3InterView,
-                                    Step3TestNote = step.NoteRstep3Test
+                                    Step3TestNote = step.NoteRstep3Test,
+                                    Offer= step.FinalOffer.ToString(),
+                                    NoteOffer= step.NoteFinalOffer
 
                                 };
                     return query.FirstOrDefault();
