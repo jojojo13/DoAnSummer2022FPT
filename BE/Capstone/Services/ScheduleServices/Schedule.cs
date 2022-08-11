@@ -130,7 +130,7 @@ namespace Services.ScheduleServices
                     DateTime endHour = Convert.ToDateTime(T.EndHour);
                     List<RcEvent> list = new List<RcEvent>();
                     list = context.RcEvents.Where(x => x.RequestId == T.RequestId && x.CandidateId == T.CandidateId).ToList();
-                    if (list.Count > 0)
+                    if (list.Count == 0)
                     {
                         check = true;
                     }
