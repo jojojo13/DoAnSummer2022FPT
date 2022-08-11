@@ -1244,10 +1244,19 @@ namespace API.Controllers
             });
         }
 
-            #endregion
-
-
-
-
+        [HttpGet("LONGDH")]
+        public IActionResult LONGDH()
+        {
+            return Ok(new
+            {
+                Data = "Xin chào mọi người , mình là LONGDH"
+            });
         }
+
+        #endregion
+
+
+
+
+    }
     }
