@@ -912,5 +912,20 @@ namespace API.Controllers
             }
         }
         #endregion
+
+        #region report
+        [HttpPost("ReportByYear")]
+        public IActionResult ReportByYear(int year)
+        {
+
+            int total = 0;
+            List<ReportResponse> list = rc.reportByYear(year, ref total);
+            return Ok(new
+            {
+                TotalInYear = total,
+                Data = list
+            });
+        }
+        #endregion
     }
 }

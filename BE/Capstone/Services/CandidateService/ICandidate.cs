@@ -101,5 +101,9 @@ namespace Services.CandidateService
 
         bool Onboard(int candidateId, int requestId);
         #endregion
+        #region Report
+        List<ReportResponse> reportByYear(int year, ref int total);
+
+        #endregion
     }
 }

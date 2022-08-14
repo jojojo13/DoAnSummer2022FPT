@@ -14,7 +14,7 @@ namespace Services.CandidateService
 {
     public class CandidateImpl : ICandidate
     {
-       
+
         public List<OtherList> GetOtherListByAttribute(int? ID)
         {
             try
@@ -1153,8 +1153,8 @@ namespace Services.CandidateService
                                     Step3Test = step.ResultStep3InterView == null ? null : step.ResultStep3InterView,
                                     Step3InterNote = step.NoteRstep3InterView,
                                     Step3TestNote = step.NoteRstep3Test,
-                                    Offer= step.FinalOffer.ToString(),
-                                    NoteOffer= step.NoteFinalOffer
+                                    Offer = step.FinalOffer.ToString(),
+                                    NoteOffer = step.NoteFinalOffer
 
                                 };
                     return query.FirstOrDefault();
@@ -1332,7 +1332,7 @@ namespace Services.CandidateService
                     RcCandidatePv candidatePV = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.RequestId == pv.RequestId).SingleOrDefault();
                     if (candidatePV != null)
                     {
-                   
+
                         candidatePV.FinalOffer = pv.FinalOffer;
                         candidatePV.NoteFinalOffer = pv.NoteFinalOffer;
 
@@ -1631,7 +1631,7 @@ namespace Services.CandidateService
                                    CandidateID = candidate.Id,
                                    RequestID = c.RequestId,
                                    Name = candidate.FullName,
-                                
+
                                };
                     return list.ToList();
                 }
@@ -1669,6 +1669,36 @@ namespace Services.CandidateService
             {
                 return false;
             }
+        }
+
+        public List<ReportResponse> reportByYear(int year, ref int total)
+        {
+            List<ReportResponse> listReturn = new List<ReportResponse>();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    var list = context.RcCandidates.Where(x => x.CreateDate.Value.Year == year).ToList();
+                    total = list.Count();
+                    listReturn.Add(new ReportResponse ("1",list.Where(x => x.CreateDate.Value.Month == 1).Count()));
+                    listReturn.Add(new ReportResponse ("2",list.Where(x => x.CreateDate.Value.Month == 2).Count()));
+                    listReturn.Add(new ReportResponse ("3",list.Where(x => x.CreateDate.Value.Month == 3).Count()));
+                    listReturn.Add(new ReportResponse ("4",list.Where(x => x.CreateDate.Value.Month == 4).Count()));
+                    listReturn.Add(new ReportResponse ("5",list.Where(x => x.CreateDate.Value.Month == 5).Count()));
+                    listReturn.Add(new ReportResponse ("6",list.Where(x => x.CreateDate.Value.Month == 6).Count()));
+                    listReturn.Add(new ReportResponse ("7",list.Where(x => x.CreateDate.Value.Month == 7).Count()));
+                    listReturn.Add(new ReportResponse ("8",list.Where(x => x.CreateDate.Value.Month == 8).Count()));
+                    listReturn.Add(new ReportResponse ("9",list.Where(x => x.CreateDate.Value.Month == 9).Count()));
+                    listReturn.Add(new ReportResponse ("10",list.Where(x => x.CreateDate.Value.Month == 10).Count()));
+                    listReturn.Add(new ReportResponse ("11",list.Where(x => x.CreateDate.Value.Month == 11).Count()));
+                    listReturn.Add(new ReportResponse ("12",list.Where(x => x.CreateDate.Value.Month == 12).Count()));
+                    return listReturn;
+                }
+            }
+            catch
+            {
+            }
+            return listReturn;
         }
     }
 }
