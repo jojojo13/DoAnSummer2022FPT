@@ -926,6 +926,36 @@ namespace API.Controllers
                 Data = list
             });
         }
+        [HttpGet("ReportStep1")]
+        public IActionResult ReportStep1()
+        {
+            ReportResult a = rc.PassStep1();
+
+            return Ok(new
+            {
+                Data = a
+            });
+        }
+        [HttpGet("ReportStep3")]
+        public IActionResult ReportStep3()
+        {
+            ReportResult a = rc.JoinInterview();
+
+            return Ok(new
+            {
+                Data = a
+            });
+        }
+        [HttpGet("ReportPassStep5")]
+        public IActionResult ReportPassStep5()
+        {
+            ReportResult a = rc.PassStep5();
+
+            return Ok(new
+            {
+                Data = a
+            });
+        }
         #endregion
     }
 }
