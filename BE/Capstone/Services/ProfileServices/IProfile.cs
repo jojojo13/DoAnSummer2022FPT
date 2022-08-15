@@ -75,6 +75,10 @@ namespace Services.ProfileServices
         Employee GetEmployeeByID(int? ID);
         EmployeeCv GetEmployeeCvByEmpID(int? ID);
         EmployeeEdu GetEmployeeEduByEmpID(int? ID);
+
+        bool modifyEmployee(EmployeeProfileResponseServices obj);
+
+
         List<EmployeeContract> GetListEmployeeContractByEmpID(int? ID);
         int getTotalEmployee(int OrgID);
         EmployeeProfileResponseServices getEmployeeProfile(int? ID);

@@ -474,7 +474,7 @@ namespace Services.ProfileServices
                                     EffectDate = Convert.ToDateTime(c.EffectDate).ToString("yyyy-MM-dd"),
                                     ExpireDate = c.ExpireDate == null ? "" : Convert.ToDateTime(c.ExpireDate).ToString("yyyy-MM-dd"),
                                     Note = c.Note,
-                                    EmployeeId=e.Id
+                                    EmployeeId = e.Id
                                 };
 
                     return query.FirstOrDefault();
@@ -483,6 +483,53 @@ namespace Services.ProfileServices
             catch
             {
                 return new ContractEmployeeResponse();
+            }
+        }
+
+        public bool modifyEmployee(EmployeeProfileResponseServices obj)
+        {
+            try
+            {
+                using (CapstoneProject2022Context context = new CapstoneProject2022Context())
+                {
+                    EmployeeCv cv = context.EmployeeCvs.Where(x => x.EmployeeId == obj.ID).FirstOrDefault();
+                    cv.Gender = obj.Gender;
+                    cv.Dob = obj.DOB;
+                    cv.Phone = obj.PhoneNumber;
+                    cv.Email = obj.Email;
+                    cv.DanToc = obj.DanToc;
+                    cv.QuocTich = obj.QuocTich;
+                    cv.HoKhau = obj.HoKhau;
+                    cv.NationHk = obj.NationHK;
+                    cv.ProvinceHk = obj.ProvinceHK;
+                    cv.DistrictHk = obj.DistrictHK;
+                    cv.WardHk = obj.WardHK;
+                    cv.NoiO = obj.NoiO;
+                    cv.NationLive = obj.NationNoiO;
+                    cv.ProvinceLive = obj.ProvinceNoiO;
+                    cv.DistrictLive = obj.DistrictNoiO;
+                    cv.WardLive = obj.WardNoiO;
+
+                    EmployeeEdu edu = context.EmployeeEdus.Where(x => x.EmployeeId == obj.ID).FirstOrDefault();
+                    edu.School1 = obj.School;
+                    edu.Award1 = obj.Award;
+                    edu.DeeGree1 = obj.Degree;
+                    edu.Major1 = obj.Major;
+                    edu.LearningLevel = obj.LearningLV;
+                    edu.Language1 = obj.Language1;
+                    edu.LanScore1 = obj.Score1;
+                    edu.LanSkill1 = obj.Skill1;
+                    edu.InforMaticsLevel1 = obj.informaticLV;
+                    edu.LanSkill2 = obj.Skill2;
+                    edu.LanScore2 = obj.Score2;
+                    edu.Language2 = obj.Language2;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 

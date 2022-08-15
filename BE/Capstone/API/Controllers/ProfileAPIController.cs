@@ -971,7 +971,6 @@ namespace API.Controllers
             Employee e = profile.GetEmployeeByID(empID);
             EmployeeCv cv = profile.GetEmployeeCvByEmpID(empID);
             EmployeeEdu edu = profile.GetEmployeeEduByEmpID(empID);
-            List<EmployeeContract> listEmpContract = profile.GetListEmployeeContractByEmpID(empID);
             var employeeReturn = new
             {
                 //e
@@ -1044,27 +1043,23 @@ namespace API.Controllers
                 language3 = edu.Language3Navigation?.Name,
                 language1Id = edu.Language1,
                 language2Id = edu.Language2,
-                language3Id = edu.Language3,
-                EmpContract = from lst in listEmpContract
-                              select new
-                              {
-                                  contractNo = lst.ContractNo,
-                                  contractType = lst.ContractType?.Name,
-                                  effectdate = lst.EffectDate,
-                                  expiredate = lst.ExpireDate,
-                                  signName = lst.Sign?.FullName,
-                                  signDate = lst.SignDate,
-                                  status = lst.Status,
-                                  note = lst.Note,
-                                  positionName = lst.Position?.Name,
-                                  orgname = lst.Orgnization?.Name
-                              }
+                language3Id = edu.Language3
             };
             return Ok(new
             {
                 Data = employeeReturn
             });
         }
+
+        [HttpPost("ModifyEmployee")]
+        public IActionResult ModifyEmployee([FromBody] EmployeeProfileResponseServices obj)
+        {
+            return Ok(new
+            {
+                Data = profile.modifyEmployee(obj)
+            });
+        }
+
 
 
 
@@ -1084,20 +1079,20 @@ namespace API.Controllers
         {
             List<ContractEmployeeResponse> list = new List<ContractEmployeeResponse>();
             int total = 0;
-            list = profile.GetContractEmployee(index, size,ref total);
+            list = profile.GetContractEmployee(index, size, ref total);
             return Ok(new
             {
                 Data = list,
-                TotalItem= total
+                TotalItem = total
             });
         }
 
         [HttpPost("GetContractEmployeeByFilter")]
-        public IActionResult GetContractEmployeeByFilter([FromBody] ContractEmpResponse obj )
+        public IActionResult GetContractEmployeeByFilter([FromBody] ContractEmpResponse obj)
         {
             List<ContractEmployeeResponse> list = new List<ContractEmployeeResponse>();
             int total = 0;
-            list = profile.GetContractEmployeeByFilter(obj.index, obj.size, ref total,obj.Name, obj.Code, obj.OrgnizationName, obj.ContractNo,obj.ContractType,obj.Position,obj.EffectDate, obj.ExpireDate,obj.Status);
+            list = profile.GetContractEmployeeByFilter(obj.index, obj.size, ref total, obj.Name, obj.Code, obj.OrgnizationName, obj.ContractNo, obj.ContractType, obj.Position, obj.EffectDate, obj.ExpireDate, obj.Status);
             return Ok(new
             {
                 Data = list,
@@ -1259,4 +1254,4 @@ namespace API.Controllers
 
 
     }
-    }
+}
