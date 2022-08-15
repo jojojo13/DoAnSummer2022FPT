@@ -1711,8 +1711,10 @@ namespace Services.CandidateService
                 {
                     List<RcCandidatePv> list = context.RcCandidatePvs.Where(x => x.StepNow > 1).ToList();
                     List<RcCandidatePv> list1 = context.RcCandidatePvs.Where(x => x.StepNow == 1 && x.Result == 0).ToList();
+                    List<RcCandidatePv> list2 = context.RcCandidatePvs.Where(x => x.StepNow == 1 && x.Result == null).ToList();
                     a.ResultPass = list.Count();
-                    a.Total = list.Count() + list1.Count();
+                    a.ResultNotPass =  list1.Count();
+                    a.ChuaTH = list2.Count();
                 }
             
 
@@ -1734,12 +1736,14 @@ namespace Services.CandidateService
                 using (var context = new CapstoneProject2022Context())
                 {
                     List<RcCandidatePv> list = context.RcCandidatePvs.Where(x => x.StepNow > 3).ToList();
-                    List<RcCandidatePv> list1 = context.RcCandidatePvs.Where(x => x.StepNow == 3 && x.Result==0).ToList();
+                    List<RcCandidatePv> list1 = context.RcCandidatePvs.Where(x => x.StepNow == 3 && x.Result == 0).ToList();
+                    List<RcCandidatePv> list2 = context.RcCandidatePvs.Where(x => x.StepNow == 3 && x.Result == 1).ToList();
                     a.ResultPass = list.Count();
-                    a.Total = list.Count() + list1.Count();
+                    a.ResultNotPass = list1.Count();
+                    a.ChuaTH = list2.Count();
+
+
                 }
-
-
             }
             catch
             {
@@ -1757,8 +1761,10 @@ namespace Services.CandidateService
                 {
                     List<RcCandidatePv> list = context.RcCandidatePvs.Where(x => x.StepNow > 5).ToList();
                     List<RcCandidatePv> list1 = context.RcCandidatePvs.Where(x => x.StepNow == 5 && x.Result == 0).ToList();
+                    List<RcCandidatePv> list2 = context.RcCandidatePvs.Where(x => x.StepNow == 5 && x.Result == 1).ToList();
                     a.ResultPass = list.Count();
-                    a.Total = list.Count() + list1.Count();
+                    a.ResultNotPass =  list1.Count();
+                    a.ChuaTH = list2.Count();
                 }
 
 

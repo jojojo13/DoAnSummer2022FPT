@@ -22,7 +22,8 @@ namespace Services.ResponseModel.CandidateModel
     public class ReportResult
     {
         public int ResultPass { get; set; }
-        public int Total { get;set; }
+        public int ResultNotPass { get;set; }
+        public int ChuaTH { get; set; }
 
     }
 }
