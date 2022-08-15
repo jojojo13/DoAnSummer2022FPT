@@ -103,7 +103,9 @@ namespace Services.CandidateService
         #endregion
         #region Report
         List<ReportResponse> reportByYear(int year, ref int total);
-
+        ReportResult PassStep1();
+        ReportResult JoinInterview();
+        ReportResult PassStep5();
         #endregion
     }
 }

@@ -1658,6 +1658,8 @@ namespace Services.CandidateService
                         }
                         else
                         {
+                            pv.ResultStep3InterView = 0;
+                            pv.ResultStep3Test = 0;
                             pv.Result = 0;
                         }
                     }
@@ -1699,6 +1701,73 @@ namespace Services.CandidateService
             {
             }
             return listReturn;
+        }
+
+        public ReportResult PassStep1()
+        {
+            ReportResult a = new ReportResult();
+            try
+            {using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcCandidatePv> list = context.RcCandidatePvs.Where(x => x.StepNow > 1).ToList();
+                    List<RcCandidatePv> list1 = context.RcCandidatePvs.Where(x => x.StepNow == 1 && x.Result == 0).ToList();
+                    a.ResultPass = list.Count();
+                    a.Total = list.Count() + list1.Count();
+                }
+            
+
+            }
+            catch
+            {
+                
+            }
+            return a;
+
+
+        }
+
+        public ReportResult JoinInterview()
+        {
+            ReportResult a = new ReportResult();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcCandidatePv> list = context.RcCandidatePvs.Where(x => x.StepNow > 3).ToList();
+                    List<RcCandidatePv> list1 = context.RcCandidatePvs.Where(x => x.StepNow == 3 && x.Result==0).ToList();
+                    a.ResultPass = list.Count();
+                    a.Total = list.Count() + list1.Count();
+                }
+
+
+            }
+            catch
+            {
+
+            }
+            return a;
+        }
+
+        public ReportResult PassStep5()
+        {
+            ReportResult a = new ReportResult();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcCandidatePv> list = context.RcCandidatePvs.Where(x => x.StepNow > 5).ToList();
+                    List<RcCandidatePv> list1 = context.RcCandidatePvs.Where(x => x.StepNow == 5 && x.Result == 0).ToList();
+                    a.ResultPass = list.Count();
+                    a.Total = list.Count() + list1.Count();
+                }
+
+
+            }
+            catch
+            {
+
+            }
+            return a;
         }
     }
 }

@@ -19,4 +19,10 @@ namespace Services.ResponseModel.CandidateModel
             this.quantity = quantity;
         }
     }
+    public class ReportResult
+    {
+        public int ResultPass { get; set; }
+        public int Total { get;set; }
+
+    }
 }
