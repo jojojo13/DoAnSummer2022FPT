@@ -956,6 +956,16 @@ namespace API.Controllers
                 Data = a
             });
         }
+        [HttpGet("ReportNotPass")]
+        public IActionResult ReportNotPass()
+        {
+           List<ReportResponse> list= rc.ReportNotPass();
+
+            return Ok(new
+            {
+                Data = list
+            });
+        }
         #endregion
     }
 }

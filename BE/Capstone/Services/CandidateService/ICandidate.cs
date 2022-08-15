@@ -106,6 +106,7 @@ namespace Services.CandidateService
         ReportResult PassStep1();
         ReportResult JoinInterview();
         ReportResult PassStep5();
+        List<ReportResponse> ReportNotPass();
         #endregion
     }
 }

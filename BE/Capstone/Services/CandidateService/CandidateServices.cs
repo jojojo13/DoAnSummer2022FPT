@@ -1769,5 +1769,27 @@ namespace Services.CandidateService
             }
             return a;
         }
+
+        public List<ReportResponse> ReportNotPass()
+        {
+            List<ReportResponse> listReturn = new List<ReportResponse>();
+            try {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    var list = context.RcCandidatePvs.ToList();
+               
+                    listReturn.Add(new ReportResponse("Step1", list.Where(x => x.StepNow==1 && x.Result==0).Count()));
+                  //  listReturn.Add(new ReportResponse("Step2", list.Where(x => x.StepNow == 1 && x.Result == 0).Count()));
+                    listReturn.Add(new ReportResponse("Step3", list.Where(x => x.StepNow == 3 && x.Result == 0).Count()));
+                    listReturn.Add(new ReportResponse("Step4", list.Where(x => x.StepNow == 4 && x.Result == 0).Count()));
+                    listReturn.Add(new ReportResponse("Step5", list.Where(x => x.StepNow == 5 && x.Result == 0).Count()));
+                   
+                }
+            } catch
+            {
+
+            }
+            return listReturn;
+        }
     }
 }
