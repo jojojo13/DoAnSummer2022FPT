@@ -105,7 +105,7 @@ namespace API
                 ForwardedHeaders = ForwardedHeaders.XForwardedProto
             });
 
-            var port = Environment.GetEnvironmentVariable("PORT") ?? "3100";
+            
 
 
         }
