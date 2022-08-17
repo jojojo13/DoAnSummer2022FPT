@@ -21,5 +21,7 @@ namespace Services.ScheduleServices
 
         List<ScheduleRes> GettoAddStep3Interview(int candidate, int request);
         List<ScheduleRes> GettoAddStep3Test(int candidate, int request);
+        string GettoAddStep3Interview1(int candidate, int request);
+        string GettoAddStep3Test1(int candidate, int request);
     }
 }

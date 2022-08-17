@@ -167,6 +167,15 @@ namespace Services.ResponseModel.CandidateModel
         public List<ScheduleRes> Test { get; set; }
 
     }
+    public class ResultStep31
+    {
+        public int? CandidateID { get; set; }
+        public int? RequestID { get; set; }
+        public string Name { get; set; }
+        public string InterView { get; set; }
+        public string Test { get; set; }
+
+    }
     public class PassStep3
     {
         public int? CandidateID { get; set; }
