@@ -28,3 +28,19 @@ C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ref\ModelAuto.dll
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.pdb
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.genruntimeconfig.cache
+D:\DoAn2022\BE\Capstone\ModelAuto\bin\Debug\net5.0\contextJson.json
+D:\DoAn2022\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.deps.json
+D:\DoAn2022\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.runtimeconfig.json
+D:\DoAn2022\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.runtimeconfig.dev.json
+D:\DoAn2022\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.dll
+D:\DoAn2022\BE\Capstone\ModelAuto\bin\Debug\net5.0\ModelAuto.pdb
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.csproj.AssemblyReference.cache
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.GeneratedMSBuildEditorConfig.editorconfig
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.AssemblyInfoInputs.cache
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.AssemblyInfo.cs
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.csproj.CoreCompileInputs.cache
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.dll
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\refint\ModelAuto.dll
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.pdb
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\ModelAuto.genruntimeconfig.cache
+D:\DoAn2022\BE\Capstone\ModelAuto\obj\Debug\net5.0\ref\ModelAuto.dll

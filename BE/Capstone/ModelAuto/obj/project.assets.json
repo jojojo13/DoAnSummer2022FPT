@@ -6171,19 +6171,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HaNoi\\.nuget\\packages\\": {}
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
+      "projectUniqueName": "D:\\DoAn2022\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
       "projectName": "ModelAuto",
-      "projectPath": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
-      "packagesPath": "C:\\Users\\HaNoi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HaNoi\\Desktop\\ĐỒ ÁN SUM22\\Back-end\\BE\\Capstone\\ModelAuto\\obj\\",
+      "projectPath": "D:\\DoAn2022\\BE\\Capstone\\ModelAuto\\ModelAuto.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "D:\\DoAn2022\\BE\\Capstone\\ModelAuto\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\HaNoi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6243,7 +6243,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
