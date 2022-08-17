@@ -586,9 +586,11 @@ namespace API.Controllers
         {
             try
             {
+                MatchingSon a = rc.MatchingCandidate(obj.RequestID, obj.lstCandidateID);
                 return Ok(new
                 {
-                    Status = rc.MatchingCandidate(obj.RequestID, obj.lstCandidateID)
+                    Status= a.Kq,
+                    Mess = a.Mess
                 });
             }
             catch
@@ -709,7 +711,7 @@ namespace API.Controllers
 
 
 
-        [Authorize]
+       [Authorize]
         [HttpPost("GetCandidateRequestInf")]
         public IActionResult GetCandidateRequestInf(int requestId, int candidateId)
         {

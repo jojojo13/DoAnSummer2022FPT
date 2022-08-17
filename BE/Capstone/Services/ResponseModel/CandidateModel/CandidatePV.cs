@@ -188,5 +188,9 @@ namespace Services.ResponseModel.CandidateModel
         public string Diadiem { get;set;}
         public int Position { get; set; }
     }
-
+    public class MatchingSon
+    {
+        public bool Kq { get; set; }
+        public string Mess { get; set; }
+    }
 }

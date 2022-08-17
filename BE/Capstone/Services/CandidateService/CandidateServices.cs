@@ -775,50 +775,67 @@ namespace Services.CandidateService
 
 
         #region matching REquesst
-        public bool MatchingCandidate(int requestID, List<int> lstCandidateID)
+        public MatchingSon MatchingCandidate(int requestID, List<int> lstCandidateID)
         {
             List<int> list = new List<int>();
-
+            MatchingSon a = new MatchingSon();
             try
             {
                 using (var context = new CapstoneProject2022Context())
                 {
-                    var listcheck = (from rc in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
-                                     from c in context.RcCandidates.Where(x => x.Id == rc.CandidateId).DefaultIfEmpty()
-                                     select new checkDuplicateMatching
-                                     {
-                                         candidateId = c.Id,
-                                         candidateName = c.FullName
-                                     }).ToList();
-                    list = listcheck.Select(x => x.candidateId).Distinct().ToList();
-                    var lst = lstCandidateID.Except(list);
-
-                    if (requestID != 0)
+                    List<RcRequest> list1 = context.RcRequests.Where(x => x.ParentId == requestID).ToList();
+                    if (list1.Count > 0)
                     {
-                        foreach (var id in lst)
-                        {
-                            // add request 
-                            RcRequestCandidate obj = new RcRequestCandidate();
-                            obj.CandidateId = id;
-                            obj.RequestId = requestID;
-                            context.RcRequestCandidates.Add(obj);
+                        a.Kq = false;
+                        a.Mess = "Thang nay la thg bo ";
+                        return a;
+                    }
+                    else
+                    {
 
-                            // dong thoi add luon vao candidatePV
-                            RcCandidatePv pv = new RcCandidatePv();
-                            pv.CandidateId = id;
-                            pv.RequestId = requestID;
-                            pv.StepNow = 1;
-                            context.RcCandidatePvs.Add(pv);
+
+                        var listcheck = (from rc in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
+                                         from c in context.RcCandidates.Where(x => x.Id == rc.CandidateId).DefaultIfEmpty()
+                                         select new checkDuplicateMatching
+                                         {
+                                             candidateId = c.Id,
+                                             candidateName = c.FullName
+                                         }).ToList();
+                        list = listcheck.Select(x => x.candidateId).Distinct().ToList();
+                        var lst = lstCandidateID.Except(list);
+
+                        if (requestID != 0)
+                        {
+                            foreach (var id in lst)
+                            {
+                                // add request 
+                                RcRequestCandidate obj = new RcRequestCandidate();
+                                obj.CandidateId = id;
+                                obj.RequestId = requestID;
+                                context.RcRequestCandidates.Add(obj);
+
+                                // dong thoi add luon vao candidatePV
+                                RcCandidatePv pv = new RcCandidatePv();
+                                pv.CandidateId = id;
+                                pv.RequestId = requestID;
+                                pv.StepNow = 1;
+                                context.RcCandidatePvs.Add(pv);
+                            }
+                            context.SaveChanges();
                         }
-                        context.SaveChanges();
+                        a.Kq = true;
+                        a.Mess = "Matchinh thanh cong ";
+                        return a;
+                        
                     }
                 }
-                return true;
             }
             catch (Exception ex)
             {
                 string mess = ex.Message.ToString();
-                return false;
+                a.Kq = false;
+                a.Mess = "Dang nhay vao catch";
+                return a;
             }
         }
 
@@ -1137,7 +1154,7 @@ namespace Services.CandidateService
                                 from step in context.RcCandidatePvs.Where(x => x.CandidateId == candidateId && x.RequestId == requestId).DefaultIfEmpty()
                                 select new CandidatePV_infor
                                 {
-                                    OrgId= o.Id,
+                                    OrgId= rq.OrgnizationId,
                                     Department = o.Address,
                                     Position = p.Name,
                                     PositionId = p.Id,
