@@ -842,13 +842,13 @@ namespace API.Controllers
                 {
                     var list = from c1 in context.RcCandidatePvs.Where(x => x.RequestId == requestID && x.StepNow == 3).ToList()
                                let candidate = rc.GetCandidateByID((int)c1.CandidateId)
-                               select new ResultStep3
+                               select new ResultStep31
                                {
                                    CandidateID = candidate.Id,
                                    RequestID = c1.RequestId,
                                    Name = candidate.FullName,
-                                   InterView = s.GettoAddStep3Interview(candidate.Id, (int)c1.RequestId),
-                                   Test = s.GettoAddStep3Test(candidate.Id, (int)c1.RequestId)
+                                   InterView = s.GettoAddStep3Interview1(candidate.Id, (int)c1.RequestId),
+                                   Test = s.GettoAddStep3Test1(candidate.Id, (int)c1.RequestId)
                                };
                     return Ok(new
                     {
