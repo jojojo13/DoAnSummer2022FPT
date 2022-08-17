@@ -202,11 +202,11 @@ namespace Services.ScheduleServices
                     var list = from c in context.RcEvents.Where(x => x.RequestId == request && x.CandidateId == candidate && x.Classname == "interview").ToList()
                                select new ScheduleRes { Id = c.Id, Title = c.Title, Score = c.Score, Note = c.Note };
                     string txt = "";
-                    int i = 1;
+                  
                     foreach (ScheduleRes item in list)
                     {
-                        txt += "Lan:" + i + " Title: " + item.Title + " Score:" + item.Score + " Note:" + item.Note + " \n ";
-                        i++;
+                        txt +=  "Title: " + item.Title + " \nScore:" + item.Score + "\nNote:" + item.Note + " ---\n ";
+                      
                     }
                     return txt;
                 }
@@ -226,11 +226,11 @@ namespace Services.ScheduleServices
                     var list = from c in context.RcEvents.Where(x => x.RequestId == request && x.CandidateId == candidate && x.Classname == "test").ToList()
                                select new ScheduleRes { Id = c.Id, Title = c.Title, Score = c.Score, Note = c.Note };
                     string txt = "";
-                    int i = 1;
+                    
                     foreach (ScheduleRes item in list)
                     {
-                        txt += "Lan:" + i + " Title: " + item.Title + " Score:" + item.Score + " Note:" + item.Note + " \n ";
-                        i++;
+                        txt += "Title: " + item.Title + " \nScore:" + item.Score + "\nNote:" + item.Note + " ---\n ";
+                      
                     }
                     return txt;
                 }

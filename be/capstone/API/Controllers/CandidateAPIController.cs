@@ -711,7 +711,7 @@ namespace API.Controllers
 
 
 
-       [Authorize]
+     //  [Authorize]
         [HttpPost("GetCandidateRequestInf")]
         public IActionResult GetCandidateRequestInf(int requestId, int candidateId)
         {

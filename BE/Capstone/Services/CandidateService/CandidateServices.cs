@@ -1144,38 +1144,47 @@ namespace Services.CandidateService
             {
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
-                    var query = from r in context.RcRequestCandidates.Where(x => x.CandidateId == candidateId && x.RequestId == requestId)
-                                from c in context.RcCandidates.Where(x => x.Id == r.CandidateId).DefaultIfEmpty()
-                                from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
-                                from rq in context.RcRequests.Where(x => x.Id == r.RequestId).DefaultIfEmpty()
-                                from o in context.Orgnizations.Where(x => x.Id == rq.OrgnizationId).DefaultIfEmpty()
-                                from p in context.Positions.Where(x => x.Id == rq.PositionId).DefaultIfEmpty()
-                                from ot in context.OtherLists.Where(x => x.Id == rq.Project).DefaultIfEmpty()
-                                from step in context.RcCandidatePvs.Where(x => x.CandidateId == candidateId && x.RequestId == requestId).DefaultIfEmpty()
-                                select new CandidatePV_infor
-                                {
-                                    OrgId= rq.OrgnizationId,
-                                    Department = o.Address,
-                                    Position = p.Name,
-                                    PositionId = p.Id,
-                                    Email = cv.Email,
-                                    Phone = cv.Phone,
-                                    CandidateId = c.Id,
-                                    Name = c.FullName,
-                                    Project = ot.Name,
-                                    RequestId = rq.Id,
-                                    RequestName = rq== null ? "":rq.Name,
-                                    StepNow = step.StepNow,
-                                    Result = step.Result,
-                                    Step3Score = step == null ? null : step.ResultStep3Test,
-                                    Step3Test = step == null ? null : step.ResultStep3InterView,
-                                    Step3InterNote = step.NoteRstep3InterView,
-                                    Step3TestNote = step.NoteRstep3Test,
-                                    Offer = step== null?"": step.LuongNet,
-                                    NoteOffer =step== null?"": step.NoteStep4
+                    RcRequestCandidate r = context.RcRequestCandidates.Where(x => x.CandidateId == candidateId && x.RequestId == requestId).SingleOrDefault();
+                    RcCandidate c = context.RcCandidates.Where(x => x.Id == r.CandidateId).SingleOrDefault();
+                    RcCandidateCv cv = context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).SingleOrDefault();
+                    RcRequest rq = context.RcRequests.Where(x => x.Id == r.RequestId).SingleOrDefault();
+                      Orgnization          o = context.Orgnizations.Where(x => x.Id == rq.OrgnizationId).SingleOrDefault();
+                                 Position p = context.Positions.Where(x => x.Id == rq.PositionId).SingleOrDefault();
+                             OtherList   ot = context.OtherLists.Where(x => x.Id == rq.Project).SingleOrDefault();
+                              RcCandidatePv step = context.RcCandidatePvs.Where(x => x.CandidateId == candidateId && x.RequestId == requestId).SingleOrDefault();
+                    CandidatePV_infor i = new CandidatePV_infor();
+                    i.OrgId = rq.OrgnizationId;
+                                   i.Department = o.Address;
+                    i.Position = p.Name;
+                    i.PositionId = p.Id;
+                                    i.Email = cv.Email;
+                    i.Phone = cv.Phone;
+                    i.CandidateId = c.Id;
+                    i.Name = c.FullName;
+                    i.Project = ot.Name;
+                    i.RequestId = rq.Id;
+                    i.RequestName = rq == null ? "" : rq.Name;
+                    i.StepNow = step.StepNow;
+                    i.Result = step.Result;
+                    i.Step3Score = step == null ? null : step.ResultStep3Test;
+                    i.Step3Test = step == null ? null : step.ResultStep3InterView;
+                    i.Step3InterNote = step.NoteRstep3InterView;
+                    i.Step3TestNote = step.NoteRstep3Test;
+                    i.LuongNet = step == null ? "" : step.LuongNet;
+                                    i.LuongThuViec = step == null ? "" : step.LuongThuViec;
+                    i.PhuCap = step == null ? "" : step.PhuCap;
+                    i.Thuong = step == null ? "" : step.Thuong;
+                    i.BaoHiem = step == null ? "" : step.BaoHiem;
+                    i.Thoigianlv = step == null ? "" : step.Thoigianlv;
+                    i.DiaDiem = step == null ? "" : step.DiaDiem;
+                    i.VitriCv = step == null ? "" : (step.VitriCv == null ? "" : (context.Positions.Where(x => x.Id == int.Parse(step.VitriCv)).SingleOrDefault().Name));
+                    i.NoteStep4 = step == null ? "" : step.NoteStep4;
 
-                                };
-                    return query.FirstOrDefault();
+
+
+
+
+                    return i;
                 }
             }
             catch
