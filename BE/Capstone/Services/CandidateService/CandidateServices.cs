@@ -1137,6 +1137,7 @@ namespace Services.CandidateService
                                 from step in context.RcCandidatePvs.Where(x => x.CandidateId == candidateId && x.RequestId == requestId).DefaultIfEmpty()
                                 select new CandidatePV_infor
                                 {
+                                    OrgId= o.Id,
                                     Department = o.Address,
                                     Position = p.Name,
                                     PositionId = p.Id,
