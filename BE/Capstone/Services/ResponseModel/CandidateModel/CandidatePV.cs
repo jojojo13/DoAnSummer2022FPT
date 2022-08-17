@@ -174,4 +174,10 @@ namespace Services.ResponseModel.CandidateModel
         public int? Result { get; set; }
     }
 
+    public class SPStep4
+    {
+        public string Diadiem { get;set;}
+        public int Position { get; set; }
+    }
+
 }

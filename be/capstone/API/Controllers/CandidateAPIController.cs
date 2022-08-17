@@ -966,6 +966,16 @@ namespace API.Controllers
                 Data = list
             });
         }
+
+        [HttpPost("GetDDPositionStep4")]
+        public IActionResult GetDDPositionStep4(int request)
+        {
+            SPStep4 s = rc.GetSPStep4(request);
+            return Ok(new
+            {
+                Data = s
+            });
+        }
         #endregion
     }
 }

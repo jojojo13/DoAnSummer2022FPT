@@ -1806,5 +1806,33 @@ namespace Services.CandidateService
             }
             return listReturn;
         }
+
+        public SPStep4 GetSPStep4(int requestID)
+        {
+            SPStep4 a = new SPStep4();
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    RcRequest r = context.RcRequests.Where(x => x.Id == requestID).SingleOrDefault();
+                    if (r != null)
+                    {
+                        a.Position =(int) r.PositionId;
+                        Orgnization or = context.Orgnizations.Where(x => x.Id == r.OrgnizationId).SingleOrDefault();
+                        if(or != null)
+                        {
+                            a.Diadiem = or.Address;
+                        }
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            return a;
+        }
     }
 }
