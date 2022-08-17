@@ -1146,15 +1146,15 @@ namespace Services.CandidateService
                                     Name = c.FullName,
                                     Project = ot.Name,
                                     RequestId = rq.Id,
-                                    RequestName = rq.Name,
+                                    RequestName = rq== null ? "":rq.Name,
                                     StepNow = step.StepNow,
                                     Result = step.Result,
-                                    Step3Score = step.ResultStep3Test == null ? null : step.ResultStep3Test,
-                                    Step3Test = step.ResultStep3InterView == null ? null : step.ResultStep3InterView,
+                                    Step3Score = step == null ? null : step.ResultStep3Test,
+                                    Step3Test = step == null ? null : step.ResultStep3InterView,
                                     Step3InterNote = step.NoteRstep3InterView,
                                     Step3TestNote = step.NoteRstep3Test,
-                                    Offer = step.LuongNet.ToString(),
-                                    NoteOffer = step.NoteStep4
+                                    Offer = step== null?"": step.LuongNet,
+                                    NoteOffer =step== null?"": step.NoteStep4
 
                                 };
                     return query.FirstOrDefault();
