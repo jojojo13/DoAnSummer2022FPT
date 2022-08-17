@@ -102,10 +102,17 @@ namespace Services.ResponseModel.CandidateModel
     {
         public int? CandidateId { get; set; }
         public int? RequestId { get; set; }
-   
-        public string NoteFinalOffer { get; set; }
-        public decimal? FinalOffer { get; set; }
-        public int? Step4Result { get; set; }
+
+        public string LuongNet { get; set; }
+        public string LuongThuViec { get; set; }
+        public string PhuCap { get; set; }
+        public string Thuong { get; set; }
+        public string BaoHiem { get; set; }
+        public string Thoigianlv { get; set; }
+        public string DiaDiem { get; set; }
+        public string VitriCv { get; set; }
+        public string NoteStep4 { get; set; }
+        public int Step4Result { get; set; }
     }
 
     public class SetStep5

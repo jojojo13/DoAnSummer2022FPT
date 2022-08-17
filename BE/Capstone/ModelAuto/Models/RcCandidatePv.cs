@@ -20,16 +20,19 @@ namespace ModelAuto.Models
         public string NoteRstep3Test { get; set; }
         public int? ResultStep3InterView { get; set; }
         public string NoteRstep3InterView { get; set; }
-        public decimal? CtyOffer { get; set; }
-        public string NoteCtyOffer { get; set; }
-        public decimal? Uvoffer { get; set; }
-        public string NoteUvoffer { get; set; }
-        public string NoteFinalOffer { get; set; }
-        public decimal? FinalOffer { get; set; }
+        public string LuongNet { get; set; }
+        public string LuongThuViec { get; set; }
+        public string PhuCap { get; set; }
+        public string Thuong { get; set; }
+        public string BaoHiem { get; set; }
+        public string Thoigianlv { get; set; }
         public int? Step4Result { get; set; }
         public int? Step5Result { get; set; }
         public int? StepNow { get; set; }
         public int? Result { get; set; }
+        public string DiaDiem { get; set; }
+        public string VitriCv { get; set; }
+        public string NoteStep4 { get; set; }
 
         public virtual RcCandidate Candidate { get; set; }
         public virtual RcRequest Request { get; set; }

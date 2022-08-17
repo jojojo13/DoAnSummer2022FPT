@@ -1153,8 +1153,8 @@ namespace Services.CandidateService
                                     Step3Test = step.ResultStep3InterView == null ? null : step.ResultStep3InterView,
                                     Step3InterNote = step.NoteRstep3InterView,
                                     Step3TestNote = step.NoteRstep3Test,
-                                    Offer = step.FinalOffer.ToString(),
-                                    NoteOffer = step.NoteFinalOffer
+                                    Offer = step.LuongNet.ToString(),
+                                    NoteOffer = step.NoteStep4
 
                                 };
                     return query.FirstOrDefault();
@@ -1333,9 +1333,18 @@ namespace Services.CandidateService
                     if (candidatePV != null)
                     {
 
-                        candidatePV.FinalOffer = pv.FinalOffer;
-                        candidatePV.NoteFinalOffer = pv.NoteFinalOffer;
-
+                     //   candidatePV.FinalOffer = pv.FinalOffer;
+                     //   candidatePV.NoteFinalOffer = pv.NoteFinalOffer;
+                        candidatePV.LuongNet = pv.LuongNet;
+                        candidatePV.LuongThuViec = pv.LuongThuViec;
+                        candidatePV.PhuCap = pv.PhuCap;
+                        candidatePV.Thuong = pv.Thuong;
+                        candidatePV.BaoHiem = pv.BaoHiem;
+                        candidatePV.Thoigianlv = pv.Thoigianlv;
+                        candidatePV.DiaDiem = pv.DiaDiem;
+                        candidatePV.VitriCv= pv.VitriCv;
+                        candidatePV.NoteStep4 = pv.NoteStep4;
+                        candidatePV.Step4Result= pv.Step4Result;
 
                         if (pv.Step4Result == 1)
                         {

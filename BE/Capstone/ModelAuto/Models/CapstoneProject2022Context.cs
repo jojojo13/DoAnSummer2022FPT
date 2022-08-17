@@ -1210,23 +1210,30 @@ namespace ModelAuto.Models
 
                 entity.Property(e => e.CandidateId).HasColumnName("CandidateID");
 
-                entity.Property(e => e.CtyOffer).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.LuongNet)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.FinalOffer).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.LuongThuViec)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.NoteRstep3InterView).HasColumnName("NoteRStep3InterView");
 
                 entity.Property(e => e.NoteRstep3Test).HasColumnName("NoteRStep3Test");
 
-                entity.Property(e => e.NoteUvoffer).HasColumnName("NoteUVOffer");
+                entity.Property(e => e.PhuCap)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.RequestId).HasColumnName("RequestID");
 
                 entity.Property(e => e.ResultStep3Test).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.Uvoffer)
-                    .HasColumnType("decimal(18, 2)")
-                    .HasColumnName("UVOffer");
+                entity.Property(e => e.VitriCv)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("VitriCV");
 
                 entity.HasOne(d => d.Candidate)
                     .WithMany(p => p.RcCandidatePvs)
