@@ -1180,7 +1180,7 @@ namespace Services.CandidateService
                     i.DiaDiem = step == null ? "" : step.DiaDiem;
                     i.VitriCv = step == null ? "" : (step.VitriCv == null ? "" : (context.Positions.Where(x => x.Id == int.Parse(step.VitriCv)).SingleOrDefault().Name));
                     i.NoteStep4 = step == null ? "" : step.NoteStep4;
-                    i.NgayLamViec = DateTime.Parse( step.NgayLamViec.Value.ToString("dd-MM-yyyy"));
+                    i.NgayLamViec = step.NgayLamViec.ToString("dd-MM-yyyy");
 
 
 

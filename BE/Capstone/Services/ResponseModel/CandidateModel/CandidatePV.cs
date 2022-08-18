@@ -79,7 +79,7 @@ namespace Services.ResponseModel.CandidateModel
         public string DiaDiem { get; set; }
         public string VitriCv { get; set; }
         public string NoteStep4 { get; set; }
-        public DateTime NgayLamViec { get; set; }
+        public string NgayLamViec { get; set; }
         
     }
     public class SetStep1
