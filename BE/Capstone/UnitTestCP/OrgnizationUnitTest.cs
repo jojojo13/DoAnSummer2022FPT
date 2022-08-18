@@ -197,6 +197,65 @@ namespace UnitTestCP
             result.Should().BeOfType(typeof(OkObjectResult));
         }
 
+        [Fact]
+        public void GetAllPositionOrg()
+        {
+            var controller = new OrgnizationAPIController();
+            var result = controller.GetAllPositionOrg(0, 100);
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
+        [Fact]
+        public void DeletePositionOrg()
+        {
+            var controller = new OrgnizationAPIController();
+            List<int> list = new List<int>();
+            list.Add(1000);
+            var result = controller.DeletePositionOrg(list);
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
+
+
+        [Fact]
+        public void InsertPositionOrg()
+        {
+            var controller = new OrgnizationAPIController();
+
+            PositionOrgResponse obj = new PositionOrgResponse();
+            obj.OrgID = 123;
+            obj.positionID = 123;
+            obj.Note = "";
+            var result = controller.InsertPositionOrg(obj);
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
+
+        [Fact]
+        public void ModifyPositionOrg()
+        {
+            var controller = new OrgnizationAPIController();
+
+            PositionOrgResponse obj = new PositionOrgResponse();
+            obj.Id = 123;
+            obj.OrgID = 123;
+            obj.positionID = 123;
+            obj.Note = "";
+            var result = controller.ModifyPositionOrg(obj);
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
+
+
+        [Fact]
+        public void GetListOrgByOrgID()
+        {
+            var controller = new OrgnizationAPIController();
+            var result = controller.GetListOrgByOrgID(1);
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
+
 
 
 
