@@ -1381,14 +1381,16 @@ namespace Services.CandidateService
                             candidatePV.Result = 1;
                             ICommon c = new CommonImpl();
 
+                            Position p = context.Positions.Where(x => x.Id == Convert.ToInt32(pv.VitriCv)).FirstOrDefault();
+
                             var obj = (from cv in context.RcCandidateCvs.Where(x => x.CandidateId == pv.CandidateId)
                                        from can in context.RcCandidates.Where(x => x.Id == cv.CandidateId)
                                        select new
                                        {
                                            fullname = can.FullName,
                                            email = cv.Email,
-                                           position = pv.VitriCv,
-                                           joinDate = pv.Thoigianlv,
+                                           position = p.Name,
+                                           joinDate = pv.NgayLamViec,
                                            location = pv.DiaDiem,
                                            salaryLeft = pv.LuongThuViec,
                                            salaryPrime = pv.LuongNet,
@@ -1397,9 +1399,9 @@ namespace Services.CandidateService
 
 
                             var obj2 = (from re in context.RcRequests.Where(x => x.Id == pv.RequestId)
-                                        from o in context.Orgnizations.Where(x => x.Id == re.OrgnizationId)
-                                        from e in context.Employees.Where(x => x.Id == re.HrInchange)
-                                        from ecv in context.EmployeeCvs.Where(x => x.EmployeeId == e.Id)
+                                        from o in context.Orgnizations.Where(x => x.Id == re.OrgnizationId).DefaultIfEmpty()
+                                        from e in context.Employees.Where(x => x.Id == re.HrInchange).DefaultIfEmpty()
+                                        from ecv in context.EmployeeCvs.Where(x => x.EmployeeId == e.Id).DefaultIfEmpty()
                                         select new
                                         {
                                             orgName = o.Name,
