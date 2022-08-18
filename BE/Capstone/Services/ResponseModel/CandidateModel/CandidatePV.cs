@@ -68,8 +68,17 @@ namespace Services.ResponseModel.CandidateModel
         public decimal? Step3Score { get; set; }
         public string Step3TestNote { get; set; }
         public string Step3InterNote { get; set; }
-        public string Offer { get; set; }
-        public string NoteOffer { get; set; }
+
+        public string LuongNet { get; set; }
+        public string LuongThuViec { get; set; }
+        public string PhuCap { get; set; }
+        public string Thuong { get; set; }
+        public string BaoHiem { get; set; }
+        public string Thoigianlv { get; set; }
+        public string DiaDiem { get; set; }
+        public string VitriCv { get; set; }
+        public string NoteStep4 { get; set; }
+        
     }
     public class SetStep1
     {
@@ -167,6 +176,15 @@ namespace Services.ResponseModel.CandidateModel
         public List<ScheduleRes> Test { get; set; }
 
     }
+    public class ResultStep31
+    {
+        public int? CandidateID { get; set; }
+        public int? RequestID { get; set; }
+        public string Name { get; set; }
+        public string InterView { get; set; }
+        public string Test { get; set; }
+
+    }
     public class PassStep3
     {
         public int? CandidateID { get; set; }
@@ -179,5 +197,9 @@ namespace Services.ResponseModel.CandidateModel
         public string Diadiem { get;set;}
         public int Position { get; set; }
     }
-
+    public class MatchingSon
+    {
+        public bool Kq { get; set; }
+        public string Mess { get; set; }
+    }
 }

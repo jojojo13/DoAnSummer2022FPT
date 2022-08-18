@@ -193,6 +193,53 @@ namespace Services.ScheduleServices
             }
         }
 
+        public string GettoAddStep3Interview1(int candidate, int request)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    var list = from c in context.RcEvents.Where(x => x.RequestId == request && x.CandidateId == candidate && x.Classname == "interview").ToList()
+                               select new ScheduleRes { Id = c.Id, Title = c.Title, Score = c.Score, Note = c.Note };
+                    string txt = "";
+                  
+                    foreach (ScheduleRes item in list)
+                    {
+                        txt +=  "Title: " + item.Title + " \nScore:" + item.Score + "\nNote:" + item.Note + " ---\n ";
+                      
+                    }
+                    return txt;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public string GettoAddStep3Test1(int candidate, int request)
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    var list = from c in context.RcEvents.Where(x => x.RequestId == request && x.CandidateId == candidate && x.Classname == "test").ToList()
+                               select new ScheduleRes { Id = c.Id, Title = c.Title, Score = c.Score, Note = c.Note };
+                    string txt = "";
+                    
+                    foreach (ScheduleRes item in list)
+                    {
+                        txt += "Title: " + item.Title + " \nScore:" + item.Score + "\nNote:" + item.Note + " ---\n ";
+                      
+                    }
+                    return txt;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
     }
 }
