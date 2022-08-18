@@ -178,6 +178,25 @@ namespace UnitTestCP
             result.Should().BeOfType(typeof(OkObjectResult));
         }
 
+        [Fact]
+        public void GetAllOrgTest()
+        {
+            var controller = new OrgnizationAPIController();
+            var result = controller.GetAllOrg();
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
+
+
+        [Fact]
+        public void CheckPositionExist()
+        {
+            var controller = new OrgnizationAPIController();
+            var result = controller.CheckPositionExist(1,2);
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
+
 
 
 
