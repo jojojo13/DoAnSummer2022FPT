@@ -205,7 +205,7 @@ namespace Services.ScheduleServices
                   
                     foreach (ScheduleRes item in list)
                     {
-                        txt +=  "Title: " + item.Title + " \nScore:" + item.Score + "\nNote:" + item.Note + " ---\n ";
+                        txt +=  "Title: " + item.Title + " \nScore:" + item.Score + "\nNote:" + item.Note + " \n---\n ";
                       
                     }
                     return txt;
@@ -229,7 +229,7 @@ namespace Services.ScheduleServices
                     
                     foreach (ScheduleRes item in list)
                     {
-                        txt += "Title: " + item.Title + " \nScore:" + item.Score + "\nNote:" + item.Note + " ---\n ";
+                        txt += "Title: " + item.Title + " \nScore:" + item.Score + "\nNote:" + item.Note + " \n---\n ";
                       
                     }
                     return txt;
