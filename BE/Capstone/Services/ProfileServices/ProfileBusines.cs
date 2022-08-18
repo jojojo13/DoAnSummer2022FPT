@@ -493,36 +493,87 @@ namespace Services.ProfileServices
                 using (CapstoneProject2022Context context = new CapstoneProject2022Context())
                 {
                     EmployeeCv cv = context.EmployeeCvs.Where(x => x.EmployeeId == obj.ID).FirstOrDefault();
-                    cv.Gender = obj.Gender;
-                    cv.Dob = obj.DOB;
-                    cv.Phone = obj.PhoneNumber;
-                    cv.Email = obj.Email;
-                    cv.DanToc = obj.DanToc;
-                    cv.QuocTich = obj.QuocTich;
-                    cv.HoKhau = obj.HoKhau;
-                    cv.NationHk = obj.NationHK;
-                    cv.ProvinceHk = obj.ProvinceHK;
-                    cv.DistrictHk = obj.DistrictHK;
-                    cv.WardHk = obj.WardHK;
-                    cv.NoiO = obj.NoiO;
-                    cv.NationLive = obj.NationNoiO;
-                    cv.ProvinceLive = obj.ProvinceNoiO;
-                    cv.DistrictLive = obj.DistrictNoiO;
-                    cv.WardLive = obj.WardNoiO;
+                    if (cv != null)
+                    {
+                        cv.Gender = obj.Gender;
+                        cv.Dob = obj.DOB;
+                        cv.Phone = obj.PhoneNumber;
+                        cv.Email = obj.Email;
+                        cv.DanToc = obj.DanToc;
+                        cv.QuocTich = obj.QuocTich;
+                        cv.HoKhau = obj.HoKhau;
+                        cv.NationHk = obj.NationHK;
+                        cv.ProvinceHk = obj.ProvinceHK;
+                        cv.DistrictHk = obj.DistrictHK;
+                        cv.WardHk = obj.WardHK;
+                        cv.NoiO = obj.NoiO;
+                        cv.NationLive = obj.NationNoiO;
+                        cv.ProvinceLive = obj.ProvinceNoiO;
+                        cv.PorvinceLive = obj.ProvinceNoiO;
+                        cv.DistrictLive = obj.DistrictNoiO;
+                        cv.WardLive = obj.WardNoiO;
+                    }
+                    else
+                    {
+                        EmployeeCv objcv = new EmployeeCv();
+                        objcv.EmployeeId = obj.ID;
+                        objcv.Gender = obj.Gender;
+                        objcv.Dob = obj.DOB;
+                        objcv.Phone = obj.PhoneNumber;
+                        objcv.Email = obj.Email;
+                        objcv.DanToc = obj.DanToc;
+                        objcv.QuocTich = obj.QuocTich;
+                        objcv.HoKhau = obj.HoKhau;
+                        objcv.NationHk = obj.NationHK;
+                        objcv.ProvinceHk = obj.ProvinceHK;
+                        objcv.DistrictHk = obj.DistrictHK;
+                        objcv.WardHk = obj.WardHK;
+                        objcv.NoiO = obj.NoiO;
+                        objcv.NationLive = obj.NationNoiO;
+                        objcv.ProvinceLive = obj.ProvinceNoiO;
+                        objcv.DistrictLive = obj.DistrictNoiO;
+                        objcv.PorvinceLive = obj.ProvinceNoiO;
+                        objcv.WardLive = obj.WardNoiO;
+                        context.EmployeeCvs.Add(objcv);
+
+                    }
+
 
                     EmployeeEdu edu = context.EmployeeEdus.Where(x => x.EmployeeId == obj.ID).FirstOrDefault();
-                    edu.School1 = obj.School;
-                    edu.Award1 = obj.Award;
-                    edu.DeeGree1 = obj.Degree;
-                    edu.Major1 = obj.Major;
-                    edu.LearningLevel = obj.LearningLV;
-                    edu.Language1 = obj.Language1;
-                    edu.LanScore1 = obj.Score1;
-                    edu.LanSkill1 = obj.Skill1;
-                    edu.InforMaticsLevel1 = obj.informaticLV;
-                    edu.LanSkill2 = obj.Skill2;
-                    edu.LanScore2 = obj.Score2;
-                    edu.Language2 = obj.Language2;
+                    if (edu != null)
+                    {                     
+                        edu.School1 = obj.School;
+                        edu.Award1 = obj.Award;
+                        edu.DeeGree1 = obj.Degree;
+                        edu.Major1 = obj.Major;
+                        edu.LearningLevel = obj.LearningLV;
+                        edu.Language1 = obj.Language1;
+                        edu.LanScore1 = obj.Score1;
+                        edu.LanSkill1 = obj.Skill1;
+                        edu.InforMaticsLevel1 = obj.informaticLV;
+                        edu.LanSkill2 = obj.Skill2;
+                        edu.LanScore2 = obj.Score2;
+                        edu.Language2 = obj.Language2;
+                    }
+                    else
+                    {
+                        EmployeeEdu objedu = new EmployeeEdu();
+                        objedu.EmployeeId = obj.ID;
+                        objedu.School1 = obj.School;
+                        objedu.Award1 = obj.Award;
+                        objedu.DeeGree1 = obj.Degree;
+                        objedu.Major1 = obj.Major;
+                        objedu.LearningLevel = obj.LearningLV;
+                        objedu.Language1 = obj.Language1;
+                        objedu.LanScore1 = obj.Score1;
+                        objedu.LanSkill1 = obj.Skill1;
+                        objedu.InforMaticsLevel1 = obj.informaticLV;
+                        objedu.LanSkill2 = obj.Skill2;
+                        objedu.LanScore2 = obj.Score2;
+                        objedu.Language2 = obj.Language2;
+                        context.EmployeeEdus.Add(objedu);
+                    }
+
                     context.SaveChanges();
                     return true;
                 }
