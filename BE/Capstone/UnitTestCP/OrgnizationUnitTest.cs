@@ -65,10 +65,10 @@ namespace UnitTestCP
         {
             var controller = new OrgnizationAPIController();
             TitleResponse obj = new TitleResponse();
-            obj.Name = "Con chó";
-            obj.Note = "Con chó";
+            obj.Name = "TEST";
+            obj.Note = "TEST";
             obj.Status = -1;
-            obj.Code = "Con chấy";
+            obj.Code = "TEST";
             var result = controller.InsertTitle(obj);
             result.Should().NotBeNull();
             result.Should().BeOfType(typeof(OkObjectResult));
@@ -80,10 +80,10 @@ namespace UnitTestCP
             var controller = new OrgnizationAPIController();
             TitleResponse obj = new TitleResponse();
             obj.Id = 17;
-            obj.Name = "Con chó";
-            obj.Note = "Con chó";
+            obj.Name = "TEST";
+            obj.Note = "TEST";
             obj.Status = -1;
-            obj.Code = "Con chấy";
+            obj.Code = "TEST";
             var result = controller.ModifyTitle(obj);
             result.Should().NotBeNull();
             result.Should().BeOfType(typeof(OkObjectResult));
