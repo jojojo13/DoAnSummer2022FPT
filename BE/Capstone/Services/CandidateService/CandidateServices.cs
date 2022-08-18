@@ -1148,12 +1148,13 @@ namespace Services.CandidateService
                     RcCandidate c = context.RcCandidates.Where(x => x.Id == r.CandidateId).SingleOrDefault();
                     RcCandidateCv cv = context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).SingleOrDefault();
                     RcRequest rq = context.RcRequests.Where(x => x.Id == r.RequestId).SingleOrDefault();
-                      Orgnization          o = context.Orgnizations.Where(x => x.Id == rq.OrgnizationId).SingleOrDefault();
+                      Orgnization  o = context.Orgnizations.Where(x => x.Id == rq.OrgnizationId).SingleOrDefault();
                                  Position p = context.Positions.Where(x => x.Id == rq.PositionId).SingleOrDefault();
                              OtherList   ot = context.OtherLists.Where(x => x.Id == rq.Project).SingleOrDefault();
                               RcCandidatePv step = context.RcCandidatePvs.Where(x => x.CandidateId == candidateId && x.RequestId == requestId).SingleOrDefault();
                     CandidatePV_infor i = new CandidatePV_infor();
                     i.OrgId = rq.OrgnizationId;
+                    i.OrgName = o.Name;
                                    i.Department = o.Address;
                     i.Position = p.Name;
                     i.PositionId = p.Id;
@@ -1161,7 +1162,7 @@ namespace Services.CandidateService
                     i.Phone = cv.Phone;
                     i.CandidateId = c.Id;
                     i.Name = c.FullName;
-                    i.Project = ot.Name;
+                    i.Project = ot?.Name;
                     i.RequestId = rq.Id;
                     i.RequestName = rq == null ? "" : rq.Name;
                     i.StepNow = step.StepNow;
@@ -1365,14 +1366,14 @@ namespace Services.CandidateService
                         candidatePV.LuongNet = pv.LuongNet;
                         candidatePV.LuongThuViec = pv.LuongThuViec;
                         candidatePV.PhuCap = pv.PhuCap;
-                        candidatePV.Thuong = pv.Thuong;
+                       
                         candidatePV.BaoHiem = pv.BaoHiem;
                         candidatePV.Thoigianlv = pv.Thoigianlv;
                         candidatePV.DiaDiem = pv.DiaDiem;
                         candidatePV.VitriCv= pv.VitriCv;
                         candidatePV.NoteStep4 = pv.NoteStep4;
                         candidatePV.Step4Result= pv.Step4Result;
-
+                        candidatePV.NgayLamViec = pv.NgayLamViec;
                         if (pv.Step4Result == 1)
                         {
                             candidatePV.StepNow = 5;

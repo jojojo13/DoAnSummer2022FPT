@@ -49,6 +49,7 @@ namespace Services.ResponseModel.CandidateModel
         public int? StepNow { get; set; }
         public int? Result { get; set; }
         public int? OrgId { get; set; }
+        public string OrgName { get; set; }
         public int? Gender { get; set; }
         public DateTime? Dob { get; set; }
         public string NoiSinh { get; set; }
@@ -122,6 +123,7 @@ namespace Services.ResponseModel.CandidateModel
         public string VitriCv { get; set; }
         public string NoteStep4 { get; set; }
         public int Step4Result { get; set; }
+        public DateTime NgayLamViec { get; set; }
     }
 
     public class SetStep5
