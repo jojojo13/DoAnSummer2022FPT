@@ -152,3 +152,10 @@ C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\UnitTestCP\obj\Debug
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\UnitTestCP\obj\Debug\net5.0\ref\UnitTestCP.dll
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\UnitTestCP\obj\Debug\net5.0\UnitTestCP.pdb
 C:\Users\HaNoi\Desktop\ĐỒ ÁN SUM22\Back-end\BE\Capstone\UnitTestCP\obj\Debug\net5.0\UnitTestCP.genruntimeconfig.cache
+D:\DoAn2022\BE\Capstone\UnitTestCP\obj\Debug\net5.0\UnitTestCP.csproj.AssemblyReference.cache
+D:\DoAn2022\BE\Capstone\UnitTestCP\obj\Debug\net5.0\UnitTestCP.GeneratedMSBuildEditorConfig.editorconfig
+D:\DoAn2022\BE\Capstone\UnitTestCP\obj\Debug\net5.0\UnitTestCP.AssemblyInfoInputs.cache
+D:\DoAn2022\BE\Capstone\UnitTestCP\obj\Debug\net5.0\UnitTestCP.AssemblyInfo.cs
+D:\DoAn2022\BE\Capstone\UnitTestCP\obj\Debug\net5.0\UnitTestCP.csproj.CoreCompileInputs.cache
+D:\DoAn2022\BE\Capstone\UnitTestCP\obj\Debug\net5.0\UnitTestCP.dll
+D:\DoAn2022\BE\Capstone\UnitTestCP\obj\Debug\net5.0\UnitTestCP.pdb
