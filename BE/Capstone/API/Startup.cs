@@ -37,13 +37,11 @@ namespace API
               .AddJwtBearer(options => {
                   options.TokenValidationParameters = new TokenValidationParameters
                   {
-                      ValidateIssuer = true,
-                      ValidateAudience = true,
                       ValidateLifetime = true,
                       ValidateIssuerSigningKey = true,
-                      ValidIssuer = Configuration["Jwt:Issuer"],
-                      ValidAudience = Configuration["Jwt:Audience"],
-                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                      ValidIssuer = "http://139.99.90.39:3100/",
+                      ValidAudience = "http://139.99.90.39:3100/",
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("DhftOS5uphK3vmCJQrexST1RsyjZBjXWRgJMFPU4"))
                   };
               });
             services.AddMvc();
