@@ -93,7 +93,7 @@ namespace API.Controllers
 
         private string Generate(Account a)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("DhftOS5uphK3vmCJQrexST1RsyjZBjXWRgJMFPU4"));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
@@ -103,8 +103,8 @@ namespace API.Controllers
                  new Claim(ClaimTypes.Role, a.Rule.ToString())
             };
 
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Audience"],
+            var token = new JwtSecurityToken("http://139.99.90.39:3100/",
+              "http://139.99.90.39:3100/",
               claims,
               expires: DateTime.Now.AddMinutes(25),
               signingCredentials: credentials);
