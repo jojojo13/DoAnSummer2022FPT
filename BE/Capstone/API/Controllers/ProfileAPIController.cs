@@ -1100,6 +1100,18 @@ namespace API.Controllers
             });
         }
 
+        [HttpPost("GetContractEmployeeByFilter2")]
+        public IActionResult GetContractEmployeeByFilter2([FromBody] ContractEmpResponse obj)
+        {
+            List<ContractEmployeeResponse> list = new List<ContractEmployeeResponse>();
+            int total = 0;
+            list = profile.GetContractEmployeeByFilter(obj.index, obj.size, ref total, obj.Name, obj.Code, obj.OrgnizationName, obj.ContractNo, obj.ContractType, obj.Position, obj.EffectDate, obj.ExpireDate, obj.Status).Where(x=>x.EmployeeId==obj.EmployeeId).ToList();
+            return Ok(new
+            {
+                Data = list
+            });
+        }
+
         [Authorize(Roles = "1,0")]
         [HttpPost("InsertContractEmployee")]
         public IActionResult InsertContractEmployee([FromBody] ContractEmpResponse T)

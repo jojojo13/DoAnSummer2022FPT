@@ -199,7 +199,7 @@ namespace Services.OrgnizationServiecs
         }
 
 
-        public List<PositionInOrgResponse> GetAllPositionOrg(int index, int size, ref int total)
+        public List<PositionInOrgResponse> GetAllPositionOrg(int index, int size, ref int total, int orgId)
         {
             List<PositionInOrgResponse> list = new List<PositionInOrgResponse>();
             try
@@ -208,26 +208,32 @@ namespace Services.OrgnizationServiecs
                 {
 
                     var query = (from p in context.PositionOrgs
-                                from o in context.Orgnizations.Where(x => x.Id == p.OrgId).DefaultIfEmpty()
-                                from pos in context.Positions.Where(x => x.Id == p.PositionId).DefaultIfEmpty()
-                                from tit in context.Titles.Where(x => x.Id == pos.TitleId).DefaultIfEmpty()
-                                select new PositionInOrgResponse
-                                {
-                                    Id = p.Id,
-                                    orgName = o.Name,
-                                    orgCode = o.Code,
-                                    orgId = o.Id,
-                                    positionName = pos.Name,
-                                    positionCode = pos.Code,
-                                    positionId = pos.Id,
-                                    titleName = tit.Name,
-                                    titleCode = tit.Code,
-                                    titleId = pos.TitleId,
-                                    note = p.Note,
-                                    statusName = p.Status == -1 ? "Active" : "Deactive"
-                                }).ToList();
-                    total = query.Count();
-                    list = query.OrderByDescending(x=>x.Id).Skip(index * size).Take(size).ToList();
+                                 from o in context.Orgnizations.Where(x => x.Id == p.OrgId).DefaultIfEmpty()
+                                 from pos in context.Positions.Where(x => x.Id == p.PositionId).DefaultIfEmpty()
+                                 from tit in context.Titles.Where(x => x.Id == pos.TitleId).DefaultIfEmpty()
+                                 select new PositionInOrgResponse
+                                 {
+                                     Id = p.Id,
+                                     orgName = o.Name,
+                                     orgCode = o.Code,
+                                     orgId = o.Id,
+                                     positionName = pos.Name,
+                                     positionCode = pos.Code,
+                                     positionId = pos.Id,
+                                     titleName = tit.Name,
+                                     titleCode = tit.Code,
+                                     titleId = pos.TitleId,
+                                     note = p.Note,
+                                     statusName = p.Status == -1 ? "Active" : "Deactive"
+                                 });
+                    total = query.ToList().Count();
+                    list = query.ToList();
+                    if (orgId != 0)
+                    {
+                        list = list.Where(x => x.orgId == orgId).ToList();
+                    }
+
+                    list = list.OrderByDescending(x => x.Id).Skip(index * size).Take(size).ToList();
                 }
             }
             catch

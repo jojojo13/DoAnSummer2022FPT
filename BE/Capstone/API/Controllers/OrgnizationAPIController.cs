@@ -665,7 +665,7 @@ namespace API.Controllers
 
         [Authorize(Roles = "0,1")]
         [HttpPost("DeleteOrg")]
-        public IActionResult DeleteOrg([FromBody] int ID)
+        public IActionResult DeleteOrg(int ID)
         {
             try
             {
@@ -850,10 +850,10 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost("GetAllPositionOrg")]
-        public IActionResult GetAllPositionOrg(int index, int size)
+        public IActionResult GetAllPositionOrg(int index, int size, int orgId)
         {
             int total = 0;
-            List<PositionInOrgResponse> list = p.GetAllPositionOrg(index, size, ref total);
+            List<PositionInOrgResponse> list = p.GetAllPositionOrg(index, size, ref total,orgId);
            
             if (list.Count > 0)
             {

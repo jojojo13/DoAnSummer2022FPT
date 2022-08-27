@@ -292,6 +292,7 @@ namespace Services.ProfileServices
                                  from con in context.ContractTypes.Where(x => x.Id == c.ContractTypeId).DefaultIfEmpty()
                                  select new ContractEmployeeResponse
                                  {
+                                     EmployeeId=e.Id,
                                      Name = e.FullName,
                                      Code = e.Code,
                                      ContractNo = c.ContractNo,
