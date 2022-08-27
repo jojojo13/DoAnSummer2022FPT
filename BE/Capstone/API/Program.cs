@@ -11,21 +11,10 @@ namespace API
 {
     public class Program
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                    webBuilder.UseKestrel(options =>
-                    {
-                        options.ListenAnyIP(Int32.Parse(Environment.GetEnvironmentVariable("PORT") ?? "3100"));
-                    });
-                });
+        //                Ban chay sever
+
+
         //public static void Main(string[] args)
         //{
         //    CreateHostBuilder(args).Build().Run();
@@ -36,6 +25,27 @@ namespace API
         //        .ConfigureWebHostDefaults(webBuilder =>
         //        {
         //            webBuilder.UseStartup<Startup>();
+        //            webBuilder.UseKestrel(options =>
+        //            {
+        //                options.ListenAnyIP(Int32.Parse(Environment.GetEnvironmentVariable("PORT") ?? "3100"));
+        //            });
         //        });
+
+
+        //                Ban chay locall
+
+
+
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }
