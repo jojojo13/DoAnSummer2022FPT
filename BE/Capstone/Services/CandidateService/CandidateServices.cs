@@ -412,7 +412,7 @@ namespace Services.CandidateService
                 }
                 if (stage != "")
                 {
-                    list.Where(x => x.statusht == int.Parse(stage)).ToList();
+                    list= list.Where(x => x.statusht == int.Parse(stage)).ToList();
                 }
 
                 totalItems = list.Count;
@@ -1187,7 +1187,9 @@ namespace Services.CandidateService
                     OtherList ot = context.OtherLists.Where(x => x.Id == rq.Project).SingleOrDefault();
                     RcCandidatePv step = context.RcCandidatePvs.Where(x => x.CandidateId == candidateId && x.RequestId == requestId).SingleOrDefault();
                     CandidatePV_infor i = new CandidatePV_infor();
+
                     i.OrgId = rq.OrgnizationId;
+                    i.Code = c.Code;
                     i.OrgName = o.Name;
                     i.Department = o.Address;
                     i.Position = p.Name;
