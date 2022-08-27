@@ -50,7 +50,7 @@ namespace Services.CandidateService
 
         #region GetInforofCandiddate
         List<CandidateResponeServices> GetAllCandidate(int page, int total, int status);
-        List<CandidateResponeServices> GetAllCandidateByFillter(int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems);
+        List<CandidateResponeServices> GetAllCandidateByFillter(int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, string status, ref int totalItems, string stage);
         List<RcCandidate> GetAllCandidateByStep(int step);
         RcCandidate GetCandidateByID(int id);
         RcCandidate GetCandidateByCode(string code);
@@ -90,7 +90,7 @@ namespace Services.CandidateService
         /// <param name="lstCandidateID"></param>
         /// <returns></returns>
         MatchingSon MatchingCandidate(int requestID, List<int> lstCandidateID);
-        List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems);
+        List<CandidateResponeServices> GetCandidateByRequest(int request,int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, string status, ref int totalItems, string stage);
         bool CheckQuantity(int requestID, List<int> lstCandidateID);
         bool DeleteCandidateRequest(List<int> listID);
         bool CheckDuplicateMatching(int requestID, List<int> candidateID, ref string mess);

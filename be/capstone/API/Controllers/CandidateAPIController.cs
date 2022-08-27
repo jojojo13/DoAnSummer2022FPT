@@ -395,7 +395,7 @@ namespace API.Controllers
         {
             int totalItem = 0;
             rc.UpdateStatusService();
-            List<CandidateResponeServices> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem);
+            List<CandidateResponeServices> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem,obj.stage);
             foreach (var item in list1)
             {
                 if (item.positionList.Count > 0)
@@ -645,7 +645,7 @@ namespace API.Controllers
         public IActionResult GetCandidateByRequest([FromBody] CandidateFillter obj)
         {
             int totalItem = 0;
-            List<CandidateResponeServices> list1 = rc.GetCandidateByRequest(obj.requestID ?? 0, obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem);
+            List<CandidateResponeServices> list1 = rc.GetCandidateByRequest(obj.requestID ?? 0, obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem,obj.stage);
             foreach (var item in list1)
             {
                 if (item.positionList.Count > 0)

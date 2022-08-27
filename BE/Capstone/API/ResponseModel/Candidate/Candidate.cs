@@ -51,8 +51,9 @@ namespace API.ResponseModel.Candidate
         public string language { get; set; }
         public int index { get; set; }
         public int size { get; set; }
-        public int status { get; set; }
+        public string status { get; set; }
         public int? requestID { get; set; }
+        public string stage { get; set; }
     }
     public class Skill
     {

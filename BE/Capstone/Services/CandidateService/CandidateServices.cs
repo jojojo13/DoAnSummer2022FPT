@@ -322,7 +322,7 @@ namespace Services.CandidateService
             return list;
         }
 
-        public List<CandidateResponeServices> GetAllCandidateByFillter(int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems)
+        public List<CandidateResponeServices> GetAllCandidateByFillter(int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, string status, ref int totalItems, string stage)
         {
             List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             try
@@ -406,6 +406,15 @@ namespace Services.CandidateService
                     }
                     list = list.Where(x => x.language.Trim().ToLower().Contains(language.ToLower())).ToList();
                 }
+                if (status != "")
+                {
+                    list = list.Where(x => x.status.ToLower().Contains(status.ToLower())).ToList();
+                }
+                if (stage != "")
+                {
+                    list.Where(x => x.statusht == int.Parse(stage)).ToList();
+                }
+
                 totalItems = list.Count;
                 list = list.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
             }
@@ -897,7 +906,7 @@ namespace Services.CandidateService
             }
         }
 
-        public List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, int status, ref int totalItems)
+        public List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, string status, ref int totalItems,string stage)
         {
             List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             try
