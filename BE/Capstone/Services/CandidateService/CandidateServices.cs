@@ -1400,6 +1400,8 @@ namespace Services.CandidateService
                         candidatePV.NoteStep4 = pv.NoteStep4;
                         candidatePV.Step4Result = pv.Step4Result;
                         candidatePV.NgayLamViec = pv.NgayLamViec;
+
+
                         if (pv.Step4Result == 1)
                         {
                             candidatePV.StepNow = 5;
