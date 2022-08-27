@@ -64,6 +64,7 @@ namespace Services.ProfileServices
                 {
                     Employee e = context.Employees.Where(x => x.Id == ID).FirstOrDefault();
                     e.Position = context.Positions.Where(x => x.Id == e.PositionId).FirstOrDefault();
+                    e.Orgnization = context.Orgnizations.Where(x => x.Id == e.OrgnizationId).FirstOrDefault();
                     return e;
                 }
             }
