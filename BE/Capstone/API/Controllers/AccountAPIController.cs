@@ -82,7 +82,9 @@ namespace API.Controllers
                 name = emp?.FullName,
                 orgID= emp?.OrgnizationId,
                 positionName= emp.Position?.Name,
-                emID= emp.Id
+                emID= emp.Id,
+                departmentId= emp.Orgnization.Id,
+                departmentName= emp.Orgnization.Name
             };
 
             return Ok(new
