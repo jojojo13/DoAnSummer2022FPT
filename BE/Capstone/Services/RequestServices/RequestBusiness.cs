@@ -72,9 +72,15 @@ namespace Services.RequestServices
                 {
                     foreach (var item in list)
                     {
-                        RcRequest tobj = new RcRequest();
-                        tobj = context.RcRequests.Where(x => x.Id == item).FirstOrDefault();
-                        context.RcRequests.Remove(tobj);
+                        List<int> ListRCID = new List<int>();
+                        ListRCID = GetListRequestByID(item).Select(x => x.Id).ToList();
+
+                        foreach (var rcId in ListRCID)
+                        {
+                            RcRequest tobj = new RcRequest();
+                            tobj = context.RcRequests.Where(x => x.Id == rcId).FirstOrDefault();
+                            context.RcRequests.Remove(tobj);
+                        }
                     }
                     context.SaveChanges();
                     return true;
