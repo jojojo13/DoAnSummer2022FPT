@@ -182,7 +182,7 @@ namespace Services.RequestServices
                                     otherSkillname = skill.Name,
                                     projectID = pro.Id,
                                     projectname = pro.Name,
-                                    Sluv =r.Sluv
+                                    Sluv = r.Sluv
 
                                 };
                     list = query.ToList();
@@ -293,7 +293,8 @@ namespace Services.RequestServices
                                     OrgnizationName = o.Name,
                                     OrgnizationID = r.OrgnizationId,
                                     otherSkill = r.OtherSkill,
-                                    otherSkillname = skill.Name
+                                    otherSkillname = skill.Name,
+                                    Sluv= r.Sluv
                                 };
                     listReturn = query.ToList();
                     return listReturn;
