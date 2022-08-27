@@ -33,7 +33,7 @@ namespace ModelAuto.Models
         public string DiaDiem { get; set; }
         public string VitriCv { get; set; }
         public string NoteStep4 { get; set; }
-        public DateTime NgayLamViec { get; set; }
+        public DateTime? NgayLamViec { get; set; }
 
         public virtual RcCandidate Candidate { get; set; }
         public virtual RcRequest Request { get; set; }

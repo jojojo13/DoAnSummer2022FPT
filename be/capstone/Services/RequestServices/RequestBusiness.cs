@@ -36,7 +36,7 @@ namespace Services.RequestServices
                                 EmployeeCv em = context.EmployeeCvs.Where(x => x.EmployeeId == tobj.SignId).FirstOrDefault();
                                 if (em != null)
                                 {
-                                    if (em.EmailWork != ""&& em.EmailWork!=null)
+                                    if (em.EmailWork != "" && em.EmailWork != null)
                                     {
                                         MailDTO mailDTO = new MailDTO();
                                         string statusName = status == 4 ? "Approved" : status == 5 ? "Rejected" : "";
@@ -125,8 +125,8 @@ namespace Services.RequestServices
                                     OrgnizationID = r.OrgnizationId,
                                     otherSkill = r.OtherSkill,
                                     otherSkillname = skill.Name,
-                                    projectID= pro.Id,
-                                    projectname= pro.Name
+                                    projectID = pro.Id,
+                                    projectname = pro.Name
                                 };
                     return query.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
                 }
@@ -168,7 +168,7 @@ namespace Services.RequestServices
                                     DeadlineString = Convert.ToDateTime(r.ExpireDate).ToString("dd/M/yyyy"),
                                     Office = o.Address,
                                     StatusID = r.Status,
-                                    Status = r.Status == 1 ? "Draft" : r.Status == 2 ? "Submited" : r.Status == 3 ? "Cancel" : r.Status == 4 ? "Approved" : r.Status == 5 ? "Rejected" : "",
+                                    Status = r.Status == 1 ? "Draft" : r.Status == 2 ? "Submited" : r.Status == 3 ? "Cancel" : r.Status == 4 ? "Approved" : r.Status == 5 ? "Rejected" : r.Status == 6 ? "Done" : r.Status == 7 ? "Expired" : "",
                                     parentId = r.ParentId,
                                     rank = r.Rank,
                                     note = r.Note,
@@ -181,7 +181,9 @@ namespace Services.RequestServices
                                     otherSkill = r.OtherSkill,
                                     otherSkillname = skill.Name,
                                     projectID = pro.Id,
-                                    projectname = pro.Name
+                                    projectname = pro.Name,
+                                    Sluv =r.Sluv
+
                                 };
                     list = query.ToList();
 
@@ -265,7 +267,6 @@ namespace Services.RequestServices
                                 from o in context.Orgnizations.Where(x => x.Id == r.OrgnizationId).DefaultIfEmpty()
                                 from e in context.Employees.Where(x => x.Id == r.HrInchange).DefaultIfEmpty()
                                 from skill in context.OtherLists.Where(x => x.Id == r.OtherSkill).DefaultIfEmpty()
-                                from pro in context.OtherLists.Where(x => x.Id == r.Project).DefaultIfEmpty()
                                 select new RequestResponseServices
                                 {
                                     id = r.Id,
@@ -292,9 +293,7 @@ namespace Services.RequestServices
                                     OrgnizationName = o.Name,
                                     OrgnizationID = r.OrgnizationId,
                                     otherSkill = r.OtherSkill,
-                                    otherSkillname = skill.Name,
-                                    projectID = pro.Id,
-                                    projectname = pro.Name
+                                    otherSkillname = skill.Name
                                 };
                     listReturn = query.ToList();
                     return listReturn;
@@ -396,6 +395,8 @@ namespace Services.RequestServices
             rc.CreateDate = DateTime.Now;
             rc.CreateBy = T.CreateBy;
             rc.OtherSkill = T.OtherSkill;
+            rc.Sluv = 0;
+            rc.HetHan = 1;
             if (rc.ParentId != null && rc.ParentId > 0)
             {
                 rc.Rank = GetRequestByID((int)rc.ParentId).rank + 1;
@@ -523,6 +524,34 @@ namespace Services.RequestServices
             DataRow lastRow = dt.Rows[0];
             int COUNT = Convert.ToInt32(lastRow["COUNT"]);
             return COUNT;
+        }
+
+        public void CheckStatusRequest()
+        {
+            try
+            {
+                using (var context = new CapstoneProject2022Context())
+                {
+                    List<RcRequest> list = context.RcRequests.ToList();
+                    foreach (RcRequest item in list)
+                    {
+                        DateTime dt = DateTime.Now;
+                        if (dt == item.ExpireDate && item.Number > item.Sluv)
+                        {
+                            item.Status = 7;
+                        }
+                        if (item.Number == item.Sluv)
+                        {
+                            item.Status = 6;
+                        }
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

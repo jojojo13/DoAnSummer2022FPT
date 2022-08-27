@@ -44,6 +44,8 @@ namespace ModelAuto.Models
         public DateTime? UpdateDate { get; set; }
         public int? HrInchange { get; set; }
         public int? OtherSkill { get; set; }
+        public int? Sluv { get; set; }
+        public int? HetHan { get; set; }
 
         public virtual Employee HrInchangeNavigation { get; set; }
         public virtual OtherList LevelNavigation { get; set; }

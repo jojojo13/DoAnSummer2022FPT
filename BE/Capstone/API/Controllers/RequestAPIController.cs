@@ -30,7 +30,7 @@ namespace API.Controllers
         public IActionResult GetAllRequest(int index, int size)
         {
             Account a = GetCurrentUser();
-            List<RequestResponseServices> list = p.GetAllRequest(index, size); 
+            List<RequestResponseServices> list = p.GetAllRequest(index, size);
             if (list.Count > 0)
             {
                 //phòng điều hành quản lý sẽ dk view all
@@ -72,6 +72,7 @@ namespace API.Controllers
         public IActionResult GetAllRequestByFilter([FromBody] RequestFillterResponse obj)
         {
             Account a = GetCurrentUser();
+            p.CheckStatusRequest();
             List<RequestResponseServices> list = p.GetAllRequestByFillter(obj.index, obj.size, obj.Code, obj.Name, obj.OrgName, obj.PositionName, obj.Quantity, obj.Status, obj.HrInchange, obj.CreateOn, obj.DeadLine, obj.OtherSkill);
             if (list.Count > 0)
             {

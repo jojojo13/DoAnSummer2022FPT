@@ -1218,6 +1218,8 @@ namespace ModelAuto.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.NgayLamViec).HasColumnType("date");
+
                 entity.Property(e => e.NoteRstep3InterView).HasColumnName("NoteRStep3InterView");
 
                 entity.Property(e => e.NoteRstep3Test).HasColumnName("NoteRStep3Test");
@@ -1362,6 +1364,8 @@ namespace ModelAuto.Models
                 entity.Property(e => e.ParentId).HasColumnName("ParentID");
 
                 entity.Property(e => e.PositionId).HasColumnName("PositionID");
+
+                entity.Property(e => e.Sluv).HasColumnName("SLUV");
 
                 entity.Property(e => e.UpdateBy).HasMaxLength(100);
 

@@ -31,6 +31,7 @@ namespace Services.CandidateService
         bool deactiveCandidate(List<int> list, string comment);
         bool EditCandidateInfor(InforCandidateEdit e);
         string CheckInforCandidateEdit(CandidateEdit e);
+        void UpdateStatusService();
 
         #endregion
 

@@ -46,5 +46,6 @@ namespace Services.ResponseModel.RequestModel
         public int? otherSkill { get; set; }
         public string otherSkillname { get; set; }
         public string history { get; set; }
+        public int? Sluv { get; set; }
     }
 }
