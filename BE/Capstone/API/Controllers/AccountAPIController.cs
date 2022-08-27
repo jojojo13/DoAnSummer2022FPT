@@ -105,11 +105,11 @@ namespace API.Controllers
                  new Claim(ClaimTypes.Role, a.Rule.ToString())
             };
             // chay server
-            //var token = new JwtSecurityToken("http://139.99.90.39:3100/",
-            //  "http://139.99.90.39:3100/",
+            var token = new JwtSecurityToken("http://139.99.90.39:3100/",
+              "http://139.99.90.39:3100/",
 
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-         _config["Jwt:Audience"],
+         //   var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+         //_config["Jwt:Audience"],
          claims,
               expires: DateTime.Now.AddMinutes(25),
               signingCredentials: credentials);

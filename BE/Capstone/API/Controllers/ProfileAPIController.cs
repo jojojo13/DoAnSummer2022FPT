@@ -1105,7 +1105,7 @@ namespace API.Controllers
         {
             List<ContractEmployeeResponse> list = new List<ContractEmployeeResponse>();
             int total = 0;
-            list = profile.GetContractEmployeeByFilter(obj.index, obj.size, ref total, obj.Name, obj.Code, obj.OrgnizationName, obj.ContractNo, obj.ContractType, obj.Position, obj.EffectDate, obj.ExpireDate, obj.Status).Where(x=>x.EmployeeId==obj.EmployeeId).ToList();
+            list = profile.GetContractEmployeeByFilter(obj.index, obj.size, ref total, obj.Name, obj.Code, obj.OrgnizationName, obj.ContractNo, obj.ContractType, obj.Position, obj.EffectDate, obj.ExpireDate, obj.Status).Where(x => x.EmployeeId == obj.EmployeeId).ToList();
             return Ok(new
             {
                 Data = list
@@ -1123,7 +1123,10 @@ namespace API.Controllers
                 obj.ContractNo = T.ContractNo;
                 obj.ContractTypeId = T.ContractTypeId;
                 obj.Effect = T.EffectDate;
-                obj.Expire = T.ExpireDate;
+                if (T.ExpireDate.Year != 1000)
+                {
+                    obj.Expire = T.ExpireDate;
+                }
                 obj.OrgnizationId = T.OrgnizationId;
                 obj.PositionId = T.PositionId;
                 obj.EmployeeId = T.EmployeeId;
@@ -1161,7 +1164,10 @@ namespace API.Controllers
                 obj.ContractNo = T.ContractNo;
                 obj.ContractTypeId = T.ContractTypeId;
                 obj.Effect = T.EffectDate;
-                obj.Expire = T.ExpireDate;
+                if (T.ExpireDate.Year != 1000)
+                {
+                    obj.Expire = T.ExpireDate;
+                }
                 obj.OrgnizationId = T.OrgnizationId;
                 obj.PositionId = T.PositionId;
                 obj.EmployeeId = T.EmployeeId;
