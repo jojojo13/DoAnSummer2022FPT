@@ -1575,24 +1575,28 @@ namespace Services.CandidateService
 
                     context.SaveChanges();
 
-                    //EmployeeCv ecv = new EmployeeCv();
-                    //ecv.EmployeeId = e.Id;
-                    //ecv.Gender = obj.Gender;
-                    //ecv.Dob = obj.Dob;
-                    //ecv.NoiSinh = obj.NoiSinh;
-                    //ecv.NationOb = obj.NationOb;
-                    //ecv.DistrictOb = obj.DistrictOb;
-                    //ecv.WardOb = obj.WardOb;
-                    //ecv.ProvinceOb = obj.ProvinceOb;
-                    //ecv.Cmnd = obj.CMND;
-                    //ecv.Cmndplace = obj.CMNDPlace;
-                    //ecv.NoiO = obj.NoiO;
-                    //ecv.NationLive = obj.NationLive;
-                    //ecv.DistrictLive = obj.DistrictLive;
-                    //ecv.WardLive = obj.WardLive;
-                    //ecv.ProvinceLive = obj.ProvinceLive;
-                    //context.EmployeeCvs.Add(ecv);
-
+                    Employee ne= context.Employees.Where(x => x.Code == e.Code).FirstOrDefault();
+                    if (ne != null)
+                    {
+                        EmployeeCv ecv = new EmployeeCv();
+                        ecv.EmployeeId = e.Id;
+                        ecv.Gender = obj.Gender;
+                        ecv.Dob = obj.Dob;
+                        ecv.NoiSinh = obj.NoiSinh;
+                        ecv.NationOb = obj.NationOb;
+                        ecv.DistrictOb = obj.DistrictOb;
+                        ecv.WardOb = obj.WardOb;
+                        ecv.ProvinceOb = obj.ProvinceOb;
+                        ecv.Cmnd = obj.CMND;
+                        ecv.Cmndplace = obj.CMNDPlace;
+                        ecv.NoiO = obj.NoiO;
+                        ecv.NationLive = obj.NationLive;
+                        ecv.DistrictLive = obj.DistrictLive;
+                        ecv.WardLive = obj.WardLive;
+                        ecv.ProvinceLive = obj.ProvinceLive;
+                        context.EmployeeCvs.Add(ecv);
+                    }
+                    context.SaveChanges();
 
 
                     //EmployeeEdu edu = new EmployeeEdu();
