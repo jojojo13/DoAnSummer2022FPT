@@ -1494,14 +1494,22 @@ namespace Services.CandidateService
 
                         if (pv.Step5Result == 1)
                         {
-                            candidatePV.StepNow = 6;
-                            candidatePV.Result = 1;
-                            RcRequest rq = context.RcRequests.Where(x => x.Id == candidatePV.RequestId).SingleOrDefault();
-                            if (rq != null)
+                            List<RcCandidatePv> list = context.RcCandidatePvs.Where(x => x.CandidateId == pv.CandidateId && x.StepNow == 6).ToList();
+                            if (list.Count > 0)
                             {
-                                rq.Sluv += 1;
-                                ff.AddCandidateReq((int)candidatePV.RequestId);
+                                candidatePV.Result = 0;
+                            }
+                            else
+                            {
+                                candidatePV.StepNow = 6;
+                                candidatePV.Result = 1;
+                                RcRequest rq = context.RcRequests.Where(x => x.Id == candidatePV.RequestId).SingleOrDefault();
+                                if (rq != null)
+                                {
+                                    rq.Sluv += 1;
+                                    ff.AddCandidateReq((int)candidatePV.RequestId);
 
+                                }
                             }
                         }
                         else
