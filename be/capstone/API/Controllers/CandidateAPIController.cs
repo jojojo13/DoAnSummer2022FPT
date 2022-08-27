@@ -394,6 +394,7 @@ namespace API.Controllers
         public IActionResult GetAllCandidateByFillter([FromBody] CandidateFillter obj)
         {
             int totalItem = 0;
+            rc.UpdateStatusService();
             List<CandidateResponeServices> list1 = rc.GetAllCandidateByFillter(obj.index, obj.size, obj.name, obj.yob, obj.phone, obj.email, obj.location, obj.position, obj.yearExp, obj.language, obj.status, ref totalItem);
             foreach (var item in list1)
             {
@@ -589,7 +590,7 @@ namespace API.Controllers
                 MatchingSon a = rc.MatchingCandidate(obj.RequestID, obj.lstCandidateID);
                 return Ok(new
                 {
-                    Status= a.Kq,
+                    Status = a.Kq,
                     Mess = a.Mess
                 });
             }
@@ -711,7 +712,7 @@ namespace API.Controllers
 
 
 
-     //  [Authorize]
+        //  [Authorize]
         [HttpPost("GetCandidateRequestInf")]
         public IActionResult GetCandidateRequestInf(int requestId, int candidateId)
         {
@@ -961,7 +962,7 @@ namespace API.Controllers
         [HttpGet("ReportNotPass")]
         public IActionResult ReportNotPass()
         {
-           List<ReportResponse> list= rc.ReportNotPass();
+            List<ReportResponse> list = rc.ReportNotPass();
 
             return Ok(new
             {
