@@ -421,33 +421,70 @@ namespace API.Controllers
                 RcRequest rc = new RcRequest();
                 rc.Id = T.Id;
                 rc.Name = T.Name;
-                rc.ExpireDate = T.ExpireDate;
-                rc.Number = T.Number;
-                rc.OrgnizationId = T.OrgnizationId;
-                rc.SignId = T.SignId;
-                rc.Note = T.Note;
-                rc.Number = T.Number;
-                rc.YearExperience = T.YearExperience;
-                if (T.Project != 0)
+                if (T.EffectDate.Value.Year != 1000)
                 {
-                    rc.Project = T.Project;
+                    rc.EffectDate = T.EffectDate;
                 }
-                rc.PositionId = T.PositionID;
-                rc.Type = T.Type;
+                if (T.ExpireDate.Value.Year != 1000)
+                {
+                    rc.ExpireDate = T.ExpireDate;
+                }
+                if (T.Number != 0)
+                {
+                    rc.Number = T.Number;
+                }
+                if (T.OrgnizationId != 0)
+                {
+                    rc.OrgnizationId = T.OrgnizationId;
+                }
+                if (T.SignId != 0)
+                {
+                    rc.SignId = T.SignId;
+                }
+                rc.Note = T.Note;
+                if (T.Number != 0)
+                {
+                    rc.Number = T.Number;
+                }
+                if (T.YearExperience != 0)
+                {
+                    rc.YearExperience = T.YearExperience;
+                }
+                if (T.PositionID != 0)
+                {
+                    rc.PositionId = T.PositionID;
+                }
+                if (T.Type != 0)
+                {
+                    rc.Type = T.Type;
+                }
                 rc.Comment = T.Comment;
-                rc.ParentId = T.ParentID;
+                if (T.ParentID != 0)
+                {
+                    rc.ParentId = T.ParentID;
+                }
                 if (T.Level != 0)
                 {
                     rc.Level = T.Level;
                 }
-                rc.RequestLevel = T.RequestLevel;
+                if (T.RequestLevel != 0)
+                {
+                    rc.RequestLevel = T.RequestLevel;
+                }
                 rc.Budget = T.Budget;
-                rc.Comment = T.Comment;
-                rc.UpdateDate = DateTime.Now;
-                rc.UpdateBy = a.Employee?.FullName;
+                if (T.Status != 0)
+                {
+                    rc.Status = T.Status;
+                }
+                rc.CreateDate = DateTime.Now;
+                rc.CreateBy = a.Employee?.FullName;
                 if (T.OtherSkill != 0)
                 {
                     rc.OtherSkill = T.OtherSkill;
+                }
+                if (T.Project != 0)
+                {
+                    rc.Project = T.Project;
                 }
                 var check = p.ModifyRequest(rc);
                 return Ok(new
