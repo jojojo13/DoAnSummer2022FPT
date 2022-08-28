@@ -441,8 +441,6 @@ namespace Services.RequestServices
                     rc.EffectDate = T.EffectDate;
                     rc.ExpireDate = T.ExpireDate;
                     rc.Number = T.Number;
-                    rc.OrgnizationId = T.OrgnizationId;
-                    rc.SignId = T.SignId;
                     rc.Note = T.Note;
                     rc.Number = T.Number;
                     rc.YearExperience = T.YearExperience;
@@ -451,11 +449,13 @@ namespace Services.RequestServices
                     rc.Type = T.Type;
                     rc.Comment = T.Comment;
                     rc.Level = T.Level;
+                    rc.RequestLevel = T.RequestLevel;
                     rc.Budget = T.Budget;
+                    rc.Comment = T.Comment;
                     rc.UpdateDate = DateTime.Now;
                     rc.UpdateBy = T.UpdateBy;
-                    rc.HrInchange = T.HrInchange;
                     rc.OtherSkill = T.OtherSkill;
+
                     context.SaveChanges();
                     return true;
                 }
