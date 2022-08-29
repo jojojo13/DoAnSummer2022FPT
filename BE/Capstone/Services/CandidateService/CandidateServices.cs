@@ -911,7 +911,10 @@ namespace Services.CandidateService
         {
             List<CandidateResponeServices> list = new List<CandidateResponeServices>();
             IRequest re = new Request();
-            List<int> listId = re.GetListRequestByID(requestID).Select(x=>x.Id).ToList();
+            List<int> listId = new List<int>();
+            listId.Add(136);
+            listId.Add(135);
+            listId.Add(131);
 
 
             try

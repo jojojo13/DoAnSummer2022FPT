@@ -543,13 +543,17 @@ namespace Services.RequestServices
                     foreach (RcRequest item in list)
                     {
                         DateTime dt = DateTime.Now;
-                        if (dt == item.ExpireDate && item.Number > item.Sluv)
+                        if (dt >= item.ExpireDate)
                         {
                             item.Status = 7;
                         }
-                        if (item.Number == item.Sluv)
+                        else if (item.Number == item.Sluv)
                         {
                             item.Status = 6;
+                        }
+                        else
+                        {
+
                         }
                         context.SaveChanges();
                     }
