@@ -1616,15 +1616,22 @@ namespace Services.CandidateService
                                     WardOb = cv.WardOb,
                                     ProvinceOb = cv.PorvinceOb,
                                     CMND = cv.Cmnd,
-                                    CMNDPlace = cv.Cmndplace
+                                    CMNDPlace = cv.Cmndplace,
+                                    NationLive= cv.NationLive,
+                                    NoiO= cv.NoiO,
+                                    DistrictLive= cv.DistrictLive,
+                                    ProvinceLive=cv.PorvinceLive,
+                                    WardLive=cv.WardLive
                                 };
 
                     CandidatePV_infor obj = query.FirstOrDefault();
 
                     Employee e = new Employee();
                     e.Code = common.autoGenCode3character("Employee", "EMP");
-                    e.FirstName = obj.Name;
-                    e.LastName = obj.Name;
+                    string nameInsert = obj.Name;
+                    e.FirstName = nameInsert.Split(" ")[0];
+                    e.LastName = nameInsert.Split(" ")[nameInsert.Split(" ").Length-1];
+                    e.FullName = nameInsert;
                     e.JoinDate = DateTime.UtcNow;
                     e.Status = 1;
                     e.IsFronmRecruit = -1;
@@ -1655,6 +1662,8 @@ namespace Services.CandidateService
                         ecv.DistrictLive = obj.DistrictLive;
                         ecv.WardLive = obj.WardLive;
                         ecv.ProvinceLive = obj.ProvinceLive;
+                        ecv.Phone = obj.Phone;
+                        ecv.Email = obj.Email;
                         context.EmployeeCvs.Add(ecv);
                     }
                     context.SaveChanges();
