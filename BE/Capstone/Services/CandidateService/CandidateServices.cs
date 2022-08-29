@@ -918,7 +918,7 @@ namespace Services.CandidateService
             {
                 using var context = new CapstoneProject2022Context();
 
-                var query = from a in context.RcRequestCandidates.Where(x => x.RequestId == li.Id).DefaultIfEmpty()
+                var query = from a in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
                             from c in context.RcCandidates.Where(x => x.Id == a.CandidateId).DefaultIfEmpty()
                             from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
                             from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
@@ -936,12 +936,12 @@ namespace Services.CandidateService
                                 email = cv.Email,
                                 nation = na.Name,
                                 province = pr.Name,
-                                nationID = na?.Id,
-                                provinceID = pr?.Id,
+                                nationID = na.Id,
+                                provinceID = pr.Id,
                                 location = na.Name + " - " + pr.Name,
                                 status = c.RecordStatus.ToString(),
-                                statusId = c?.RecordStatus,
-                                statusht= c?.Status,
+                                statusId = c.RecordStatus,
+                                statusht= c.Status,
                                 positionList = (from p in context.RcCandidateExps.Where(x => x.RcCandidate == c.Id)
                                                 select new positionObj { id = p.Id, name = p.Position, time = p.Time }).ToList(),
                                 languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)

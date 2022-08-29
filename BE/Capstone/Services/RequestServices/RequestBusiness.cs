@@ -273,6 +273,7 @@ namespace Services.RequestServices
                                 from o in context.Orgnizations.Where(x => x.Id == r.OrgnizationId).DefaultIfEmpty()
                                 from e in context.Employees.Where(x => x.Id == r.HrInchange).DefaultIfEmpty()
                                 from skill in context.OtherLists.Where(x => x.Id == r.OtherSkill).DefaultIfEmpty()
+                                from po in context.OtherLists.Where(x => x.Id == r.Project).DefaultIfEmpty()
                                 select new RequestResponseServices
                                 {
                                     id = r.Id,
@@ -300,7 +301,9 @@ namespace Services.RequestServices
                                     OrgnizationID = r.OrgnizationId,
                                     otherSkill = r.OtherSkill,
                                     otherSkillname = skill.Name,
-                                    Sluv= r.Sluv
+                                    Sluv= r.Sluv,
+                                    projectID= po.Id,
+                                    projectname=po.Name
                                 };
                     listReturn = query.ToList();
                     return listReturn;
