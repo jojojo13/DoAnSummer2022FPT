@@ -13,7 +13,7 @@ namespace ModelAuto
     {
         public static SqlConnection GetConnection()
         {
-            string ConnectionStr = "Data Source=SQL8004.site4now.net;Initial Catalog=db_a8a353_capstone22;User Id=db_a8a353_capstone22_admin;Password=hung1207";
+            string ConnectionStr = "Data Source=SQL8004.site4now.net;Initial Catalog=db_a8a353_capstone22;User Id=db_a8a353_capstone22_admin;Password=hung1207;MultipleActiveResultSets=true;";
             return new SqlConnection(ConnectionStr);
         }
         public static DataTable GetDataBySql(string sql, params SqlParameter[] parameters)

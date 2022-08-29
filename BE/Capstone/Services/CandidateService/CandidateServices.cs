@@ -1,6 +1,7 @@
 ﻿using ModelAuto.Models;
 using Services.CommonModel;
 using Services.CommonServices;
+using Services.RequestServices;
 using Services.ResponseModel.CandidateModel;
 using Services.ResponseModel.RequestModel;
 using Services.ResponseModel.Schedule;
@@ -909,16 +910,23 @@ namespace Services.CandidateService
         public List<CandidateResponeServices> GetCandidateByRequest(int requestID, int index, int size, string name, int yob, string phone, string email, string location, string position, string yearExp, string language, string status, ref int totalItems,string stage)
         {
             List<CandidateResponeServices> list = new List<CandidateResponeServices>();
+            IRequest re = new Request();
+            List<int> listId = re.GetListRequestByID(requestID).Select(x=>x.Id).ToList();
+
+
             try
             {
                 using var context = new CapstoneProject2022Context();
-                var query = from a in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
+
+                var query = from li in listId
+                            from a in context.RcRequestCandidates.Where(x => x.RequestId == li).DefaultIfEmpty()
                             from c in context.RcCandidates.Where(x => x.Id == a.CandidateId).DefaultIfEmpty()
                             from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
                             from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
                             from pr in context.Provinces.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
                             select new CandidateResponeServices
                             {
+                                
                                 id = c.Id,
                                 name = c.FullName,
                                 code = c.Code,
@@ -929,11 +937,12 @@ namespace Services.CandidateService
                                 email = cv.Email,
                                 nation = na.Name,
                                 province = pr.Name,
-                                nationID = na.Id,
-                                provinceID = pr.Id,
+                                nationID = na?.Id,
+                                provinceID = pr?.Id,
                                 location = na.Name + " - " + pr.Name,
                                 status = c.RecordStatus.ToString(),
-                                statusId = c.RecordStatus,
+                                statusId = c?.RecordStatus,
+                                statusht= c?.Status,
                                 positionList = (from p in context.RcCandidateExps.Where(x => x.RcCandidate == c.Id)
                                                 select new positionObj { id = p.Id, name = p.Position, time = p.Time }).ToList(),
                                 languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
@@ -988,12 +997,13 @@ namespace Services.CandidateService
                     }
                     list = list.Where(x => x.language.Trim().ToLower().Contains(language.ToLower())).ToList();
                 }
+                list = list.GroupBy(x => x.id).Select(x => x.FirstOrDefault()).ToList();
                 totalItems = list.Count;
                 list = list.OrderByDescending(x => x.id).Skip(index * size).Take(size).ToList();
             }
-            catch
+            catch(Exception ex)
             {
-
+                string exxm = ex.ToString();
             }
             return list;
         }
