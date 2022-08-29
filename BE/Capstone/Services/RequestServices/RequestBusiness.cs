@@ -381,7 +381,7 @@ namespace Services.RequestServices
         {
             RcRequest rc = new RcRequest();
             rc.Name = T.Name;
-            rc.EffectDate = T.EffectDate;
+            rc.EffectDate = DateTime.UtcNow;
             rc.ExpireDate = T.ExpireDate;
             rc.Number = T.Number;
             rc.OrgnizationId = T.OrgnizationId;
@@ -438,7 +438,6 @@ namespace Services.RequestServices
 
                     RcRequest rc = context.RcRequests.Where(x => x.Id == T.Id).FirstOrDefault();
                     rc.Name = T.Name;
-                    rc.EffectDate = T.EffectDate;
                     rc.ExpireDate = T.ExpireDate;
                     rc.Number = T.Number;
                     rc.Note = T.Note;
