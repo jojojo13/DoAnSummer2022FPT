@@ -918,40 +918,44 @@ namespace Services.CandidateService
             {
                 using var context = new CapstoneProject2022Context();
 
-                var query = from a in context.RcRequestCandidates.Where(x => x.RequestId == requestID)
-                            from c in context.RcCandidates.Where(x => x.Id == a.CandidateId).DefaultIfEmpty()
-                            from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
-                            from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
-                            from pr in context.Provinces.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
-                            select new CandidateResponeServices
-                            {
-                                
-                                id = c.Id,
-                                name = c.FullName,
-                                code = c.Code,
-                                yob = cv.Dob.Value.Year,
-                                dob = cv.Dob,
-                                dobString = Convert.ToDateTime(cv.Dob).ToString("dd/MM/YYYY"),
-                                phoneNumber = cv.Phone,
-                                email = cv.Email,
-                                nation = na.Name,
-                                province = pr.Name,
-                                nationID = na.Id,
-                                provinceID = pr.Id,
-                                location = na.Name + " - " + pr.Name,
-                                status = c.RecordStatus.ToString(),
-                                statusId = c.RecordStatus,
-                                statusht= c.Status,
-                                positionList = (from p in context.RcCandidateExps.Where(x => x.RcCandidate == c.Id)
-                                                select new positionObj { id = p.Id, name = p.Position, time = p.Time }).ToList(),
-                                languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
-                                                from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
-                                                where ot.TypeId == 14
-                                                select new languageObj { name = ot.Name }).ToList(),
-                                statusName = c.RecordStatus == 1 ? "Active" : "Draft"
-                            };
+                foreach (var item in listId)
+                {
+                    var query = from a in context.RcRequestCandidates.Where(x => x.RequestId == item)
+                                from c in context.RcCandidates.Where(x => x.Id == a.CandidateId).DefaultIfEmpty()
+                                from cv in context.RcCandidateCvs.Where(x => x.CandidateId == c.Id).DefaultIfEmpty()
+                                from na in context.Nations.Where(x => x.Id == cv.NationLive).DefaultIfEmpty()
+                                from pr in context.Provinces.Where(x => x.Id == cv.PorvinceLive).DefaultIfEmpty()
+                                select new CandidateResponeServices
+                                {
 
-                list = query.ToList();
+                                    id = c.Id,
+                                    name = c.FullName,
+                                    code = c.Code,
+                                    yob = cv.Dob.Value.Year,
+                                    dob = cv.Dob,
+                                    dobString = Convert.ToDateTime(cv.Dob).ToString("dd/MM/YYYY"),
+                                    phoneNumber = cv.Phone,
+                                    email = cv.Email,
+                                    nation = na.Name,
+                                    province = pr.Name,
+                                    nationID = na.Id,
+                                    provinceID = pr.Id,
+                                    location = na.Name + " - " + pr.Name,
+                                    status = c.RecordStatus.ToString(),
+                                    statusId = c.RecordStatus,
+                                    statusht = c.Status,
+                                    positionList = (from p in context.RcCandidateExps.Where(x => x.RcCandidate == c.Id)
+                                                    select new positionObj { id = p.Id, name = p.Position, time = p.Time }).ToList(),
+                                    languageList = (from lstla in context.RcCandidateSkills.Where(x => x.RcCandidateId == c.Id)
+                                                    from ot in context.OtherLists.Where(x => x.Id == lstla.Type).DefaultIfEmpty()
+                                                    where ot.TypeId == 14
+                                                    select new languageObj { name = ot.Name }).ToList(),
+                                    statusName = c.RecordStatus == 1 ? "Active" : "Draft"
+                                };
+                    List<CandidateResponeServices> listAdd = new List<CandidateResponeServices>();
+                    listAdd = query.ToList();
+                    list.AddRange(listAdd);
+                }
                 if (!name.Trim().Equals(""))
                 {
                     list = list.Where(x => x.name.ToLower().Contains(name.ToLower())).ToList();
