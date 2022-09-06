@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelAuto", "ModelAuto\ModelAuto.csproj", "{2BA3EB5F-E924-4CF9-8CFD-D9C7E15F614E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestCP", "UnitTestCP\UnitTestCP.csproj", "{2D6E4D92-FB02-47C8-AEDF-5C4A4B3E9544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestCP", "UnitTestCP\UnitTestCP.csproj", "{2D6E4D92-FB02-47C8-AEDF-5C4A4B3E9544}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{D1D37BF8-1A5C-4D1C-B0F3-0C4173DBBEA6}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\Desktop\db_a8a353_capstone22_9_5_2022.bak = ..\..\..\..\..\Desktop\db_a8a353_capstone22_9_5_2022.bak
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
