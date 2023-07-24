@@ -859,7 +859,7 @@ namespace Services.CandidateService
                             context.SaveChanges();
                         }
                         a.Kq = true;
-                        a.Mess = "Matchinh thanh cong ";
+                        a.Mess = "Matching thanh cong ";
                         return a;
 
                     }

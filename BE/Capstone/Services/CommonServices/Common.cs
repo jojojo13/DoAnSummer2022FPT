@@ -90,7 +90,7 @@ namespace Services.CommonServices
                     var query = from o in context.Orgnizations.Where(x => x.Id == id)
                                 from na in context.Nations.Where(x => x.Id == o.NationId).DefaultIfEmpty()
                                 from pr in context.Provinces.Where(x => x.Id == o.ProvinceId).DefaultIfEmpty()
-                                from di in context.Provinces.Where(x => x.Id == o.DistrictId).DefaultIfEmpty()
+                                from di in context.Districts.Where(x => x.Id == o.DistrictId).DefaultIfEmpty()
                                 from wa in context.Wards.Where(x => x.Id == o.WardId).DefaultIfEmpty()
                                 from em in context.Employees.Where(x => x.Id == o.ManagerId).DefaultIfEmpty()
                                 from o2 in context.Orgnizations.Where(x => x.Id == o.ParentId).DefaultIfEmpty()
@@ -112,22 +112,22 @@ namespace Services.CommonServices
                                     parentID = o.ParentId,
                                     email = o.Email,
                                     fax = o.Fax,
-                                    dissolutionDate = o.DissolutionDate.Value.Year==1000?null: o.DissolutionDate,
+                                    dissolutionDate = o.DissolutionDate.Value.Year == 1000 ? null : o.DissolutionDate,
                                     effectDate = o.Effectdate,
                                     numberBusiness = o.NumberBussines,
                                     phoneNumber = o.Phone,
-                                    parentName= o2.Name,
-                                    managerName= em.FullName,
-                                    Level= o.Level,
-                                    office= o.Address,
-                                    note= o.Note
+                                    parentName = o2.Name,
+                                    managerName = em.FullName,
+                                    Level = o.Level,
+                                    office = o.Address,
+                                    note = o.Note
                                 };
                     return query.FirstOrDefault();
                 }
             }
             catch
             {
-                
+
             }
             return obj;
         }
